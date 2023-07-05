@@ -8,9 +8,9 @@
 <body>
     <h1>Welcome</h1>    
   
-  <a href="#">Sign In</a>
+  <a href="/login">Sign In</a>
 
   <!-- Will remove this after the auth setup -->
-  <a href="#">Register</a>
+  <a href="/register">Register</a>
 </body>
 </html>
