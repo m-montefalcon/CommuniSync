@@ -24,14 +24,14 @@ class UserFactory extends Factory
             'first_name' => $faker->firstName,
             'last_name' => $faker->lastName,
             'contact_number' => $faker->phoneNumber,
-            'house_no' => $faker->optional()->buildingNumber,
-            'family_member' => $faker->optional()->randomDigit,
+            'house_no' => $faker->buildingNumber,
+            'family_member' => $faker->unique()->randomElement($array = array ('John', 'Jane', 'Michael', 'Emily', 'William', 'Olivia')),
             'email_verified_at' => now(),
-            'manual_visit_option' => $faker->boolean(80), // Adjust the chance of having manual visit option as needed
-            'photo' => $faker->imageUrl(), // Generate a placeholder image URL
-            'role' => $faker->randomElement([1, 2, 3, 4]),
-            'email' => $faker->unique()->safeEmail,
-            'password' => bcrypt('password'), // Replace 'password' with the desired password
+            'manual_visit_option' => $faker->boolean(80), 
+            'photo' => $faker->imageUrl(), 
+            'role' => $faker->randomElement([1, 2]),
+            'email' => $faker->safeEmail,
+            'password' => bcrypt('password'), 
             'remember_token' => Str::random(10),
         ];
     }

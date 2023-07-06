@@ -13,8 +13,8 @@ class AuthController extends Controller
 {
     public function store(Request $request){
         $validated = $request->validate([
-            'user_name' => ['required', 'min:6'],
-            'email' => ['required', 'min:4',  Rule::unique('users', 'email')],
+            'user_name' => ['required', 'min:6', Rule::unique('users', 'user_name')],
+            'email' => ['required', 'min:4',   'email'],
             'first_name' => ['required'],
             'last_name' => ['required'],
             'contact_number' => ['required'], 

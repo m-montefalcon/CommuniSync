@@ -21,10 +21,10 @@ return new class extends Migration
             $table->string('house_no')->nullable();
             $table->string('family_member')->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->boolean('manual_visit_option')->default(true)->nullable();
+            $table->boolean('manual_visit_option')->nullable();
             $table->string('photo')->nullable();
             $table->enum('role', [1, 2, 3, 4])->default(1);
-            $table->string('email')->unique();
+            $table->string('email');
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
