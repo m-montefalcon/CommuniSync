@@ -6,11 +6,20 @@ use Illuminate\Http\Request;
 
 class WebViewController extends Controller
 {
-    public function ReturnLoginWebView(){
-        return view('/login');
+    public function returnLandingPageView(){
+        return view('user.landingPage');
+
+    }
+    public function returnLoginWebView(){
+        return view('user.login');
     }
 
-    public function ReturnRegisterView(){
-        return view('/register');
+    public function returnRegisterView(){
+        return view('user.register');
     }
+
+    public function returnHomeView(){
+        return view('content.home');
+    }
+
 }

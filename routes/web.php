@@ -1,8 +1,9 @@
 <?php
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\WebViewController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\AuthController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,9 +25,19 @@ use Illuminate\Support\Facades\Route;
 //destroy - delete a data
 
 Route::get('/', function () {
-    return view('landingPage');
+    return view('user.landingPage');
 });
 
-//WEB VIEWS ROUTES
-Route::get('/login', [WebViewController::class, 'ReturnLoginWebView']);
-Route::get('/register', [WebViewController::class, 'ReturnRegisterView']);
+
+//USER WEB VIEWS ROUTES
+Route::get('/', [WebViewController::class, 'returnLandingPageView']);
+Route::get('/login', [WebViewController::class, 'returnLoginWebView']);
+Route::get('/register', [WebViewController::class, 'returnRegisterView']);
+
+
+Route::get('/home', [WebViewController::class, 'ReturnHomeView']);
+
+
+
+// Route::post('/registerStore', [AuthController::class, 'store'])->name('register.store');
+// Route::post('/register/store', [AuthController::class, 'store'])->name('register.store');
