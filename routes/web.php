@@ -30,12 +30,12 @@ Route::get('/', function () {
 
 
 //USER WEB VIEWS ROUTES
-Route::get('/', [WebViewController::class, 'returnLandingPageView']);
-Route::get('/login', [WebViewController::class, 'returnLoginWebView']);
-Route::get('/register', [WebViewController::class, 'returnRegisterView']);
+Route::get('/', [WebViewController::class, 'returnLandingPageView'])->middleware('guest');
+Route::get('/login', [WebViewController::class, 'returnLoginWebView'])->name('login')->middleware('guest');
+Route::get('/register', [WebViewController::class, 'returnRegisterView'])->middleware('guest');
 
 
-Route::get('/home', [WebViewController::class, 'ReturnHomeView']);
+Route::get('/home', [WebViewController::class, 'returnHomeView'])->middleware('auth');
 
 
 
