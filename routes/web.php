@@ -34,10 +34,12 @@ Route::get('/', [WebViewController::class, 'returnLandingPageView'])->middleware
 Route::get('/login', [WebViewController::class, 'returnLoginWebView'])->name('login')->middleware('guest');
 Route::get('/register', [WebViewController::class, 'returnRegisterView'])->middleware('guest');
 
-
+//CONTENTS WEB ROUTES
 Route::get('/home', [WebViewController::class, 'returnHomeView'])->middleware('auth');
-
-
+Route::get('visitor', [WebViewController::class, 'showVisitor'])->middleware('auth');
+Route::get('homeowner', [WebViewController::class, 'showHomeowner'])->middleware('auth');
+Route::get('personnel', [WebViewController::class, 'showPersonnel'])->middleware('auth');
+Route::get('admin', [WebViewController::class, 'showAdmin'])->middleware('auth');
 
 // Route::post('/registerStore', [AuthController::class, 'store'])->name('register.store');
 // Route::post('/register/store', [AuthController::class, 'store'])->name('register.store');

@@ -29,7 +29,7 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'manual_visit_option' => $faker->boolean(80), 
             'photo' => $faker->imageUrl(), 
-            'role' => $faker->randomElement([1, 2]),
+            'role' => $faker->randomElement([1, 2, 3]),
             'email' => $faker->safeEmail,
             'password' => bcrypt('password'), 
             'remember_token' => Str::random(10),

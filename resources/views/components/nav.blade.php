@@ -11,4 +11,10 @@
     <br>
     <a href="/login">Sign in</a>
      -->
+     <a href="/">Home</a>
+     <a href="/visitor">Visitors</a>
+     <a href="/homeowner">Homeowners</a>
+     <a href="/personnel">Personnel</a>
+     <a href="/admin">Admin</a>
+
 </nav>
