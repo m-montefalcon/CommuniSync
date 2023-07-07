@@ -1,5 +1,17 @@
 @include('partials.__header')
 <h2>Login</h2>
+@if ($errors->has('user_name'))
+    <div class="alert alert-danger">
+        {{ $errors->first('user_name') }}
+    </div>
+    <script>
+        setTimeout(function() {
+            document.querySelector('.alert').style.display = 'none';
+        }, 5000);
+    </script>
+@endif
+
+
   <form action="{{ route('api.login.store') }}" method="POST">
     @csrf
     <div>

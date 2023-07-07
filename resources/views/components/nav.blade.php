@@ -1,5 +1,5 @@
 <nav>
-  <form action="{{ route('api.logout') }}" method="POST">
+  <form action="{{ route('api.logout.store') }}" method="POST">
     @csrf
     <button type="submit">Logout</button>
   </form>
@@ -9,4 +9,6 @@
   <a href="{{ route('homeowner') }}">Homeowners</a>
   <a href="{{ route('personnel') }}">Personnel</a>
   <a href="{{ route('admin') }}">Admin</a>
+  <a href="{{ route('profile') }}">Profile</a>
+
 </nav>

@@ -36,15 +36,17 @@ Route::get('/register', [WebViewController::class, 'returnRegisterView'])->middl
 
 //CONTENTS WEB ROUTES
 Route::get('/home', [WebViewController::class, 'returnHomeView'])->middleware('auth')->name('home');
+Route::get('profile', [WebViewController::class, 'returnProfileView'])->middleware('auth')->name('profile');
 Route::get('visitor', [WebViewController::class, 'showVisitor'])->middleware('auth')->name('visitor');
 Route::get('homeowner', [WebViewController::class, 'showHomeowner'])->middleware('auth')->name('homeowner');
 Route::get('personnel', [WebViewController::class, 'showPersonnel'])->middleware('auth')->name('personnel');
 Route::get('admin', [WebViewController::class, 'showAdmin'])->middleware('auth')->name('admin');
 
 //SHOW SPECIFIC USER DETAILS ROUTE
-Route::get('/visitor/{id}', [UserController::class, 'showVisitorId'])->middleware('auth');
-Route::get('/homeowner/{id}', [UserController::class, 'showHomeownerId'])->middleware('auth');
-Route::get('/personnel/{id}', [UserController::class, 'showPersonnelId'])->middleware('auth');
-Route::get('/admin/{id}', [UserController::class, 'showAdminId'])->middleware('auth');
+
+Route::get('/visitor/{id}', [UserController::class, 'showVisitorId'])->middleware('auth')->name('visitorId');
+Route::get('/homeowner/{id}', [UserController::class, 'showHomeownerId'])->middleware('auth')->name('homeownerId');
+Route::get('/personnel/{id}', [UserController::class, 'showPersonnelId'])->middleware('auth')->name('personnelId');
+Route::get('/admin/{id}', [UserController::class, 'showAdminId'])->middleware('auth')->name('adminId');
 
 

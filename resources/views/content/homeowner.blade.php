@@ -29,7 +29,7 @@
             <td>{{$homeowner->manual_visit_option}}</td>
             <td>{{$homeowner->role}}</td>
             <td>
-            <form action="/homeowner/{{$homeowner->id}}" method="GET">
+            <form action="{{ route('homeownerId', ['id' => $homeowner->id]) }}" method="GET">
                 @csrf
                 <button type="submit">View</button>
             </form>
