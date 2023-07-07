@@ -33,7 +33,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //USER API
 Route::post('/register/store', [AuthController::class, 'store'])->name('api.register.store');
 Route::post('/login/store', [AuthController::class, 'login'])->name('api.login.store');
-Route::post('/logout/store', [AuthController::class, 'logout'])->middleware('auth')->name('api.logout');
+Route::post('/logout/store', [AuthController::class, 'logout'])->middleware('auth')->name('api.logout.store');
 
 //USER EDIT CREDENTIALS
 Route::put('/update/{id}', [UserController::class, 'update'])->middleware('auth')->name('api.update');

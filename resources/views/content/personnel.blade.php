@@ -22,7 +22,7 @@
             <td>{{$personnel->email}}</td>
             <td>{{$personnel->role}}</td>
             <td>
-            <form action="/personnel/{{$personnel->id}}" method="GET">
+            <form action="{{ route('personnelId', ['id' => $personnel->id]) }}" method="GET">
                 @csrf
                 <button type="submit">View</button>
             </form>

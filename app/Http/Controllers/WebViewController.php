@@ -28,11 +28,14 @@ class WebViewController extends Controller
         return view('content.home');
     }
 
+    public function returnProfileView(){
+        return view('content.profile');
+    }
+
     public function showVisitor(){
         $visitors = User::where('role', 1)->get();
         return view('content.visitor', compact('visitors'));
         
-
     }
     public function showHomeowner(){
         $homeowners = User::where('role', 2)->get();

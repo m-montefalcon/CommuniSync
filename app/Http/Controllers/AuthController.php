@@ -33,21 +33,26 @@ class AuthController extends Controller
         return redirect('/');
     }
 
-    public function login(Request $request){
-        // @dd($request);
+    public function login(Request $request) {
         $validated = $request->validate([
-            'user_name' => ['required'],
+            'user_name' => 'required',
             'password' => 'required'
-           
         ]);
-        if (Auth::attempt($validated)) {
-            $request->session()->regenerate();
- 
-        return redirect('/home', );        
+    
+        $user = User::where('user_name', $validated['user_name'])->first();
+    
+        if ($user && $user->role == 4) {
+            $credentials = $request->only('user_name', 'password');
+    
+            if (Auth::attempt($credentials)) {
+                $request->session()->regenerate();
+    
+                return redirect('/home');
+            }
         }
- 
+    
         return back()->withErrors([
-            'user_name' => 'The provided credentials do not match our records.',
+            'user_name' => 'Access denied. The provided credentials do not match our records.',
         ])->onlyInput('user_name');
     }
     public function logout(Request $request){

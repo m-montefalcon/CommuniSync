@@ -23,7 +23,7 @@
             <td>{{$admin->email}}</td> 
             <td>{{$admin->role}}</td>
             <td>
-            <form action="/admin/{{$admin->id}}" method="GET">
+            <form action="{{ route('adminId', ['id' => $admin->id]) }}" method="GET">
                 @csrf
                 <button type="submit">View</button>
             </form>
