@@ -1,20 +1,12 @@
 <nav>
-
-    <form action="api/logout/store" method="POST">
+  <form action="{{ route('api.logout') }}" method="POST">
     @csrf
     <button type="submit">Logout</button>
-    </form>
-    
-    <!-- <a href="/addstudent">Add students</a> -->
-<!--     
-    <a href="/register">Register</a>
-    <br>
-    <a href="/login">Sign in</a>
-     -->
-     <a href="/">Home</a>
-     <a href="/visitor">Visitors</a>
-     <a href="/homeowner">Homeowners</a>
-     <a href="/personnel">Personnel</a>
-     <a href="/admin">Admin</a>
-
+  </form>
+  
+  <a href="{{ route('home') }}">Home</a>
+  <a href="{{ route('visitor') }}">Visitors</a>
+  <a href="{{ route('homeowner') }}">Homeowners</a>
+  <a href="{{ route('personnel') }}">Personnel</a>
+  <a href="{{ route('admin') }}">Admin</a>
 </nav>

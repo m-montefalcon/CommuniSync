@@ -9,7 +9,7 @@
             <th>Last Name</th>
             <th>Contact Number</th>
             <th>Email</th>
-            <th>Role</th>
+            <th>View</th>
         </tr>
     </thead>
     <tbody>
@@ -21,6 +21,12 @@
             <td>{{$personnel->contact_number}}</td>
             <td>{{$personnel->email}}</td>
             <td>{{$personnel->role}}</td>
+            <td>
+            <form action="/personnel/{{$personnel->id}}" method="GET">
+                @csrf
+                <button type="submit">View</button>
+            </form>
+            </td>
         </tr>
         @endforeach
     </tbody>
