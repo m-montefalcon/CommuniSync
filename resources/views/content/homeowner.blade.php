@@ -13,6 +13,7 @@
             <th>Family Member</th>
             <th>Manual Visit Option</th>
             <th>Role</th>
+            <th>View</th>
             </tr>
         </thead>
         <tbody>
@@ -27,6 +28,13 @@
             <td>{{$homeowner->family_member}}</td>
             <td>{{$homeowner->manual_visit_option}}</td>
             <td>{{$homeowner->role}}</td>
+            <td>
+            <form action="/homeowner/{{$homeowner->id}}" method="GET">
+                @csrf
+                <button type="submit">View</button>
+            </form>
+            </td>
+           
             </tr>
             @endforeach
         </tbody>

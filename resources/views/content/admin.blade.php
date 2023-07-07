@@ -10,6 +10,7 @@
             <th>Contact Number</th>
             <th>Email</th>
             <th>Role</th>
+            <th>View</th>
             </tr>
         </thead>
         <tbody>
@@ -21,6 +22,12 @@
             <td>{{$admin->contact_number}}</td>
             <td>{{$admin->email}}</td> 
             <td>{{$admin->role}}</td>
+            <td>
+            <form action="/admin/{{$admin->id}}" method="GET">
+                @csrf
+                <button type="submit">View</button>
+            </form>
+            </td>
             </tr>
             @endforeach
         </tbody>

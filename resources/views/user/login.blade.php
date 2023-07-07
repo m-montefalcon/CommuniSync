@@ -1,6 +1,6 @@
 @include('partials.__header')
 <h2>Login</h2>
-  <form action="api/login/store" method="POST">
+  <form action="{{ route('api.login.store') }}" method="POST">
     @csrf
     <div>
       <label for="user_name">Username:</label>

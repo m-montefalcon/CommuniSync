@@ -1,6 +1,6 @@
 @include('partials.__header')
 <h2>Register</h2>
-    <form method="POST" action="api/register/store" enctype="multipart/form-data">
+<form method="POST" action="{{ route('api.register.store') }}" enctype="multipart/form-data">
         @csrf
 
         <label for="user_name">Username:</label>
