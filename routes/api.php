@@ -39,3 +39,96 @@ Route::post('/logout/store', [AuthController::class, 'logout'])->middleware('aut
 Route::put('/update/{id}', [UserController::class, 'update'])->middleware('auth')->name('api.update');
 Route::delete('/delete/{id}', [UserController::class, 'destroy'])->middleware('auth')->name('api.delete');
 
+
+
+//MOBILE APIS
+
+Route::post('/register/store/mobile', [AuthController::class, 'mobileStore'])->name('api.register.store.mobile');
+
+
+/*
+
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
+class BackendService {
+  static const String apiUrl = 'http://your-laravel-api-url';
+
+  Future<bool> registerUser({
+    required String username,
+    required String email,
+    required String firstName,
+    required String lastName,
+    required String contactNumber,
+    required String password,
+    required String imagePath,
+  }) async {
+    final url = Uri.parse('$apiUrl/register/store');
+
+    try {
+      final response = await http.post(
+        url,
+        body: {
+          'user_name': username,
+          'email': email,
+          'first_name': firstName,
+          'last_name': lastName,
+          'contact_number': contactNumber,
+          'password': password,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        // Registration successful
+        return true;
+      } else {
+        // Registration failed
+        print('Registration failed. Status code: ${response.statusCode}');
+        return false;
+      }
+    } catch (e) {
+      // Error occurred during registration
+      print('Error occurred during registration: $e');
+      return false;
+    }
+  }
+}
+
+*/
+
+Route::post('login/store/mobile', [AuthController::class, 'loginMobile']);
+
+/*class BackendService {
+  static const String apiUrl = 'http://your-laravel-api-url';
+
+  Future<bool> loginUser({
+    required String username,
+    required String password,
+  }) async {
+    final url = Uri.parse('$apiUrl/login/store');
+
+    try {
+      final response = await http.post(
+        url,
+        body: {
+          'user_name': username,
+          'password': password,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        // Login successful
+        return true;
+      } else {
+        // Login failed
+        print('Login failed. Status code: ${response.statusCode}');
+        return false;
+      }
+    } catch (e) {
+      // Error occurred during login
+      print('Error occurred during login: $e');
+      return false;
+    }
+  }
+}
+ */

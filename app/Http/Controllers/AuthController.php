@@ -61,4 +61,46 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
         return redirect('/');
     }
+
+    //MOBILE
+    public function mobileStore(Request $request)
+    {
+        $validated = $request->validate([
+            'user_name' => ['required', 'min:6', Rule::unique('users', 'user_name')],
+            'email' => ['required', 'min:4', 'email'],
+            'first_name' => ['required'],
+            'last_name' => ['required'],
+            'contact_number' => ['required'],
+            'photo' => ['image', 'nullable'],
+            'password' => ['required', 'min:6'],
+        ]);
+
+        $imagePath = null;
+        if ($request->hasFile('photo')) {
+            $imagePath = $request->file('photo')->store('user_profile', 'public');
+        }
+        $validated['photo'] = $imagePath;
+
+        $validated['password'] = Hash::make($validated['password']);
+        User::create($validated);
+
+        return response()->json(['message' => 'User registered successfully']);
+    }
+
+    public function loginMobile(Request $request)
+    {
+        $credentials = $request->validate([
+            'user_name' => ['required'],
+            'password' => ['required'],
+        ]);
+
+        if (Auth::attempt($credentials)) {
+            // Authentication successful
+            return response()->json(['message' => 'Login successful']);
+        } else {
+            // Authentication failed
+            return response()->json(['message' => 'Invalid credentials'], 401);
+        }
+    }
+    
 }

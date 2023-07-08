@@ -50,3 +50,6 @@ Route::get('/personnel/{id}', [UserController::class, 'showPersonnelId'])->middl
 Route::get('/admin/{id}', [UserController::class, 'showAdminId'])->middleware('auth')->name('adminId');
 
 
+// Route::get('/csrf-token', function() {
+//     return response()->json(['csrf_token' => csrf_token()]);
+// });
