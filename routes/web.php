@@ -53,3 +53,8 @@ Route::get('/admin/{id}', [UserController::class, 'showAdminId'])->middleware('a
 // Route::get('/csrf-token', function() {
 //     return response()->json(['csrf_token' => csrf_token()]);
 // });
+
+
+//SHOW VERIFICATION REQUEST (VISITOR TO HOMEOWNER)
+
+Route::get('/verification/requests', [VerificationRequests::class, 'showRequests'])->middleware('auth')->name('verificationRequests');

@@ -10,5 +10,7 @@
   <a href="{{ route('personnel') }}">Personnel</a>
   <a href="{{ route('admin') }}">Admin</a>
   <a href="{{ route('profile') }}">Profile</a>
+  <a href="{{ route('verificationRequests') }}">Verification Requests</a>
+
 
 </nav>
