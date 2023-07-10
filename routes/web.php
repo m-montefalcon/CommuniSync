@@ -1,9 +1,10 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\WebViewController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\WebViewController;
+use App\Http\Controllers\VerificationRequests;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -50,9 +51,9 @@ Route::get('/personnel/{id}', [UserController::class, 'showPersonnelId'])->middl
 Route::get('/admin/{id}', [UserController::class, 'showAdminId'])->middleware('auth')->name('adminId');
 
 
-// Route::get('/csrf-token', function() {
-//     return response()->json(['csrf_token' => csrf_token()]);
-// });
+Route::get('/csrf-token', function() {
+    return response()->json(['csrf_token' => csrf_token()]);
+});
 
 
 //SHOW VERIFICATION REQUEST (VISITOR TO HOMEOWNER)
