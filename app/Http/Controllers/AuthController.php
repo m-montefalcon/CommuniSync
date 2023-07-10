@@ -20,6 +20,7 @@ class AuthController extends Controller
             'contact_number' => ['required'], 
             'photo' => ['image', 'nullable'],
             'password' => ['required', 'min:6'],
+            'role' => ['required']
             
         ]);
         $imagePath = null;

@@ -1,9 +1,11 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\VerificationRequests;
+use App\Models\VerificationRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +46,20 @@ Route::delete('/delete/{id}', [UserController::class, 'destroy'])->middleware('a
 //MOBILE APIS
 
 Route::post('/register/store/mobile', [AuthController::class, 'mobileStore'])->name('api.register.store.mobile');
+Route::post('/login/store/mobile', [AuthController::class, 'loginMobile']);
+
+
+//VERIFICATION REQUESTS MOBILE
+
+Route::post('/verification/requests/store', [VerificationRequests::class, 'mobileStore'])->name('api.verification.requests.mobile');
+Route::put('/approved/verification/{id}', [VerificationRequests::class, 'update'])->name('api.approved.verification');
+
+
+
+
+
+
+
 
 
 /*
@@ -96,7 +112,6 @@ class BackendService {
 
 */
 
-Route::post('login/store/mobile', [AuthController::class, 'loginMobile']);
 
 /*class BackendService {
   static const String apiUrl = 'http://your-laravel-api-url';
@@ -132,3 +147,4 @@ Route::post('login/store/mobile', [AuthController::class, 'loginMobile']);
   }
 }
  */
+
