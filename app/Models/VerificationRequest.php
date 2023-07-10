@@ -26,7 +26,7 @@ class VerificationRequest extends Model
         'photo',
         'role',
         'email',
-        'password',
+        
         
     ];
     
