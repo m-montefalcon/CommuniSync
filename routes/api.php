@@ -42,17 +42,20 @@ Route::put('/update/{id}', [UserController::class, 'update'])->middleware('auth'
 Route::delete('/delete/{id}', [UserController::class, 'destroy'])->middleware('auth')->name('api.delete');
 
 
+//VERIFICATION REQUEST ADMIN WEB
+Route::put('/approved/verification/{id}', [VerificationRequests::class, 'update'])->name('api.approved.verification');
+
+
 
 //MOBILE APIS
 
 Route::post('/register/store/mobile', [AuthController::class, 'mobileStore'])->name('api.register.store.mobile');
-Route::post('/login/store/mobile', [AuthController::class, 'loginMobile']);
+Route::post('/login/store/mobile', [AuthController::class, 'loginMobile'])->name('api.logi.store.mobile');
 
 
 //VERIFICATION REQUESTS MOBILE
 
 Route::post('/verification/requests/store', [VerificationRequests::class, 'mobileStore'])->name('api.verification.requests.mobile');
-Route::put('/approved/verification/{id}', [VerificationRequests::class, 'update'])->name('api.approved.verification');
 
 
 
@@ -60,7 +63,7 @@ Route::put('/approved/verification/{id}', [VerificationRequests::class, 'update'
 
 
 
-
+//REGISTER
 
 /*
 
@@ -112,7 +115,7 @@ class BackendService {
 
 */
 
-
+//LOGIN
 /*class BackendService {
   static const String apiUrl = 'http://your-laravel-api-url';
 
@@ -148,3 +151,32 @@ class BackendService {
 }
  */
 
+//VERIFICATION
+/*Future<void> mobileStore() async {
+  var url = Uri.parse('your_api_endpoint_here');
+
+  var headers = {
+    'Content-Type': 'application/json',
+  };
+
+  var request = {
+    'user_id': 'your_user_id_value',
+    'family_member': 'your_family_member_value',
+    'house_no': 'your_house_no_value',
+    'manual_visit_option': 'your_manual_visit_option_value'
+  };
+
+  var response = await http.post(
+    url,
+    headers: headers,
+    body: json.encode(request),
+  );
+
+  if (response.statusCode == 200) {
+    // Success response
+    print('Request succeeded');
+  } else {
+    // Error response
+    print('Request failed with status: ${response.statusCode}');
+  }
+} */

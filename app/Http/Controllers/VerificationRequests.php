@@ -22,10 +22,8 @@ class VerificationRequests extends Controller
             'house_no' => 'required',
             'manual_visit_option' => 'required'
         ]);
-  // Retrieve the user by ID
         $user = User::findOrFail($validatedData['user_id']);
 
-        // Create a new verification request
         $verificationRequest = ([
             'user_id' => $user->id,
             'family_member' => $validatedData['family_member'],
@@ -38,23 +36,16 @@ class VerificationRequests extends Controller
             'photo' => $user->photo,
             'manual_visit_option' => $validatedData['manual_visit_option'],
             
-
         ]);
-        // Create a new verification request
         $verificationRequest = VerificationRequest::create($verificationRequest);
+        return response()->json(['message' => 'Success'], 200);
 
-        // Update the user's role to 2 (homeowner)
-        // $user = User::findOrFail($verificationRequest->user_id);
-        // $user->role = 2;
-        // $user->family_member = $verificationRequest->family_member;
-        // $user->house_no = $verificationRequest->house_no;
-        // $user->save();
-        // return response()->json(['message' => 'Verification request submitted successfully']);
+
+
     }
 
 
-    public function update(Request $request,  $id)
-    {
+    public function update(Request $request,  $id){
         $verificationRequest = VerificationRequest::findOrFail($id);
     
         // Find the user based on the user_id
@@ -73,6 +64,7 @@ class VerificationRequests extends Controller
 
 
         return redirect()->route('verificationRequests');
+        
     }
     
 
