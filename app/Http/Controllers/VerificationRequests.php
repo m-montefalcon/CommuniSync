@@ -11,7 +11,7 @@ class VerificationRequests extends Controller
 {
     public function showRequests(){
         $verifyRequests = VerificationRequest::all();
-        return view('content.verificationRequest', compact('verifyRequests'));
+        return view('verification.verificationRequest', compact('verifyRequests'));
     }
 
     public function mobileStore(Request $request){

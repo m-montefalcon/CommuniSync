@@ -59,3 +59,8 @@ Route::get('/csrf-token', function() {
 //SHOW VERIFICATION REQUEST (VISITOR TO HOMEOWNER)
 
 Route::get('/verification/requests', [VerificationRequests::class, 'showRequests'])->middleware('auth')->name('verificationRequests');
+
+
+
+//CREATE ANNOUNCEMENT FORM
+Route::get('/announcement/create', [AnnouncementController::class, 'create'])->middleware('auth')->name('announcement.create.form');
