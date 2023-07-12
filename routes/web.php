@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\WebViewController;
 use App\Http\Controllers\VerificationRequests;
+use App\Http\Controllers\AnnouncementController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -64,3 +65,6 @@ Route::get('/verification/requests', [VerificationRequests::class, 'showRequests
 
 //CREATE ANNOUNCEMENT FORM
 Route::get('/announcement/create', [AnnouncementController::class, 'create'])->middleware('auth')->name('announcement.create.form');
+
+
+Route::get('/announcement', [AnnouncementController::class, 'show'])->middleware('auth')->name('announcement');
