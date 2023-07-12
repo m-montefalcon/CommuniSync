@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnnouncementController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -57,6 +58,10 @@ Route::post('/login/store/mobile', [AuthController::class, 'loginMobile'])->name
 
 Route::post('/verification/requests/store', [VerificationRequests::class, 'mobileStore'])->name('api.verification.requests.mobile');
 
+
+//ANNOUNCEMENT CREATE API
+
+Route::post('/announcement/store', [AnnouncementController::class, 'announcementStore'])->name('announcementStore');
 
 
 

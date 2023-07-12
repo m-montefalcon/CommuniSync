@@ -9,4 +9,9 @@ class AnnouncementController extends Controller
     public function show(){
         return view('announcement.announcement');
     }
+
+
+    public function announcementStore(Request $request){
+        dd($request->all());
+    }
 }
