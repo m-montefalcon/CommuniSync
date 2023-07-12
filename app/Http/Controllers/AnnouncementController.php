@@ -12,6 +12,9 @@ class AnnouncementController extends Controller
         return view('announcement.announcement', compact('announcements'));
     }
 
+    public function create(){
+        return view('announcement.announcementForm');
+    }
 
     public function announcementStore(Request $request){
         $validatedData = $request->validate([
@@ -32,6 +35,7 @@ class AnnouncementController extends Controller
             
         ]);
         $announcementPosted = Announcement::create($announcementRequest);
-        @dd($announcementPosted);
+        return redirect()->route('announcement');
+
     }
 }

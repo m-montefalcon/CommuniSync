@@ -12,6 +12,7 @@
   <a href="{{ route('profile') }}">Profile</a>
   <a href="{{ route('verificationRequests') }}">Verification Requests</a>
   <a href="{{ route('announcement') }}">Announcement</a>
+  <a href="{{ route('announcement.form') }}">Create Announcement</a>
 
 
 

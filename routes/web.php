@@ -68,3 +68,5 @@ Route::get('/announcement/create', [AnnouncementController::class, 'create'])->m
 
 
 Route::get('/announcement', [AnnouncementController::class, 'show'])->middleware('auth')->name('announcement');
+
+Route::get('/announcement/create', [AnnouncementController::class, 'create'])->middleware('auth')->name('announcement.form');
