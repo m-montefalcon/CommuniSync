@@ -38,4 +38,13 @@ class AnnouncementController extends Controller
         return redirect()->route('announcement');
 
     }
+
+    public function announcementFetchMobile(Request $request){
+        $role = $request->input('role');
+
+        // Fetch announcements based on the user's role
+        $announcements = Announcement::whereJsonContains('role', $role)->get();
+    
+        return response()->json($announcements);
+    }
 }

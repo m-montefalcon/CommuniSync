@@ -59,11 +59,13 @@ Route::post('/login/store/mobile', [AuthController::class, 'loginMobile'])->name
 Route::post('/verification/requests/store', [VerificationRequests::class, 'mobileStore'])->name('api.verification.requests.mobile');
 
 
-//ANNOUNCEMENT CREATE API
+//ANNOUNCEMENT CREATE WEB
 
 Route::post('/announcement/store', [AnnouncementController::class, 'announcementStore'])->name('announcementStore');
 
+//ANNOUNCEMENT FETCH API
 
+Route::get('/announcement/fetch/mobile', [AnnouncementController::class, 'announcementFetchMobile'])->name('announcementFetchMobile');
 
 
 
@@ -185,3 +187,37 @@ class BackendService {
     print('Request failed with status: ${response.statusCode}');
   }
 } */
+//FETCH THE ANNOUNMCEMENT MOBILE
+/*
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+Future<List<dynamic>> fetchAnnouncementsByRole(int role) async {
+  final response = await http.get(Uri.parse('http://your-api-endpoint/announcements?role=$role'));
+  
+  if (response.statusCode == 200) {
+    // Decode the response JSON
+    final data = jsonDecode(response.body);
+    return data;
+  } else {
+    throw Exception('Failed to fetch announcements');
+  }
+}
+
+
+*/
+
+//DISPLAY THE ANNOUNCEMENT
+
+/*
+void getAnnouncements(int role) async {
+  try {
+    List<dynamic> announcements = await fetchAnnouncementsByRole(role);
+
+    // Process the fetched announcements
+    // ...
+  } catch (e) {
+    // Handle error
+  }
+}
+*/
