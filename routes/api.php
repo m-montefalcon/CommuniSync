@@ -221,3 +221,21 @@ void getAnnouncements(int role) async {
   }
 }
 */
+//ALWAYS PUT XCRF IN YOUR REQUEST 
+//TOKEN IS FOUND IN WEB ROUTES XCRF
+/*
+ 
+import 'package:http/http.dart' as http;
+
+String csrfToken = 'your-csrf-token'; // Replace with your actual CSRF token
+
+Future<http.Response> makeApiRequest() async {
+  final response = await http.get(
+    Uri.parse('http://your-api-endpoint/your-api-path'),
+    headers: {'X-XSRF-TOKEN': csrfToken},
+  );
+
+  return response;
+}
+
+ */
