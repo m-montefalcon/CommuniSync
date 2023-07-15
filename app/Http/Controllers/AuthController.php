@@ -83,6 +83,7 @@ class AuthController extends Controller
         $validated['photo'] = $imagePath;
 
         $validated['password'] = Hash::make($validated['password']);
+        $validated['role'] = 1;
         User::create($validated);
 
         return response()->json(['message' => 'User registered successfully']);
