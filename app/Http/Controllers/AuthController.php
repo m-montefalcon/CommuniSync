@@ -95,14 +95,20 @@ class AuthController extends Controller
             'user_name' => ['required'],
             'password' => ['required'],
         ]);
-
+    
         if (Auth::attempt($credentials)) {
             // Authentication successful
-            return response()->json(['message' => 'Login successful']);
+            $user = Auth::user(); // Retrieve the authenticated user
+    
+            return response()->json([
+                'message' => 'Login successful',
+                'user' => $user // Pass the user data to the response
+            ]);
         } else {
             // Authentication failed
             return response()->json(['message' => 'Invalid credentials'], 401);
         }
     }
+    
     
 }
