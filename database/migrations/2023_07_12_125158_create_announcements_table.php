@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('created_by'); //relationship to user model
             $table->foreign('created_by')->references('id')->on('users');//relationship to user model
+            $table->string('created_by_name');
             $table->string('announcement_title');
             $table->string('announcement_description');
             $table->string('announcement_photo')->nullable();

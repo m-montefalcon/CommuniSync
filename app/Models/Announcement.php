@@ -12,6 +12,7 @@ class Announcement extends Model
     
     protected $fillable = [
         'created_by',
+        'created_by_name',
         'announcement_title',
         'announcement_description',
         'announcement_photo',
