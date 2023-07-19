@@ -27,6 +27,7 @@ class AnnouncementController extends Controller
         ]);
         
         $user = Auth::user(); // Get the authenticated user
+        $createdByName = $user->first_name . ' ' . $user->last_name;
         $announcementRequest = ([
             'announcement_title' => $validatedData['announcement_title'],
             'announcement_description' =>  $validatedData['announcement_description'],
@@ -34,7 +35,7 @@ class AnnouncementController extends Controller
             'announcement_date' =>  $validatedData['announcement_date'],
             'role' => json_encode($validatedData['role']),
             'created_by' => $user->id, 
-            
+            'created_by_name'=> $createdByName
         ]);
         $announcementPosted = Announcement::create($announcementRequest);
         return redirect()->route('announcement');
