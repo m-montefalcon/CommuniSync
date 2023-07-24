@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('contact_number');
             $table->string('house_no')->nullable();
-            $table->string('family_member')->nullable();
+            $table->json('family_member')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->boolean('manual_visit_option')->nullable();
             $table->string('photo')->nullable();

@@ -25,7 +25,11 @@ class UserFactory extends Factory
             'last_name' => $faker->lastName,
             'contact_number' => $faker->phoneNumber,
             'house_no' => $faker->buildingNumber,
-            'family_member' => $faker->unique()->randomElement($array = array ('John', 'Jane', 'Michael', 'Emily', 'William', 'Olivia')),
+            'family_member' => json_encode([
+                $faker->randomElement(['John', 'Jane', 'Michael', 'Emily', 'William', 'Olivia']),
+                $faker->randomElement(['John', 'Jane', 'Michael', 'Emily', 'William', 'Olivia']),
+                $faker->randomElement(['John', 'Jane', 'Michael', 'Emily', 'William', 'Olivia'])
+            ]),
             'email_verified_at' => now(),
             'manual_visit_option' => $faker->boolean(80), 
             'photo' => $faker->imageUrl(), 

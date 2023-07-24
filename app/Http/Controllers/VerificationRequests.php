@@ -18,15 +18,16 @@ class VerificationRequests extends Controller
        // Validate the request data
         $validatedData = $request->validate([
             'user_id' => 'required|exists:users,id',
-            'family_member' => 'required',
+            'family_member' => 'required|array',
             'house_no' => 'required',
             'manual_visit_option' => 'required'
         ]);
         $user = User::findOrFail($validatedData['user_id']);
+        $familyMemberJson = json_encode($validatedData['family_member']);
 
         $verificationRequest = ([
             'user_id' => $user->id,
-            'family_member' => $validatedData['family_member'],
+            'family_member' => $familyMemberJson,
             'house_no' => $validatedData['house_no'],
             'user_name' => $user->user_name,
             'first_name' => $user->first_name,
