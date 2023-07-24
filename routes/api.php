@@ -4,6 +4,7 @@ use App\Http\Controllers\AnnouncementController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ControlAccessController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VerificationRequests;
 use App\Models\VerificationRequest;
@@ -67,6 +68,11 @@ Route::post('/announcement/store', [AnnouncementController::class, 'announcement
 
 Route::get('/announcement/fetch/mobile', [AnnouncementController::class, 'announcementFetchMobile'])->name('announcementFetchMobile');
 
+//CONTROL ACCESS FEATURE
+
+
+//SEARCH FUNCTION API (VISITOR TO HOMEONWER ONLY)
+Route::get('users/control/access/search', [ControlAccessController::class, 'search'])->name('searchHomeownersMobile');
 
 
 
