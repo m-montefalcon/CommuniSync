@@ -13,9 +13,6 @@
     <label for="announcement_photo">Photo:</label>
     <input type="file" name="announcement_photo" id="announcement_photo">
     <br>
-    <label for="announcement_date">Date:</label>
-    <input type="date" name="announcement_date" id="announcement_date" required>
-    <br>
     <label>Roles:</label>
     <br>
     <input type="checkbox" name="role[]" value="1" id="role_viewer">
