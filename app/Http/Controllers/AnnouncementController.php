@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Announcement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,10 +23,10 @@ class AnnouncementController extends Controller
             'announcement_title' => 'required',
             'announcement_description' => 'required',
             'announcement_photo' => ['required', 'nullable'],
-            'announcement_date' => 'required',
             'role' => 'required|array'
         ]);
-        
+        $validatedData['announcement_date'] = Carbon::now();
+
         $user = Auth::user(); // Get the authenticated user
         $createdByName = $user->first_name . ' ' . $user->last_name;
         $announcementRequest = ([
