@@ -49,7 +49,7 @@ Route::put('/approved/verification/{id}', [VerificationRequests::class, 'update'
 
 
 
-//MOBILE APIS
+//--------------------------------------MOBILE APIS--------------------------------------------//
 
 Route::post('/register/store/mobile', [AuthController::class, 'mobileStore'])->name('api.register.store.mobile');
 Route::post('/login/store/mobile', [AuthController::class, 'loginMobile'])->name('api.logi.store.mobile');
@@ -73,6 +73,8 @@ Route::get('/announcement/fetch/mobile', [AnnouncementController::class, 'announ
 
 //SEARCH FUNCTION API (VISITOR TO HOMEONWER ONLY)
 Route::get('users/control/access/search', [ControlAccessController::class, 'search'])->name('searchHomeownersMobile');
+//REQUEST ACCESS API (VISITOR TO HOMEOWNER)
+Route::post('users/control/access/request', [ControlAccessController::class, 'request'])->name('api.users.control.access.request');
 
 
 
