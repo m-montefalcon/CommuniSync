@@ -68,7 +68,7 @@ Route::post('/announcement/store', [AnnouncementController::class, 'announcement
 
 Route::get('/announcement/fetch/mobile', [AnnouncementController::class, 'announcementFetchMobile'])->name('announcementFetchMobile');
 
-//CONTROL ACCESS FEATURE
+//-----------------------------------------CONTROL ACCESS FEATURE--------------------------------//
 
 
 //SEARCH FUNCTION API (VISITOR TO HOMEONWER ONLY)

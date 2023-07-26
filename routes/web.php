@@ -64,9 +64,9 @@ Route::get('/verification/requests', [VerificationRequests::class, 'showRequests
 
 
 //CREATE ANNOUNCEMENT FORM
-Route::get('/announcement/create', [AnnouncementController::class, 'create'])->middleware('auth')->name('announcement.create.form');
+// Route::get('/announcement/create', [AnnouncementController::class, 'create'])->middleware('auth')->name('announcement.create.form');
 
 
 Route::get('/announcement', [AnnouncementController::class, 'show'])->middleware('auth')->name('announcement');
 
-Route::get('/announcement/create', [AnnouncementController::class, 'create'])->middleware('auth')->name('announcement.form');
+Route::get('/announcement/create/form', [AnnouncementController::class, 'showCreateForm'])->middleware('auth')->name('announcement.form');

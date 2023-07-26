@@ -14,7 +14,7 @@ class AnnouncementController extends Controller
         return view('announcement.announcement', compact('announcements'));
     }
 
-    public function create(){
+    public function showCreateForm(){
         return view('announcement.announcementForm');
     }
 
