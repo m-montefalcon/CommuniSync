@@ -43,9 +43,22 @@ class ControlAccessController extends Controller
     
         ControlAccess::create($validatedData);
     
-        return response()->json(['success' => true]);
+        return response()->json(['request success' => true], 200);
        
     }
 
+    //HOMEOWNER ACCEPT TO VISITOR
+    public function accept(Request $request, ControlAccess $id){
+        $validatedData = $request->validate([
+            'visit_status' => ['required', 'integer']
+        ]);
+        $validatedData['date'] = Carbon::now()->toDateString();
+        $validatedData['time'] = Carbon::now()->toTimeString();
+        // @dd($validatedData);
+        $id->update($validatedData);
+
+        return response()->json(['accepted' => true], 200);
+
+    }
 
 }
