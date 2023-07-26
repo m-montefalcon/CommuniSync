@@ -70,3 +70,6 @@ Route::get('/verification/requests', [VerificationRequests::class, 'showRequests
 Route::get('/announcement', [AnnouncementController::class, 'show'])->middleware('auth')->name('announcement');
 
 Route::get('/announcement/create/form', [AnnouncementController::class, 'showCreateForm'])->middleware('auth')->name('announcement.form');
+
+
+Route::get('/test/qrcode', [ControlAccessController::class, 'test'])->name('test');

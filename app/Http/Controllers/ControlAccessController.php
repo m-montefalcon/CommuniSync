@@ -96,4 +96,10 @@ class ControlAccessController extends Controller
     }
 
 
+    public function test(){
+        $qrcodes  = ControlAccess::all('qr_code');
+
+        return view('qrcode', compact('qrcodes'));
+    }
+
 }
