@@ -76,7 +76,7 @@ Route::get('users/control/access/search', [ControlAccessController::class, 'sear
 //REQUEST ACCESS API (VISITOR TO HOMEOWNER)
 Route::post('users/control/access/request', [ControlAccessController::class, 'request'])->name('api.users.control.access.request');
 
-
+Route::post('users/control/access/accept/{id}', [ControlAccessController::class, 'accept'])->name('api.users.control.access.accept');
 
 //REGISTER
 
