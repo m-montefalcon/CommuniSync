@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('destination_person');
             $table->json('visit_members')->nullable();
             $table->enum('visit_status', [1, 2, 3, 4, 5])->default(1);
+            $table->mediumText('qr_code')->nullable();
             $table->timestamps();
 
         });

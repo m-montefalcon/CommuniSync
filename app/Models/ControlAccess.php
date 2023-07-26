@@ -20,6 +20,7 @@ class ControlAccess extends Model
         'destination_person',
         'visit_members',
         'visit_status',
+        'qr_code'
     ];
     protected $casts = [
         'visit_members' => 'json',
