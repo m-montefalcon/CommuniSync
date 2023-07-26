@@ -78,6 +78,9 @@ Route::post('users/control/access/request', [ControlAccessController::class, 're
 
 Route::post('users/control/access/accept/{id}', [ControlAccessController::class, 'accept'])->name('api.users.control.access.accept');
 
+Route::put('users/control/access/validated/{id}', [ControlAccessController::class, 'validated'])->name('api.users.control.access.validated');
+
+
 //REGISTER
 
 /*

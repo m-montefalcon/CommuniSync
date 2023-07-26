@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ControlAccess;
 use Illuminate\Http\Request;
-use Illuminate\Foundation\Auth\User;
+use App\Models\ControlAccess;
 use Illuminate\Support\Carbon;
+use Illuminate\Foundation\Auth\User;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 
 class ControlAccessController extends Controller
@@ -58,7 +59,41 @@ class ControlAccessController extends Controller
         $id->update($validatedData);
 
         return response()->json(['accepted' => true], 200);
-
     }
+
+
+    //ADMIN VALIDATES THE REQUEST
+    public function validated(Request $request, ControlAccess $id){
+        
+        $validatedData = $request->validate([
+            'visit_status' => ['required', 'integer']
+        ]);
+        $validatedData['date'] = Carbon::now()->toDateString();
+        $validatedData['time'] = Carbon::now()->toTimeString();
+        $id->update($validatedData);
+
+
+         // Create data array to encode in QR code
+        $dataToEncode = [
+            'ID' => $id->id,
+            'Visitor ID' => $id->visitor_id,
+            'Homeowner ID' => $id->homeowner_id,
+            'Admin ID' => $id->admin_id,
+            'Date' => Carbon::now()->toDateString(),
+            'Time' =>Carbon::now()->toTimeString(),
+            'Destination' => $id->destination_person,
+            'Visit Members' => $id->visit_members,
+            'Visit Status' => $id->visit_status
+        ];
+
+       // Encode data array as JSON
+        $jsonToEncode = json_encode($dataToEncode);
+
+        $qrCode = QrCode::encoding('UTF-8')->size(300)->generate($jsonToEncode);
+        $id->qr_code = $qrCode;
+        $id->save();
+        return response()->json(['qr_code' => $qrCode],  200);
+    }
+
 
 }
