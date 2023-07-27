@@ -94,6 +94,18 @@ class ControlAccessController extends Controller
         $id->save();
         return response()->json(['qr_code' => $qrCode],  200);
     }
+    public function recorded(Request $request, ControlAccess $id){
+        $validatedData = $request->validate([
+            'visit_status' => ['required', 'integer']
+        ]);
+        $validatedData['date'] = Carbon::now()->toDateString();
+        $validatedData['time'] = Carbon::now()->toTimeString();
+        $id->update($validatedData);
+
+        return response()->json(['scanned' => true], 200);
+
+
+    }
 
 
     public function test(){

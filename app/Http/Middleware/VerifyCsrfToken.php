@@ -19,6 +19,7 @@ class VerifyCsrfToken extends Middleware
         'users/control/access/search',
         'api/users/control/access/request',
         'api/users/control/access/accept/*',
-        'api/users/control/access/validated/*'
+        'api/users/control/access/validated/*',
+        'api/users/control/access/recorded/*'
     ];
 }
