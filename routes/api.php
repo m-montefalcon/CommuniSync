@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ControlAccessController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VerificationRequests;
+use App\Models\ControlAccess;
 use App\Models\VerificationRequest;
 
 /*
@@ -71,15 +72,12 @@ Route::get('/announcement/fetch/mobile', [AnnouncementController::class, 'announ
 //-----------------------------------------CONTROL ACCESS FEATURE--------------------------------//
 
 
-//SEARCH FUNCTION API (VISITOR TO HOMEONWER ONLY)
+
 Route::get('users/control/access/search', [ControlAccessController::class, 'search'])->name('searchHomeownersMobile');
-//REQUEST ACCESS API (VISITOR TO HOMEOWNER)
 Route::post('users/control/access/request', [ControlAccessController::class, 'request'])->name('api.users.control.access.request');
-
 Route::put('users/control/access/accept/{id}', [ControlAccessController::class, 'accept'])->name('api.users.control.access.accept');
-
 Route::put('users/control/access/validated/{id}', [ControlAccessController::class, 'validated'])->name('api.users.control.access.validated');
-
+Route::put('users/control/access/recorded/{id}', [ControlAccessController::class, 'recorded'])->name('api.users.control.access.recorded');
 
 //REGISTER
 
