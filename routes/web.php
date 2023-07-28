@@ -30,13 +30,12 @@ Route::get('/', function () {
     return view('user.landingPage');
 });
 
-
-//USER WEB VIEWS ROUTES
+//--------------------------------------USER WEB VIEWS ROUTES-------------------------------------------//
 Route::get('/', [WebViewController::class, 'returnLandingPageView'])->middleware('guest');
 Route::get('/login', [WebViewController::class, 'returnLoginWebView'])->name('login')->middleware('guest');
 Route::get('/register', [WebViewController::class, 'returnRegisterView'])->middleware('guest');
 
-//CONTENTS WEB ROUTES
+//--------------------------------------CONTENTS WEB ROUTES-------------------------------------------//
 Route::get('/home', [WebViewController::class, 'returnHomeView'])->middleware('auth')->name('home');
 Route::get('profile', [WebViewController::class, 'returnProfileView'])->middleware('auth')->name('profile');
 Route::get('visitor', [WebViewController::class, 'showVisitor'])->middleware('auth')->name('visitor');
@@ -44,32 +43,25 @@ Route::get('homeowner', [WebViewController::class, 'showHomeowner'])->middleware
 Route::get('personnel', [WebViewController::class, 'showPersonnel'])->middleware('auth')->name('personnel');
 Route::get('admin', [WebViewController::class, 'showAdmin'])->middleware('auth')->name('admin');
 
-//SHOW SPECIFIC USER DETAILS ROUTE
-
+//--------------------------------------SHOW SPECIFIC USER DETAILS ROUTE-------------------------------------------//
 Route::get('/visitor/{id}', [UserController::class, 'showVisitorId'])->middleware('auth')->name('visitorId');
 Route::get('/homeowner/{id}', [UserController::class, 'showHomeownerId'])->middleware('auth')->name('homeownerId');
 Route::get('/personnel/{id}', [UserController::class, 'showPersonnelId'])->middleware('auth')->name('personnelId');
 Route::get('/admin/{id}', [UserController::class, 'showAdminId'])->middleware('auth')->name('adminId');
 
+//--------------------------------------USER VERIFCATION-------------------------------------------//
+Route::get('/verification/requests', [VerificationRequests::class, 'showRequests'])->middleware('auth')->name('verificationRequests');
+
+//--------------------------------------ANNOUNCEMENTS-------------------------------------------//
+Route::get('/announcement', [AnnouncementController::class, 'show'])->middleware('auth')->name('announcement');
+Route::get('/announcement/create/form', [AnnouncementController::class, 'showCreateForm'])->middleware('auth')->name('announcement.form');
+
+//--------------------------------------QR CODE TESTING CAF-------------------------------------------//
+
+Route::get('/test/qrcode', [ControlAccessController::class, 'test'])->name('test');
+
+//--------------------------------------CSRF TOKEN FOR API TESTING-------------------------------------------//
 
 Route::get('/csrf-token', function() {
     return response()->json(['csrf_token' => csrf_token()]);
 });
-
-
-//SHOW VERIFICATION REQUEST (VISITOR TO HOMEOWNER)
-
-Route::get('/verification/requests', [VerificationRequests::class, 'showRequests'])->middleware('auth')->name('verificationRequests');
-
-
-
-//CREATE ANNOUNCEMENT FORM
-// Route::get('/announcement/create', [AnnouncementController::class, 'create'])->middleware('auth')->name('announcement.create.form');
-
-
-Route::get('/announcement', [AnnouncementController::class, 'show'])->middleware('auth')->name('announcement');
-
-Route::get('/announcement/create/form', [AnnouncementController::class, 'showCreateForm'])->middleware('auth')->name('announcement.form');
-
-
-Route::get('/test/qrcode', [ControlAccessController::class, 'test'])->name('test');
