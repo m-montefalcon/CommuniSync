@@ -35,49 +35,33 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//USER API
+//--------------------------------------USER APIS--------------------------------------------//
 Route::post('/register/store', [AuthController::class, 'store'])->name('api.register.store');
 Route::post('/login/store', [AuthController::class, 'login'])->name('api.login.store');
 Route::post('/logout/store', [AuthController::class, 'logout'])->middleware('auth')->name('api.logout.store');
-
-//USER EDIT CREDENTIALS
 Route::put('/update/{id}', [UserController::class, 'update'])->middleware('auth')->name('api.update');
 Route::delete('/delete/{id}', [UserController::class, 'destroy'])->middleware('auth')->name('api.delete');
 
 
-//VERIFICATION REQUEST ADMIN WEB
+//--------------------------------------USER VERIFICATION--------------------------------------------//
 Route::put('/approved/verification/{id}', [VerificationRequests::class, 'update'])->name('api.approved.verification');
+Route::post('/verification/requests/store', [VerificationRequests::class, 'mobileStore'])->name('api.verification.requests.mobile');
 
-
-
-//--------------------------------------MOBILE APIS--------------------------------------------//
-
+//-------------------------------------- USER MOBILE APIS--------------------------------------------//
 Route::post('/register/store/mobile', [AuthController::class, 'mobileStore'])->name('api.register.store.mobile');
 Route::post('/login/store/mobile', [AuthController::class, 'loginMobile'])->name('api.logi.store.mobile');
 
-
-//VERIFICATION REQUESTS MOBILE
-
-Route::post('/verification/requests/store', [VerificationRequests::class, 'mobileStore'])->name('api.verification.requests.mobile');
-
-
-//ANNOUNCEMENT CREATE WEB
-
+//-----------------------------------------ANNOUNCEMENT FEATURE--------------------------------//
 Route::post('/announcement/store', [AnnouncementController::class, 'announcementStore'])->name('announcementStore');
-
-//ANNOUNCEMENT FETCH API
-
 Route::get('/announcement/fetch/mobile', [AnnouncementController::class, 'announcementFetchMobile'])->name('announcementFetchMobile');
 
+
 //-----------------------------------------CONTROL ACCESS FEATURE--------------------------------//
-
-
-
-Route::get('users/control/access/search', [ControlAccessController::class, 'search'])->name('searchHomeownersMobile');
-Route::post('users/control/access/request', [ControlAccessController::class, 'request'])->name('api.users.control.access.request');
-Route::put('users/control/access/accept/{id}', [ControlAccessController::class, 'accept'])->name('api.users.control.access.accept');
+Route::get('users/control/access/search/mobile', [ControlAccessController::class, 'searchMobile'])->name('api.users.control.access.search.mobile');
+Route::post('users/control/access/request/mobile', [ControlAccessController::class, 'requestMobile'])->name('api.users.control.access.request.mobile');
+Route::put('users/control/access/accept/mobile/{id}', [ControlAccessController::class, 'acceptMobile'])->name('api.users.control.access.accept.mobile');
 Route::put('users/control/access/validated/{id}', [ControlAccessController::class, 'validated'])->name('api.users.control.access.validated');
-Route::put('users/control/access/recorded/{id}', [ControlAccessController::class, 'recorded'])->name('api.users.control.access.recorded');
+Route::put('users/control/access/recorded/mobile/{id}', [ControlAccessController::class, 'recordedMobile'])->name('api.users.control.access.recorded.mobile');
 
 //REGISTER
 

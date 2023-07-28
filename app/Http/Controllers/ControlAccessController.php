@@ -12,7 +12,7 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 class ControlAccessController extends Controller
 {
     //SEARCH THE HOMEOWNER ONLY
-    public function search(Request $request)
+    public function searchMobile(Request $request)
     {
         try {
             $username = $request->input('username');
@@ -28,7 +28,7 @@ class ControlAccessController extends Controller
 
 
     //REQUEST ACCESS VISITOR ONLY
-    public function request(Request $request){
+    public function requestMobile(Request $request){
        
         $validatedData = $request->validate([
             'visitor_id' => ['required', 'integer'],
@@ -49,7 +49,7 @@ class ControlAccessController extends Controller
     }
 
     //HOMEOWNER ACCEPT TO VISITOR
-    public function accept(Request $request, ControlAccess $id){
+    public function acceptMobile(Request $request, ControlAccess $id){
         $validatedData = $request->validate([
             'visit_status' => ['required', 'integer']
         ]);
@@ -94,7 +94,7 @@ class ControlAccessController extends Controller
         $id->save();
         return response()->json(['qr_code' => $qrCode],  200);
     }
-    public function recorded(Request $request, ControlAccess $id){
+    public function recordedMobile(Request $request, ControlAccess $id){
         $validatedData = $request->validate([
             'visit_status' => ['required', 'integer']
         ]);
