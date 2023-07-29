@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\BlockList;
 use Illuminate\Http\Request;
 use App\Models\ControlAccess;
 use Illuminate\Support\Carbon;
-use Illuminate\Foundation\Auth\User;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 
@@ -95,15 +96,33 @@ class ControlAccessController extends Controller
         return response()->json(['qr_code' => $qrCode],  200);
     }
     public function recordedMobile(Request $request, ControlAccess $id){
-        $validatedData = $request->validate([
-            'visit_status' => ['required', 'integer']
-        ]);
+        
         $validatedData['date'] = Carbon::now()->toDateString();
         $validatedData['time'] = Carbon::now()->toTimeString();
+
+        $visitor = User::find($id->visitor_id);
+
+        $blockedUser = BlockList::where('user_name', $visitor->user_name)
+        ->orWhere(function($query) use ($visitor) {
+            $query->where('first_name', $visitor->first_name)
+                  ->where('last_name', $visitor->last_name);
+        })
+        ->orWhere('contact_number', $visitor->contact_number)
+        ->first();
+    
+
+
+        if ($blockedUser) {
+            $validatedData['visit_status'] = 5;
+            $id->update($validatedData);
+            return response()->json(['message' => 'The user is blocked and the operation is denied.'], 403);
+        }
+        
+
+        $validatedData['visit_status'] = 4;
         $id->update($validatedData);
-
+    
         return response()->json(['scanned' => true], 200);
-
 
     }
 
