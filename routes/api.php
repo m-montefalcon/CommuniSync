@@ -4,6 +4,7 @@ use App\Http\Controllers\AnnouncementController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BlockListController;
 use App\Http\Controllers\ControlAccessController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VerificationRequests;
@@ -60,8 +61,16 @@ Route::get('/announcement/fetch/mobile', [AnnouncementController::class, 'announ
 Route::get('users/control/access/search/mobile', [ControlAccessController::class, 'searchMobile'])->name('api.users.control.access.search.mobile');
 Route::post('users/control/access/request/mobile', [ControlAccessController::class, 'requestMobile'])->name('api.users.control.access.request.mobile');
 Route::put('users/control/access/accept/mobile/{id}', [ControlAccessController::class, 'acceptMobile'])->name('api.users.control.access.accept.mobile');
-Route::put('users/control/access/validated/{id}', [ControlAccessController::class, 'validated'])->name('api.users.control.access.validated');
+Route::put('admin/control/access/validated/{id}', [ControlAccessController::class, 'validated'])->name('api.admin.control.access.validated');
 Route::put('users/control/access/recorded/mobile/{id}', [ControlAccessController::class, 'recordedMobile'])->name('api.users.control.access.recorded.mobile');
+
+
+//-----------------------------------------BLOCKLIST FEATURE--------------------------------//
+Route::post('users/blocklists/request/mobile', [BlockListController::class, 'request'])->name('api.users.blocklists.request.mobile');
+Route::put('admin/blocklists/validated/mobile/{id}', [BlockListController::class, 'validated'])->name('api.admin.blocklists.validated.mobile');
+
+
+
 
 //REGISTER
 
