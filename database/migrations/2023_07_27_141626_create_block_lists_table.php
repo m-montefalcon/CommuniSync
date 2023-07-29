@@ -23,7 +23,9 @@ return new class extends Migration
             $table->string('contact_number')->nullable();
             $table->date('blocked_date');
             $table->string('block_reason');
-            $table->enum('visit_status', [0,1])->default(0);
+            $table->enum('block_status', [1,2,3])->default(1);
+            $table->string('block_status_response_description')->nullable();
+
             $table->timestamps();
             
         });

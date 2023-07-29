@@ -19,7 +19,8 @@ class BlockList extends Model
         'contact_number',
         'blocked_date',
         'block_reason',
-        'visit_status',
+        'block_status',
+        'block_status_response_description'
     ];
     
     public function homeowner()

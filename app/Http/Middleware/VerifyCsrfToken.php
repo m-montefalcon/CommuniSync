@@ -17,9 +17,11 @@ class VerifyCsrfToken extends Middleware
         'api/announcement/store',
         'api/announcement/fetch/mobile',
         'users/control/access/search',
-        'api/users/control/access/request',
-        'api/users/control/access/accept/*',
-        'api/users/control/access/validated/*',
-        'api/users/control/access/recorded/*'
+        'api/users/control/access/request/mobile',
+        'api/users/control/access/accept/mobile/*',
+        'api/admin/control/access/validated/*',
+        'api/users/control/access/recorded/mobile/*',
+        'api/users/blocklists/request/mobile',
+        'api/admin/blocklists/validated/mobile/*'
     ];
 }
