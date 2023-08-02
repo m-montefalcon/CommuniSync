@@ -26,9 +26,6 @@ use App\Http\Controllers\AnnouncementController;
 //update - update a data
 //destroy - delete a data
 
-Route::get('/', function () {
-    return view('user.landingPage');
-});
 
 //--------------------------------------USER WEB VIEWS ROUTES-------------------------------------------//
 Route::get('/', [WebViewController::class, 'returnLandingPageView'])->middleware('guest');

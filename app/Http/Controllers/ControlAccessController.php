@@ -7,6 +7,7 @@ use App\Models\BlockList;
 use Illuminate\Http\Request;
 use App\Models\ControlAccess;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 
@@ -95,37 +96,66 @@ class ControlAccessController extends Controller
         $id->save();
         return response()->json(['qr_code' => $qrCode],  200);
     }
-    public function recordedMobile(Request $request, ControlAccess $id){
+
+
+    public function recordedMobile(Request $request){
+        $validatedData = $request->validate([
+            'id' => ['required', 'integer'],
+            'visitor_id' => ['required', 'integer'],
+            'homeowner_id' => ['required', 'integer'],
+            'admin_id' => ['required', 'integer'],
+            'visit_members' => ['required', 'array'],
+        ]);
+
+        $controlAccessId = ControlAccess::find($validatedData['id']);
+
+
         
+    
         $validatedData['date'] = Carbon::now()->toDateString();
         $validatedData['time'] = Carbon::now()->toTimeString();
+      
 
-        $visitor = User::find($id->visitor_id);
 
-        $blockedUser = BlockList::where('user_name', $visitor->user_name)
+        $visitor = User::find($validatedData['visitor_id']);
+
+
+        $isVisitorBlocked = BlockList::where('user_name', $visitor->user_name)
         ->orWhere(function($query) use ($visitor) {
             $query->where('first_name', $visitor->first_name)
                   ->where('last_name', $visitor->last_name);
         })
         ->orWhere('contact_number', $visitor->contact_number)
         ->first();
-    
 
+        $visit_members = $validatedData['visit_members'];
 
-        if ($blockedUser) {
+        foreach($visit_members as $member){
+            list($firstName, $lastName) = explode(' ', $member);
+            $isMemberBlocked = BlockList::where('first_name', $firstName)
+                ->where('last_name', $lastName)
+                ->first();
+        
+            // If a blocked member is found, break the loop
+            
+        }
+
+        if ($isVisitorBlocked) {
             $validatedData['visit_status'] = 5;
-            $id->update($validatedData);
+            $controlAccessId->update($validatedData);
             return response()->json(['message' => 'The user is blocked and the operation is denied.'], 403);
         }
-        
 
+        if ($isMemberBlocked) {
+            $validatedData['visit_status'] = 5;
+            $controlAccessId->update($validatedData);
+            return response()->json(['message' => 'A member is blocked and the operation is denied.'], 403);
+        }
         $validatedData['visit_status'] = 4;
-        $id->update($validatedData);
+        $controlAccessId->update($validatedData);
     
         return response()->json(['scanned' => true], 200);
-
-    }
-
+}
 
     public function test(){
         $qrcodes  = ControlAccess::all('qr_code');

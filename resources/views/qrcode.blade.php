@@ -10,7 +10,8 @@
         <tbody>
             @foreach($qrcodes as $code)
             <tr>
-            {!! $code->qr_code !!}            
+            {!! $code->qr_code !!} 
+            <hr>          
             </tr>
             @endforeach
         </tbody>
