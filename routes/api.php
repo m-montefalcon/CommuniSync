@@ -60,7 +60,7 @@ Route::get('/announcement/fetch/mobile', [AnnouncementController::class, 'announ
 //-----------------------------------------CONTROL ACCESS FEATURE--------------------------------//
 Route::get('users/control/access/search/mobile', [ControlAccessController::class, 'searchMobile'])->name('api.users.control.access.search.mobile');
 Route::post('users/control/access/request/mobile', [ControlAccessController::class, 'requestMobile'])->name('api.users.control.access.request.mobile');
-Route::put('users/control/access/accept/mobile/{id}', [ControlAccessController::class, 'acceptMobile'])->name('api.users.control.access.accept.mobile');
+Route::put('users/control/access/accept/mobile', [ControlAccessController::class, 'acceptMobile'])->name('api.users.control.access.accept.mobile');
 Route::put('admin/control/access/validated/{id}', [ControlAccessController::class, 'validated'])->name('api.admin.control.access.validated');
 Route::put('users/control/access/recorded/mobile', [ControlAccessController::class, 'recordedMobile'])->name('api.users.control.access.recorded.mobile');
 

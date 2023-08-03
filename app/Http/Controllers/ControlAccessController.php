@@ -51,10 +51,13 @@ class ControlAccessController extends Controller
     }
 
     //HOMEOWNER ACCEPT TO VISITOR
-    public function acceptMobile(Request $request, ControlAccess $id){
+    public function acceptMobile(Request $request){
         $validatedData = $request->validate([
-            'visit_status' => ['required', 'integer']
+            'id' => ['required', 'integer']
         ]);
+
+        $id = ControlAccess::find($validatedData['id']);
+        $validatedData['visit_status'] = 2;
         $validatedData['date'] = Carbon::now()->toDateString();
         $validatedData['time'] = Carbon::now()->toTimeString();
         // @dd($validatedData);
