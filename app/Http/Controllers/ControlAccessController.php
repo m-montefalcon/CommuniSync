@@ -171,8 +171,19 @@ class ControlAccessController extends Controller
         $controlAccessId->update($validatedData);
     
         return response()->json(['scanned' => true], 200);
-}
+    }
 
+
+    public function fetchAllRequestMobile($id){
+        $fetchRequests = ControlAccess::where('homeowner_id', $id)->get();
+    
+        if ($fetchRequests->count() > 0){
+            return response()->json(['message' => "Query Success", 'data' => $fetchRequests], 200);
+        } else {
+            return response()->json(['message' => "No Request"], 403);
+        }
+    }
+    
     public function test(){
         $qrcodes  = ControlAccess::all('qr_code');
 
