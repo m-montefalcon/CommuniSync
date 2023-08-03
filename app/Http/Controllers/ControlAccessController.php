@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\ControlAccess;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 
@@ -68,22 +69,33 @@ class ControlAccessController extends Controller
 
 
     //ADMIN VALIDATES THE REQUEST
-    public function validated(Request $request, ControlAccess $id){
-        
-        $validatedData = $request->validate([
-            'visit_status' => ['required', 'integer']
-        ]);
+    public function validated(ControlAccess $id){
+        $validatedData['visit_status'] = 3;
         $validatedData['date'] = Carbon::now()->toDateString();
         $validatedData['time'] = Carbon::now()->toTimeString();
         $id->update($validatedData);
 
+        $VisitorId = $id->visitor_id;
+        $FetchVisitorInfo = User::find($VisitorId);
 
-         // Create data array to encode in QR code
+        $HomeownerId = $id->homeowner_id;
+        $FetchHomeownerInfo = User::find($HomeownerId);
+
+        // $AdminId = Auth::user();
+        // $FetchAdminInfo = User::find($AdminId);
+
+        // $AdminId = $id->admin_id;
+        // $FetchAdminInfo = User::find($AdminId);
+        
+         // Create data array to encode in QR code  
         $dataToEncode = [
             'ID' => $id->id,
             'Visitor ID' => $id->visitor_id,
+            'Visitor Name' => $FetchVisitorInfo->first_name . ' ' . $FetchVisitorInfo->last_name,
             'Homeowner ID' => $id->homeowner_id,
+            'Homeowner Name' => $FetchHomeownerInfo-> first_name . ' ' . $FetchHomeownerInfo-> last_name, 
             'Admin ID' => $id->admin_id,
+            // 'Admin Name' => $FetchAdminInfo-> first_name . ' ' . $FetchAdminInfo-> last_name, 
             'Date' => Carbon::now()->toDateString(),
             'Time' =>Carbon::now()->toTimeString(),
             'Destination' => $id->destination_person,
@@ -91,13 +103,14 @@ class ControlAccessController extends Controller
             'Visit Status' => $id->visit_status
         ];
 
+        // @dd( $dataToEncode);
        // Encode data array as JSON
         $jsonToEncode = json_encode($dataToEncode);
 
         $qrCode = QrCode::encoding('UTF-8')->size(300)->generate($jsonToEncode);
         $id->qr_code = $qrCode;
         $id->save();
-        return response()->json(['qr_code' => $qrCode],  200);
+        return response()->json(['qr_code' => $dataToEncode],  200);
     }
 
 
