@@ -15,12 +15,16 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('visitor_id')->nullable();
             $table->foreign('visitor_id')->references('id')->on('users');
+            $table->string('visitor_name');
             $table->unsignedBigInteger('homeowner_id')->nullable();
             $table->foreign('homeowner_id')->references('id')->on('users');
+            $table->string('homeowner_name');
             $table->unsignedBigInteger('admin_id')->nullable();
             $table->foreign('admin_id')->references('id')->on('users');
+            $table->string('admin_name');
             $table->unsignedBigInteger('personnel_id')->nullable();
             $table->foreign('personnel_id')->references('id')->on('users');
+            $table->string('personnel_name');
             $table->date('date');
             $table->time('time');
             $table->string('destination_person');
