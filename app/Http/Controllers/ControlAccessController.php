@@ -44,10 +44,19 @@ class ControlAccessController extends Controller
         $validatedData['date'] = Carbon::now()->toDateString();
         $validatedData['time'] = Carbon::now()->toTimeString();
         $validatedData['visit_members'] = json_encode($validatedData['visit_members']);
+        
+        // $findAdminName = User::find($validatedData['id']);
+        // $validatedData['admin_name']= $findAdminName-> first_name . ' ' . $findAdminName-> last_name;
+        
+        $findHomeownerName = User::find($validatedData['homeowner_id']);
+        $validatedData['homeowner_name'] = $findHomeownerName->first_name . ' ' . $findHomeownerName->last_name;
     
-        ControlAccess::create($validatedData);
+        $findVisitorName = User::find($validatedData['visitor_id']);
+        $validatedData['visitor_name'] = $findVisitorName->first_name . ' ' . $findVisitorName->last_name;
     
-        return response()->json(['request success' => true], 200);
+        // ControlAccess::create($validatedData);
+    
+        return response()->json(['request success' => true, $validatedData], 200);
        
     }
 
@@ -75,27 +84,27 @@ class ControlAccessController extends Controller
         $validatedData['time'] = Carbon::now()->toTimeString();
         $id->update($validatedData);
 
-        $VisitorId = $id->visitor_id;
-        $FetchVisitorInfo = User::find($VisitorId);
-
-        $HomeownerId = $id->homeowner_id;
-        $FetchHomeownerInfo = User::find($HomeownerId);
-
-        // $AdminId = Auth::user();
-        // $FetchAdminInfo = User::find($AdminId);
-
-        // $AdminId = $id->admin_id;
-        // $FetchAdminInfo = User::find($AdminId);
         
-         // Create data array to encode in QR code  
+
+        $visitorId = $id->visitor_id;
+        $fetchVisitorId = User::find($visitorId);
+
+        $homeownerId = $id->homeowner_id;
+        $fetchHomeOwnerId = User::find($homeownerId);
+
+        $adminId = Auth::user();
+        $adminName = $adminId-> first_name . ' ' . $adminId->last_name;
+        
+
+        
         $dataToEncode = [
             'ID' => $id->id,
             'Visitor ID' => $id->visitor_id,
-            'Visitor Name' => $FetchVisitorInfo->first_name . ' ' . $FetchVisitorInfo->last_name,
+            'Visitor Name' =>   $fetchVisitorId->first_name . ' ' .   $fetchVisitorId->last_name,
             'Homeowner ID' => $id->homeowner_id,
-            'Homeowner Name' => $FetchHomeownerInfo-> first_name . ' ' . $FetchHomeownerInfo-> last_name, 
-            'Admin ID' => $id->admin_id,
-            // 'Admin Name' => $FetchAdminInfo-> first_name . ' ' . $FetchAdminInfo-> last_name, 
+            'Homeowner Name' => $fetchHomeOwnerId-> first_name . ' ' . $fetchHomeOwnerId-> last_name, 
+            'Admin ID' => $adminId->id,
+            'Admin Name' => $adminName,
             'Date' => Carbon::now()->toDateString(),
             'Time' =>Carbon::now()->toTimeString(),
             'Destination' => $id->destination_person,
@@ -124,10 +133,7 @@ class ControlAccessController extends Controller
         ]);
 
         $controlAccessId = ControlAccess::find($validatedData['id']);
-
-
         
-    
         $validatedData['date'] = Carbon::now()->toDateString();
         $validatedData['time'] = Carbon::now()->toTimeString();
       
