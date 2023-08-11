@@ -9,30 +9,7 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function showVisitorId($id){
-        $visitor = User::findorFail($id);
     
-        return view('credentialsForm.editVisitorForm', compact('visitor'));
-        // @dd($id);
-    }
-    public function showHomeownerId($id){
-        $homeowner = User::findorFail($id);
-    
-        return view('credentialsForm.editHomeownerForm', compact('homeowner'));
-    }
-
-    public function showPersonnelId($id){
-        $personnel = User::findorFail($id);
-    
-        return view('credentialsForm.editPersonnelForm', compact('personnel'));
-    }
-    public function showAdminId($id){
-        $admin = User::findorFail($id);
-    
-        return view('credentialsForm.editAdminForm', compact('admin'));
-    }
-
-
     public function update(Request $request, User $id)
     {
         $validated = $request->validate([

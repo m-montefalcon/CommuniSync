@@ -41,21 +41,21 @@ Route::get('personnel', [WebViewController::class, 'showPersonnel'])->middleware
 Route::get('admin', [WebViewController::class, 'showAdmin'])->middleware('auth')->name('admin');
 
 //--------------------------------------SHOW SPECIFIC USER DETAILS ROUTE-------------------------------------------//
-Route::get('/visitor/{id}', [UserController::class, 'showVisitorId'])->middleware('auth')->name('visitorId');
-Route::get('/homeowner/{id}', [UserController::class, 'showHomeownerId'])->middleware('auth')->name('homeownerId');
-Route::get('/personnel/{id}', [UserController::class, 'showPersonnelId'])->middleware('auth')->name('personnelId');
-Route::get('/admin/{id}', [UserController::class, 'showAdminId'])->middleware('auth')->name('adminId');
+Route::get('/visitor/{id}', [WebViewController::class, 'showVisitorId'])->middleware('auth')->name('visitorId');
+Route::get('/homeowner/{id}', [WebViewController::class, 'showHomeownerId'])->middleware('auth')->name('homeownerId');
+Route::get('/personnel/{id}', [WebViewController::class, 'showPersonnelId'])->middleware('auth')->name('personnelId');
+Route::get('/admin/{id}', [WebViewController::class, 'showAdminId'])->middleware('auth')->name('adminId');
 
 //--------------------------------------USER VERIFCATION-------------------------------------------//
-Route::get('/verification/requests', [VerificationRequests::class, 'showRequests'])->middleware('auth')->name('verificationRequests');
+Route::get('/verification/requests', [WebViewController::class, 'showRequests'])->middleware('auth')->name('verificationRequests');
 
 //--------------------------------------ANNOUNCEMENTS-------------------------------------------//
-Route::get('/announcement', [AnnouncementController::class, 'show'])->middleware('auth')->name('announcement');
-Route::get('/announcement/create/form', [AnnouncementController::class, 'showCreateForm'])->middleware('auth')->name('announcement.form');
+Route::get('/announcement', [WebViewController::class, 'show'])->middleware('auth')->name('announcement');
+Route::get('/announcement/create/form', [WebViewController::class, 'showCreateForm'])->middleware('auth')->name('announcement.form');
 
 //--------------------------------------QR CODE TESTING CAF-------------------------------------------//
 
-Route::get('/test/qrcode', [ControlAccessController::class, 'test'])->name('test');
+Route::get('/test/qrcode', [WebViewController::class, 'test'])->name('test');
 
 //--------------------------------------CSRF TOKEN FOR API TESTING-------------------------------------------//
 

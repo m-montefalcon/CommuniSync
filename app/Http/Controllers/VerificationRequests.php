@@ -9,10 +9,7 @@ use Illuminate\Support\Facades\Redirect;
 
 class VerificationRequests extends Controller
 {
-    public function showRequests(){
-        $verifyRequests = VerificationRequest::all();
-        return view('verification.verificationRequest', compact('verifyRequests'));
-    }
+ 
 
     public function mobileStore(Request $request){
        // Validate the request data
