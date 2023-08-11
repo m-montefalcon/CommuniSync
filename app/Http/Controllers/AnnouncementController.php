@@ -9,15 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class AnnouncementController extends Controller
 {
-    public function show(){
-        $announcements = Announcement::all();
-        return view('announcement.announcement', compact('announcements'));
-    }
-
-    public function showCreateForm(){
-        return view('announcement.announcementForm');
-    }
-
     public function announcementStore(Request $request){
         $validatedData = $request->validate([
             'announcement_title' => 'required',
