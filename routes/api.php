@@ -64,6 +64,8 @@ Route::put('users/control/access/accept/mobile', [ControlAccessController::class
 Route::put('admin/control/access/validated/{id}', [ControlAccessController::class, 'validated'])->name('api.admin.control.access.validated');
 Route::put('users/control/access/recorded/mobile', [ControlAccessController::class, 'recordedMobile'])->name('api.users.control.access.recorded.mobile');
 Route::get('users/control/access/fetch/all/request/mobile/{id}', [ControlAccessController::class, 'fetchAllRequestMobile'])->name('api.users.control.access.fetch.all.request.mobile');
+Route::get('users/control/access/fetch/specific/request/mobile/{id}', [ControlAccessController::class, 'fetchSpecificRequestMobile'])->name('api.users.control.access.fetch.specific.request.mobile');
+
 
 //-----------------------------------------BLOCKLIST FEATURE--------------------------------//
 Route::post('users/blocklists/request/mobile', [BlockListController::class, 'request'])->name('api.users.blocklists.request.mobile');

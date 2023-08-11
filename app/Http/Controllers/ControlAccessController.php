@@ -186,6 +186,14 @@ class ControlAccessController extends Controller
             return response()->json(['message' => "No Request"], 403);
         }
     }
+
+
+    public function fetchSpecificRequestMobile($id){
+        $fetchSpecificRequest = ControlAccess::find($id);
+        if($fetchSpecificRequest){
+            return response(['message' => 'success', $fetchSpecificRequest]);
+        }
+    }
     
    
 
