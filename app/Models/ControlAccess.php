@@ -12,9 +12,13 @@ class ControlAccess extends Model
 
     protected $fillable = [
         'visitor_id',
+        'visitor_name',
         'homeowner_id',
+        'homeowner_name',
         'admin_id',
+        'admin_name',
         'personnel_id',
+        'personnel_name',
         'date',
         'time',
         'destination_person',

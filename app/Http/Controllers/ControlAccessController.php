@@ -54,7 +54,7 @@ class ControlAccessController extends Controller
         $findVisitorName = User::find($validatedData['visitor_id']);
         $validatedData['visitor_name'] = $findVisitorName->first_name . ' ' . $findVisitorName->last_name;
     
-        // ControlAccess::create($validatedData);
+        ControlAccess::create($validatedData);
     
         return response()->json(['request success' => true, $validatedData], 200);
        
@@ -84,14 +84,7 @@ class ControlAccessController extends Controller
         $validatedData['time'] = Carbon::now()->toTimeString();
         $id->update($validatedData);
 
-        
-
-        $visitorId = $id->visitor_id;
-        $fetchVisitorId = User::find($visitorId);
-
-        $homeownerId = $id->homeowner_id;
-        $fetchHomeOwnerId = User::find($homeownerId);
-
+    
         $adminId = Auth::user();
         $adminName = $adminId-> first_name . ' ' . $adminId->last_name;
         
@@ -100,9 +93,9 @@ class ControlAccessController extends Controller
         $dataToEncode = [
             'ID' => $id->id,
             'Visitor ID' => $id->visitor_id,
-            'Visitor Name' =>   $fetchVisitorId->first_name . ' ' .   $fetchVisitorId->last_name,
+            'Visitor Name' =>  $id->visitor_name,
             'Homeowner ID' => $id->homeowner_id,
-            'Homeowner Name' => $fetchHomeOwnerId-> first_name . ' ' . $fetchHomeOwnerId-> last_name, 
+            'Homeowner Name' => $id->homeowner_name,
             'Admin ID' => $adminId->id,
             'Admin Name' => $adminName,
             'Date' => Carbon::now()->toDateString(),
@@ -129,6 +122,7 @@ class ControlAccessController extends Controller
             'visitor_id' => ['required', 'integer'],
             'homeowner_id' => ['required', 'integer'],
             'admin_id' => ['required', 'integer'],
+            'personnel_id' => ['required', 'integer'],
             'visit_members' => ['required', 'array'],
         ]);
 
@@ -136,7 +130,10 @@ class ControlAccessController extends Controller
         
         $validatedData['date'] = Carbon::now()->toDateString();
         $validatedData['time'] = Carbon::now()->toTimeString();
-      
+        
+        $findPersonnelName = User::find($validatedData['homeowner_id']);
+        $personnelName = $findPersonnelName->first_name . ' ' . $findPersonnelName->last_name;
+        $validatedData['personnel_name'] = $personnelName;
 
 
         $visitor = User::find($validatedData['visitor_id']);
