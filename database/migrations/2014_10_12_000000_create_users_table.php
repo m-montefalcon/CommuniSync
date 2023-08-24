@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('contact_number');
-            $table->string('house_no')->nullable();
-            $table->json('family_member')->nullable();
+            $table->integer('block_no')->nullable();
+            $table->integer('lot_no')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->boolean('manual_visit_option')->nullable();
             $table->string('photo')->nullable();

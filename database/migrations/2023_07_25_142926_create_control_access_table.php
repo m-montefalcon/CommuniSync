@@ -15,16 +15,12 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('visitor_id')->nullable();
             $table->foreign('visitor_id')->references('id')->on('users');
-            $table->string('visitor_name')->nullable();
             $table->unsignedBigInteger('homeowner_id')->nullable();
             $table->foreign('homeowner_id')->references('id')->on('users');
-            $table->string('homeowner_name')->nullable();
             $table->unsignedBigInteger('admin_id')->nullable();
             $table->foreign('admin_id')->references('id')->on('users');
-            $table->string('admin_name')->nullable();
             $table->unsignedBigInteger('personnel_id')->nullable();
             $table->foreign('personnel_id')->references('id')->on('users');
-            $table->string('personnel_name')->nullable();
             $table->date('date');
             $table->time('time');
             $table->string('destination_person');
@@ -32,7 +28,6 @@ return new class extends Migration
             $table->enum('visit_status', [1, 2, 3, 4, 5])->default(1);
             $table->mediumText('qr_code')->nullable();
             $table->timestamps();
-
         });
     }
 
