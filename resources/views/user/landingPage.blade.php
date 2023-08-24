@@ -1,9 +1,30 @@
 @include('partials.__header')
-<body>
-    <h1>Welcome</h1>    
-  
-  <a href="/login">Sign In</a>
+<html>
+<head>
+  <title> Landing Page </title>
+  <link rel="stylesheet" href="{{ asset('css/landingPage.css') }}">
+  <link rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.0/css/all.css">
+</head>
 
-  <!-- Will remove this after the auth setup -->
-  <a href="/register">Register</a>
+<body>
+  <div class="card">
+    <form>
+    <h2>Welcome</h2>  
+  
+    <div>
+      <a href="/login" class="button">Sign In</a>
+    </div>
+
+ 
+    <!-- Will remove this after the auth setup -->
+    <div>
+      <a href="/register" class="button">Register</a>
+    </div>
+
+
+    </form>
+  </div>
+</body>
+</html>
 @include('partials.__footer')
