@@ -14,21 +14,7 @@ return new class extends Migration
         Schema::create('verification_requests', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('user_name')->unique();
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('contact_number');
-            $table->string('house_no')->nullable();
-            $table->string('family_member')->nullable();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->boolean('manual_visit_option')->nullable();
-            $table->string('photo')->nullable();
-            $table->enum('role', [1, 2, 3, 4])->default(1);
-            $table->string('email');
-            $table->rememberToken();
-            $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
-
         });
     }
 
