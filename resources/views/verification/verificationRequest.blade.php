@@ -29,7 +29,8 @@
                                         <th>Last Name</th>
                                         <th>Contact Number</th>
                                         <th>Email</th>
-                                        <th>House Number</th>
+                                        <th>Block Number</th>
+                                        <th>Lot Number</th>
                                         <th>Family Member</th>
                                         <!-- <th>Manual Visit Option</th> -->
                                         <!-- <th>Role</th> -->
@@ -38,13 +39,14 @@
                                     @foreach($verifyRequests as $request)
                                     <tr>
                                         <td>{{$request->id}}</td>
-                                        <td>{{$request->user_name}}</td>
-                                        <td>{{$request->first_name}}</td>
-                                        <td>{{$request->last_name}}</td>
-                                        <td>{{$request->contact_number}}</td>
-                                        <td>{{$request->email}}</td>
-                                        <td>{{$request->house_no}}</td>
-                                        <td>{{$request->family_member}}</td>
+                                        <td>{{$request->user->user_name}}</td>
+                                        <td>{{$request->user->first_name}}</td>
+                                        <td>{{$request->user->last_name}}</td>
+                                        <td>{{$request->user->contact_number}}</td>
+                                        <td>{{$request->user->email}}</td>
+                                        <td>{{$request->user->block_no}}</td>
+                                        <td>{{$request->user->lot_no}}</td>
+                                        <td>{{$request->user->family_member}}</td>
                                         <!-- <td>{{$request->manual_visit_option}}</td> -->
                                         <!-- <td>{{$request->role}}</td> -->
                                         <td>

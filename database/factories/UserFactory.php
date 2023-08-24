@@ -24,7 +24,8 @@ class UserFactory extends Factory
             'first_name' => $faker->firstName,
             'last_name' => $faker->lastName,
             'contact_number' => $faker->phoneNumber,
-            'house_no' => $faker->buildingNumber,
+            'block_no' => $faker->randomNumber(),
+            'lot_no' => $faker->randomNumber(),
             'family_member' => json_encode([
                 $faker->randomElement(['John', 'Jane', 'Michael', 'Emily', 'William', 'Olivia']),
                 $faker->randomElement(['John', 'Jane', 'Michael', 'Emily', 'William', 'Olivia']),

@@ -11,58 +11,36 @@ class VerificationRequests extends Controller
 {
  
 
-    public function mobileStore(Request $request){
-       // Validate the request data
+    public function mobileStore(Request $request)
+    {
         $validatedData = $request->validate([
-            'user_id' => 'required|exists:users,id',
+            'user_id' => 'required|integer',
             'family_member' => 'required|array',
-            'house_no' => 'required',
-            'manual_visit_option' => 'required'
+            'block_no' => 'integer|required',
+            'lot_no' => 'integer|required',
         ]);
         $user = User::findOrFail($validatedData['user_id']);
-        $familyMemberJson = json_encode($validatedData['family_member']);
-
-        $verificationRequest = ([
+        $verificationRequest = VerificationRequest::create([
             'user_id' => $user->id,
-            'family_member' => $familyMemberJson,
-            'house_no' => $validatedData['house_no'],
-            'user_name' => $user->user_name,
-            'first_name' => $user->first_name,
-            'last_name' => $user->last_name,
-            'contact_number' => $user->contact_number,
-            'email' => $user->email,
-            'photo' => $user->photo,
-            'manual_visit_option' => $validatedData['manual_visit_option'],
-            
+            'family_member' => json_encode($request->json('family_member')),
+            'block_no' => $validatedData['block_no'],
+            'lot_no' => $validatedData['lot_no'],
         ]);
-        $verificationRequest = VerificationRequest::create($verificationRequest);
-        return response()->json(['message' => 'Success'], 200);
-
-
-
+        return response()->json($verificationRequest, 200);
     }
 
 
-    public function update(Request $request,  $id){
-        $verificationRequest = VerificationRequest::findOrFail($id);
-    
-        // Find the user based on the user_id
-        $user = User::findOrFail($verificationRequest->user_id);
-
-        // Update the user's fields
-        $user->house_no = $verificationRequest->house_no;
-        $user->family_member = $verificationRequest->family_member;
-        $user->email_verified_at = now(); // Set the email_verified_at field to the current timestamp
-        $user->manual_visit_option = $verificationRequest->manual_visit_option;
-        $user->role = 2; // Set the role to 2
-
-        // Save the changes to the user model
-        $user->save();
-        $verificationRequest->delete();
-
-
+    public function update(VerificationRequest $id){
+        $user = User::findOrFail($id->user_id);
+        $user->update([
+            'lot_no' => $id->lot_no,
+            'block_no' => $id->block_no,
+            'family_member' => $id->family_member,
+            'manual_visit_option' => 0,
+            'role' => 2,
+        ]);
+        $id->delete();
         return redirect()->route('verificationRequests');
-        
     }
     
 

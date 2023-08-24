@@ -15,19 +15,9 @@ class VerificationRequest extends Model
     }
     protected $fillable = [
         'user_id',
-        'user_name',
-        'first_name',
-        'last_name',
-        'contact_number',
-        'house_no',
-        'family_member',
-        'email_verified_at',
-        'manual_visit_option',
-        'photo',
-        'role',
-        'email',
-        
-        
+        'block_no',
+        'lot_no',
+        'family_member'
     ];
     
 }

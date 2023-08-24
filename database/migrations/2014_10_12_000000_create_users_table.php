@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('contact_number');
             $table->integer('block_no')->nullable();
             $table->integer('lot_no')->nullable();
+            $table->json('family_member')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->boolean('manual_visit_option')->nullable();
             $table->string('photo')->nullable();

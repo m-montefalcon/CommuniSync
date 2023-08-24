@@ -79,8 +79,9 @@ class WebViewController extends Controller
     
         return view('credentialsForm.editAdminForm', compact('admin'));
     }
-    public function showRequests(){
-        $verifyRequests = VerificationRequest::all();
+    public function showRequests()
+    {
+        $verifyRequests = VerificationRequest::with('user')->get();
         return view('verification.verificationRequest', compact('verifyRequests'));
     }
 
