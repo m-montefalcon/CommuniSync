@@ -11,8 +11,7 @@ class Announcement extends Model
     use HasFactory;
     
     protected $fillable = [
-        'created_by',
-        'created_by_name',
+        'admin_id',
         'announcement_title',
         'announcement_description',
         'announcement_photo',
@@ -20,9 +19,9 @@ class Announcement extends Model
         'role'
     ];
     //IMPLEMENTING RELATIONSHIP TO THE USER DATABASE
-    public function createdBy()
+    public function user()
     {
-        return $this->belongsTo(User::class, 'created_by');
+        return $this->belongsTo(User::class, 'admin_id',);
     }
     
 }

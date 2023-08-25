@@ -55,6 +55,6 @@ class User extends Authenticatable
     //IMPLEMENTING RELATIONSHIP TO ANNOUNCEMENT DATABASE
     public function announcements()
     {
-        return $this->hasMany(Announcement::class, 'created_by');
+        return $this->hasMany(Announcement::class);
     }
 }

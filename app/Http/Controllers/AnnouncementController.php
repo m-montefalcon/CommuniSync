@@ -16,30 +16,20 @@ class AnnouncementController extends Controller
             'announcement_photo' => ['required', 'nullable'],
             'role' => 'required|array'
         ]);
+    
         $validatedData['announcement_date'] = Carbon::now();
-
-        $user = Auth::user(); // Get the authenticated user
-        $createdByName = $user->first_name . ' ' . $user->last_name;
-        $announcementRequest = ([
-            'announcement_title' => $validatedData['announcement_title'],
-            'announcement_description' =>  $validatedData['announcement_description'],
-            'announcement_photo' =>  $validatedData['announcement_photo'],
-            'announcement_date' =>  $validatedData['announcement_date'],
-            'role' => json_encode($validatedData['role']),
-            'created_by' => $user->id, 
-            'created_by_name'=> $createdByName
-        ]);
-        $announcementPosted = Announcement::create($announcementRequest);
+        $validatedData['admin_id'] = Auth::user()->id;
+    
+        Announcement::create($validatedData);
+    
         return redirect()->route('announcement');
-
     }
 
     public function announcementFetchMobile(Request $request){
         $role = $request->input('role');
 
         // Fetch announcements based on the user's role
-        $announcements = Announcement::whereJsonContains('role', $role)->get();
-    
+        $announcements = Announcement::with('user')->whereJsonContains('role', [$role])->get();
         return response()->json($announcements);
     }
 }
