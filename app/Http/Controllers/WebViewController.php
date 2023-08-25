@@ -62,7 +62,6 @@ class WebViewController extends Controller
        
     }
 
-
     public function showHomeownerId($id){
         $homeowner = User::findorFail($id);
     

@@ -1,5 +1,5 @@
 @include('partials.__header')
-@include('components.nav')
+<!-- @include('components.nav') -->
     <h1>QR CODE</h1>    
     <table>
         <thead>

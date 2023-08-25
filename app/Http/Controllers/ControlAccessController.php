@@ -31,88 +31,57 @@ class ControlAccessController extends Controller
 
 
     //REQUEST ACCESS VISITOR ONLY
-    public function requestMobile(Request $request){
-       
+    public function requestMobile(Request $request) 
+    {
         $validatedData = $request->validate([
             'visitor_id' => ['required', 'integer'],
             'homeowner_id' => ['required', 'integer'],
             'destination_person' => ['required'],
             'visit_members' => ['nullable', 'array'],
         ]);
-    
         $validatedData['visit_status'] = 1;
-        $validatedData['date'] = Carbon::now()->toDateString();
-        $validatedData['time'] = Carbon::now()->toTimeString();
-        $validatedData['visit_members'] = json_encode($validatedData['visit_members']);
-        
-        // $findAdminName = User::find($validatedData['id']);
-        // $validatedData['admin_name']= $findAdminName-> first_name . ' ' . $findAdminName-> last_name;
-        
-        $findHomeownerName = User::find($validatedData['homeowner_id']);
-        $validatedData['homeowner_name'] = $findHomeownerName->first_name . ' ' . $findHomeownerName->last_name;
-    
-        $findVisitorName = User::find($validatedData['visitor_id']);
-        $validatedData['visitor_name'] = $findVisitorName->first_name . ' ' . $findVisitorName->last_name;
-    
+        $validatedData['date'] = now()->toDateString();
+        $validatedData['time'] = now()->toTimeString();
+        $validatedData['visit_members'] = $request->filled('visit_members') ? json_encode($validatedData['visit_members']) : null;
         ControlAccess::create($validatedData);
-    
         return response()->json(['request success' => true, $validatedData], 200);
-       
     }
 
     //HOMEOWNER ACCEPT TO VISITOR
-    public function acceptMobile(Request $request){
+    public function acceptMobile(Request $request) 
+    {
         $validatedData = $request->validate([
             'id' => ['required', 'integer']
         ]);
-
-        $id = ControlAccess::find($validatedData['id']);
+        $id = ControlAccess::findOrFail($validatedData['id']);
         $validatedData['visit_status'] = 2;
-        $validatedData['date'] = Carbon::now()->toDateString();
-        $validatedData['time'] = Carbon::now()->toTimeString();
-        // @dd($validatedData);
+        $validatedData['date'] = now()->toDateString();
+        $validatedData['time'] = now()->toTimeString();
         $id->update($validatedData);
-
-        return response()->json(['accepted' => true], 200);
+        return response()->json(['accepted' => true, 'id' => $id], 200);
     }
+    
 
 
     //ADMIN VALIDATES THE REQUEST
-    public function validated(ControlAccess $id){
-        $validatedData['visit_status'] = 3;
-        $validatedData['date'] = Carbon::now()->toDateString();
-        $validatedData['time'] = Carbon::now()->toTimeString();
-        $id->update($validatedData);
-
-    
-        $adminId = Auth::user();
-        $adminName = $adminId-> first_name . ' ' . $adminId->last_name;
-        
-
-        
+    public function validated(ControlAccess $id)
+    {
+        $adminId = Auth::id();
+        // Update the model with the validated data
+        $id->update([
+            'visit_status' => 3,
+            'date' => now()->toDateString(),
+            'time' => now()->toTimeString(),
+            'admin_id' => $adminId 
+        ]);
         $dataToEncode = [
             'ID' => $id->id,
-            'Visitor ID' => $id->visitor_id,
-            'Visitor Name' =>  $id->visitor_name,
-            'Homeowner ID' => $id->homeowner_id,
-            'Homeowner Name' => $id->homeowner_name,
-            'Admin ID' => $adminId->id,
-            'Admin Name' => $adminName,
-            'Date' => Carbon::now()->toDateString(),
-            'Time' =>Carbon::now()->toTimeString(),
-            'Destination' => $id->destination_person,
-            'Visit Members' => $id->visit_members,
-            'Visit Status' => $id->visit_status
         ];
-
-        // @dd( $dataToEncode);
-       // Encode data array as JSON
         $jsonToEncode = json_encode($dataToEncode);
-
-        $qrCode = QrCode::encoding('UTF-8')->size(300)->generate($jsonToEncode);
-        $id->qr_code = $qrCode;
+        // Update the qr_code field and save the model
+        $id->qr_code = QrCode::encoding('UTF-8')->size(300)->generate($jsonToEncode);
         $id->save();
-        return response()->json(['qr_code' => $dataToEncode],  200);
+        return response()->json(['qr_code' => $id],  200);
     }
 
 
