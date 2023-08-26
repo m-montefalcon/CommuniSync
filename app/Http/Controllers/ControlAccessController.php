@@ -85,63 +85,54 @@ class ControlAccessController extends Controller
     }
 
 
-    public function recordedMobile(Request $request){
+    public function recordedMobile(Request $request)
+    {
         $validatedData = $request->validate([
             'id' => ['required', 'integer'],
-            'visitor_id' => ['required', 'integer'],
-            'homeowner_id' => ['required', 'integer'],
-            'admin_id' => ['required', 'integer'],
-            'personnel_id' => ['required', 'integer'],
-            'visit_members' => ['required', 'array'],
+            'personnel_id' => ['required', 'integer']
         ]);
-
-        $controlAccessId = ControlAccess::find($validatedData['id']);
-        
-        $validatedData['date'] = Carbon::now()->toDateString();
-        $validatedData['time'] = Carbon::now()->toTimeString();
-        
-        $findPersonnelName = User::find($validatedData['homeowner_id']);
-        $personnelName = $findPersonnelName->first_name . ' ' . $findPersonnelName->last_name;
-        $validatedData['personnel_name'] = $personnelName;
-
-
-        $visitor = User::find($validatedData['visitor_id']);
-
-
+    
+        $controlAccessId = ControlAccess::findOrFail($validatedData['id']);
+        $visitor = User::findOrFail($controlAccessId->visitor_id);
+    
         $isVisitorBlocked = BlockList::where('user_name', $visitor->user_name)
-        ->orWhere(function($query) use ($visitor) {
-            $query->where('first_name', $visitor->first_name)
-                  ->where('last_name', $visitor->last_name);
-        })
-        ->orWhere('contact_number', $visitor->contact_number)
-        ->first();
-
-        $visit_members = $validatedData['visit_members'];
-
-        foreach($visit_members as $member){
+            ->orWhere(function ($query) use ($visitor) {
+                $query->where('first_name', $visitor->first_name)
+                    ->where('last_name', $visitor->last_name);
+            })
+            ->orWhere('contact_number', $visitor->contact_number)
+            ->first();
+    
+        $visit_members = json_decode($controlAccessId->visit_members, true);
+        $isMemberBlocked = false;
+    
+        foreach ($visit_members as $member) {
             list($firstName, $lastName) = explode(' ', $member);
-            $isMemberBlocked = BlockList::where('first_name', $firstName)
+            $isBlocked = BlockList::where('first_name', $firstName)
                 ->where('last_name', $lastName)
                 ->first();
-        
-            // If a blocked member is found, break the loop
-            
-        }
-
-        if ($isVisitorBlocked) {
-            $validatedData['visit_status'] = 5;
-            $controlAccessId->update($validatedData);
-            return response()->json(['message' => 'The user is blocked and the operation is denied.'], 403);
-        }
-
-        if ($isMemberBlocked) {
-            $validatedData['visit_status'] = 5;
-            $controlAccessId->update($validatedData);
-            return response()->json(['message' => 'A member is blocked and the operation is denied.'], 403);
-        }
-        $validatedData['visit_status'] = 4;
-        $controlAccessId->update($validatedData);
     
+            if ($isBlocked) {
+                $isMemberBlocked = true;
+                break;
+            }
+        }
+    
+        $visit_status = ($isVisitorBlocked || $isMemberBlocked) ? 5 : 4;
+    
+        $currentDate = now()->toDateString();
+        $currentTime = now()->toTimeString();
+    
+        $controlAccessId->update([
+            'date' => $currentDate,
+            'time' => $currentTime,
+            'visit_status' => $visit_status,
+            'personnel_id' => $validatedData['personnel_id']
+        ]);
+    
+        if ($visit_status == 5) {
+            return response()->json(['message' => 'The user or a member is blocked and the operation is denied.'], 403);
+        }
         return response()->json(['scanned' => true], 200);
     }
 
