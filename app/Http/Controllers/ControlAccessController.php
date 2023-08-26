@@ -138,8 +138,7 @@ class ControlAccessController extends Controller
 
 
     public function fetchAllRequestMobile($id){
-        $fetchRequests = ControlAccess::where('homeowner_id', $id)->get();
-    
+        $fetchRequests = ControlAccess::with('visitor')->where('homeowner_id', $id)->get();
         if ($fetchRequests->count() > 0){
             return response()->json(['message' => "Query Success", 'data' => $fetchRequests], 200);
         } else {
@@ -147,7 +146,7 @@ class ControlAccessController extends Controller
         }
     }
 
-
+    
     public function fetchSpecificRequestMobile($id){
         $fetchSpecificRequest = ControlAccess::find($id);
         if($fetchSpecificRequest){
