@@ -6,9 +6,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlockListController;
 use App\Http\Controllers\ControlAccessController;
+use App\Http\Controllers\PaymentRecordController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VerificationRequests;
 use App\Models\ControlAccess;
+use App\Models\PaymentRecord;
 use App\Models\VerificationRequest;
 
 /*
@@ -72,7 +74,9 @@ Route::post('users/blocklists/request/mobile', [BlockListController::class, 'req
 Route::put('admin/blocklists/validated/mobile/{id}', [BlockListController::class, 'validated'])->name('api.admin.blocklists.validated.mobile');
 
 
-
+//-----------------------------------------PAYMENT METHOD--------------------------------//
+Route::post('admin/payment/records/store', [PaymentRecordController::class, 'store'])->name('api.admin.payment.records.store');
+Route::get('admin/payment/records/get/all', [PaymentRecordController::class, 'getALl'])->name('api.admin.payment.records.get.all');
 
 //REGISTER
 

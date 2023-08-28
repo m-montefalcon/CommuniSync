@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('payment_records', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('admin_id');
+            $table->unsignedBigInteger('admin_id')->nullable();
             $table->foreign('admin_id')->references('id')->on('users');
-            $table->unsignedBigInteger('homeowner_id');
+            $table->unsignedBigInteger('homeowner_id')->nullable();
             $table->foreign('homeowner_id')->references('id')->on('users');
             $table->unsignedInteger('transaction_number')->unique();
             $table->date('payment_date');
