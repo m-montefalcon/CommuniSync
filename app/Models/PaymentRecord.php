@@ -21,5 +21,8 @@ class PaymentRecord extends Model
     {
         return $this->belongsTo(User::class, 'admin_id');
     }
-
+    public function homeowner()
+    {
+        return $this->belongsTo(User::class, 'homeowner_id');
+    }
 }

@@ -29,4 +29,8 @@ class PaymentRecordController extends Controller
 
     }
 
+    public function getId($id){
+        $fetchRequests = PaymentRecord::with('homeowner')->where('homeowner_id', $id)->get();
+        return response()->json([$fetchRequests, 200]);
+    }
 }
