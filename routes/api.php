@@ -77,6 +77,7 @@ Route::put('admin/blocklists/validated/mobile/{id}', [BlockListController::class
 //-----------------------------------------PAYMENT METHOD--------------------------------//
 Route::post('admin/payment/records/store', [PaymentRecordController::class, 'store'])->name('api.admin.payment.records.store');
 Route::get('admin/payment/records/get/all', [PaymentRecordController::class, 'getALl'])->name('api.admin.payment.records.get.all');
+Route::get('admin/payment/records/get/{id}', [PaymentRecordController::class, 'getId'])->name('api.admin.payment.records.get');
 
 //REGISTER
 

@@ -28,6 +28,7 @@ class VerifyCsrfToken extends Middleware
         'api/users/control/access/fetch/all/request/mobile/*',
         'api/users/control/access/fetch/specific/request/mobile/*',
         'api/admin/payment/records/store',
-        'api/admin/payment/records/get/all'        
+        'api/admin/payment/records/get/all',
+        'api/admin/payment/records/get/*'
     ];
 }
