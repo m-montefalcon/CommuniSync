@@ -23,14 +23,17 @@ class PaymentRecordController extends Controller
         return response()->json(['payment method'=> true, $validatedData, 200]);
     }
 
-    public function getALl(){
+    public function getALl()
+    {
         $fetchALlRecords = PaymentRecord::all();
         return response()->json([$fetchALlRecords, 200]);
 
     }
 
-    public function getId($id){
-        $fetchRequests = PaymentRecord::with('homeowner')->where('homeowner_id', $id)->get();
+    public function getId($id)
+    {
+        $fetchRequests = PaymentRecord::with('homeowner')->findOrFail($id);
         return response()->json([$fetchRequests, 200]);
     }
+    
 }
