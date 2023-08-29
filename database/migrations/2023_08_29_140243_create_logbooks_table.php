@@ -19,6 +19,8 @@ return new class extends Migration
             $table->foreign('homeowner_id')->references('id')->on('users');
             $table->unsignedBigInteger('visitor_id')->nullable();
             $table->foreign('visitor_id')->references('id')->on('users');
+            $table->json('visit_members');
+            $table->string('contact_number');
             $table->date('visit_date');
             $table->timestamps();
         });
