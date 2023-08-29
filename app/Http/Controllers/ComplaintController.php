@@ -99,7 +99,7 @@ class ComplaintController extends Controller
     
     
     public function fetch(){
-        $fetchALlComplaints =  Complaint::with('homeowner')->with('admin')->get();
+        $fetchALlComplaints =  Complaint::with('homeowner')->with('admin')->where('complaint_status', [1,2])->get();
         return response()->json(['data' => $fetchALlComplaints,], 200);
 
     }
