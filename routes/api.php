@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlockListController;
+use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\ControlAccessController;
 use App\Http\Controllers\PaymentRecordController;
 use App\Http\Controllers\UserController;
@@ -79,3 +80,8 @@ Route::post('admin/payment/records/store', [PaymentRecordController::class, 'sto
 Route::get('admin/payment/records/get/all', [PaymentRecordController::class, 'getALl'])->name('api.admin.payment.records.get.all');
 Route::get('admin/payment/records/get/{id}', [PaymentRecordController::class, 'getId'])->name('api.admin.payment.records.get');
 
+//-----------------------------------------PAYMENT RECORDS--------------------------------//
+Route::post('user/complaint/store/mobile', [ComplaintController::class, 'storeMobile'])->name('api.user.complaint.store');
+Route::get('admin/complaint/fetch', [ComplaintController::class, 'fetch'])->name('api.admin.complaint.fetch');
+Route::put('admin/complaint/update/{id}', [ComplaintController::class, 'update'])->name('api.admin.complaint.update');
+Route::put('admin/complaint/close/{id}', [ComplaintController::class, 'close'])->name('api.admin.complaint.close');
