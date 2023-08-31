@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
@@ -14,13 +15,14 @@ class UserController extends Controller
     {
         $validated = $request->validate([
             'user_name' => ['required', 'min:6', Rule::unique('users', 'user_name')->ignore($id)],
-            'email' => ['required', 'min:4', 'email'],
+            'email' => ['required'],
             'first_name' => ['required'],
             'last_name' => ['required'],
             'contact_number' => ['required'],
-            'manual_visit_option' => ['sometimes', 'in:0,1'],
-            'house_no' => ['nullable', 'required_with:family_member'],
-            'family_member' => ['nullable', 'required_with:house_no'],
+            'manual_visit_option' => ['nullable'],
+            'block_no' => 'required',
+            'lot_no' => 'required',
+            'family_member' => ['nullable'],
             'password' => ['sometimes', 'required', 'min:6'],
         ]);
     
@@ -30,9 +32,9 @@ class UserController extends Controller
     
         $id->update($validated);
     
-        $redirectRoute = $this->getRedirectRoute($request);
-
-        return redirect()->route($redirectRoute);
+        // $redirectRoute = $this->getRedirectRoute($request);
+        
+        return response()->json($id, 200);
     }
     
 
