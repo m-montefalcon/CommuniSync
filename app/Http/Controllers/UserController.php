@@ -38,10 +38,10 @@ class UserController extends Controller
     }
     
 
-    public function destroy(Request $request, User $id){
-        $id -> delete();
-        return redirect('/visitor');
-    }
+    // public function destroy(Request $request, User $id){
+    //     $id -> delete();
+    //     return redirect('/visitor');
+    // }
 
     public function getRedirectRoute(Request $request): string
     {
