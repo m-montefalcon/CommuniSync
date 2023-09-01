@@ -91,3 +91,4 @@ Route::put('admin/complaint/close/{id}', [ComplaintController::class, 'close'])-
 
 //-----------------------------------------MANUAL VISIT OPTIONS--------------------------------//
 Route::get('mvo/get/homeowner', [LogbookController::class, 'get'])->name('mvo.get.homeowner');
+Route::post('mvo/post/homeowner/{id}', [LogbookController::class, 'post'])->name('mvo.post.homeowner');

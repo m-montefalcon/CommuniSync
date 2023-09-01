@@ -34,6 +34,7 @@ class VerifyCsrfToken extends Middleware
         'api/user/complaint/store/mobile',
         'api/admin/complaint/fetch',
         'api/admin/complaint/update/*',
-        'api/admin/complaint/close/*'
+        'api/admin/complaint/close/*',
+        'api/mvo/post/homeowner/*'
     ];
 }

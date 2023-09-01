@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Logbook;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\User;
 
@@ -33,4 +34,21 @@ class LogbookController extends Controller
         return response()->json(['message' => 'Info', $findHomeowner , 200]);
 
     }
+
+    public function post(Request $request, $id){
+        $validatedData = $request->validate([
+            'personnel_id' => 'required',
+            'visit_members' => 'required|array',
+            'contact_number' => 'required'
+        ]);
+        $validatedData['visit_members'] = json_encode($validatedData['visit_members']);
+        $validatedData['visit_date'] = now()->toDateString();
+        $validatedData['homeowner_id'] = $id;
+        Logbook::create($validatedData);
+        // @dd($validatedData);
+        return response(['message' => 'success', $validatedData, 200]);
+
+
+    }
+    
 }
