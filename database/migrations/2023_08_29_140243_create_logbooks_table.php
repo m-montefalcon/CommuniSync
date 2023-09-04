@@ -21,8 +21,8 @@ return new class extends Migration
             $table->foreign('visitor_id')->references('id')->on('users');
             $table->unsignedBigInteger('personnel_id')->nullable();
             $table->foreign('personnel_id')->references('id')->on('users');
-            $table->json('visit_members');
-            $table->string('contact_number');
+            $table->json('visit_members')->nullable();
+            $table->string('contact_number')->nullable();
             $table->date('visit_date');
             $table->timestamps();
         });
