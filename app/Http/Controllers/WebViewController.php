@@ -64,7 +64,8 @@ class WebViewController extends Controller
 
     public function showHomeownerId($id){
         $homeowner = User::findorFail($id);
-    
+        $homeowner->family_member = json_decode($homeowner->family_member, true);
+
         return view('credentialsForm.editHomeownerForm', compact('homeowner'));
     }
 
