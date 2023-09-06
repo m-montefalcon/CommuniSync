@@ -48,8 +48,23 @@
           <label for="house_no">House Number:</label>
           <input type="text" id="house_no" name="house_no" value="{{$homeowner->house_no}}" required>
 
-          <label for="family_member">Family Member</label>
-          <input type="text" id="family_member" name="family_member" value="{{$homeowner->family_member}}" required>
+          <label for="family_member">Family Members:</label> <br/>
+            @php $familyMembers = old('family_member', $homeowner->family_member ?? []); @endphp
+            <div id="familyInputContainer">
+            @foreach($familyMembers as $index => $member)
+              <div class="inputField">
+                <input type="text" name="family_member[]" value="{{ $member }}" required>
+                <button type="button" class="removeMember">Delete</button>
+              </div>
+            @endforeach
+            </div>
+            <button type="button" id="addMember">Add member</button>
+            <br/>
+            <br/>
+
+
+
+
           
           <br>
 
@@ -71,3 +86,16 @@
 
 @include('partials.__footer')
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+    $(document).on("click", "#addMember", function() {
+      let newField = '<div class="inputField"><input type="text" name="family_member[]" required /><button type="button" class="removeMember">Delete</button></div>';
+      $(newField).appendTo("#familyInputContainer");
+    });
+
+    $(document).on("click", ".removeMember", function() {
+      $(this).parent('.inputField').remove();
+    });
+  });
+</script>
