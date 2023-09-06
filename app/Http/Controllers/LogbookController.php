@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Logbook;
+use App\Models\BlockList;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\User;
 
@@ -38,17 +39,30 @@ class LogbookController extends Controller
     public function post(Request $request, $id){
         $validatedData = $request->validate([
             'personnel_id' => 'required',
+            'contact_number' => 'required',
             'visit_members' => 'required|array',
             'contact_number' => 'required'
         ]);
         $validatedData['visit_members'] = json_encode($validatedData['visit_members']);
         $validatedData['visit_date'] = now()->toDateString();
         $validatedData['homeowner_id'] = $id;
+    
+    
+        foreach (json_decode($validatedData['visit_members'], true) as $member) {
+            list($firstName, $lastName) = explode(' ', $member);
+            $isBlocked = BlockList::where('first_name', $firstName)
+                ->where('last_name', $lastName)
+                ->first();
+    
+            if ($isBlocked) {
+                return response()->json(['message' => 'The user or a member is blocked and the operation is denied.'], 403);
+            }
+        }
+    
         Logbook::create($validatedData);
-        // @dd($validatedData);
-        return response(['message' => 'success', $validatedData, 200]);
-
-
+    
+        return response()->json(['message' => 'success', 'data' => $validatedData], 200);
     }
+    
     
 }
