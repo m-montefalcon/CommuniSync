@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\BlockList;
 use Illuminate\Http\Request;
 use App\Models\ControlAccess;
+use App\Models\Logbook;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -85,54 +86,66 @@ class ControlAccessController extends Controller
     }
 
 
-    public function recordedMobile(Request $request)
-    {
+    public function recordedMobile(Request $request){
         $validatedData = $request->validate([
             'id' => ['required', 'integer'],
             'personnel_id' => ['required', 'integer']
         ]);
-    
+        
+        
         $controlAccessId = ControlAccess::findOrFail($validatedData['id']);
         $visitor = User::findOrFail($controlAccessId->visitor_id);
-    
-        $isVisitorBlocked = BlockList::where('user_name', $visitor->user_name)
-            ->orWhere(function ($query) use ($visitor) {
-                $query->where('first_name', $visitor->first_name)
-                    ->where('last_name', $visitor->last_name);
-            })
-            ->orWhere('contact_number', $visitor->contact_number)
-            ->first();
-    
+
+        $isVisitorBlocked = BlockList::where(function ($query) use ($visitor) {
+            $query->where('user_name', $visitor->user_name)
+                ->orWhere('contact_number', $visitor->contact_number)
+                ->orWhere(function ($query) use ($visitor) {
+                    $query->where('first_name', $visitor->first_name)
+                        ->where('last_name', $visitor->last_name);
+                });
+        })->first();
+
         $visit_members = json_decode($controlAccessId->visit_members, true);
-        $isMemberBlocked = false;
-    
+        $firstNames = [];
+        $lastNames = [];
+
         foreach ($visit_members as $member) {
             list($firstName, $lastName) = explode(' ', $member);
-            $isBlocked = BlockList::where('first_name', $firstName)
-                ->where('last_name', $lastName)
-                ->first();
-    
-            if ($isBlocked) {
-                $isMemberBlocked = true;
-                break;
-            }
+            $firstNames[] = $firstName;
+            $lastNames[] = $lastName;
         }
-    
+
+        $isMemberBlocked = BlockList::whereIn('first_name', $firstNames)
+            ->whereIn('last_name', $lastNames)
+            ->exists();
+
         $visit_status = ($isVisitorBlocked || $isMemberBlocked) ? 5 : 4;
-    
-        $currentDate = now()->toDateString();
-        $currentTime = now()->toTimeString();
-    
+
+        $currentDateTime = now();
+
         $controlAccessId->update([
-            'date' => $currentDate,
-            'time' => $currentTime,
+            'date' => $currentDateTime->toDateString(),
+            'time' => $currentDateTime->toTimeString(),
             'visit_status' => $visit_status,
             'personnel_id' => $validatedData['personnel_id']
         ]);
-    
+
+        $entries = [];
+        $entries[] = [
+            'homeowner_id' => $controlAccessId->homeowner_id,
+            'admin_id' => $controlAccessId->admin_id,
+            'visitor_id' => $controlAccessId->visitor_id,
+            'personnel_id' => $controlAccessId->personnel_id,
+            'visit_date' => $currentDateTime->toDateString(),
+            'created_at' => $currentDateTime,
+            'updated_at' => $currentDateTime
+        ];
+        Logbook::insert($entries);
+
         if ($visit_status == 5) {
             return response()->json(['message' => 'The user or a member is blocked and the operation is denied.'], 403);
         }
+
         return response()->json(['scanned' => true], 200);
     }
 
