@@ -3,28 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Validated;
+use App\Http\Requests\UserRequests\UserUpdateRequest;
 
 class UserController extends Controller
 {
     
-    public function update(Request $request, User $id)
+    public function update(UserUpdateRequest $request, User $id)
     {
-        $validated = $request->validate([
-            'user_name' => ['required', 'min:6', Rule::unique('users', 'user_name')->ignore($id)],
-            'email' => ['required'],
-            'first_name' => ['required'],
-            'last_name' => ['required'],
-            'contact_number' => ['required'],
-            'manual_visit_option' => ['nullable'],
-            'block_no' => 'required',
-            'lot_no' => 'required',
-            'family_member' => ['nullable'],
-            'password' => ['sometimes', 'required', 'min:6'],
-        ]);
+        $validated = $request->validated();
     
         if ($request->has('password')) {
             $validated['password'] = Hash::make($request->input('password'));
@@ -32,9 +22,9 @@ class UserController extends Controller
     
         $id->update($validated);
     
-        // $redirectRoute = $this->getRedirectRoute($request);
+        $redirectRoute = $this->getRedirectRoute($request);
         
-        return response()->json($id, 200);
+        // return response()->json($id, 200);
     }
     
 
