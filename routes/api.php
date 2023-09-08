@@ -55,7 +55,8 @@ Route::post('/verification/requests/store', [VerificationRequests::class, 'mobil
 
 //-------------------------------------- USER MOBILE APIS--------------------------------------------//
 Route::post('/register/store/mobile', [AuthController::class, 'mobileStore'])->name('api.register.store.mobile');
-Route::post('/login/store/mobile', [AuthController::class, 'loginMobile'])->name('api.logi.store.mobile');
+Route::post('/login/store/mobile', [AuthController::class, 'loginMobile'])->name('api.login.store.mobile');
+Route::post('/logout/mobile', [AuthController::class, 'logoutMobile'])->name('api.logout.mobile');
 
 //-----------------------------------------ANNOUNCEMENT FEATURE--------------------------------//
 Route::post('/announcement/store', [AnnouncementController::class, 'announcementStore'])->name('announcementStore');
