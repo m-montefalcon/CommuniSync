@@ -92,6 +92,15 @@ class AuthController extends Controller
             return response()->json(['message' => 'Invalid credentials'], 401);
         }
     }
+
+    public function logoutMobile(Request $request)
+    {
+        $request->user()->token()->revoke();
+        return response()->json([
+            'message' => 'Successfully logged out'
+        ]);
+    }
+
     
     
 }
