@@ -12,6 +12,13 @@ class VerifyCsrfToken extends Middleware
      * @var array<int, string>
      */
     protected $except = [
+        /** 
+         * AUTH WEB AND MOBILE
+        */
+        'api/register/store',
+        'api/register/store/mobile',
+        'api/login/store',
+        'api/login/store/mobile',
         // 'api/verification/requests/store',
         // 'api/approved/verification/*'
         'api/update/*',
@@ -36,5 +43,6 @@ class VerifyCsrfToken extends Middleware
         'api/admin/complaint/update/*',
         'api/admin/complaint/close/*',
         'api/mvo/post/homeowner/*'
+        
     ];
 }
