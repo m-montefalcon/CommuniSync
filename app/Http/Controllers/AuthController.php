@@ -1,28 +1,20 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-
-
+use App\Http\Requests\AuthRequests\UserAuthStoreRequest;
+use App\Http\Requests\AuthRequests\UserLoginRequest;
 
 class AuthController extends Controller
 {
-    public function store(Request $request){
-        $validated = $request->validate([
-            'user_name' => ['required', 'min:6', Rule::unique('users', 'user_name')],
-            'email' => ['required', 'min:4',   'email'],
-            'first_name' => ['required'],
-            'last_name' => ['required'],
-            'contact_number' => ['required'], 
-            'photo' => ['image', 'nullable'],
-            'password' => ['required', 'min:6'],
-            'role' => ['required']
-            
-        ]);
+    public function store(UserAuthStoreRequest $request){
+        $validated = $request->validated();
+
         $imagePath = null;
         if ($request->hasFile('photo')) {
             $imagePath = $request->file('photo')->store('user_profile', 'public');
@@ -31,14 +23,14 @@ class AuthController extends Controller
         
         $validated['password'] = Hash::make($validated['password']);    
         User::create($validated);
-        return redirect('/');
+        // return redirect('/');
+        return response()->json([
+            'message' => 'User registered successfully'// Pass the user data to the response
+        ]);    
     }
 
-    public function login(Request $request) {
-        $validated = $request->validate([
-            'user_name' => 'required',
-            'password' => 'required'
-        ]);
+    public function login(UserLoginRequest $request) {
+        $validated = $request->validated();
     
         $user = User::where('user_name', $validated['user_name'])->first();
     
@@ -49,6 +41,7 @@ class AuthController extends Controller
                 $request->session()->regenerate();
     
                 return redirect('/home');
+                
             }
         }
     
@@ -63,19 +56,10 @@ class AuthController extends Controller
         return redirect('/');
     }
 
-    //MOBILE
-    public function mobileStore(Request $request)
+//-----------------------------------------MOBILE----------------------------------------//
+    public function mobileStore(UserAuthStoreRequest $request)
     {
-        $validated = $request->validate([
-            'user_name' => ['required', 'min:6', Rule::unique('users', 'user_name')],
-            'email' => ['required', 'min:4', 'email'],
-            'first_name' => ['required'],
-            'last_name' => ['required'],
-            'contact_number' => ['required'],
-            'photo' => ['image', 'nullable'],
-            'password' => ['required', 'min:6'],
-        ]);
-
+        $validated = $request->validated();
         $imagePath = null;
         if ($request->hasFile('photo')) {
             $imagePath = $request->file('photo')->store('user_profile', 'public');
@@ -87,24 +71,21 @@ class AuthController extends Controller
         $user = User::create($validated);
         return response()->json([
             'message' => 'User registered successfully',
-            'user' => $user // Pass the user data to the response
+            'user' => $user,
+             200// Pass the user data to the response
         ]);    
     }
 
-    public function loginMobile(Request $request)
+    public function loginMobile(UserLoginRequest $request)
     {
-        $credentials = $request->validate([
-            'user_name' => ['required'],
-            'password' => ['required'],
-        ]);
-    
-        if (Auth::attempt($credentials)) {
+        $validated = $request->validated();
+        if (Auth::attempt( $validated)) {
             // Authentication successful
             $user = Auth::user(); // Retrieve the authenticated user
-    
             return response()->json([
                 'message' => 'Login successful',
-                'user' => $user // Pass the user data to the response
+                'user' => $user,
+                 200 // Pass the user data to the response
             ]);
         } else {
             // Authentication failed
