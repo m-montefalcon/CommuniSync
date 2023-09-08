@@ -23,10 +23,10 @@ class AuthController extends Controller
         
         $validated['password'] = Hash::make($validated['password']);    
         User::create($validated);
-        // return redirect('/');
-        return response()->json([
-            'message' => 'User registered successfully'// Pass the user data to the response
-        ]);    
+        return redirect('/');
+        // return response()->json([
+        //     'message' => 'User registered successfully'// Pass the user data to the response
+        // ]);    
     }
 
     public function login(UserLoginRequest $request) {
