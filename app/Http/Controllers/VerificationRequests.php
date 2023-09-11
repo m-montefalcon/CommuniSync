@@ -6,19 +6,15 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\VerificationRequest;
 use Illuminate\Support\Facades\Redirect;
+use App\Http\Requests\VerificationRequest\UserVerificationRequest;
 
 class VerificationRequests extends Controller
 {
  
 
-    public function mobileStore(Request $request)
+    public function mobileStore(UserVerificationRequest $request)
     {
-        $validatedData = $request->validate([
-            'user_id' => 'required|integer',
-            'family_member' => 'required|array',
-            'block_no' => 'integer|required',
-            'lot_no' => 'integer|required',
-        ]);
+        $validatedData = $request->validated();
         $user = User::findOrFail($validatedData['user_id']);
         $verificationRequest = VerificationRequest::create([
             'user_id' => $user->id,
@@ -41,6 +37,8 @@ class VerificationRequests extends Controller
         ]);
         $id->delete();
         return redirect()->route('verificationRequests');
+        // return response()->json($user, 200);
+
     }
     
 
