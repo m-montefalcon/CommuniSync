@@ -86,7 +86,7 @@ class WebViewController extends Controller
     }
 
     public function show(){
-        $announcements = Announcement::all();
+        $announcements = Announcement::with('admin')->get();
         return view('announcement.announcement', compact('announcements'));
     }
 

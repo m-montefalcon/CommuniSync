@@ -19,7 +19,7 @@ class Announcement extends Model
         'role'
     ];
     //IMPLEMENTING RELATIONSHIP TO THE USER DATABASE
-    public function user()
+    public function admin()
     {
         return $this->belongsTo(User::class, 'admin_id',);
     }
