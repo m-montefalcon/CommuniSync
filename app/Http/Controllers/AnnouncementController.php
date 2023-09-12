@@ -6,20 +6,16 @@ use Carbon\Carbon;
 use App\Models\Announcement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\AnnouncementRequests\UserAnnouncementRequest;
 
 class AnnouncementController extends Controller
 {
-    public function announcementStore(Request $request){
-        $validatedData = $request->validate([
-            'announcement_title' => 'required',
-            'announcement_description' => 'required',
-            'announcement_photo' => ['required', 'nullable'],
-            'role' => 'required|array'
-        ]);
+    public function announcementStore(UserAnnouncementRequest $request){
+        $validatedData = $request -> validated();
     
         $validatedData['announcement_date'] = Carbon::now();
         $validatedData['admin_id'] = Auth::user()->id;
-    
+        $validatedData['role'] = json_encode($validatedData['role']);
         Announcement::create($validatedData);
     
         return redirect()->route('announcement');
