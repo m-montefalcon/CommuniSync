@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Complaints\UserComplaintStoreRequest;
+use App\Http\Requests\Complaints\UserComplaintUpdateRequest;
 use App\Models\Complaint;
 use Illuminate\Contracts\Support\ValidatedData;
 use Illuminate\Http\Request;
@@ -9,13 +11,8 @@ use Illuminate\Support\Facades\Auth;
 
 class ComplaintController extends Controller
 {
-    public function storeMobile(Request $request){
-        $validatedData = $request->validate([
-            'homeowner_id' => ['required', 'integer'],
-            'complaint_title' => ['required'],
-            'complaint_desc' => ['required'],
-            'complaint_photo' => ['nullable']
-        ]);
+    public function storeMobile(UserComplaintStoreRequest $request){
+        $validatedData = $request -> validated();
         $validatedData['admin_id'] = Auth::id();
 
         $validatedData['complaint_date'] = now()->toDateString();
@@ -26,11 +23,10 @@ class ComplaintController extends Controller
     }
 
 
-    public function update(Request $request, Complaint $id)
+    public function update(UserComplaintUpdateRequest $request, Complaint $id)
     {
-        $validatedData = $request->validate([
-            'complaint_updates' => ['required'],
-        ]);
+        $validatedData = $request->validated();
+
     
         // Retrieve the complaint record and check if it exists
         if (!$id) {
@@ -60,11 +56,9 @@ class ComplaintController extends Controller
     }
     
   
-    public function close(Request $request, Complaint $id)
+    public function close(UserComplaintUpdateRequest $request, Complaint $id)
     {
-        $validatedData = $request->validate([
-            'complaint_updates' => ['required'],
-        ]);
+        $validatedData = $request->validated();
     
         // Retrieve the complaint record and check if it exists
         if (!$id) {
@@ -99,7 +93,7 @@ class ComplaintController extends Controller
     
     
     public function fetch(){
-        $fetchALlComplaints =  Complaint::with('homeowner')->with('admin')->where('complaint_status', [1,2])->get();
+        $fetchALlComplaints =  Complaint::with('homeowner')->with('admin')->where('complaint_status', 1)->orWhere('complaint_status', 2)->get();
         return response()->json(['data' => $fetchALlComplaints,], 200);
 
     }
