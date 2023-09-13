@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ControlAccess\UserAccessRequest;
+use App\Http\Requests\ControlAccess\UserRecordControlAccessRequest;
+use App\Http\Requests\ControlAccess\UserRequestControllAccessRequest;
 use App\Models\User;
 use App\Models\BlockList;
 use Illuminate\Http\Request;
@@ -32,14 +35,9 @@ class ControlAccessController extends Controller
 
 
     //REQUEST ACCESS VISITOR ONLY
-    public function requestMobile(Request $request) 
+    public function requestMobile(UserRequestControllAccessRequest $request) 
     {
-        $validatedData = $request->validate([
-            'visitor_id' => ['required', 'integer'],
-            'homeowner_id' => ['required', 'integer'],
-            'destination_person' => ['required'],
-            'visit_members' => ['nullable', 'array'],
-        ]);
+        $validatedData = $request->validated();
         $validatedData['visit_status'] = 1;
         $validatedData['date'] = now()->toDateString();
         $validatedData['time'] = now()->toTimeString();
@@ -49,11 +47,9 @@ class ControlAccessController extends Controller
     }
 
     //HOMEOWNER ACCEPT TO VISITOR
-    public function acceptMobile(Request $request) 
+    public function acceptMobile(UserAccessRequest $request) 
     {
-        $validatedData = $request->validate([
-            'id' => ['required', 'integer']
-        ]);
+        $validatedData = $request->validated();
         $id = ControlAccess::findOrFail($validatedData['id']);
         $validatedData['visit_status'] = 2;
         $validatedData['date'] = now()->toDateString();
@@ -86,12 +82,8 @@ class ControlAccessController extends Controller
     }
 
 
-    public function recordedMobile(Request $request){
-        $validatedData = $request->validate([
-            'id' => ['required', 'integer'],
-            'personnel_id' => ['required', 'integer']
-        ]);
-        
+    public function recordedMobile(UserRecordControlAccessRequest $request){
+        $validatedData = $request->validated();
         
         $controlAccessId = ControlAccess::findOrFail($validatedData['id']);
         $visitor = User::findOrFail($controlAccessId->visitor_id);
