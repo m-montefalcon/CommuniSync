@@ -48,4 +48,9 @@ class ControlAccess extends Model
     {
         return $this->belongsTo(User::class, 'personnel_id');
     }
+
+    public function scopeFetchRequests($query, $id){
+        return $query ->where('homeowner_id', $id)
+                      ->get();
+    }
 }
