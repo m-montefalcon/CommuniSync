@@ -38,20 +38,20 @@ class WebViewController extends Controller
     }
 
     public function showVisitor(){
-        $visitors = User::where('role', 1)->get();
+        $visitors = User::checksRole(1);
         return view('content.visitor', compact('visitors'));
         
     }
     public function showHomeowner(){
-        $homeowners = User::where('role', 2)->get();
+        $homeowners = User::checksRole(2);
         return view('content.homeowner', compact('homeowners'));
     }
     public function showPersonnel(){
-        $personnels = User::where('role', 3)->get();
+        $personnels = User::checksRole(3);
         return view('content.personnel', compact('personnels'));
     }
     public function showAdmin(){
-        $admins = User::where('role', 4)->get();
+        $admins = User::checksRole(4);
         return view('content.admin', compact('admins'));
     }
 
