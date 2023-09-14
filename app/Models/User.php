@@ -57,5 +57,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(Announcement::class);
     }
+
+    public function scopeCheckMvo($query, $firstName, $lastName, $role){
+        return $query->where('first_name', $firstName)
+                     ->where('last_name', $lastName)
+                     ->where('role', $role)
+                     ->where('manual_visit_option', 1)
+                     ->get();
+    }
 }
 
