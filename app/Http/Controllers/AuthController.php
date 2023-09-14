@@ -32,7 +32,7 @@ class AuthController extends Controller
     public function login(UserLoginRequest $request) {
         $validated = $request->validated();
     
-        $user = User::checksAdmin($validated['user_name'], 4);
+        $user = User::checksRole($validated['user_name'], 4);
     
         if ($user) {
             $credentials = $request->only('user_name', 'password');
