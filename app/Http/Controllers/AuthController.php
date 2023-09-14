@@ -32,9 +32,9 @@ class AuthController extends Controller
     public function login(UserLoginRequest $request) {
         $validated = $request->validated();
     
-        $user = User::where('user_name', $validated['user_name'])->first();
+        $user = User::checksAdmin($validated['user_name'], 4);
     
-        if ($user && $user->role == 4) {
+        if ($user) {
             $credentials = $request->only('user_name', 'password');
     
             if (Auth::attempt($credentials)) {
