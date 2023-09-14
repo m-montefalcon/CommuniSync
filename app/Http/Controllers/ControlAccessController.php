@@ -88,14 +88,8 @@ class ControlAccessController extends Controller
         $controlAccessId = ControlAccess::findOrFail($validatedData['id']);
         $visitor = User::findOrFail($controlAccessId->visitor_id);
 
-        $isVisitorBlocked = BlockList::where(function ($query) use ($visitor) {
-            $query->where('user_name', $visitor->user_name)
-                ->orWhere('contact_number', $visitor->contact_number)
-                ->orWhere(function ($query) use ($visitor) {
-                    $query->where('first_name', $visitor->first_name)
-                        ->where('last_name', $visitor->last_name);
-                });
-        })->first();
+        $isVisitorBlocked = BlockList::visitorBlocked($visitor)->first();
+
 
         $visit_members = json_decode($controlAccessId->visit_members, true);
         $firstNames = [];
@@ -106,10 +100,9 @@ class ControlAccessController extends Controller
             $firstNames[] = $firstName;
             $lastNames[] = $lastName;
         }
+        $isMemberBlocked = BlockList::memberBlock($firstNames, $lastNames);
 
-        $isMemberBlocked = BlockList::whereIn('first_name', $firstNames)
-            ->whereIn('last_name', $lastNames)
-            ->exists();
+    
 
         $visit_status = ($isVisitorBlocked || $isMemberBlocked) ? 5 : 4;
 
@@ -143,7 +136,7 @@ class ControlAccessController extends Controller
 
 
     public function fetchAllRequestMobile($id){
-        $fetchRequests = ControlAccess::with('visitor')->where('homeowner_id', $id)->get();
+        $fetchRequests = ControlAccess::with('visitor', 'homeowner')->fetchRequests($id);
         if ($fetchRequests->count() > 0){
             return response()->json(['message' => "Query Success", 'data' => $fetchRequests], 200);
         } else {
