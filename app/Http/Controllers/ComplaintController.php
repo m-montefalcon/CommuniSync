@@ -93,7 +93,9 @@ class ComplaintController extends Controller
     
     
     public function fetch(){
-        $fetchALlComplaints =  Complaint::with('homeowner')->with('admin')->where('complaint_status', 1)->orWhere('complaint_status', 2)->get();
+        // $fetchALlComplaints =  Complaint::with('homeowner')->with('admin')->where('complaint_status', 1)->orWhere('complaint_status', 2)->get();
+        $fetchALlComplaints =  Complaint::status(1, 2)->with('homeowner', 'admin')->get();
+
         return response()->json(['data' => $fetchALlComplaints,], 200);
 
     }
