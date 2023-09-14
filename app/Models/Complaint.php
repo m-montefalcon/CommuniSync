@@ -27,5 +27,8 @@ class Complaint extends Model
     {
         return $this->belongsTo(User::class, 'admin_id');
     }
-    
+    public function scopeStatus($query, $status1, $status2){
+        return  $query->where('complaint_status', $status1)
+                      ->orWhere('complaint_status', $status2);
+    }
 }
