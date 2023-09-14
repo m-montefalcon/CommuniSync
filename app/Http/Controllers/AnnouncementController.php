@@ -25,7 +25,7 @@ class AnnouncementController extends Controller
         $role = $request->input('role');
 
         // Fetch announcements based on the user's role
-        $announcements = Announcement::with('user')->whereJsonContains('role', [$role])->get();
+        $announcements = Announcement::withRole($role)->with('admin')->get();
         return response()->json($announcements);
     }
 }

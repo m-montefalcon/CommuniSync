@@ -23,5 +23,9 @@ class Announcement extends Model
     {
         return $this->belongsTo(User::class, 'admin_id',);
     }
+
+    public function scopeWithRole($query, $role){
+        return $query->whereJsonContains('role', [$role]);
+    }
     
 }
