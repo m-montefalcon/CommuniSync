@@ -23,9 +23,7 @@ class ControlAccessController extends Controller
     {
         try {
             $username = $request->input('username');
-            $users = User::where('user_name', 'LIKE', "%{$username}%")
-                         ->where('role', 2)
-                         ->get();
+            $users = User::checksRole($username, 2);
 
             return response()->json($users, 200);
         } catch (\Exception $e) {
