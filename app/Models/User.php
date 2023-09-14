@@ -65,11 +65,16 @@ class User extends Authenticatable
                      ->where('manual_visit_option', 1)
                      ->get();
     }
-    public function scopeChecksRole($query, $username, $role){
+    public function scopeChecksRoleWithUsername($query, $username, $role){
         return $query->where('user_name', $username)
                      ->where('role', $role)
                      ->first();
 
+    }
+    public function scopeChecksRole($query, $role){
+        return $query->where('role', $role)
+                     ->get();
+                     
     }
 
 }

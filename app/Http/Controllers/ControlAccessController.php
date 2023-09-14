@@ -23,7 +23,7 @@ class ControlAccessController extends Controller
     {
         try {
             $username = $request->input('username');
-            $users = User::checksRole($username, 2);
+            $users = User::checksRoleWithUsername($username, 2);
 
             return response()->json($users, 200);
         } catch (\Exception $e) {
