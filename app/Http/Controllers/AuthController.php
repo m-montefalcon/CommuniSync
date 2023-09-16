@@ -79,19 +79,26 @@ class AuthController extends Controller
     public function loginMobile(UserLoginRequest $request)
     {
         $validated = $request->validated();
-        if (Auth::attempt( $validated)) {
+        
+        if (Auth::attempt($validated))
+        {
             // Authentication successful
             $user = Auth::user(); // Retrieve the authenticated user
+            $token = $user->createToken('mobile')->plainTextToken; // Create a token for the user
+    
             return response()->json([
                 'message' => 'Login successful',
                 'user' => $user,
-                 200 // Pass the user data to the response
-            ]);
-        } else {
+                'token' => $token, // Return the token
+            ], 200);
+        }
+        else
+        {
             // Authentication failed
             return response()->json(['message' => 'Invalid credentials'], 401);
         }
     }
+    
 
     public function logoutMobile(Request $request)
     {
