@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Termwind\Components\Dd;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\AuthRequests\UserAuthStoreRequest;
+use Illuminate\Support\Facades\Session;
 use App\Http\Requests\AuthRequests\UserLoginRequest;
+use App\Http\Requests\AuthRequests\UserAuthStoreRequest;
+
 
 class AuthController extends Controller
 {
@@ -29,7 +33,9 @@ class AuthController extends Controller
         // ]);    
     }
 
-    public function login(UserLoginRequest $request) {
+
+    public function login(UserLoginRequest $request)
+    {
         $validated = $request->validated();
     
         $user = User::checksRoleWithUsername($validated['user_name'], 4);
@@ -40,8 +46,11 @@ class AuthController extends Controller
             if (Auth::attempt($credentials)) {
                 $request->session()->regenerate();
     
-                return redirect('/home');
+                // Generate an API token using Sanctum
+                $user->tokens()->delete(); // Delete existing tokens, if any
+                $token = $user->createToken('web-token')->plainTextToken;
                 
+                return redirect('/home')->with(['token' => $token]);
             }
         }
     
@@ -49,13 +58,22 @@ class AuthController extends Controller
             'user_name' => 'Access denied. The provided credentials do not match our records.',
         ])->onlyInput('user_name');
     }
-    public function logout(Request $request){
-        auth()->logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return redirect('/');
-    }
+    
+    public function logout(Request $request)
+    {
+        // Clear the user's authentication state
+        Auth::logout();
+        Session::flush();
 
+        // Invalidate the session
+        $request->session()->invalidate();
+    
+        // Regenerate the CSRF token
+        $request->session()->regenerateToken();
+    
+        // Redirect the user to the home page
+        return redirect('/')->with('success', 'You have been logged out successfully.');
+    }
 //-----------------------------------------MOBILE----------------------------------------//
     public function mobileStore(UserAuthStoreRequest $request)
     {
@@ -82,8 +100,8 @@ class AuthController extends Controller
         
         if (Auth::attempt($validated))
         {
-            // Authentication successful
-            $user = Auth::user(); // Retrieve the authenticated user
+           /** @var \App\Models\User $user **/
+            $user = Auth::user();
             $token = $user->createToken('mobile')->plainTextToken; // Create a token for the user
     
             return response()->json([
@@ -98,6 +116,7 @@ class AuthController extends Controller
             return response()->json(['message' => 'Invalid credentials'], 401);
         }
     }
+    
     
 
     public function logoutMobile(Request $request)
