@@ -37,59 +37,58 @@ use App\Models\VerificationRequest;
 //destroy - delete a data
 //auth - authenticate user
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
-//--------------------------------------USER APIS--------------------------------------------//
+
+// Public routes
 Route::post('/register/store', [AuthController::class, 'store'])->name('api.register.store');
 Route::post('/login/store', [AuthController::class, 'login'])->name('api.login.store');
-Route::post('/logout/store', [AuthController::class, 'logout'])->middleware('auth')->name('api.logout.store');
-Route::put('/update/{id}', [UserController::class, 'update'])->name('api.update');
-Route::delete('/delete/{id}', [UserController::class, 'destroy'])->middleware('auth')->name('api.delete');
+// Other public routes...
+Route::post('/logout/store', [AuthController::class, 'logout'])->name('api.logout.store');
 
+// Routes that require authentication
+Route::middleware('auth:sanctum')->group(function () {
+    // User APIs
+    Route::put('/update/{id}', [UserController::class, 'update'])->name('api.update');
+    Route::delete('/delete/{id}', [UserController::class, 'destroy'])->name('api.delete');
 
-//--------------------------------------USER VERIFICATION--------------------------------------------//
-Route::put('/approved/verification/{id}', [VerificationRequests::class, 'update'])->name('api.approved.verification');
-Route::post('/verification/requests/store', [VerificationRequests::class, 'mobileStore'])->name('api.verification.requests.mobile');
+    // User verification
+    Route::put('/approved/verification/{id}', [VerificationRequests::class, 'update'])->name('api.approved.verification');
+    Route::post('/verification/requests/store', [VerificationRequests::class, 'mobileStore'])->name('api.verification.requests.mobile');
 
-//-------------------------------------- USER MOBILE APIS--------------------------------------------//
-Route::post('/register/store/mobile', [AuthController::class, 'mobileStore'])->name('api.register.store.mobile');
-Route::post('/login/store/mobile', [AuthController::class, 'loginMobile'])->name('api.login.store.mobile');
-Route::post('/logout/mobile', [AuthController::class, 'logoutMobile'])->name('api.logout.mobile');
+    // User mobile APIs
+    Route::post('/register/store/mobile', [AuthController::class, 'mobileStore'])->name('api.register.store.mobile');
+    Route::post('/login/store/mobile', [AuthController::class, 'loginMobile'])->name('api.login.store.mobile');
+    Route::post('/logout/mobile', [AuthController::class, 'logoutMobile'])->name('api.logout.mobile');
 
-//-----------------------------------------ANNOUNCEMENT FEATURE--------------------------------//
-Route::post('/announcement/store', [AnnouncementController::class, 'announcementStore'])->name('announcementStore');
-Route::get('/announcement/fetch/mobile', [AnnouncementController::class, 'announcementFetchMobile'])->name('announcementFetchMobile');
+    // Announcement feature
+    Route::post('/announcement/store', [AnnouncementController::class, 'announcementStore'])->name('announcementStore');
+    Route::get('/announcement/fetch/mobile', [AnnouncementController::class, 'announcementFetchMobile'])->name('announcementFetchMobile');
 
+    // Control access feature
+    Route::get('users/control/access/search/mobile', [ControlAccessController::class, 'searchMobile'])->name('api.users.control.access.search.mobile');
+    Route::post('users/control/access/request/mobile', [ControlAccessController::class, 'requestMobile'])->name('api.users.control.access.request.mobile');
+    Route::put('users/control/access/accept/mobile', [ControlAccessController::class, 'acceptMobile'])->name('api.users.control.access.accept.mobile');
+    Route::put('admin/control/access/validated/{id}', [ControlAccessController::class, 'validated'])->name('api.admin.control.access.validated');
+    Route::put('users/control/access/recorded/mobile', [ControlAccessController::class, 'recordedMobile'])->name('api.users.control.access.recorded.mobile');
+    Route::get('users/control/access/fetch/all/request/mobile/{id}', [ControlAccessController::class, 'fetchAllRequestMobile'])->name('api.users.control.access.fetch.all.request.mobile');
+    Route::get('users/control/access/fetch/specific/request/mobile/{id}', [ControlAccessController::class, 'fetchSpecificRequestMobile'])->name('api.users.control.access.fetch.specific.request.mobile');
 
-//-----------------------------------------CONTROL ACCESS FEATURE--------------------------------//
-Route::get('users/control/access/search/mobile', [ControlAccessController::class, 'searchMobile'])->name('api.users.control.access.search.mobile');
-Route::post('users/control/access/request/mobile', [ControlAccessController::class, 'requestMobile'])->name('api.users.control.access.request.mobile');
-Route::put('users/control/access/accept/mobile', [ControlAccessController::class, 'acceptMobile'])->name('api.users.control.access.accept.mobile');
-Route::put('admin/control/access/validated/{id}', [ControlAccessController::class, 'validated'])->name('api.admin.control.access.validated');
-Route::put('users/control/access/recorded/mobile', [ControlAccessController::class, 'recordedMobile'])->name('api.users.control.access.recorded.mobile');
-Route::get('users/control/access/fetch/all/request/mobile/{id}', [ControlAccessController::class, 'fetchAllRequestMobile'])->name('api.users.control.access.fetch.all.request.mobile');
-Route::get('users/control/access/fetch/specific/request/mobile/{id}', [ControlAccessController::class, 'fetchSpecificRequestMobile'])->name('api.users.control.access.fetch.specific.request.mobile');
+    // Blocklist feature
+    Route::post('users/blocklists/request/mobile', [BlockListController::class, 'request'])->name('api.users.blocklists.request.mobile');
+    Route::put('admin/blocklists/validated/mobile/{id}', [BlockListController::class, 'validated'])->name('api.admin.blocklists.validated.mobile');
 
+    // Payment records
+    Route::post('admin/payment/records/store', [PaymentRecordController::class, 'store'])->name('api.admin.payment.records.store');
+    Route::get('admin/payment/records/get/all', [PaymentRecordController::class, 'getALl'])->name('api.admin.payment.records.get.all');
+    Route::get('admin/payment/records/get/{id}', [PaymentRecordController::class, 'getId'])->name('api.admin.payment.records.get');
 
-//-----------------------------------------BLOCKLIST FEATURE--------------------------------//
-Route::post('users/blocklists/request/mobile', [BlockListController::class, 'request'])->name('api.users.blocklists.request.mobile');
-Route::put('admin/blocklists/validated/mobile/{id}', [BlockListController::class, 'validated'])->name('api.admin.blocklists.validated.mobile');
+    // Complaint feature
+    Route::post('user/complaint/store/mobile', [ComplaintController::class, 'storeMobile'])->name('api.user.complaint.store');
+    Route::get('admin/complaint/fetch', [ComplaintController::class, 'fetch'])->name('api.admin.complaint.fetch');
+    Route::put('admin/complaint/update/{id}', [ComplaintController::class, 'update'])->name('api.admin.complaint.update');
+    Route::put('admin/complaint/close/{id}', [ComplaintController::class, 'close'])->name('api.admin.complaint.close');
 
-
-//-----------------------------------------PAYMENT RECORDS--------------------------------//
-Route::post('admin/payment/records/store', [PaymentRecordController::class, 'store'])->name('api.admin.payment.records.store');
-Route::get('admin/payment/records/get/all', [PaymentRecordController::class, 'getALl'])->name('api.admin.payment.records.get.all');
-Route::get('admin/payment/records/get/{id}', [PaymentRecordController::class, 'getId'])->name('api.admin.payment.records.get');
-
-//-----------------------------------------COMPLAINT FEATURE--------------------------------//
-Route::post('user/complaint/store/mobile', [ComplaintController::class, 'storeMobile'])->name('api.user.complaint.store');
-Route::get('admin/complaint/fetch', [ComplaintController::class, 'fetch'])->name('api.admin.complaint.fetch');
-Route::put('admin/complaint/update/{id}', [ComplaintController::class, 'update'])->name('api.admin.complaint.update');
-Route::put('admin/complaint/close/{id}', [ComplaintController::class, 'close'])->name('api.admin.complaint.close');
-
-
-//-----------------------------------------MANUAL VISIT OPTIONS--------------------------------//
-Route::get('mvo/get/homeowner', [LogbookController::class, 'get'])->name('mvo.get.homeowner');
-Route::post('mvo/post/homeowner/{id}', [LogbookController::class, 'post'])->name('mvo.post.homeowner');
+    // Manual visit options
+    Route::get('mvo/get/homeowner', [LogbookController::class, 'get'])->name('mvo.get.homeowner');
+    Route::post('mvo/post/homeowner/{id}', [LogbookController::class, 'post'])->name('mvo.post.homeowner');
+});

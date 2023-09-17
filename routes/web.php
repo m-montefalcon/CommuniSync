@@ -27,38 +27,45 @@ use App\Http\Controllers\AnnouncementController;
 //destroy - delete a data
 
 
-//--------------------------------------USER WEB VIEWS ROUTES-------------------------------------------//
+
 Route::get('/', [WebViewController::class, 'returnLandingPageView'])->middleware('guest');
 Route::get('/login', [WebViewController::class, 'returnLoginWebView'])->name('login')->middleware('guest');
 Route::get('/register', [WebViewController::class, 'returnRegisterView'])->middleware('guest');
-
-//--------------------------------------CONTENTS WEB ROUTES-------------------------------------------//
-Route::get('/home', [WebViewController::class, 'returnHomeView'])->middleware('auth')->name('home');
-Route::get('profile', [WebViewController::class, 'returnProfileView'])->middleware('auth')->name('profile');
-Route::get('visitor', [WebViewController::class, 'showVisitor'])->middleware('auth')->name('visitor');
-Route::get('homeowner', [WebViewController::class, 'showHomeowner'])->middleware('auth')->name('homeowner');
-Route::get('personnel', [WebViewController::class, 'showPersonnel'])->middleware('auth')->name('personnel');
-Route::get('admin', [WebViewController::class, 'showAdmin'])->middleware('auth')->name('admin');
-
-//--------------------------------------SHOW SPECIFIC USER DETAILS ROUTE-------------------------------------------//
-Route::get('/visitor/{id}', [WebViewController::class, 'showVisitorId'])->middleware('auth')->name('visitorId');
-Route::get('/homeowner/{id}', [WebViewController::class, 'showHomeownerId'])->middleware('auth')->name('homeownerId');
-Route::get('/personnel/{id}', [WebViewController::class, 'showPersonnelId'])->middleware('auth')->name('personnelId');
-Route::get('/admin/{id}', [WebViewController::class, 'showAdminId'])->middleware('auth')->name('adminId');
-
-//--------------------------------------USER VERIFCATION-------------------------------------------//
-Route::get('/verification/requests', [WebViewController::class, 'showRequests'])->middleware('auth')->name('verificationRequests');
-
-//--------------------------------------ANNOUNCEMENTS-------------------------------------------//
-Route::get('/announcement', [WebViewController::class, 'show'])->middleware('auth')->name('announcement');
-Route::get('/announcement/create/form', [WebViewController::class, 'showCreateForm'])->middleware('auth')->name('announcement.form');
-
-//--------------------------------------QR CODE TESTING CAF-------------------------------------------//
-
+// QR Code Testing CAF
 Route::get('/test/qrcode', [WebViewController::class, 'test'])->name('test');
 
-//--------------------------------------CSRF TOKEN FOR API TESTING-------------------------------------------//
-
+// CSRF Token for API Testing
 Route::get('/csrf-token', function() {
     return response()->json(['csrf_token' => csrf_token()]);
 });
+
+
+// Protect the routes that require authentication with the sanctum middleware
+Route::middleware('auth:sanctum')->group(function () {
+    // Home
+    Route::get('/home', [WebViewController::class, 'returnHomeView'])->name('home');
+    // Profile
+    Route::get('/profile', [WebViewController::class, 'returnProfileView'])->name('profile');
+    // Visitor
+    Route::get('/visitor', [WebViewController::class, 'showVisitor'])->name('visitor');
+    // Homeowner
+    Route::get('/homeowner', [WebViewController::class, 'showHomeowner'])->name('homeowner');
+    // Personnel
+    Route::get('/personnel', [WebViewController::class, 'showPersonnel'])->name('personnel');
+    // Admin
+    Route::get('/admin', [WebViewController::class, 'showAdmin'])->name('admin');
+
+    // Show specific user details
+    Route::get('/visitor/{id}', [WebViewController::class, 'showVisitorId'])->name('visitorId');
+    Route::get('/homeowner/{id}', [WebViewController::class, 'showHomeownerId'])->name('homeownerId');
+    Route::get('/personnel/{id}', [WebViewController::class, 'showPersonnelId'])->name('personnelId');
+    Route::get('/admin/{id}', [WebViewController::class, 'showAdminId'])->name('adminId');
+
+    // User verification requests
+    Route::get('/verification/requests', [WebViewController::class, 'showRequests'])->name('verificationRequests');
+
+    // Announcements
+    Route::get('/announcement', [WebViewController::class, 'show'])->name('announcement');
+    Route::get('/announcement/create/form', [WebViewController::class, 'showCreateForm'])->name('announcement.form');
+});
+

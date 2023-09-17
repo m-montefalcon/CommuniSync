@@ -23,8 +23,8 @@ class UserController extends Controller
         $id->update($validated);
     
         $redirectRoute = $this->getRedirectRoute($request);
-        
-        // return response()->json($id, 200);
+
+        return redirect()->route($redirectRoute);
     }
     
 
