@@ -3,15 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Support\Str;
 use Termwind\Components\Dd;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\AuthRequests\UserLoginRequest;
 use App\Http\Requests\AuthRequests\UserAuthStoreRequest;
+
+
 
 
 class AuthController extends Controller
@@ -25,7 +29,8 @@ class AuthController extends Controller
         }
         $validated['photo'] = $imagePath;
         
-        $validated['password'] = Hash::make($validated['password']);    
+        $validated['password'] = Hash::make($validated['password']);
+        $validated['remember_token'] = Str::random(60);    
         User::create($validated);
         return redirect('/');
         // return response()->json([
@@ -38,7 +43,7 @@ class AuthController extends Controller
     {
         $validated = $request->validated();
     
-        $user = User::checksRoleWithUsername($validated['user_name'], 4);
+        $user = User::checksRoleWithUsername($validated['user_name'], 4)->first();
     
         if ($user) {
             $credentials = $request->only('user_name', 'password');
@@ -46,12 +51,11 @@ class AuthController extends Controller
             if (Auth::attempt($credentials)) {
                 $request->session()->regenerate();
     
-                // Generate an API token using Sanctum
-                $user->tokens()->delete(); // Delete existing tokens, if any
-                $token = $user->createToken('web-token')->plainTextToken;
-                
-                return redirect('/home')->with(['token' => $token]);
-            }
+                    /** @var \App\Models\User $user **/
+                    $user = Auth::user();
+                    $token = $user->createToken('web-token')->plainTextToken; 
+                        return redirect('/home')->with(['token' => $token]);
+                }
         }
     
         return back()->withErrors([
@@ -61,10 +65,13 @@ class AuthController extends Controller
     
     public function logout(Request $request)
     {
-        // Clear the user's authentication state
-        Auth::logout();
+        // Revoke the web token
+        $request->user()->tokens->where('name', 'web-token')->each(function ($token, $key) {
+            $token->delete();
+        });
+    
         Session::flush();
-
+    
         // Invalidate the session
         $request->session()->invalidate();
     
@@ -74,6 +81,9 @@ class AuthController extends Controller
         // Redirect the user to the home page
         return redirect('/')->with('success', 'You have been logged out successfully.');
     }
+    
+    
+    
 //-----------------------------------------MOBILE----------------------------------------//
     public function mobileStore(UserAuthStoreRequest $request)
     {
@@ -102,7 +112,7 @@ class AuthController extends Controller
         {
            /** @var \App\Models\User $user **/
             $user = Auth::user();
-            $token = $user->createToken('mobile')->plainTextToken; // Create a token for the user
+            $token = $user->createToken('mobile-token')->plainTextToken; // Create a token for the user
     
             return response()->json([
                 'message' => 'Login successful',
@@ -118,13 +128,21 @@ class AuthController extends Controller
     }
     
     
-
     public function logoutMobile(Request $request)
     {
-        if ($request->user()) {
-            $request->user()->tokens()->delete();
-        }
-        
+        // Get the authenticated user
+        /** @var \App\Models\User $user **/
+        $user = Auth::user();
+ 
+        // Get the specific token ID based on the authentication method (mobile)
+        $tokenId = $user->currentAccessToken()->id;
+ 
+        // Revoke the specific token
+        $user->tokens()->where('id', $tokenId)->delete();
+ 
+        // Clear the user's authentication state
+        $request->user()->currentAccessToken()->delete();
+ 
         return response()->json([
             'message' => 'Successfully logged out'
         ], 200);
