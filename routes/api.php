@@ -47,7 +47,6 @@ Route::post('/login/store', [AuthController::class, 'login'])->name('api.login.s
 Route::post('/register/store/mobile', [AuthController::class, 'mobileStore'])->name('api.register.store.mobile');
 Route::post('/login/store/mobile', [AuthController::class, 'loginMobile'])->name('api.login.store.mobile');
 // Other public routes...
-Route::post('/logout/store', [AuthController::class, 'logout'])->name('api.logout.store');
 
 // Routes that require authentication
 Route::middleware('auth:sanctum')->group(function () {
@@ -59,6 +58,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/approved/verification/{id}', [VerificationRequests::class, 'update'])->name('api.approved.verification');
     Route::post('/verification/requests/store', [VerificationRequests::class, 'mobileStore'])->name('api.verification.requests.mobile');
 
+    Route::post('/logout/store', [AuthController::class, 'logout'])->name('api.logout.store');
 
     Route::post('/logout/mobile', [AuthController::class, 'logoutMobile'])->name('api.logout.mobile');
 
