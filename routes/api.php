@@ -42,6 +42,10 @@ use App\Models\VerificationRequest;
 // Public routes
 Route::post('/register/store', [AuthController::class, 'store'])->name('api.register.store');
 Route::post('/login/store', [AuthController::class, 'login'])->name('api.login.store');
+
+// User mobile APIs
+Route::post('/register/store/mobile', [AuthController::class, 'mobileStore'])->name('api.register.store.mobile');
+Route::post('/login/store/mobile', [AuthController::class, 'loginMobile'])->name('api.login.store.mobile');
 // Other public routes...
 Route::post('/logout/store', [AuthController::class, 'logout'])->name('api.logout.store');
 
@@ -55,9 +59,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/approved/verification/{id}', [VerificationRequests::class, 'update'])->name('api.approved.verification');
     Route::post('/verification/requests/store', [VerificationRequests::class, 'mobileStore'])->name('api.verification.requests.mobile');
 
-    // User mobile APIs
-    Route::post('/register/store/mobile', [AuthController::class, 'mobileStore'])->name('api.register.store.mobile');
-    Route::post('/login/store/mobile', [AuthController::class, 'loginMobile'])->name('api.login.store.mobile');
+
     Route::post('/logout/mobile', [AuthController::class, 'logoutMobile'])->name('api.logout.mobile');
 
     // Announcement feature
