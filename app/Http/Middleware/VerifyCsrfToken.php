@@ -15,10 +15,12 @@ class VerifyCsrfToken extends Middleware
         /** 
          * AUTH WEB AND MOBILE
         */
-        'api/register/store',
+        
+        
         'api/register/store/mobile',
         'api/login/store',
         'api/login/store/mobile',
+        'api/logout/mobile',
         // 'api/verification/requests/store',
         // 'api/approved/verification/*'
         'api/update/*',

@@ -121,10 +121,13 @@ class AuthController extends Controller
 
     public function logoutMobile(Request $request)
     {
-        $request->user()->token()->revoke();
+        if ($request->user()) {
+            $request->user()->tokens()->delete();
+        }
+        
         return response()->json([
             'message' => 'Successfully logged out'
-        ]);
+        ], 200);
     }
 
     
