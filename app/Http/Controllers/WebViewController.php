@@ -99,4 +99,12 @@ class WebViewController extends Controller
         return view('qrcode', compact('qrcodes'));
     }
 
+    public function getAllCAF(){
+        $fetchRequests = ControlAccess::with('visitor', 'homeowner')
+        ->where('role', 3)
+        ->get();
+        return view('TBA', compact('fetchRequests'));
+
+    }
+
 }

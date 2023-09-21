@@ -99,9 +99,8 @@ class AuthController extends Controller
         $user = User::create($validated);
         return response()->json([
             'message' => 'User registered successfully',
-            'user' => $user,
-             200// Pass the user data to the response
-        ]);    
+            
+        ], 200);
     }
 
     public function loginMobile(UserLoginRequest $request)
