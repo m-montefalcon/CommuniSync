@@ -11,6 +11,7 @@ use App\Http\Controllers\LogbookController;
 use App\Http\Controllers\PaymentRecordController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VerificationRequests;
+use App\Http\Controllers\WebViewController;
 use App\Models\ControlAccess;
 use App\Models\Logbook;
 use App\Models\PaymentRecord;
@@ -67,6 +68,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/announcement/fetch/mobile', [AnnouncementController::class, 'announcementFetchMobile'])->name('announcementFetchMobile');
 
     // Control access feature
+    Route::get('users/control/access/get/all', [WebViewController::class, 'getAllCAF'])->name('users.control.access.get.all');
+
     Route::get('users/control/access/search/mobile', [ControlAccessController::class, 'searchMobile'])->name('api.users.control.access.search.mobile');
     Route::post('users/control/access/request/mobile', [ControlAccessController::class, 'requestMobile'])->name('api.users.control.access.request.mobile');
     Route::put('users/control/access/accept/mobile', [ControlAccessController::class, 'acceptMobile'])->name('api.users.control.access.accept.mobile');
