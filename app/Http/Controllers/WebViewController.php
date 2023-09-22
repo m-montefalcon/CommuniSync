@@ -101,9 +101,9 @@ class WebViewController extends Controller
 
     public function getAllCAF(){
         $fetchRequests = ControlAccess::with('visitor', 'homeowner')
-        ->where('role', 3)
+        ->where('visit_status', '2')
         ->get();
-        return view('TBA', compact('fetchRequests'));
+        return view('accessControl.accessControl', compact('fetchRequests'));
 
     }
 

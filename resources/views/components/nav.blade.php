@@ -122,6 +122,14 @@
               <span class="tooltip"> Profile </span>
             </a>
           </li>
+          <li>
+            <!-- <a class="side-link <?php if(basename($_SERVER['PHP_SELF']) == "home.php") echo "active"; ?>" href="{{ route('announcement.form') }}"> -->
+            <a class="side-link @if(Request::is('users/control/access/get/all')) active @endif" href="{{ route('users.control.access.get.all') }}">
+              <span class="icon"> <i class="fa-solid fa-scroll"></i> </span>
+              <span class="text">Access Control</span>
+              <span class="tooltip"> Access Control </span>
+            </a>
+          </li>
           <li class="logout">
             <form action="{{ route('api.logout.store') }}" method="POST" id="logout-form" style="display: none;">
               @csrf
