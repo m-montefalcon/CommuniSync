@@ -18,6 +18,12 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class ControlAccessController extends Controller
 {
+    public function getRequestHomeowner($id){
+        $fetchRequests = ControlAccess::with('visitor')->fetchRequests($id);
+        return response(['data' => $fetchRequests], 200);
+    }
+
+    
     //SEARCH THE HOMEOWNER ONLY
     public function searchMobile(Request $request)
     {

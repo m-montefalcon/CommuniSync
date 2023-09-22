@@ -51,6 +51,8 @@ class ControlAccess extends Model
 
     public function scopeFetchRequests($query, $id){
         return $query ->where('homeowner_id', $id)
+                      ->where('visit_status', 1)
                       ->get();
     }
+    
 }
