@@ -99,7 +99,6 @@ class AuthController extends Controller
         $user = User::create($validated);
         return response()->json([
             'message' => 'User registered successfully',
-            
         ], 200);
     }
 

@@ -24,13 +24,13 @@ class UserAuthStoreRequest extends FormRequest
     {
         return [
             'user_name' => ['required', 'min:6', Rule::unique('users', 'user_name')],
-            'email' => ['required', 'min:4',   'email'],
+            'email' => ['required', 'min:4',],
             'first_name' => ['required'],
             'last_name' => ['required'],
             'contact_number' => ['required'], 
             'photo' => ['image', 'nullable'],
             'password' => ['required', 'min:6'],
-            'role' => ['required']
+            
         ];
     }
 }
