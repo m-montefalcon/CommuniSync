@@ -27,13 +27,17 @@ class ControlAccessController extends Controller
     //SEARCH THE HOMEOWNER ONLY
     public function searchMobile(Request $request)
     {
+        $validatedData = $request->validate([
+            'username' => 'required',      
+        ]);
+    
         try {
-            $username = $request->input('username');
+            $username = $validatedData['username'];
             $users = User::checksRoleWithUsername($username, 2);
 
-            return response()->json($users, 200);
+            return response()->json([$users], 200);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Error'], 500);
+            return response()->json(['error' => $e]);
         }
     }
 

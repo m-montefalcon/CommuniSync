@@ -48,7 +48,7 @@ Route::post('/login/store', [AuthController::class, 'login'])->name('api.login.s
 Route::post('/register/store/mobile', [AuthController::class, 'mobileStore'])->name('api.register.store.mobile');
 Route::post('/login/store/mobile', [AuthController::class, 'loginMobile'])->name('api.login.store.mobile');
 // Other public routes...
-Route::get('users/control/access/search/mobile', [ControlAccessController::class, 'searchMobile'])->name('api.users.control.access.search.mobile');
+Route::post('users/control/access/search/mobile', [ControlAccessController::class, 'searchMobile'])->name('api.users.control.access.search.mobile');
 Route::post('users/control/access/request/mobile', [ControlAccessController::class, 'requestMobile'])->name('api.users.control.access.request.mobile');
 
 Route::put('users/control/access/accept/mobile', [ControlAccessController::class, 'acceptMobile'])->name('api.users.control.access.accept.mobile');
