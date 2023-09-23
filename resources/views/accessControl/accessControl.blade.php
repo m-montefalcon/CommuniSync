@@ -43,15 +43,17 @@
                                         <td>{{$fetchRequest->homeowner->first_name . ' ' . $fetchRequest->homeowner->last_name }}</td>
                                         <td>{{$fetchRequest->destination_person}}</td>
                                         @php
-                                        $visitMembers = json_decode($fetchRequest->visit_members);
+                                            $visitMembers = json_decode($fetchRequest->visit_members);
                                         @endphp
 
                                         @if ($visitMembers === null)
                                             <td>No member found</td>
                                         @else
-                                            @foreach ($visitMembers as $member)
-                                                <td>{{ $member }}</td>
-                                            @endforeach
+                                            @php
+                                                $commaSeparatedMember = implode(",", $visitMembers);
+                                            @endphp
+
+                                            <td>{{ $commaSeparatedMember }}</td>
                                         @endif
 
 
