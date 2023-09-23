@@ -24,7 +24,9 @@
                             <table class="table table-bordered table-stripe">
                                 <tbody>
                                     <tr>
+                                        <th>User Name</th>
                                         <th>Visitor Name</th>
+                                        <th>User Name</th>
                                         <th>Homeowner Name</th>
                                         <th>Destination Person</th>
                                         <th>Visit Member</th>
@@ -32,11 +34,27 @@
                                         <th> Deny </th>
                                     </tr>                       
                                     @foreach($fetchRequests as $fetchRequest)
-                                    <tr class="clickable-row" data-href="{{ route('visitorId', ['id' => $visitor->id]) }}" method="GET">
-                                        <td>{{$fetchRequest->visitor->first_name}}</td>
-                                        <td>{{$fetchRequest->homeowner->first_name}}</td>
+
+                                    <tr>
+
+                                        <td>{{$fetchRequest->visitor->user_name }}</td>
+                                        <td>{{$fetchRequest->visitor->first_name . ' ' . $fetchRequest->visitor->last_name }}</td>
+                                        <td>{{$fetchRequest->homeowner->user_name }}</td>
+                                        <td>{{$fetchRequest->homeowner->first_name . ' ' . $fetchRequest->homeowner->last_name }}</td>
                                         <td>{{$fetchRequest->destination_person}}</td>
-                                        <td>{{$fetchRequest->visit_member}}</td>
+                                        @php
+                                        $visitMembers = json_decode($fetchRequest->visit_members);
+                                        @endphp
+
+                                        @if ($visitMembers === null)
+                                            <td>No member found</td>
+                                        @else
+                                            @foreach ($visitMembers as $member)
+                                                <td>{{ $member }}</td>
+                                            @endforeach
+                                        @endif
+
+
                                         <td>
                                             <a class="btn btn-primary"> </a>
                                         </td>  

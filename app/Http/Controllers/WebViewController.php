@@ -103,6 +103,7 @@ class WebViewController extends Controller
         $fetchRequests = ControlAccess::with('visitor', 'homeowner')
         ->where('visit_status', '2')
         ->get();
+        
         return view('accessControl.accessControl', compact('fetchRequests'));
 
     }

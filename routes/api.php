@@ -52,6 +52,8 @@ Route::get('users/control/access/search/mobile', [ControlAccessController::class
 Route::post('users/control/access/request/mobile', [ControlAccessController::class, 'requestMobile'])->name('api.users.control.access.request.mobile');
 Route::get('users/control/access/get/mobile/{id}', [ControlAccessController::class, 'getRequestHomeowner'])->name('users.control.access.get.mobile.{id}');
 
+Route::put('users/control/access/accept/mobile', [ControlAccessController::class, 'acceptMobile'])->name('api.users.control.access.accept.mobile');
+
 // Routes that require authentication
 Route::middleware('auth:sanctum')->group(function () {
     // User APIs
@@ -73,7 +75,6 @@ Route::middleware('auth:sanctum')->group(function () {
     // Control access feature
     Route::get('users/control/access/get/all', [WebViewController::class, 'getAllCAF'])->name('users.control.access.get.all');
 
-    Route::put('users/control/access/accept/mobile', [ControlAccessController::class, 'acceptMobile'])->name('api.users.control.access.accept.mobile');
     Route::put('admin/control/access/validated/{id}', [ControlAccessController::class, 'validated'])->name('api.admin.control.access.validated');
     Route::put('users/control/access/recorded/mobile', [ControlAccessController::class, 'recordedMobile'])->name('api.users.control.access.recorded.mobile');
     Route::get('users/control/access/fetch/all/request/mobile/{id}', [ControlAccessController::class, 'fetchAllRequestMobile'])->name('api.users.control.access.fetch.all.request.mobile');
