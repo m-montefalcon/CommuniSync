@@ -67,5 +67,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // Announcements
     Route::get('/announcement', [WebViewController::class, 'show'])->name('announcement');
     Route::get('/announcement/create/form', [WebViewController::class, 'showCreateForm'])->name('announcement.form');
+    Route::get('/announcement/fetch/{id}', [WebViewController::class, 'announcementFetchId'])->name('announcementFetchId');
+
 });
 
