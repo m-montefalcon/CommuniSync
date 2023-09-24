@@ -66,7 +66,15 @@ class ControlAccessController extends Controller
         return response()->json(['accepted' => true, 'id' => $id], 200);
     }
     
-
+    public function declineMobile(UserAccessRequest $request){
+        $validatedData = $request->validated();
+        $id = ControlAccess::findOrFail($validatedData['id']);
+        $validatedData['visit_status'] = 3;
+        $validatedData['date'] = now()->toDateString();
+        $validatedData['time'] = now()->toTimeString();
+        $id->update($validatedData);
+        return response()->json(['accepted' => true, 'id' => $id], 200);
+    }
 
     //ADMIN VALIDATES THE REQUEST
     public function validated(ControlAccess $id)
