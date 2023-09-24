@@ -74,7 +74,7 @@ class ControlAccessController extends Controller
         $adminId = Auth::id();
         // Update the model with the validated data
         $id->update([
-            'visit_status' => 3,
+            'visit_status' => 4,
             'date' => now()->toDateString(),
             'time' => now()->toTimeString(),
             'admin_id' => $adminId 
@@ -89,8 +89,6 @@ class ControlAccessController extends Controller
         $id->qr_code = QrCode::encoding('UTF-8')->size(300)->generate($jsonToEncode);
         $id->save();
         return redirect()->back();
- 
-
     }
 
 
@@ -116,7 +114,7 @@ class ControlAccessController extends Controller
 
     
 
-        $visit_status = ($isVisitorBlocked || $isMemberBlocked) ? 5 : 4;
+        $visit_status = ($isVisitorBlocked || $isMemberBlocked) ? 7 : 6;
 
         $currentDateTime = now();
 
@@ -126,6 +124,9 @@ class ControlAccessController extends Controller
             'visit_status' => $visit_status,
             'personnel_id' => $validatedData['personnel_id']
         ]);
+        if ($visit_status == 7) {
+            return response()->json(['message' => 'The user or a member is blocked and the operation is denied.'], 403);
+        }
 
         $entries = [];
         $entries[] = [
@@ -139,10 +140,7 @@ class ControlAccessController extends Controller
         ];
         Logbook::insert($entries);
 
-        if ($visit_status == 5) {
-            return response()->json(['message' => 'The user or a member is blocked and the operation is denied.'], 403);
-        }
-
+        
         return response()->json(['scanned' => true], 200);
     }
 
