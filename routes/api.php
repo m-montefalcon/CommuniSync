@@ -52,6 +52,7 @@ Route::post('users/control/access/search/mobile', [ControlAccessController::clas
 Route::post('users/control/access/request/mobile', [ControlAccessController::class, 'requestMobile'])->name('api.users.control.access.request.mobile');
 
 Route::put('users/control/access/accept/mobile', [ControlAccessController::class, 'acceptMobile'])->name('api.users.control.access.accept.mobile');
+Route::put('users/control/access/decline/mobile', [ControlAccessController::class, 'declineMobile'])->name('api.users.control.access.decline.mobile');
 
 // Routes that require authentication
 Route::middleware('auth:sanctum')->group(function () {
