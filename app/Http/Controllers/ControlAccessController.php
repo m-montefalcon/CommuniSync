@@ -81,12 +81,16 @@ class ControlAccessController extends Controller
         ]);
         $dataToEncode = [
             'ID' => $id->id,
+            'Homeowner' => $id->homeowner_id,
+            'Visitor'=> $id->visitor_id
         ];
         $jsonToEncode = json_encode($dataToEncode);
         // Update the qr_code field and save the model
         $id->qr_code = QrCode::encoding('UTF-8')->size(300)->generate($jsonToEncode);
         $id->save();
-        return response()->json(['qr_code' => $id],  200);
+        return redirect()->back();
+ 
+
     }
 
 
