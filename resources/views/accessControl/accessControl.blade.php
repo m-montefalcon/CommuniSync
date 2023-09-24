@@ -23,7 +23,8 @@
                         <div id="table">
                             <table class="table table-bordered table-stripe">
                                 <tbody>
-                                    <tr>
+                                    <tr> 
+                                        <th>ID</th>
                                         <th>User Name</th>
                                         <th>Visitor Name</th>
                                         <th>User Name</th>
@@ -37,6 +38,7 @@
 
                                     <tr>
 
+                                        <td>{{$fetchRequest->id}}</td>
                                         <td>{{$fetchRequest->visitor->user_name }}</td>
                                         <td>{{$fetchRequest->visitor->first_name . ' ' . $fetchRequest->visitor->last_name }}</td>
                                         <td>{{$fetchRequest->homeowner->user_name }}</td>
@@ -56,13 +58,18 @@
                                             <td>{{ $commaSeparatedMember }}</td>
                                         @endif
 
-
                                         <td>
-                                            <a class="btn btn-primary"> </a>
+                                            <form action="{{ route('api.admin.control.access.validated', $fetchRequest->id) }}" method="POST">
+                                                @csrf
+                                                @method('PUT')
+                                                <button type="submit" class="btn btn-primary">Accept</button>
+                                            </form>
                                         </td>  
                                         <td>
-                                            <a class="btn btn-danger btn-sm"> </a>
+                                                <button type="submit" class="btn btn-danger btn-sm">Reject</button>
                                         </td> 
+
+
                                     </tr>
                                     @endforeach
                                 </tbody>
