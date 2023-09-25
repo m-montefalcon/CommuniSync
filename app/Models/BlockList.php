@@ -44,11 +44,31 @@ class BlockList extends Model
                 });
         });
     }
-
-    public function scopeMemberBlock($query, $firstNames, $lastNames){
+    public function scopeMemberBlock($query, $visitMembers)
+    {
+        $firstNames = [];
+        $lastNames = [];
+    
+        foreach ($visitMembers as $member) {
+            // Split the member name into first and last names
+            $nameParts = explode(' ', $member);
+    
+            // Combine the first names except the last name
+            $firstName = implode(' ', array_slice($nameParts, 0, -1));
+            $firstNames[] = $firstName;
+    
+            // Get the last name
+            $lastName = end($nameParts);
+            $lastNames[] = $lastName;
+        }
+    
         return $query->whereIn('first_name', $firstNames)
                      ->whereIn('last_name', $lastNames)
                      ->exists();
-
     }
+    
+    
+    
+    
+
 }
