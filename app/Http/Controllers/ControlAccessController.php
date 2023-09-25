@@ -112,15 +112,8 @@ class ControlAccessController extends Controller
 
 
         $visit_members = json_decode($controlAccessId->visit_members, true);
-        $firstNames = [];
-        $lastNames = [];
 
-        foreach ($visit_members as $member) {
-            list($firstName, $lastName) = explode(' ', $member);
-            $firstNames[] = $firstName;
-            $lastNames[] = $lastName;
-        }
-        $isMemberBlocked = BlockList::memberBlock($firstNames, $lastNames);
+        $isMemberBlocked = BlockList::memberBlock($visit_members);
 
     
 
