@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ControlAccess\UserAccessRequest;
-use App\Http\Requests\ControlAccess\UserRecordControlAccessRequest;
-use App\Http\Requests\ControlAccess\UserRequestControllAccessRequest;
 use App\Models\User;
+use App\Models\Logbook;
 use App\Models\BlockList;
 use Illuminate\Http\Request;
 use App\Models\ControlAccess;
-use App\Models\Logbook;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Illuminate\Session\TokenMismatchException;
+use App\Http\Requests\ControlAccess\UserAccessRequest;
+use App\Http\Requests\ControlAccess\UserRecordControlAccessRequest;
+use App\Http\Requests\ControlAccess\UserRequestControllAccessRequest;
 
 
 class ControlAccessController extends Controller
@@ -49,14 +50,15 @@ class ControlAccessController extends Controller
         $validatedData['visit_status'] = 1;
         $validatedData['date'] = now()->toDateString();
         $validatedData['time'] = now()->toTimeString();
-        $validatedData['visit_members'] = $request->filled('visit_members') ? json_encode($validatedData['visit_members']) : null;
-        ControlAccess::create($validatedData);
-        return response()->json(['request success' => true, $validatedData], 200);
+        $controlAccess = ControlAccess::create($validatedData);
+
+        return response()->json(['request success' => true, 'data' => $controlAccess], 200);
     }
 
     //HOMEOWNER ACCEPT TO VISITOR
     public function acceptMobile(UserAccessRequest $request) 
     {
+    
         $validatedData = $request->validated();
         $id = ControlAccess::findOrFail($validatedData['id']);
         $validatedData['visit_status'] = 2;

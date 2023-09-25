@@ -49,10 +49,7 @@ Route::post('/register/store/mobile', [AuthController::class, 'mobileStore'])->n
 Route::post('/login/store/mobile', [AuthController::class, 'loginMobile'])->name('api.login.store.mobile');
 // Other public routes...
 Route::post('users/control/access/search/mobile', [ControlAccessController::class, 'searchMobile'])->name('api.users.control.access.search.mobile');
-Route::post('users/control/access/request/mobile', [ControlAccessController::class, 'requestMobile'])->name('api.users.control.access.request.mobile');
 
-Route::put('users/control/access/accept/mobile', [ControlAccessController::class, 'acceptMobile'])->name('api.users.control.access.accept.mobile');
-Route::put('users/control/access/decline/mobile', [ControlAccessController::class, 'declineMobile'])->name('api.users.control.access.decline.mobile');
 
 // Routes that require authentication
 Route::middleware('auth:sanctum')->group(function () {
@@ -75,6 +72,9 @@ Route::middleware('auth:sanctum')->group(function () {
     // Control access feature
     Route::get('users/control/access/get/all', [WebViewController::class, 'getAllCAF'])->name('users.control.access.get.all');
     Route::get('users/control/access/get/mobile/{id}', [ControlAccessController::class, 'getRequestHomeowner'])->name('users.control.access.get.mobile.{id}');
+    Route::put('users/control/access/decline/mobile', [ControlAccessController::class, 'declineMobile'])->name('api.users.control.access.decline.mobile');
+    Route::put('users/control/access/accept/mobile', [ControlAccessController::class, 'acceptMobile'])->name('api.users.control.access.accept.mobile');
+    Route::post('users/control/access/request/mobile', [ControlAccessController::class, 'requestMobile'])->name('api.users.control.access.request.mobile');
 
     Route::put('admin/control/access/validated/{id}', [ControlAccessController::class, 'validated'])->name('api.admin.control.access.validated');
     Route::put('users/control/access/recorded/mobile', [ControlAccessController::class, 'recordedMobile'])->name('api.users.control.access.recorded.mobile');
