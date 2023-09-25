@@ -23,6 +23,7 @@ class VerifyCsrfToken extends Middleware
         'api/logout/mobile',
         // 'api/verification/requests/store',
         // 'api/approved/verification/*'
+        
         'api/update/*',
         'api/verification/requests/store',
         'api/approved/verification/*',
@@ -31,6 +32,7 @@ class VerifyCsrfToken extends Middleware
         'api/users/control/access/search/mobile',
         'api/users/control/access/request/mobile',
         'api/users/control/access/accept/mobile',
+        'api/users/control/access/decline/mobile',
         'api/admin/control/access/validated/*',
         'api/users/control/access/recorded/mobile',
         'api/users/blocklists/request/mobile',
