@@ -69,5 +69,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/announcement/create/form', [WebViewController::class, 'showCreateForm'])->name('announcement.form');
     Route::get('/announcement/fetch/{id}', [WebViewController::class, 'announcementFetchId'])->name('announcementFetchId');
 
+    //THIS IS FOR ADMIN TO SEE
+    Route::get('users/control/access/get/all', [WebViewController::class, 'getAllCAF'])->name('users.control.access.get.all');
+
 });
 

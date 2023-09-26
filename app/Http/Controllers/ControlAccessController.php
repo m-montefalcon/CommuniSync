@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ControlAccess\SpCheckIdRequest;
 use App\Models\User;
 use App\Models\Logbook;
 use App\Models\BlockList;
@@ -101,6 +102,18 @@ class ControlAccessController extends Controller
         return redirect()->back();
     }
 
+    public function recordedCheckMobile(SpCheckIdRequest $request){
+        $validatedData = $request->validated();
+        $returnCheckQr = ControlAccess::with('visitor')->checkQr($validatedData['id'], $validatedData['homeowner_id'],$validatedData['visitor_id']);
+        if($returnCheckQr){
+            return response()->json(['data' => $returnCheckQr], 200);
+
+        }
+        else{
+            return response()->json(['data' => 'not found'], 404);
+
+        }
+    }
 
     public function recordedMobile(UserRecordControlAccessRequest $request){
         $validatedData = $request->validated();

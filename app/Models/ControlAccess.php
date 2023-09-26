@@ -54,5 +54,13 @@ class ControlAccess extends Model
                       ->where('visit_status', 1)
                       ->get();
     }
+
+    public function scopeCheckQr($query, $id, $homeowner_id, $visitor_id){
+        return $query -> where('id', $id)
+                      -> where('homeowner_id', $homeowner_id)
+                      ->where('visitor_id', $visitor_id)
+                      ->first();
+
+    }
     
 }
