@@ -92,7 +92,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Complaint feature
     Route::post('user/complaint/store/mobile', [ComplaintController::class, 'storeMobile'])->name('api.user.complaint.store');
-    Route::get('admin/complaint/fetch', [ComplaintController::class, 'fetch'])->name('api.admin.complaint.fetch');
     Route::put('admin/complaint/update/{id}', [ComplaintController::class, 'update'])->name('api.admin.complaint.update');
     Route::put('admin/complaint/close/{id}', [ComplaintController::class, 'close'])->name('api.admin.complaint.close');
 

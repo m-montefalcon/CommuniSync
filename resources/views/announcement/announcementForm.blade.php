@@ -22,10 +22,10 @@
                 @csrf
 
                     <label for="announcement_title">Title:</label>
-                    <textarea type="text" name="announcement_title" id="announcement_title" required> </textarea>
+                    <textarea type="text" name="announcement_title" id="announcement_title" required></textarea>
             
                     <label for="announcement_description">Description:</label>
-                    <textarea type="text" name="announcement_description" id="announcement_description" placeholder="Announcement Description...." required> </textarea>
+                    <textarea type="text" name="announcement_description" id="announcement_description" placeholder="Announcement Description...." required></textarea>
                     
                     <label for="announcement_photo">Photo:</label>
                     <input type="file" name="announcement_photo" id="announcement_photo">
@@ -41,11 +41,9 @@
                             <input type="checkbox" name="role[]" value="3" id="role_editor">
                             <label for="role_editor">Personnel</label>
                         </div>
-              
                     <br>
-            
                     <button type="submit" class="btn btn-primary">Submit</button>
-                    <button href="index.php" class="btn btn-danger float-end" onclick="history.back()"> Cancel </button>
+                    <button class="btn btn-danger" href="{{ route('announcement') }}" onclick="history.back()"> Cancel </button>
                 </form>
             </div>
         </div>

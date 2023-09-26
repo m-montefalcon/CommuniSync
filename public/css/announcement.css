@@ -1,0 +1,316 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+* {
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+    }
+
+    body {
+        background-color: #f6f6f6;
+        overflow-x: hidden;
+    }
+
+    .card {
+        background-color: #fff;
+        border-radius: 10px;
+        border: none;
+        position: relative;
+        margin-top: 15px;
+        box-shadow: 0px 0px 10px #BDBDBD;
+        width: 100%;
+    }
+
+    .card-title {
+        background-color: #fff;
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+        border: none;
+        position: relative;
+        box-shadow: 0px 0px 10px #BDBDBD;
+        /* width: 100%; */
+        /* font-size: 10px; */
+        padding: 20px;
+    }
+    
+    .card-date,
+    .card-description {
+        background-color: #fff;
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+        border: none;
+        position: relative;
+        box-shadow: 0px 0px 10px #BDBDBD;
+        /* width: 100%; */
+        /* font-size: 10px; */
+        padding: 20px;
+    }
+    
+    h2 {
+        color: white;
+    }
+
+    .card .card-header {
+        border-bottom-color: #f9f9f9;
+        line-height: 30px;
+        -ms-grid-row-align: center;
+        align-self: center;
+        width: 100%;
+        padding: 10px 25px;
+        display: flex;
+        align-items: center;
+        border-radius: 10px;
+        background: #11101D;
+        /* background-image: linear-gradient(to right, #9C27B0FF, #1A0046FF); */
+      }
+
+    .card-footer {
+        background-color: transparent;
+        padding: 20px 25px; 
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        padding: 15px;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        overflow: auto;
+    }
+
+    .table {
+        width: 100%;
+    }
+
+    #table {
+        position: relative;
+        height: 500px;
+        width: 100%; 
+        overflow: scroll; 
+        width: 100%;
+        height: auto;
+        max-height: 490px;
+    }
+
+    /* #table-res table {
+        width: fit-content; 
+        table-layout: fixed;
+        width: 100%;
+    } */
+
+    .table:not(.table-sm) tbody th {
+        border-bottom: none;
+        background-color: #e9e9eb;
+        color: black;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        text-align: center;
+        position: sticky;
+        top: 0;
+        text-transform: uppercase;
+    }
+
+    tr:hover {
+        background-color: #d5d5d5;
+    } 
+
+    /* table tr {
+        background-color: #f8f8f8;
+        border: 1px solid #ddd!important;
+        margin-bottom: 10px;
+    } */
+
+    table th,
+    table td {
+        padding: .5em;
+        text-align: left;
+        text-align: start;
+        word-wrap: break-word;
+    }
+
+    table.table tr {
+        display: flex;
+    }
+    
+    table.table th {
+        flex: 1;
+        text-align: center;
+    }
+
+    .card-title,
+    .card-date {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
+    }
+
+    table.table td {
+        width: 50%;
+        flex: 1;
+        text-align: center;
+    }
+
+    table td {
+        font-size: .85em;
+        letter-spacing: .05em;
+        /* text-transform: uppercase; */
+        text-align: center;
+    }
+
+    #table::-webkit-scrollbar {
+        width: 4px;
+        height: 6px;
+    }
+
+    #table::-webkit-scrollbar-track {
+        background-color: #f1f1f1;
+    }
+
+    #table::-webkit-scrollbar-thumb {
+        background-color: #888;
+        border-radius: 4px;
+    }
+
+    #table::-webkit-scrollbar-thumb:hover {
+        background-color: #555;
+    }
+
+    body::-webkit-scrollbar {
+        width: 5px; 
+    }
+
+    body::-webkit-scrollbar-track {
+        background-color: #f6f6f6; 
+    }
+
+    body::-webkit-scrollbar-thumb {
+        background-color: #ccc; 
+    }
+
+    body::-webkit-scrollbar-thumb:hover {
+        background-color: #aaa; 
+    }   
+
+    .add-btn {
+        position: absolute;
+        text-align: center;
+        background-color: white;
+        color: black;
+        border-radius: 6px;
+        /* width: 100px; */
+        height: 30px;
+        margin-left: 0%;
+        right: 20px;
+        justify-content: center;
+        align-items: center;
+        top: 10px;
+        display: flex;
+        padding: 10px;
+    }
+
+    .add-btn i {
+        margin-right: 7px; 
+    }
+
+    .add-btn:hover {
+        background-color: maroon;
+        margin-left: 0%;
+        border-radius: 6px;
+        color: white;
+    }
+
+    .modal-container {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 1;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .modal-content {
+        position: relative;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        width: 60%; 
+        max-height: 80vh; 
+        overflow-y: auto; 
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    }
+    
+    .form-group {
+        margin-bottom: 15px;
+        padding: 20px;
+    }
+    
+    .form-group label {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        background-color: transparent;
+        outline: none;
+        box-shadow: none;
+    
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    .header-container {
+        display: flex;
+        justify-content: space-between;
+        background-color: #999;
+        padding: 20px;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+
+    .close-modal {
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    #announcementDescription {
+        resize: none; 
+        text-align: justify; 
+    }
+
+    ::-webkit-scrollbar {
+        width: 5px; 
+    }
+
+    ::-webkit-scrollbar-track {
+        background-color: #f6f6f6; 
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: #ccc; 
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: #aaa; 
+    } 
+
+    
+    
+    
+    
+
+   
+    
+
+    
+    

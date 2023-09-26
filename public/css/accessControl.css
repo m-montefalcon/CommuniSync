@@ -163,7 +163,8 @@
         font-size: 20px;
         color: black;
       }
-      .btn-primary::before {
+
+      /* .btn-primary::before {
         content: "\f4ff"; 
         font-family: "Font Awesome 5 Free"; 
         font-weight: bold;
@@ -176,7 +177,8 @@
         font-weight: bold;
         font-size: 20px;
         color: black;
-      }
+      } */
+      
       .btn {
         background-color: transparent;      
         border: none;

@@ -43,14 +43,15 @@
         overflow: auto;
     }
 
-	.employee-profile {
+	.user-profile {
 		padding: 15px;
 	}
-	.employee-profile .card {
+
+	.user-profile .card {
 		border-radius: 10px;
 	}
 
-	.employee-profile .card .card-header .profile_img {
+	.user-profile .card .card-header .profile_img {
 		width: 150px;
 		height: 150px;
 		object-fit: cover;
@@ -59,20 +60,20 @@
 		border-radius: 50%;
 	}
 
-	.employee-profile .card h3 {
+	.user-profile .card h3 {
 		font-size: 20px;
 		font-weight: 700;
 		margin-top: 10px;
 		text-align: center;
 	}
 
-	.employee-profile .card p {
+	.user-profile .card p {
 		font-size: 16px;
 		color: #000;
 	}
 
-	.employee-profile .table th,
-	.employee-profile .table td {
+	.user-profile .table th,
+	.user-profile .table td {
 		font-size: 14px;
 		padding: 5px 10px;
 		color: #000;
@@ -91,4 +92,14 @@
 		font-weight: 600;
 		margin-bottom: 10px;
 		color: #333333;
+	}
+
+	.user-profile img {
+		height: 150px;
+		width: 150px;
+		object-fit: contain;
+		object-position: center;
+		border-radius: 50%;
+		cursor: pointer;
+		padding: 20px;
 	}

@@ -377,6 +377,16 @@
     z-index: 3; 
   }
 
+  .profile img {
+    width: 44px;
+    height: 44px;
+    margin-top: 7px;
+    object-fit: contain;
+    object-position: center;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
 
 
   

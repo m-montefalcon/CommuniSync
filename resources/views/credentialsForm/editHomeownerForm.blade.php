@@ -61,23 +61,19 @@
             <button type="button" id="addMember">Add member</button>
             <br/>
             <br/>
-
-
-
-
-          
           <br>
 
           <button type="submit" class="btn btn-primary">Update</button>
 
         </form>
 
-        <form action= "{{ route ('api.delete', ['id'=> $homeowner->id]) }}" method="POST">
+        <!-- <form action= "{{ route ('api.delete', ['id'=> $homeowner->id]) }}" method="POST">
         @method('DELETE')
         @csrf
           <button type="submit" class="btn btn-danger">Delete</button>
-        </form>
+        </form> -->
 
+        <button class="btn btn-danger" onclick="history.back()"> Cancel </button>
       </div>
     </div>
   </div>
