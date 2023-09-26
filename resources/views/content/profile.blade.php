@@ -20,16 +20,18 @@
     @auth
         <p>Welcome, {{ auth()->user()->first_name }} {{ auth()->user()->last_name }} </p>
         
-        <div class="employee-profile py-4">
+        <div class="user-profile py-4">
             <div class="row">
                 <div class="col-lg-4">
                     <div class="card shadow-sm">
+                    <div class="profile">
         @if (auth()->user()->photo)
         <img src="http://127.0.0.1:8000/storage/{{Auth::user()->photo}}" alt="User Photo">
         @else
             <p>No photo available</p>
         @endif
         </div>
+                    </div>
                 </div>
         
                 <div class="col-lg-8">

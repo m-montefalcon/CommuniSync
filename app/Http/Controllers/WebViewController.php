@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Complaint;
 use App\Models\Announcement;
 use Illuminate\Http\Request;
 use App\Models\ControlAccess;
@@ -99,8 +100,9 @@ class WebViewController extends Controller
         return view('qrcode', compact('qrcodes'));
     }
     public function announcementFetchId($id){
-        $fetchRequests = Announcement::findOrFail($id)->get();
-        return view('tba', compact('fetchRequests'));
+        // $fetchRequests = Announcement::findOrFail($id)->get();
+        $announcement = Announcement::findOrFail($id);
+        return view('announcement.viewAnnouncement', compact('announcement'));
 
     }
     public function getAllCAF(){
@@ -110,6 +112,13 @@ class WebViewController extends Controller
         
         return view('accessControl.accessControl', compact('fetchRequests'));
 
+    }
+
+    public function fetch(){
+        // $fetchALlComplaints =  Complaint::with('homeowner')->with('admin')->where('complaint_status', 1)->orWhere('complaint_status', 2)->get();
+        $fetchALlComplaints = Complaint::status(1, 2)->with('homeowner', 'admin')->get();
+
+       return view('complaints.complaints', compact('fetchALlComplaints'));
     }
 
 }

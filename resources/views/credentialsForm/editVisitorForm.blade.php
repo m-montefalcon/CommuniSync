@@ -45,11 +45,12 @@
 
         </form>
 
-        <form action= "{{ route ('api.delete', ['id'=> $visitor->id]) }}" method="POST">
+        <!-- <form action= "{{ route ('api.delete', ['id'=> $visitor->id]) }}" method="POST">
         @method('DELETE')
         @csrf
           <button type="submit" class="btn btn-danger">Delete</button>
-        </form>
+        </form> -->
+        <button class="btn btn-danger" onclick="history.back()"> Cancel </button>
 
       </div>
     </div>

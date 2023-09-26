@@ -72,5 +72,8 @@ Route::middleware('auth:sanctum')->group(function () {
     //THIS IS FOR ADMIN TO SEE
     Route::get('users/control/access/get/all', [WebViewController::class, 'getAllCAF'])->name('users.control.access.get.all');
 
+    // Complaints
+    Route::get('admin/complaint/fetch', [WebViewController::class, 'fetch'])->name('api.admin.complaint.fetch');
+
 });
 

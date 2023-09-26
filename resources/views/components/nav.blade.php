@@ -19,7 +19,6 @@
             </a>
           </li>
           <li>
-            <!-- <a class="side-link <?php if(basename($_SERVER['PHP_SELF']) == "home.php") echo "active"; ?>" href="{{ route('home') }}"> -->
             <a class="side-link @if(Request::is('home')) active @endif" href="{{ route('home') }}">
               <span class="icon"> <i class="fa-solid fa-home"></i> </span>
               <span class="text">Home</span>
@@ -89,7 +88,6 @@
             </li> -->
 
           <li>
-            <!-- <a class="side-link <?php if(basename($_SERVER['PHP_SELF']) == "home.php") echo "active"; ?>" href="{{ route('verificationRequests') }}"> -->
             <a class="side-link @if(Request::is('verification/requests')) active @endif" href="{{ route('verificationRequests') }}">
               <span class="icon"> <i class="fa-solid fa-user-check"></i> </span>
               <span class="text">Verification Requests</span>
@@ -98,7 +96,6 @@
           </li>
 
           <li>
-            <!-- <a class="side-link <?php if(basename($_SERVER['PHP_SELF']) == "home.php") echo "active"; ?>" href="{{ route('announcement') }}"> -->
             <a class="side-link @if(Request::is('announcement')) active @endif" href="{{ route('announcement') }}">
               <span class="icon"> <i class="fa-solid fa-bullhorn"></i> </span>
               <span class="text">Announcement</span>
@@ -107,15 +104,13 @@
           </li>
 
           <li>
-            <!-- <a class="side-link <?php if(basename($_SERVER['PHP_SELF']) == "home.php") echo "active"; ?>" href="{{ route('announcement.form') }}"> -->
-            <a class="side-link @if(Request::is('announcement/create/form')) active @endif" href="{{ route('announcement.form') }}">
+            <a class="side-link @if(Request::is('admin/complaint/fetch')) active @endif" href="{{ route('api.admin.complaint.fetch') }}">
               <span class="icon"> <i class="fa-solid fa-scroll"></i> </span>
-              <span class="text">Create Announcement</span>
-              <span class="tooltip"> Create Announcement </span>
+              <span class="text">Complaints</span>
+              <span class="tooltip"> Complaints </span>
             </a>
           </li>
           <li>
-            <!-- <a class="side-link <?php if(basename($_SERVER['PHP_SELF']) == "home.php") echo "active"; ?>" href="{{ route('profile') }}"> -->
             <a class="side-link @if(Request::is('profile')) active @endif" href="{{ route('profile') }}">
               <span class="icon"> <i class="fa-solid fa-user"></i> </span>
               <span class="text">Profile</span>
@@ -123,11 +118,17 @@
             </a>
           </li>
           <li>
-            <!-- <a class="side-link <?php if(basename($_SERVER['PHP_SELF']) == "home.php") echo "active"; ?>" href="{{ route('announcement.form') }}"> -->
             <a class="side-link @if(Request::is('users/control/access/get/all')) active @endif" href="{{ route('users.control.access.get.all') }}">
-              <span class="icon"> <i class="fa-solid fa-scroll"></i> </span>
+              <span class="icon"> <i class="fa-solid fa-house-lock"></i> </span>
               <span class="text">Access Control</span>
               <span class="tooltip"> Access Control </span>
+            </a>
+          </li>
+          <li>
+            <a class="side-link @if(Request::is('test/qrcode')) active @endif" href="{{ route('test') }}">
+              <span class="icon"> <i class="fa-solid fa-qrcode"></i> </span>
+              <span class="text">QR Code</span>
+              <span class="tooltip"> QR Code </span>
             </a>
           </li>
           <li class="logout">
@@ -149,13 +150,14 @@
       <div class="top-navbar">
         <div class="bx bx-menu" id="menu-icon"></div>
           <div class="profile">
-							
           @if (auth()->user()->photo)
-          <img src="http://127.0.0.1:8000/storage/{{Auth::user()->photo}}" alt="User Photo">
+              <a href="{{ route('profile') }}">
+                  <img src="http://127.0.0.1:8000/storage/{{ Auth::user()->photo }}" alt="User Photo">
+              </a>
           @else
               <p>No photo available</p>
           @endif
-          </div>
+        </div>
       </div>
       <main class="home-section"> </main>
       

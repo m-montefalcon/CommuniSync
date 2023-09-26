@@ -56,9 +56,11 @@
     }
 
     #table {
+        position: relative;
         height: 500px;
         width: 100%; 
         overflow: scroll; 
+        width: 100%;
         height: auto;
         max-height: 490px;
     }
