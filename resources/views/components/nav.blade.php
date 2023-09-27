@@ -15,7 +15,7 @@
         <nav>
           <li>
             <a>
-              <span class="icon"><i class="fa-solid fa-home"></i></span>
+              <span class="icon"><i class="fa-solid fa-torii-gate"></i></span>
             </a>
           </li>
           <li>
@@ -25,9 +25,16 @@
               <span class="tooltip"> Home </span>
             </a>
           </li>
+           <li>
+            <a class="side-link @if(Request::is('admin/get/logbook')) active @endif" href="{{ route('admin.get.logobok') }}">
+              <span class="icon"> <i class="fa-solid fa-address-book"></i> </span>
+              <span class="text">Logbook</span>
+              <span class="tooltip"> Logbook </span>
+            </a>
+          </li>
 
           <li class="user-dropdown">
-            <a class="side-link <?php if(basename($_SERVER['PHP_SELF']) == "home.php") echo "active"; ?>" href="#" id="users-dropdown-toggle">
+            <a class="side-link" id="users-dropdown-toggle">
               <span class="icon"> <i class="fa-solid fa-users"></i> </span>
               <span class="text"> Users <i class="fa-solid fa-angle-right" id="users-icon"></i> </span>
             </a>
@@ -58,35 +65,6 @@
               </li>
             </ul>
           </li>
-            <!-- <li>
-              <a class="side-link <?php if(basename($_SERVER['PHP_SELF']) == "home.php") echo "active"; ?>" href="{{ route('visitor') }}">
-                <span class="icon"> <i class="fa-solid fa-users"></i> </span>
-                <span class="text">Visitors</span>
-              </a>
-                <span class="tooltip"> Visitors </span>
-            </li>
-
-            <li>
-              <a class="side-link <?php if(basename($_SERVER['PHP_SELF']) == "home.php") echo "active"; ?>" href="{{ route('homeowner') }}">
-                <span class="text">Homeowners</span>
-              </a>
-                <span class="tooltip"> Homeowners </span>
-            </li>
-
-            <li>
-              <a class="side-link <?php if(basename($_SERVER['PHP_SELF']) == "home.php") echo "active"; ?>" href="{{ route('personnel') }}">
-                <span class="text">Personnel</span>
-              </a>
-                <span class="tooltip"> Personnel </span>
-            </li>
-
-            <li>
-              <a class="side-link <?php if(basename($_SERVER['PHP_SELF']) == "home.php") echo "active"; ?>" href="{{ route('admin') }}">
-                <span class="text">Admin</span>
-              </a>
-                <span class="tooltip"> Admin </span>
-            </li> -->
-
           <li>
             <a class="side-link @if(Request::is('verification/requests')) active @endif" href="{{ route('verificationRequests') }}">
               <span class="icon"> <i class="fa-solid fa-user-check"></i> </span>
@@ -94,7 +72,6 @@
               <span class="tooltip"> Verification Requests </span>
             </a>
           </li>
-
           <li>
             <a class="side-link @if(Request::is('announcement')) active @endif" href="{{ route('announcement') }}">
               <span class="icon"> <i class="fa-solid fa-bullhorn"></i> </span>
@@ -102,7 +79,6 @@
               <span class="tooltip"> Announcement </span>
             </a>
           </li>
-
           <li>
             <a class="side-link @if(Request::is('admin/complaint/fetch')) active @endif" href="{{ route('api.admin.complaint.fetch') }}">
               <span class="icon"> <i class="fa-solid fa-scroll"></i> </span>
