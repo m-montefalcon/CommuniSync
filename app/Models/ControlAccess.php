@@ -62,5 +62,17 @@ class ControlAccess extends Model
                       ->first();
 
     }
+
+    public function scopeGetAllValidatedRequest($query, $id)
+    {
+        return $query->where('visitor_id', $id)
+            ->where(function ($query) {
+                $query->where('visit_status', 4)
+                    ->orWhere('visit_status', 6)
+                    ->orWhereNotNull('qr_code'); // Add this condition
+            })
+            ->get();
+    }
+    
     
 }

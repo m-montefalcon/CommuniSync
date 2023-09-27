@@ -20,5 +20,23 @@ class Logbook extends Model
 
 
     ];
-   
+    public function visitor()
+    {
+        return $this->belongsTo(User::class, 'visitor_id');
+    }
+
+    public function homeowner()
+    {
+        return $this->belongsTo(User::class, 'homeowner_id');
+    }
+
+    public function admin()
+    {
+        return $this->belongsTo(User::class, 'admin_id');
+    }
+
+    public function personnel()
+    {
+        return $this->belongsTo(User::class, 'personnel_id');
+    }
 }
