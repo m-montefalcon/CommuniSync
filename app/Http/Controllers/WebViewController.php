@@ -10,7 +10,7 @@ use App\Models\ControlAccess;
 use Illuminate\Support\Facades\DB;
 use App\Models\VerificationRequest;
 use App\Http\Controllers\Controller;
-
+use App\Models\Logbook;
 
 class WebViewController extends Controller
 {
@@ -121,4 +121,8 @@ class WebViewController extends Controller
        return view('complaints.complaints', compact('fetchALlComplaints'));
     }
 
+    public function getLb(){
+        $fetchAllLb = Logbook::all();
+        return view('tba', compact('fetchAllLb'));
+    }
 }
