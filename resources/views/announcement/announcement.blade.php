@@ -93,6 +93,7 @@
             <div class="form-group">
                 <label for="announcementSendTo">To:</label>
                 <input class="form-control" id="announcementSendTo" readonly>
+                <!-- <input class="form-control" id="announcementRole"></input> -->
             </div>
             <div class="form-group">
                 <label for="announcementPhoto">Image:</label>
@@ -112,8 +113,29 @@
             var date = $(this).data('announcement-date');
             var description = $(this).data('announcement-description');
             var sendFrom = $(this).data('announcement-sendfrom');
-            var sendTo = $(this).data('announcement-sendto');
+            var sendToRoles = $(this).data('announcement-sendto'); 
             var photo = $(this).data('announcement-photo');
+
+            var sendTo = mapRolesToLabels(sendToRoles);
+
+            function mapRolesToLabels(roles) {
+                var roleLabels = [];
+                
+                for (var i = 0; i < roles.length; i++) {
+                    var role = roles[i];
+                    if (role == 1) {
+                        roleLabels.push(" Visitor");
+                    } else if (role == 2) {
+                        roleLabels.push(" Homeowner");
+                    } else if (role == 3) {
+                        roleLabels.push(" Security");
+                    } else {
+                        roleLabels.push("Unknown");
+                    }
+                }
+
+                return roleLabels;
+            }
 
             $('#announcementTitle').val(title);
             $('#announcementDate').val(date);
@@ -128,6 +150,15 @@
         $(document).on('click', '#closeModal', function() {
             modalContainer.style.display = "none"; 
         });
+
+        
+
+    
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     const announcementSendToElement = document.getElementById('announcementSendTo');
+        //     const announcementRoleElement = document.getElementById('announcementRole');
+
+        // });
     </script>
 
     
