@@ -25,7 +25,11 @@ class ControlAccessController extends Controller
         return response(['data' => $fetchRequests], 200);
     }
 
-    
+    public function getValidatedRequestVisitor($id){
+        $fetchRequests = ControlAccess::with('homeowner', 'admin')->getAllValidatedRequest($id);
+        return response(['data' => $fetchRequests], 200);
+
+    }
     //SEARCH THE HOMEOWNER ONLY
     public function searchMobile(Request $request)
     {
@@ -112,12 +116,20 @@ class ControlAccessController extends Controller
             'time' => now()->toTimeString(),
             'admin_id' => $adminId 
         ]);
-
-       
         $Rejectedid->save();
         return redirect()->back();
-        
-        
+    }
+    public function rejectedMobile(UserRecordControlAccessRequest $request){
+        $validatedData = $request->validated();
+        $id = ControlAccess::findOrFail($validatedData['id']);
+        $id ->update([
+            'visit_status' => 5,
+            'date' => now()->toDateString(),
+            'time' => now()->toTimeString(),
+            'personnel_id' => $validatedData['personnel_id'] 
+        ]);
+        $id ->save();
+        return response()->json(['Message' => 'Successfully Rejected'], 200);
     }
 
     public function recordedCheckMobile(SpCheckIdRequest $request){
@@ -168,6 +180,7 @@ class ControlAccessController extends Controller
             'admin_id' => $controlAccessId->admin_id,
             'visitor_id' => $controlAccessId->visitor_id,
             'personnel_id' => $controlAccessId->personnel_id,
+            'visit_members' => $controlAccessId->visit_members,
             'visit_date' => $currentDateTime->toDateString(),
             'created_at' => $currentDateTime,
             'updated_at' => $currentDateTime

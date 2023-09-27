@@ -72,6 +72,9 @@ Route::middleware('auth:sanctum')->group(function () {
         //Search homeowner username by visitor
         Route::post('users/control/access/search/mobile', [ControlAccessController::class, 'searchMobile'])->name('api.users.control.access.search.mobile');
         //Submit visit request by visitor
+        //Get all validated requests or with qr,by visitor
+        Route::get('users/control/access/get/all/validated/request/visitor/{id}', [ControlAccessController::class, 'getValidatedRequestVisitor'])->name('users.control.access.get.all.validated.request.visitor');
+
         Route::post('users/control/access/request/mobile', [ControlAccessController::class, 'requestMobile'])->name('api.users.control.access.request.mobile');
         //Get all request by homeowner
         Route::get('users/control/access/get/mobile/{id}', [ControlAccessController::class, 'getRequestHomeowner'])->name('users.control.access.get.mobile.{id}');
@@ -84,6 +87,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('admin/control/access/validated/{id}', [ControlAccessController::class, 'validated'])->name('api.admin.control.access.validated');
         //Reject by admin the request
         Route::put('admin/control/access/rejected/{id}', [ControlAccessController::class, 'rejected'])->name('api.admin.control.access.rejected');
+        Route::put('admin/control/access/rejected/mobile', [ControlAccessController::class, 'rejectedMobile'])->name('api.admin.control.access.rejected.mobile');
 
         //Return the qrcode info after scanning by personnel
         Route::post('users/control/access/recorded/check/mobile', [ControlAccessController::class, 'recordedCheckMobile'])->name('api.users.control.access.recorded.check.mobile');

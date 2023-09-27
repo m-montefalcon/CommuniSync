@@ -122,7 +122,7 @@ class WebViewController extends Controller
     }
 
     public function getLb(){
-        $fetchAllLb = Logbook::all();
+        $fetchAllLb = Logbook::with('homeowner', 'admin', 'visitor', 'personnel')->get();
         return view('logbook', compact('fetchAllLb'));
     }
 }
