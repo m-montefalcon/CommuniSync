@@ -102,6 +102,24 @@ class ControlAccessController extends Controller
         return redirect()->back();
     }
 
+    public function rejected($id){
+        $Rejectedid = ControlAccess::findOrFail($id);
+        $adminId = Auth::id();
+        // Update the model with the validated data
+        $Rejectedid->update([
+            'visit_status' => 5,
+            'date' => now()->toDateString(),
+            'time' => now()->toTimeString(),
+            'admin_id' => $adminId 
+        ]);
+
+       
+        $Rejectedid->save();
+        return redirect()->back();
+        
+        
+    }
+
     public function recordedCheckMobile(SpCheckIdRequest $request){
         $validatedData = $request->validated();
         $returnCheckQr = ControlAccess::with('visitor')->checkQr($validatedData['id'], $validatedData['homeowner_id'],$validatedData['visitor_id']);

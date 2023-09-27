@@ -83,7 +83,8 @@ Route::middleware('auth:sanctum')->group(function () {
         //Validated by admin the request
         Route::put('admin/control/access/validated/{id}', [ControlAccessController::class, 'validated'])->name('api.admin.control.access.validated');
         //Reject by admin the request
-        
+        Route::put('admin/control/access/rejected/{id}', [ControlAccessController::class, 'rejected'])->name('api.admin.control.access.rejected');
+
         //Return the qrcode info after scanning by personnel
         Route::post('users/control/access/recorded/check/mobile', [ControlAccessController::class, 'recordedCheckMobile'])->name('api.users.control.access.recorded.check.mobile');
         //Finally accept or returned blocked user by SP
