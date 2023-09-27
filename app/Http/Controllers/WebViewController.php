@@ -123,6 +123,6 @@ class WebViewController extends Controller
 
     public function getLb(){
         $fetchAllLb = Logbook::all();
-        return view('tba', compact('fetchAllLb'));
+        return view('logbook', compact('fetchAllLb'));
     }
 }

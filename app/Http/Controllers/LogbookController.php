@@ -34,7 +34,6 @@ class LogbookController extends Controller
             'personnel_id' => 'required',
             'contact_number' => 'required',
             'visit_members' => 'required|array',
-            'contact_number' => 'required'
         ]);
         $validatedData['visit_date'] = now()->toDateString();
         $validatedData['homeowner_id'] = $id;
