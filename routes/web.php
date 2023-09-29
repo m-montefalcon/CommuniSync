@@ -30,7 +30,7 @@ use App\Http\Controllers\AnnouncementController;
 
 Route::get('/', [WebViewController::class, 'returnLandingPageView'])->middleware('guest');
 Route::get('/login', [WebViewController::class, 'returnLoginWebView'])->name('login')->middleware('guest');
-Route::get('/register', [WebViewController::class, 'returnRegisterView'])->middleware('guest');
+Route::get('/register', [WebViewController::class, 'returnRegisterView']);
 // QR Code Testing CAF
 Route::get('/test/qrcode', [WebViewController::class, 'test'])->name('test');
 
