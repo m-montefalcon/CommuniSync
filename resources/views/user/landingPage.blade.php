@@ -18,9 +18,9 @@
 
  
     <!-- Will remove this after the auth setup -->
-    <div>
+    <!-- <div>
       <a href="/register" class="button">Register</a>
-    </div>
+    </div> -->
 
 
     </form>

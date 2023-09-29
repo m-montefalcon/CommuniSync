@@ -26,7 +26,7 @@
                     <div class="card shadow-sm">
                     <div class="profile">
         @if (auth()->user()->photo)
-        <img src="http://127.0.0.1:8000/storage/{{Auth::user()->photo}}" alt="User Photo">
+        <img src="{{ asset('storage/' . Auth::user()->photo) }}" alt="User Photo">
         @else
             <p>No photo available</p>
         @endif
@@ -48,6 +48,11 @@
                                     <th width="30%"> User Name </th>
                                     <td width="2%"> : </td>
                                     <td> {{ auth()->user()->user_name }} </td>
+                                </tr>
+                                <tr>
+                                    <th width="30%"> Full Name </th>
+                                    <td width="2%"> : </td>
+                                    <td> {{ auth()->user()->first_name}}  {{ auth()->user()->last_name}} </td>
                                 </tr>
                                 <tr>
                                     <th width="30%"> Email </th>
