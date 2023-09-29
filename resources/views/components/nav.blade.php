@@ -128,7 +128,7 @@
           <div class="profile">
           @if (auth()->user()->photo)
               <a href="{{ route('profile') }}">
-                  <img src="http://127.0.0.1:8000/storage/{{ Auth::user()->photo }}" alt="User Photo">
+              <img src="{{ asset('storage/' . Auth::user()->photo) }}" alt="User Photo">
               </a>
           @else
               <p>No photo available</p>
