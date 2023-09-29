@@ -10,7 +10,7 @@
 
 <body>
     <div class="card">
-        <form method="POST" action="{{ route('api.register.store') }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('api.user.store') }}" enctype="multipart/form-data">
             @csrf
             <h2>Register</h2>
 

@@ -30,6 +30,7 @@ class UserAuthStoreRequest extends FormRequest
             'contact_number' => ['required'], 
             'photo' => ['image', 'nullable'],
             'password' => ['required', 'min:6'],
+            'role' => ['required']
             
         ];
     }

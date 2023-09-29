@@ -41,7 +41,6 @@ use App\Models\VerificationRequest;
 
 
 // Public routes
-    Route::post('/register/store', [AuthController::class, 'store'])->name('api.register.store');
     Route::post('/login/store', [AuthController::class, 'login'])->name('api.login.store');
 
 // User mobile APIs
@@ -55,6 +54,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // User APIs
         Route::put('/update/{id}', [UserController::class, 'update'])->name('api.update');
         Route::delete('/delete/{id}', [UserController::class, 'destroy'])->name('api.delete');
+        Route::post('/user/store', [UserController::class, 'store'])->name('api.user.store');
 
     // User verification
         Route::put('/approved/verification/{id}', [VerificationRequests::class, 'update'])->name('api.approved.verification');

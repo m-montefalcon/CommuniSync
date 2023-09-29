@@ -20,23 +20,7 @@ use App\Http\Requests\AuthRequests\UserAuthStoreRequest;
 
 class AuthController extends Controller
 {
-    public function store(UserAuthStoreRequest $request){
-        $validated = $request->validated();
 
-        $imagePath = null;
-        if ($request->hasFile('photo')) {
-            $imagePath = $request->file('photo')->store('user_profile', 'public');
-        }
-        $validated['photo'] = $imagePath;
-        
-        $validated['password'] = Hash::make($validated['password']);
-        $validated['remember_token'] = Str::random(60);    
-        User::create($validated);
-        return redirect('/');
-        // return response()->json([
-        //     'message' => 'User registered successfully'// Pass the user data to the response
-        // ]);    
-    }
 
 
     public function login(UserLoginRequest $request)
