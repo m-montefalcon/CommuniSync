@@ -1,8 +1,9 @@
 @include('partials.__header')
+@include('components.nav')
 
 <html>
 <head>
-  <title> Register </title>
+  <title> Register Personnel </title>
   <link rel="stylesheet" href="{{ asset('css/register.css') }}">
   <link rel="stylesheet">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.0/css/all.css">
@@ -12,7 +13,23 @@
     <div class="card">
         <form method="POST" action="{{ route('api.user.store') }}" enctype="multipart/form-data">
             @csrf
-            <h2>Register</h2>
+            
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    @foreach ($errors->all() as $error)
+                        <p>{{ $error }}</p>
+                    @endforeach
+                </div>
+                <script>
+                    setTimeout(function() {
+                        document.querySelector('.alert').style.display = 'none';
+                    }, 5000);
+                </script>
+            @endif
+
+            <h2>Register Personnel</h2>
+
+                <input type="hidden" name="form_type" value="registerPersonnel">
 
                 <label for="user_name">Username:</label>
                 <input type="text" id="user_name" name="user_name" required>
@@ -41,13 +58,7 @@
                 <input type="file" id="photo" name="photo">
 
                 <label for="role">Role:</label>
-                <select class="form-select" id="role" name="role">
-                    <option disabled selected> Role </option>
-                    <option value="1"> Vistor </option>
-                    <option value="2"> Homeowner </option>
-                    <option value="3"> Security Personnel </option>
-                    <option value="4"> Admin </option>
-                </select>
+                <input type="text" id="role" name="role" value="Security Pesonnel" readonly>
 
             <button type="submit" value="Register"> Register </button>
         </form>
@@ -64,6 +75,16 @@
 		passwordInput.focus();
 		});
 	</script>
+
+    <script>
+        var roleInput = document.getElementById('role');
+
+        roleInput.form.addEventListener('submit', function () {
+            roleInput.value = "3";
+        });
+    </script>
+    
+</script>
     
 </body>
 </html>

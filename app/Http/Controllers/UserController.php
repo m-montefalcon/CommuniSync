@@ -17,6 +17,10 @@ class UserController extends Controller
     public function store(UserAuthStoreRequest $request){
         $validated = $request->validated();
 
+        if (array_key_exists('family_member', $validated)) {
+            $validated['family_member'] = json_encode($validated['family_member']);
+        }
+        
         $imagePath = null;
         if ($request->hasFile('photo')) {
             $imagePath = $request->file('photo')->store('user_profile', 'public');
@@ -26,8 +30,31 @@ class UserController extends Controller
         $validated['password'] = Hash::make($validated['password']);
         $validated['remember_token'] = Str::random(60);    
         User::create($validated);
-        return redirect('/');
-      
+
+        $redirectRoute = $this->getRedirectRouteRegister($request);
+
+        return redirect()->route($redirectRoute);      
+    }
+
+    public function getRedirectRouteRegister(Request $request): string
+    {
+        if ($request->has('form_type')) {
+            $formType = $request->input('form_type');
+            switch ($formType) {
+                case 'registerVisitor':
+                    return 'visitor';
+                case 'registerHomeowner':
+                    return 'homeowner';
+                case 'registerPersonnel':
+                    return 'personnel';
+                case 'registerAdmin':
+                    return 'admin';
+                default:
+                    return '/home';
+            }
+        }
+    
+        return '/home';
     }
     
     public function update(UserUpdateRequest $request, User $id)

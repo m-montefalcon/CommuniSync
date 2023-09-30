@@ -17,6 +17,9 @@
                         <h2>
                             SECURITY PERSONNEL
                         </h2>
+                        <a class="add-btn" href="{{ route('registerPersonnel') }}">
+                            <i class="fa-solid fa-user-plus"></i> Add Security Personnel
+                        </a>
                     </div>   
                     <div class="card-body">
                         <div id="table">

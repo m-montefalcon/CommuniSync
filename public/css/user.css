@@ -142,3 +142,31 @@
     body::-webkit-scrollbar-thumb:hover {
         background-color: #aaa; 
     }  
+
+    .add-btn {
+        position: absolute;
+        text-align: center;
+        background-color: white;
+        color: black;
+        border-radius: 6px;
+        /* width: 100px; */
+        height: 30px;
+        margin-left: 0%;
+        right: 20px;
+        justify-content: center;
+        align-items: center;
+        top: 10px;
+        display: flex;
+        padding: 10px;
+    }
+
+    .add-btn i {
+        margin-right: 7px; 
+    }
+
+    .add-btn:hover {
+        background-color: maroon;
+        margin-left: 0%;
+        border-radius: 6px;
+        color: white;
+    }
