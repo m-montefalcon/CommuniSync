@@ -30,8 +30,37 @@ class UserAuthStoreRequest extends FormRequest
             'contact_number' => ['required'], 
             'photo' => ['image', 'nullable'],
             'password' => ['required', 'min:6'],
+            'block_no' => ['nullable'],
+            'lot_no' => ['nullable'],
+            'manual_visit_option' => ['nullable'],
+            'family_member' => ['nullable'],
             'role' => ['required']
             
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'user_name.required' => 'The username field is required.',
+            'user_name.min' => 'The username must be at least 6 characters long.',
+            'user_name.unique' => 'The username has already been taken.',
+            
+            'email.required' => 'The email field is required.',
+            'email.min' => 'The email must be at least 4 characters long.',
+            
+            'first_name.required' => 'The first name field is required.',
+            
+            'last_name.required' => 'The last name field is required.',
+            
+            'contact_number.required' => 'The contact number field is required.',
+            
+            'photo.image' => 'The photo must be an image.',
+            
+            'password.required' => 'The password field is required.',
+            'password.min' => 'The password must be at least 6 characters long.',
+            
+            'role.required' => 'The role field is required.'
         ];
     }
 }

@@ -17,6 +17,9 @@
                         <h2>
                             ADMIN
                         </h2>
+                        <a class="add-btn" href="{{ route('registerAdmin') }}">
+                            <i class="fa-solid fa-user-plus"></i> Add Admin
+                        </a>
                     </div>   
                     <div class="card-body">
                         <div id="table">

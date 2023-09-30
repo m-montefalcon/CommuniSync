@@ -23,8 +23,20 @@ class WebViewController extends Controller
         return view('user.login');
     }
 
-    public function returnRegisterView(){
-        return view('user.register');
+    public function returnRegisterVisitorView(){
+        return view('user.registerVisitor');
+    }
+
+    public function returnRegisterHomeownerView(){
+        return view('user.registerHomeowner');
+    }
+
+    public function returnRegisterPersonnelView(){
+        return view('user.registerPersonnel');
+    }
+
+    public function returnRegisterAdminView(){
+        return view('user.registerAdmin');
     }
 
 

@@ -167,3 +167,17 @@
 		background-color: #4169E1;
 		cursor: pointer;
 	}
+
+	.alert-danger {
+		background-color: #f2dede;
+		border-color: #ebccd1;
+		color: #a94442;
+		text-align: center;
+	}
+	
+	.alert {
+		padding: 15px;
+		
+		border: 1px solid transparent;
+		border-radius: 5px;
+	}

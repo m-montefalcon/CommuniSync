@@ -17,6 +17,9 @@
                         <h2>
                             HOMEOWNER
                         </h2>
+                        <a class="add-btn" href="{{ route('registerHomeowner') }}">
+                            <i class="fa-solid fa-user-plus"></i> Add Homeowner
+                        </a>
                     </div>   
                     <div class="card-body">
                         <div id="table">
@@ -32,7 +35,6 @@
                                         <th>Family Member</th>
                                         <th>Manual Visit Option</th>
                                         <th>Role</th>
-                                        <!-- <th>View</th> -->
                                     </tr>
                                     @foreach($homeowners as $homeowner)
                                     <tr class="clickable-row" data-href="{{ route('homeownerId', ['id' => $homeowner->id]) }}" method="GET">
@@ -41,16 +43,22 @@
                                         <td>{{$homeowner->last_name}}</td>
                                         <td>{{$homeowner->contact_number}}</td>
                                         <td>{{$homeowner->email}}</td>
-                                        <td>{{$homeowner->house_no}}</td>
-                                        <td>{{$homeowner->family_member}}</td>
+                                        <td>B {{ $homeowner->block_no }} - L {{ $homeowner->lot_no }}</td>
+                                        @php
+                                            $family_members = json_decode($homeowner->family_member);
+                                        @endphp
+
+                                        @if ($family_members === null)
+                                            <td>No member found</td>
+                                        @else
+                                            @php
+                                                $commaSeparatedMember = implode(", ", $family_members);
+                                            @endphp
+
+                                            <td>{{ $commaSeparatedMember }}</td>
+                                        @endif
                                         <td>{{$homeowner->manual_visit_option}}</td>
                                         <td>{{$homeowner->role}}</td>
-                                        <!-- <td>
-                                            <form action="{{ route('homeownerId', ['id' => $homeowner->id]) }}" method="GET">
-                                                @csrf
-                                                <button type="submit">View</button>
-                                            </form>
-                                        </td> -->
                                     </tr>
                                     @endforeach
                                 </tbody>

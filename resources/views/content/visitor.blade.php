@@ -17,6 +17,9 @@
                         <h2>
                             VISITOR
                         </h2>
+                        <a class="add-btn" href="{{ route('registerVisitor') }}">
+                            <i class="fa-solid fa-user-plus"></i> Add Visitor
+                        </a>
                     </div>   
                     <div class="card-body">
                         <div id="table">
@@ -29,7 +32,6 @@
                                         <th>Contact Number</th>
                                         <th>Email</th>
                                         <th>Role</th>
-                                        <!-- <th>View</th> -->
                                     </tr>                       
                                     @foreach($visitors as $visitor)
                                     <tr class="clickable-row" data-href="{{ route('visitorId', ['id' => $visitor->id]) }}" method="GET">
@@ -39,12 +41,6 @@
                                         <td>{{$visitor->contact_number}}</td>
                                         <td>{{$visitor->email}}</td>
                                         <td>{{$visitor->role}}</td>
-                                        <!-- <td>
-                                            <form action="{{ route('visitorId', ['id' => $visitor->id]) }}" method="GET">
-                                                @csrf
-                                                <button type="submit">View</button>
-                                            </form>
-                                        </td> -->
                                     </tr>
                                     @endforeach
                                 </tbody>

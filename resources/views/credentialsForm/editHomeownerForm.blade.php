@@ -45,10 +45,13 @@
               <option value="1" @if($homeowner->manual_visit_option == 1) selected @endif>Allow</option>
             </select>
       
-          <label for="house_no">House Number:</label>
-          <input type="text" id="house_no" name="house_no" value="{{$homeowner->house_no}}" required>
+          <label for="block_no">Block Number:</label>
+          <input type="text" id="block_no" name="block_no" value="{{$homeowner->block_no}}" required>
+        
+          <label for="lot_no">Lot Number:</label>
+          <input type="text" id="lot_no" name="lot_no" value="{{$homeowner->lot_no}}" required>
 
-          <label for="family_member">Family Members:</label> <br/>
+          <label for="family_member">Family Members:</label>
             @php $familyMembers = old('family_member', $homeowner->family_member ?? []); @endphp
             <div id="familyInputContainer">
             @foreach($familyMembers as $index => $member)
@@ -59,19 +62,10 @@
             @endforeach
             </div>
             <button type="button" id="addMember">Add member</button>
-            <br/>
-            <br/>
-          <br>
-
+            <br>
+            <br>
           <button type="submit" class="btn btn-primary">Update</button>
-
         </form>
-
-        <!-- <form action= "{{ route ('api.delete', ['id'=> $homeowner->id]) }}" method="POST">
-        @method('DELETE')
-        @csrf
-          <button type="submit" class="btn btn-danger">Delete</button>
-        </form> -->
 
         <button class="btn btn-danger" onclick="history.back()"> Cancel </button>
       </div>

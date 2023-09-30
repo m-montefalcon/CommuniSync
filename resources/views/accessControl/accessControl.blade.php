@@ -52,7 +52,7 @@
                                             <td>No member found</td>
                                         @else
                                             @php
-                                                $commaSeparatedMember = implode(",", $visitMembers);
+                                                $commaSeparatedMember = implode(", ", $visitMembers);
                                             @endphp
 
                                             <td>{{ $commaSeparatedMember }}</td>
