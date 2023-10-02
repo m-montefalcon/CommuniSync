@@ -98,6 +98,12 @@ class UserController extends Controller
     
         return '/home';
     }
+
+    public function getProfileMobile($id){
+
+        $user = User::where('id' , $id)->first();
+        return response()->json(['data' => $user], 200);
+    }
     
 
 }

@@ -52,9 +52,11 @@ use App\Models\VerificationRequest;
 // Routes that require authentication
 Route::middleware('auth:sanctum')->group(function () {
     // User APIs
+
         Route::put('/update/{id}', [UserController::class, 'update'])->name('api.update');
         Route::delete('/delete/{id}', [UserController::class, 'destroy'])->name('api.delete');
         Route::post('/user/store', [UserController::class, 'store'])->name('api.user.store');
+        Route::get('/get/profile/mobile/{id}', [UserController::class, 'getProfileMobile'])->name('get.profile.mobile.id');
 
     // User verification
         Route::put('/approved/verification/{id}', [VerificationRequests::class, 'update'])->name('api.approved.verification');
