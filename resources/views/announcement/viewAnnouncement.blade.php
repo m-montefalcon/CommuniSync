@@ -70,12 +70,14 @@
                     </div>                   
                   </td>
                   <td>
-                    <div class="card-description">
+                  <div class="card-description">
                       <div class="card-body">
-                      {{ $announcement->announcement_photo }} 
+                          <img src="{{ asset('storage/' . $announcement->announcement_photo) }}" alt="user photo">
                       </div>
-                    </div>                   
-                  </td>
+                  </div>                   
+              </td>
+
+
               </tr>
             </tbody>
           </table>

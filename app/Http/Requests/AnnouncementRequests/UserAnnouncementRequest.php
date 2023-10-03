@@ -24,7 +24,7 @@ class UserAnnouncementRequest extends FormRequest
         return [
             'announcement_title' => 'required',
             'announcement_description' => 'required',
-            'announcement_photo' => ['nullable'],
+            'announcement_photo' => 'required',
             'role' => 'required|array'
         ];
     }

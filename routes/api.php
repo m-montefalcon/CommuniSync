@@ -48,6 +48,7 @@ use App\Models\VerificationRequest;
     Route::post('/login/store/mobile', [AuthController::class, 'loginMobile'])->name('api.login.store.mobile');
 // Other public routes...
 
+Route::get('/announcement/fetch/mobile/{id}', [AnnouncementController::class, 'announcementFetchMobile'])->name('announcementFetchMobile');
 
 // Routes that require authentication
 Route::middleware('auth:sanctum')->group(function () {
@@ -67,7 +68,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Announcement feature
         Route::post('/announcement/store', [AnnouncementController::class, 'announcementStore'])->name('announcementStore');
-        Route::get('/announcement/fetch/mobile', [AnnouncementController::class, 'announcementFetchMobile'])->name('announcementFetchMobile');
 
     // Control access feature 
     
