@@ -95,10 +95,18 @@
                 <input class="form-control" id="announcementSendTo" readonly>
                 <!-- <input class="form-control" id="announcementRole"></input> -->
             </div>
-            <div class="form-group">
-                <label for="announcementPhoto">Image:</label>
-                <img class="form-control" id="announcementPhoto" src="" alt="Announcement Photo">
-            </div>
+            <div class="card-description">
+                <div class="card-body">
+                    <div class="form-group">
+                        <img id="announcementphoto" src="{{ asset('storage/' . $announcement->announcement_photo) }}" alt="announcement photo">
+
+                    </div>
+                </div>
+
+            </div> 
+
+
+                
         </div>
     </div>
 
@@ -142,7 +150,6 @@
             $('#announcementDescription').val(description);
             $('#announcementSendFrom').val(sendFrom);
             $('#announcementSendTo').val(sendTo);
-            $('#announcementPhoto').attr('src', 'http://127.0.0.1:8000/storage/' + photo);
 
             modalContainer.style.display = "flex";
         });

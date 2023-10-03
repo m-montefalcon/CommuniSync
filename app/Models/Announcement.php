@@ -25,7 +25,7 @@ class Announcement extends Model
     }
 
     public function scopeWithRole($query, $role){
-        return $query->whereJsonContains('role', [$role]);
+        return $query->whereJsonContains('role', $role);
     }
     
 }

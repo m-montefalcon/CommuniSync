@@ -10,22 +10,30 @@ use App\Http\Requests\AnnouncementRequests\UserAnnouncementRequest;
 
 class AnnouncementController extends Controller
 {
-    public function announcementStore(UserAnnouncementRequest $request){
-        $validatedData = $request -> validated();
+    public function announcementStore(UserAnnouncementRequest $request)
+    {
+        $validatedData = $request->validated();
     
+        $imagePath = null;
+        if ($request->hasFile('announcement_photo')) {
+            $imagePath = $request->file('announcement_photo')->store('announcement', 'public');
+        }
+        
+        $validatedData['announcement_photo'] = $imagePath;
         $validatedData['announcement_date'] = Carbon::now();
-        $validatedData['admin_id'] = Auth::user()->id;
+        $validatedData['admin_id'] = auth()->user()->id;
         $validatedData['role'] = json_encode($validatedData['role']);
+    // @dd($validatedData);
         Announcement::create($validatedData);
     
         return redirect()->route('announcement');
     }
 
-    public function announcementFetchMobile(Request $request){
-        $role = $request->input('role');
+    public function announcementFetchMobile($id){
+       
 
         // Fetch announcements based on the user's role
-        $announcements = Announcement::withRole($role)->with('admin')->get();
-        return response()->json($announcements);
+        $announcements = Announcement::withRole($id)->with('admin')->get();
+        return response()->json(['data' => $announcements], 200);
     }
 }

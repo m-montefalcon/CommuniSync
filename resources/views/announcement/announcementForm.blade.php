@@ -17,7 +17,7 @@
             </div>
             <div class="card-body">
 
-                <form method="POST" action="{{route('announcementStore')}}">
+                <form method="POST" action="{{route('announcementStore')}}" enctype="multipart/form-data">
                     
                 @csrf
 
