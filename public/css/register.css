@@ -12,8 +12,14 @@
 
 	h2 {
 		/* margin-bottom: 20px; */
-		text-align: center;
+		text-align: left;
+		margin-bottom: 5%;
 		font: 2.5em sans-serif;
+	}
+	
+	.input-container {
+		display: flex;
+		justify-content:space-between;
 	}
 
 	form {
@@ -22,7 +28,7 @@
 		box-shadow: 0px 0px 10px #BDBDBD;
 		padding: 50px;
 		padding-top: 20px;
-		max-width: 600px;
+		max-width: 100%;
 		margin: auto;
 		width: 100%;
 	}
@@ -38,15 +44,15 @@
     input[type="text"],
 	input[type="email"],
 	input[type="password"] {
-		background-color: #F2F2F2;
+		background-color: #ffffff;
 		border: none;
-		border-radius: 5px;
-		box-shadow: inset 0px 0px 5px #BDBDBD;
+		border-top-right-radius: 5px;
+		border-bottom-right-radius: 5px;
+		box-shadow: inset 0px 0px 5px #000000;
 		display: block;
 		font-size: 16px;
-		margin-bottom: 20px;
+		margin-left: 45px;
 		padding: 10px;
-		width: 100%;
 	}
 
     input[type="file"] {
@@ -56,51 +62,48 @@
 		box-shadow: white;
 		display: block;
 		font-size: 16px;
+		margin-left: 45px;
 		margin-bottom: 20px;
 		padding: 10px;
-		width: 100%;
-	}
-
-	#password {
-		padding-right: 40px;
+		width: 97%;
 	}
 
 	input[type="text"]:focus,
     input[type="email"]:focus,
 	input[type="password"]:focus {
 		background-color: #FFFFFF;
-		box-shadow: inset 0px 0px 5px #89CFF0;
+		box-shadow: inset 0px 0px 5px #727374;
 		color: black;
 		outline: none;
+	}
+
+	.user-container {
+		width: 90%;
+	}
+
+	.user-details input{
+		margin-bottom: 20px;
+		width: 90%;
+	}
+
+	.role-container {
+		width: 97%;
+		margin-bottom: 20px;
 	}
 
 	.form-group {
 		position: relative;
 	}
 
-	/* .form-group .input-icon {
-		position: absolute;
-		top: 70%;
-		transform: translateY(-50%);
-		z-index: 1;
+	.removeMember {
+		width: 150px;
+		transform: translateY(-10%);
 	}
-
-	.input-icon {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 40px;
-	  }
-	  
-	.input-icon i {
-		color: #555; 
-		font-size: 18px; 
-	} */
 
 	.input-icon-end {
 		position: absolute;
 		top: 70%;
-		right: 1px; 
+		right: -15px; 
 		transform: translateY(-50%);
 		z-index: 1;
 	}
@@ -117,17 +120,88 @@
 		font-size: 18px; 
 	}
 
+	.input-icon-start {
+		position: absolute;
+		left: -40px; 
+		transform: translateY(60%);
+		transform:translateX(0%);
+		z-index: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 40px;
+	}
+
+	.input-icon-start i {
+		color: #555; 
+		font-size: 18px; 
+		max-width: 100%;
+		min-width: 100%;
+		border-top: 1px solid #555;
+		border-bottom: 1px solid #555;
+		border-left: 1px solid #555;
+		padding-right: 30px;
+		padding-left: 15px;
+		padding-top: 12.5px;
+		padding-bottom: 12.5px;
+		border-radius: 2px;
+		box-shadow: inset 0px 0px 4px #000000;
+		border-top-left-radius: 5px;
+		border-bottom-left-radius: 5px;
+		margin-left: 80px;
+	}
+
+	.input-icon-start-member i{
+		color: #555; 
+		font-size: 18px; 
+		max-width: 5%;
+		min-width: 5%;
+		border-top: 1px solid #555;
+		border-bottom: 1px solid #555;
+		border-left: 1px solid #555;
+		padding-right: 37px;
+		padding-left: 17px;
+		padding-top: 15px;
+		padding-bottom: 13px;
+		border-radius: 2px;
+		box-shadow: inset 0px 0px 4px #000000;
+		border-top-left-radius: 5px;
+		border-bottom-left-radius: 5px;
+	}
+
+	.inputField {
+		display: flex;
+		justify-content: flex-start;
+		margin-bottom: -20px;
+	}
+
+	.inputField .flex-container input {
+		transform: translateY(-100%);
+		margin-left: 57px;
+	}
+
+	.inputField input{
+		background-color: #ffffff;
+		border: none;
+		border-top-right-radius: 5px;
+		border-bottom-right-radius: 5px;
+		box-shadow: inset 0px 0px 5px #000000;
+		font-size: 18px;
+		margin-right: 100px;
+	}
+
     select.form-select {
-        background-color: #F2F2F2;
+        background-color: #FFFFFF;
 		color: black;
 		border-radius: 6px;
 		width: 100%;
 		border-color: #1A0046FF;
 		border: none;
-		padding: 5px;
+		padding: 8px;
 		font-size: 18px;
         margin-bottom: 20px;
-		border: 3px solid #ced4da;
+		border: 1px solid #000000;
+		box-shadow: inset 0px 0px 5px #000000;
 	}
     
 	select.form-select:focus {
@@ -153,18 +227,19 @@
 	}
 	
 	button {
-		background-color: #89CFF0;
-		color: black;
+		background-color: #aaaaaa;
 		border-radius: 6px;
-		width: 100%;
+		width: 101%;
 		height: 40px;
 		margin-top: 10px;
 		font-size: 20px;
-		border: none;
+		border-color: #555;
+		box-shadow: inset 0px 0px 4px #000000;
+		border: #F2F2F2;
 	}
 
 	button[type="submit"]:hover {
-		background-color: #4169E1;
+		background-color: #FFFFFF;
 		cursor: pointer;
 	}
 
@@ -177,7 +252,6 @@
 	
 	.alert {
 		padding: 15px;
-		
 		border: 1px solid transparent;
 		border-radius: 5px;
 	}

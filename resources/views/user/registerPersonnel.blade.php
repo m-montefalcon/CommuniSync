@@ -31,35 +31,93 @@
 
                 <input type="hidden" name="form_type" value="registerPersonnel">
 
-                <label for="user_name">Username:</label>
-                <input type="text" id="user_name" name="user_name" required>
+                <div class="user-details">
+                <div class="input-container">
+                    <div class="flex-container">
+                        <div class="form-group">
+                            <label for="user_name">Username:</label>
+                            <span class="input-icon-start">
+                                <i class="fa-solid fa-user"></i>      
+                            </span>
+                            <input class="user-container" type="text" id="user_name" name="user_name" required>
+                        </div>
+                    </div>
 
-                <label for="first_name">First Name:</label>
-                <input type="text" id="first_name" name="first_name" required>
-
-                <label for="last_name">Last Name:</label>
-                <input type="text" id="last_name" name="last_name" required>
-
-                <label for="contact_number">Contact Number:</label>
-                <input type="text" id="contact_number" name="contact_number" required>
-
-                <label for="email">Email Address:</label>
-                <input type="email" id="email" name="email" required>
-
-                <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
-                <span class="input-icon-end"> 
-                    <i class="fa fa-eye-slash password-toggle" id="password-toggle"></i>
-                </span>
+                    <div class="flex-container">
+                        <div class="form-group">
+                            <label for="password">Password:</label>
+                            <span class="input-icon-start">
+                                <i class="fa-solid fa-lock"></i>
+                            </span>
+                            <input class="user-container" type="password" id="password" name="password" required>
+                            <span class="input-icon-end"> 
+                                <i class="fa fa-eye-slash password-toggle" id="password-toggle"></i>
+                            </span>
+                        </div>
+                    </div>
                 </div>
 
+                <div class="input-container">
+                    <div class="flex-container">
+                        <div class="form-group">
+                            <label for="first_name">First Name:</label>
+                            <span class="input-icon-start">
+                                <i class="fa-solid fa-id-card"></i>
+                            </span>   
+                            <input class="user-container" type="text" id="first_name" name="first_name" required>         
+                        </div>
+                    </div>
+
+                    <div class="flex-container">
+                        <div class="form-group">
+                            <label for="last_name">Last Name:</label>
+                            <span class="input-icon-start">
+                                <i class="fa-solid fa-id-card"></i>
+                            </span>   
+                        </div>             
+                        <input class="user-container" type="text" id="last_name" name="last_name" required>
+                    </div>
+                </div>
+
+                <div class="input-container">
+                    <div class="flex-container">
+                    <div class="form-group">
+                            <label for="contact_number">Contact Number:</label>
+                            <span class="input-icon-start">
+                                <i class="fa-solid fa-phone"></i>
+                            </span>   
+                        </div>  
+                        <input class="user-container" type="text" id="contact_number" name="contact_number" required>
+                    </div>
+
+                    <div class="flex-container">
+                        <div class="form-group">
+                            <label for="email">Email Address:</label>
+                            <span class="input-icon-start">
+                                <i class="fa-solid fa-envelope"></i>
+                            </span>  
+                        </div>
+                        <input class="user-container" type="email" id="email" name="email" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
                 <label for="photo">Photo:</label>
-                <input type="file" id="photo" name="photo">
+                <span class="input-icon-start">
+                    <i class="fa-solid fa-image"></i>
+                </span>  
+            </div>
+            <input type="file" id="photo" name="photo">
 
+            <div class="form-group">
                 <label for="role">Role:</label>
-                <input type="text" id="role" name="role" value="Security Pesonnel" readonly>
+                <span class="input-icon-start">
+                    <i class="fa-solid fa-id-badge"></i>
+                </span>
+            </div>
 
+            <input class="role-container" type="text" id="role" name="role" value="Security Personnel" readonly>
             <button type="submit" value="Register"> Register </button>
         </form>
     </div>
