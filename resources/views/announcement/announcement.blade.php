@@ -150,6 +150,7 @@
             $('#announcementDescription').val(description);
             $('#announcementSendFrom').val(sendFrom);
             $('#announcementSendTo').val(sendTo);
+            $('#announcementPhoto').attr('src', "{{ asset('storage/') }}" + photo);
 
             modalContainer.style.display = "flex";
         });
