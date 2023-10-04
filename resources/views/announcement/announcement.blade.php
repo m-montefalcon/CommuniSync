@@ -36,7 +36,7 @@
                                     data-announcement-description="{{ $announcement->announcement_description }}"
                                     data-announcement-sendFrom="{{ $announcement->admin->first_name . ' ' . $announcement->admin->last_name }}"
                                     data-announcement-sendTo="{{ $announcement->role }}"
-                                    data-announcement-photo="{{ $announcement->announcement_photo }}"
+                                    data-announcement-photo="{{ asset('storage/' . $announcement->announcement_photo) }}"
                                     >
                                         <td>
                                             <div class="card-title">
@@ -98,7 +98,8 @@
             <div class="card-description">
                 <div class="card-body">
                     <div class="form-group">
-                        <img id="announcementphoto" src="{{ asset('storage/' . $announcement->announcement_photo) }}" alt="announcement photo">
+                        
+                    <img id="announcementPhoto{{ $announcement->id }}" class="announcement-photo" data-announcement-photo="{{ asset('storage/' . $announcement->announcement_photo) }}" alt="announcement photo">
 
                     </div>
                 </div>
@@ -108,6 +109,7 @@
 
                 
         </div>
+
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -117,12 +119,15 @@
         var closeModalButton = document.getElementById("closeModal");
 
         $(document).on('click', '.clickable-row', function() {
+            var announcementId = $(this).data('announcement-id');
             var title = $(this).data('announcement-title');
             var date = $(this).data('announcement-date');
             var description = $(this).data('announcement-description');
             var sendFrom = $(this).data('announcement-sendfrom');
             var sendToRoles = $(this).data('announcement-sendto'); 
             var photo = $(this).data('announcement-photo');
+            
+            var imageId = "announcementPhoto"; 
 
             var sendTo = mapRolesToLabels(sendToRoles);
 
@@ -150,7 +155,7 @@
             $('#announcementDescription').val(description);
             $('#announcementSendFrom').val(sendFrom);
             $('#announcementSendTo').val(sendTo);
-            $('#announcementPhoto').attr('src', "{{ asset('storage/') }}" + photo);
+            $('.announcement-photo').attr('src', photo);
 
             modalContainer.style.display = "flex";
         });
