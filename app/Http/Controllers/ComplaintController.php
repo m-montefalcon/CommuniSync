@@ -13,6 +13,12 @@ class ComplaintController extends Controller
 {
     public function storeMobile(UserComplaintStoreRequest $request){
         $validatedData = $request -> validated();
+        $imagePath = null;
+        if ($request->hasFile('announcement_photo')) {
+            $imagePath = $request->file('announcement_photo')->store('complaints', 'public');
+        }
+        
+        $validatedData['complaint_photo'] = $imagePath;
         $validatedData['admin_id'] = Auth::id();
 
         $validatedData['complaint_date'] = now()->toDateString();
