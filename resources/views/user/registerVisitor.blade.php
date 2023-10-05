@@ -10,114 +10,123 @@
 </head>
 
 <body>
-    <div class="card">
-        <form method="POST" action="{{ route('api.user.store') }}" enctype="multipart/form-data">
-            @csrf
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h2>
+                    Register Visitor
+                </h2>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ route('api.user.store') }}" enctype="multipart/form-data">
+                    @csrf
 
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    @foreach ($errors->all() as $error)
-                        <p>{{ $error }}</p>
-                    @endforeach
-                </div>
-                <script>
-                    setTimeout(function() {
-                        document.querySelector('.alert').style.display = 'none';
-                    }, 5000);
-                </script>
-            @endif
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            @foreach ($errors->all() as $error)
+                                <p>{{ $error }}</p>
+                            @endforeach
+                        </div>
+                        <script>
+                            setTimeout(function() {
+                                document.querySelector('.alert').style.display = 'none';
+                            }, 5000);
+                        </script>
+                    @endif
 
-            <h2>Register Visitor</h2>
-
-            <input type="hidden" name="form_type" value="registerVisitor">
-            <div class="user-details">
-                <div class="input-container">
-                    <div class="flex-container">
-                        <div class="form-group">
+                    <input type="hidden" name="form_type" value="registerVisitor">
+                    
+                    <div class="user-details">
+                        <div class="input-box">
+                            <div class="input-group-prepend">
+                                <span class="input-icon"> 
+                                    <i class="fa-solid fa-user"></i> 
+                                </span>
+                            </div>
                             <label for="user_name">Username:</label>
-                            <span class="input-icon-start">
-                                <i class="fa-solid fa-user"></i>      
-                            </span>
-                            <input class="user-container" type="text" id="user_name" name="user_name" required>
+                            <input type="text" id="user_name" name="user_name" required>
                         </div>
-                    </div>
 
-                    <div class="flex-container">
-                        <div class="form-group">
-                            <label for="password">Password:</label>
-                            <span class="input-icon-start">
-                                <i class="fa-solid fa-lock"></i>
-                            </span>
-                            <input class="user-container" type="password" id="password" name="password" required>
-                            <span class="input-icon-end"> 
-                                <i class="fa fa-eye-slash password-toggle" id="password-toggle"></i>
-                            </span>
+                        <div class="input-box">
+                            <div class="form-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-icon"> 
+                                        <i class="fa-solid fa-lock"></i> 
+                                    </span>
+                                </div>
+                                <label for="password">Password:</label>
+                                <input type="password" id="password" name="password" required>
+                                <span class="input-icon-end"> 
+                                    <i class="fa fa-eye-slash password-toggle" id="password-toggle"></i>
+                                </span>
+                            </div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="input-container">
-                    <div class="flex-container">
-                        <div class="form-group">
+                    
+                        <div class="input-box">
+                            <div class="input-group-prepend">
+                                <span class="input-icon"> 
+                                    <i class="fa-solid fa-id-card"></i> 
+                                </span>
+                            </div>
                             <label for="first_name">First Name:</label>
-                            <span class="input-icon-start">
-                                <i class="fa-solid fa-id-card"></i>
-                            </span>   
-                            <input class="user-container" type="text" id="first_name" name="first_name" required>         
+                            <input type="text" id="first_name" name="first_name" required>
                         </div>
-                    </div>
 
-                    <div class="flex-container">
-                        <div class="form-group">
+                        <div class="input-box">
+                            <div class="input-group-prepend">
+                                <span class="input-icon"> 
+                                    <i class="fa-solid fa-id-card"></i> 
+                                </span>
+                            </div>
                             <label for="last_name">Last Name:</label>
-                            <span class="input-icon-start">
-                                <i class="fa-solid fa-id-card"></i>
-                            </span>   
-                        </div>             
-                        <input class="user-container" type="text" id="last_name" name="last_name" required>
-                    </div>
-                </div>
-
-                <div class="input-container">
-                    <div class="flex-container">
-                    <div class="form-group">
-                            <label for="contact_number">Contact Number:</label>
-                            <span class="input-icon-start">
-                                <i class="fa-solid fa-phone"></i>
-                            </span>   
-                        </div>  
-                        <input class="user-container" type="text" id="contact_number" name="contact_number" required>
-                    </div>
-
-                    <div class="flex-container">
-                        <div class="form-group">
-                            <label for="email">Email Address:</label>
-                            <span class="input-icon-start">
-                                <i class="fa-solid fa-envelope"></i>
-                            </span>  
+                            <input type="text" id="last_name" name="last_name" required>
                         </div>
-                        <input class="user-container" type="email" id="email" name="email" required>
+
+                        <div class="input-box">
+                            <div class="input-group-prepend">
+                                <span class="input-icon"> 
+                                    <i class="fa-solid fa-phone"></i> 
+                                </span>
+                            </div>
+                            <label for="contact_number">Contact Number:</label>
+                            <input type="text" id="contact_number" name="contact_number" required>
+                        </div>
+
+                        <div class="input-box">
+                            <div class="input-group-prepend">
+                                <span class="input-icon"> 
+                                    <i class="fa-solid fa-envelope"></i> 
+                                </span>
+                            </div>
+                            <label for="email">Email Address:</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
                     </div>
-                </div>
-            </div>
 
-            <div class="form-group">
-                <label for="photo">Photo:</label>
-                <span class="input-icon-start">
-                    <i class="fa-solid fa-image"></i>
-                </span>  
-            </div>
-            <input type="file" id="photo" name="photo">
+                        <div class="input-box">
+                            <div class="input-group-prepend">
+                                <span class="input-icon"> 
+                                    <i class="fa-solid fa-image"></i> 
+                                </span>
+                            </div>
+                            <label for="photo">Photo:</label>
+                            <input type="file" id="photo" name="photo">
+                        </div>
 
-            <div class="form-group">
-                <label for="role">Role:</label>
-                <span class="input-icon-start">
-                    <i class="fa-solid fa-id-badge"></i>
-                </span>
+                        <div class="input-box">
+                            <div class="input-group-prepend">
+                                <span class="input-icon"> 
+                                    <i class="fa-solid fa-id-card-clip"></i>
+                                </span>
+                            </div>    
+                            <label for="role">Role:</label>
+                            <input type="text" id="role" name="role" value="Visitor" readonly>
+                        </div>
+                        
+                        <button type="submit" value="Register"> Register </button>
+                </form>
             </div>
-            <input class="role-container" type="text" id="role" name="role" value="Visitor" readonly>
-            <button type="submit" value="Register"> Register </button>
-        </form>
+        </div>
     </div>
 
     <script>
