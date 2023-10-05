@@ -93,21 +93,12 @@
             <div class="form-group">
                 <label for="announcementSendTo">To:</label>
                 <input class="form-control" id="announcementSendTo" readonly>
-                <!-- <input class="form-control" id="announcementRole"></input> -->
             </div>
-            <div class="card-description">
-                <div class="card-body">
-                    <div class="form-group">
-                        
+            <div class="card-photo">
+                <div class="form-group">
                     <img id="announcementPhoto{{ $announcement->id }}" class="announcement-photo" data-announcement-photo="{{ asset('storage/' . $announcement->announcement_photo) }}" alt="announcement photo">
-
-                    </div>
                 </div>
-
-            </div> 
-
-
-                
+            </div>  
         </div>
 
     </div>
@@ -126,7 +117,6 @@
             var sendFrom = $(this).data('announcement-sendfrom');
             var sendToRoles = $(this).data('announcement-sendto'); 
             var photo = $(this).data('announcement-photo');
-            
             var imageId = "announcementPhoto"; 
 
             var sendTo = mapRolesToLabels(sendToRoles);

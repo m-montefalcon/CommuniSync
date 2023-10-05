@@ -89,10 +89,6 @@
                 <input class="form-control" id="complaintStatus" readonly>
             </div>
             <div class="form-group">
-                <label for="complaintUpdates">Updates:</label>
-                <input class="form-control" id="complaintUpdates" readonly>
-            </div>
-            <div class="form-group">
                 <label for="complaintSendFrom">From:</label>
                 <input class="form-control" id="complaintSendFrom" readonly>
             </div>
@@ -100,6 +96,23 @@
                 <label for="complaintPhoto">Image:</label>
                 <img class="form-control" id="complaintPhoto" src="" alt="Complaint Photo">
             </div>
+            <div class="form-group">
+                <label for="complaintUpdates">Updates:</label>
+                <input class="form-control" id="complaintUpdates" readonly>
+            </div>
+
+            <form method="POST" action="{{ route('api.admin.complaint.update', ['id' => $complaint->id]) }}" enctype="multipart/form-data"> 
+                @method('PUT')
+                @csrf 
+
+                <div class="form-group">
+                    <label for="complaintAdminUpdates">Updates:</label>
+                    <div class="textarea-container">
+                        <textarea class="form-control" type="text" name="complaint_updates[]" id="complaintAdminUpdates" placeholder="Update Description...."></textarea>
+                        <button type="submit" href="{{ route('api.admin.complaint.fetch') }}" class="fa-solid fa-share-from-square fa-flip-vertical sendIcon"></button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 
