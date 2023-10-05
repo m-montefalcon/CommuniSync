@@ -49,6 +49,10 @@ use App\Models\VerificationRequest;
 // Other public routes...
 
 Route::get('/announcement/fetch/mobile/{id}', [AnnouncementController::class, 'announcementFetchMobile'])->name('announcementFetchMobile');
+Route::get('admin/complaint/get/all/complaint/by/{id}', [ComplaintController::class, 'fetchByHomeowner'])->name('api.admin.complaint.get.all.complaint.by.id');
+Route::post('user/complaint/store/mobile', [ComplaintController::class, 'storeMobile'])->name('api.user.complaint.store');
+Route::put('admin/complaint/update/{id}', [ComplaintController::class, 'update'])->name('api.admin.complaint.update');
+Route::put('admin/complaint/close/{id}', [ComplaintController::class, 'close'])->name('api.admin.complaint.close');
 
 // Routes that require authentication
 Route::middleware('auth:sanctum')->group(function () {
@@ -109,10 +113,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('admin/payment/records/get/{id}', [PaymentRecordController::class, 'getId'])->name('api.admin.payment.records.get');
 
     // Complaint feature
-        Route::post('user/complaint/store/mobile', [ComplaintController::class, 'storeMobile'])->name('api.user.complaint.store');
-        Route::put('admin/complaint/update/{id}', [ComplaintController::class, 'update'])->name('api.admin.complaint.update');
-        Route::put('admin/complaint/close/{id}', [ComplaintController::class, 'close'])->name('api.admin.complaint.close');
-
+      
     // Manual visit options
         Route::get('mvo/get/homeowner', [LogbookController::class, 'get'])->name('mvo.get.homeowner');
         Route::post('mvo/post/homeowner/{id}', [LogbookController::class, 'post'])->name('mvo.post.homeowner');
