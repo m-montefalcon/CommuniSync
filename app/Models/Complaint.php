@@ -31,4 +31,9 @@ class Complaint extends Model
         return  $query->where('complaint_status', $status1)
                       ->orWhere('complaint_status', $status2);
     }
+
+    public function scopeFetchAllComplaintsByHomeowner($query, $homeownerId){
+        return $query ->where('homeowner_id', $homeownerId)
+                      ->get();
+    }
 }

@@ -19,13 +19,12 @@ class ComplaintController extends Controller
         }
         
         $validatedData['complaint_photo'] = $imagePath;
-        $validatedData['admin_id'] = Auth::id();
 
         $validatedData['complaint_date'] = now()->toDateString();
         $validatedData['complaint_status'] = 1;
-    
+        // @dd($validatedData);
         Complaint::create($validatedData);
-        return response()->json(['submitted complaint'=> true, 'data' => $validatedData], 200);
+        return response()->json(['data' => $validatedData], 200);
     }
 
 
@@ -50,12 +49,14 @@ class ComplaintController extends Controller
     
         // Encode the updated complaint updates to JSON
         $encodedUpdates = json_encode($existingUpdates);
-    
+       
+
         // Update the complaint record with the validated data and encoded updates
         $id->update([
             'complaint_updates' => $encodedUpdates,
             'complaint_status' => 2,
-            'complaint_date' => now()->toDateString()
+            'complaint_date' => now()->toDateString(),
+            'admin_id' =>  Auth::id()
         ]);
     
         return response()->json(['updated complaint' => true, $id], 200);
@@ -91,17 +92,20 @@ class ComplaintController extends Controller
         $id->update([
             'complaint_updates' => $encodedUpdates,
             'complaint_status' => $validatedData['complaint_status'],
-            'complaint_date' => $validatedData['complaint_date']
+            'complaint_date' => $validatedData['complaint_date'],
+            'admin_id' =>  Auth::id()
+
         ]);
     
         return response()->json(['updated complaint' => true, $id], 200);
     }
     
     
-    public function fetch(){
+    public function fetchByHomeowner($id){
+        // @dd($id);
         // $fetchALlComplaints =  Complaint::with('homeowner')->with('admin')->where('complaint_status', 1)->orWhere('complaint_status', 2)->get();
-        $fetchALlComplaints =  Complaint::status(1, 2)->with('homeowner', 'admin')->get();
-
+        $fetchALlComplaints =  Complaint::with('admin')->fetchAllComplaintsByHomeowner($id);
+        
         return response()->json(['data' => $fetchALlComplaints,], 200);
 
     }
