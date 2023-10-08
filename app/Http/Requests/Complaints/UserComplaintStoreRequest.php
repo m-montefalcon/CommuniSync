@@ -22,7 +22,7 @@ class UserComplaintStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'homeowner_id' => ['required', 'integer'],
+            'homeowner_id' => ['required'],
             'complaint_title' => ['required'],
             'complaint_desc' => ['required'],
             'complaint_photo' => ['nullable']
