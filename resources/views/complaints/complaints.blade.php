@@ -53,6 +53,8 @@
                                     </td>
                                 </tr>
                                 </tbody>
+                                @endforeach
+
                             </table>
                         </div>
                     </div>
@@ -112,9 +114,10 @@
                     </div>
                 </div>
             </form>
+
         </div>
+
     </div>
-    @endforeach
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
