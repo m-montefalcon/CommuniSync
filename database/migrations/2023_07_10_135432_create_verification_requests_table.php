@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->integer('block_no')->nullable();
             $table->integer('lot_no')->nullable();
-            $table->json('family_member');
+            $table->json('family_member')->nullable();
             $table->timestamps();
         });
     }
