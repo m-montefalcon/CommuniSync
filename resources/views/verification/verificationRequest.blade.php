@@ -23,6 +23,7 @@
                             <table class="table table-bordered table-stripe">
                                 <tbody>
                                     <tr>
+                                        <th>#</th>
                                         <th>ID</th>
                                         <th>User Name</th>
                                         <th>First Name</th>
@@ -39,14 +40,33 @@
                                     @foreach($verifyRequests as $request)
                                     <tr>
                                         <td>{{$request->id}}</td>
+                                        <td>{{$request->user_id}}</td>
                                         <td>{{$request->user->user_name}}</td>
                                         <td>{{$request->user->first_name}}</td>
                                         <td>{{$request->user->last_name}}</td>
                                         <td>{{$request->user->contact_number}}</td>
                                         <td>{{$request->user->email}}</td>
-                                        <td>{{$request->user->block_no}}</td>
-                                        <td>{{$request->user->lot_no}}</td>
-                                        <td>{{$request->user->family_member}}</td>
+                                        <td>{{ $request->block_no}}</td>
+                                        <td>{{ $request->lot_no }}</td>
+                                        <td>
+    @php
+        $familyMembersString = $request->family_member;
+        // Remove square brackets and backslashes 
+        $familyMembersString = str_replace(['[', ']', '\\', '"'], '', $familyMembersString);
+        // Split the string by comma and trim whitespace
+        $familyMembersArray = explode(',', $familyMembersString);
+    @endphp
+
+    @if (!empty($familyMembersArray) && $familyMembersArray[0] !== 'null')
+        {{ implode(", ", $familyMembersArray) }}
+    @else
+        No member included
+    @endif
+</td>
+
+
+
+
                                         <!-- <td>{{$request->manual_visit_option}}</td> -->
                                         <!-- <td>{{$request->role}}</td> -->
                                         <td>

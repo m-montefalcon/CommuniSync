@@ -23,9 +23,9 @@ class UserVerificationRequest extends FormRequest
     {
         return [
             'user_id' => 'required|integer',
-            'family_member' => 'required|array',
-            'block_no' => 'integer|required',
-            'lot_no' => 'integer|required',
+            'family_member' => ['nullable'],
+            'block_no' => 'required',
+            'lot_no' => 'required',
         ];
     }
 }

@@ -18,7 +18,7 @@ class VerificationRequests extends Controller
         $user = User::findOrFail($validatedData['user_id']);
         $verificationRequest = VerificationRequest::create([
             'user_id' => $user->id,
-            'family_member' => json_encode($request->json('family_member')),
+            'family_member' => json_encode($validatedData['family_member']),
             'block_no' => $validatedData['block_no'],
             'lot_no' => $validatedData['lot_no'],
         ]);
