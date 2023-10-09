@@ -79,6 +79,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // Complaints
     Route::get('admin/complaint/fetch', [WebViewController::class, 'fetch'])->name('api.admin.complaint.fetch');
 
+    Route::get('admin/complaint/history/fetch', [WebViewController::class, 'fetchComplaintsHistory'])->name('api.admin.complaint.history.fetch');
 
     //Logbook
     Route::get('admin/get/logbook', [WebViewController::class, 'getLb'])->name('admin.get.logobok');

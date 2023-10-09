@@ -132,9 +132,16 @@ class WebViewController extends Controller
 
        return view('complaints.complaints', compact('fetchALlComplaints'));
     }
-
+    public function fetchComplaintsHistory(){
+        // $fetchALlComplaints =  Complaint::with('homeowner')->with('admin')->where('complaint_status', 1)->orWhere('complaint_status', 2)->get();
+        $fetchALlComplaints = Complaint::status(3)->with('homeowner', 'admin')->get();
+       return view('tba', compact('fetchALlComplaints'));
+    }
+    
     public function getLb(){
         $fetchAllLb = Logbook::with('homeowner', 'admin', 'visitor', 'personnel')->get();
         return view('logbook', compact('fetchAllLb'));
     }
+
+    
 }
