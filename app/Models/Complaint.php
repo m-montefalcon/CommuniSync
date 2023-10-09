@@ -36,4 +36,9 @@ class Complaint extends Model
         return $query ->where('homeowner_id', $homeownerId)
                       ->get();
     }
+
+    public function scopeStatusHistory($query, $status){
+        return  $query->where('complaint_status', $status);
+                        
+    }
 }

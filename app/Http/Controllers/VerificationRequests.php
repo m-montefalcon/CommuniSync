@@ -37,7 +37,7 @@ class VerificationRequests extends Controller
         ]);
         $id->delete();
         return redirect()->route('verificationRequests');
-        // return response()->json($user, 200);
+        
 
     }
     
