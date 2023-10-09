@@ -59,7 +59,7 @@ class ComplaintController extends Controller
             'admin_id' =>  Auth::id()
         ]);
     
-        return response()->json(['updated complaint' => true, $id], 200);
+        return redirect()->back();
     }
     
   
