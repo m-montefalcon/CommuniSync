@@ -109,7 +109,7 @@
                 <div class="form-group">
                     <label for="complaintAdminUpdates">Updates:</label>
                     <div class="textarea-container">
-                        <textarea class="form-control" type="text" name="complaint_updates[]" id="complaintAdminUpdates" placeholder="Update Description...."></textarea>
+                        <textarea class="form-control" type="text" name="complaint_updates[]" id="complaintAdminUpdates" placeholder="Update Description....."></textarea>
                         <button type="submit" action="{{ route('api.admin.complaint.update', ['id' => $complaint->id]) }}" enctype="multipart/form-data" class="fa-solid fa-share-from-square fa-flip-vertical sendIcon"></button>
                     </div>
                 </div>
