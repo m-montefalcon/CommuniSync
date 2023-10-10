@@ -26,35 +26,41 @@
                                     <th>Title</th>
                                     <th>Date</th>
                                 </tr>     
-                                @foreach ($fetchALlComplaints as $complaint)
-                                <tr class="clickable-row" 
-                                    data-complaint-title="{{ $complaint->complaint_title }}" 
-                                    data-complaint-date="{{ \Carbon\Carbon::parse($complaint->complaint_date)->format('F j, Y') }}"
-                                    data-complaint-description="{{ $complaint->complaint_desc }}"
-                                    data-complaint-currentStatus="{{ $complaint->complaint_status }}"
-                                    data-complaint-updates="{{ $complaint->complaint_updates }}"
-                                    data-complaint-sendFrom="{{ $complaint->homeowner->first_name . ' ' . $complaint->homeowner->last_name 
-                                        . ' Block ' . $complaint->homeowner->block_no . ' - Lot ' . $complaint->homeowner->lot_no }}"
-                                    data-complaint-photo="{{ $complaint->complaint_photo }}"
-                                    >
-                                    <td>
-                                        <div class="card-title">
-                                            <div class="card-body">
-                                                {{ $complaint->complaint_title }}
-                                            </div>
-                                        </div>                   
-                                    </td>
-                                    <td>
-                                        <div class="card-date">
-                                            <div class="card-body">
-                                                {{ \Carbon\Carbon::parse($complaint->complaint_date)->format('F j, Y') }}
-                                            </div>
-                                        </div>                   
-                                    </td>
-                                </tr>
+                                @if(isset($fetchALlComplaints) && count($fetchALlComplaints) > 0)
+                                    @foreach ($fetchALlComplaints as $complaint)
+                                    <tr class="clickable-row" 
+                                        data-complaint-id="{{ $complaint->id }}"
+                                        data-complaint-title="{{ $complaint->complaint_title }}" 
+                                        data-complaint-date="{{ \Carbon\Carbon::parse($complaint->complaint_date)->format('F j, Y') }}"
+                                        data-complaint-description="{{ $complaint->complaint_desc }}"
+                                        data-complaint-currentStatus="{{ $complaint->complaint_status }}"
+                                        data-complaint-updates="{{ $complaint->complaint_updates }}"
+                                        data-complaint-sendFrom="{{ $complaint->homeowner->first_name . ' ' . $complaint->homeowner->last_name 
+                                            . ' Block ' . $complaint->homeowner->block_no . ' - Lot ' . $complaint->homeowner->lot_no }}"
+                                        data-complaint-photo="{{ $complaint->complaint_photo }}"
+                                        >
+                                        <td>
+                                            <div class="card-title">
+                                                <div class="card-body">
+                                                    {{ $complaint->complaint_title }}
+                                                </div>
+                                            </div>                   
+                                        </td>
+                                        <td>
+                                            <div class="card-date">
+                                                <div class="card-body">
+                                                    {{ \Carbon\Carbon::parse($complaint->complaint_date)->format('F j, Y') }}
+                                                </div>
+                                            </div>                   
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                @else
+                                    <tr>
+                                        <td colspan="2">No complaints found.</td>
+                                    </tr>
+                                @endif
                                 </tbody>
-                                @endforeach
-
                             </table>
                         </div>
                     </div>
@@ -102,15 +108,15 @@
                 <input class="form-control" id="complaintUpdates" readonly>
             </div>
 
-            <form method="POST" action="{{ route('api.admin.complaint.update', ['id' => $complaint->id]) }}" enctype="multipart/form-data"> 
+            <form method="POST" id="complaintForm" enctype="multipart/form-data"> 
                 @method('PUT')
                 @csrf 
 
                 <div class="form-group">
                     <label for="complaintAdminUpdates">Updates:</label>
                     <div class="textarea-container">
-                        <textarea class="form-control" type="text" name="complaint_updates[]" id="complaintAdminUpdates" placeholder="Update Description....."></textarea>
-                        <button type="submit" action="{{ route('api.admin.complaint.update', ['id' => $complaint->id]) }}" enctype="multipart/form-data" class="fa-solid fa-share-from-square fa-flip-vertical sendIcon"></button>
+                        <textarea class="form-control" type="text" name="complaint_updates[]" id="complaintAdminUpdates" placeholder="Update Description...."></textarea>
+                        <button type="submit" class="fa-solid fa-share-from-square fa-flip-vertical sendIcon"></button>
                     </div>
                 </div>
             </form>
@@ -126,6 +132,7 @@
         var closeModalButton = document.getElementById("closeModal");
 
         $(document).on('click', '.clickable-row', function() {
+            var id = $(this).data('complaint-id');
             var title = $(this).data('complaint-title');
             var date = $(this).data('complaint-date');
             var description = $(this).data('complaint-description');
@@ -162,6 +169,9 @@
             $('#complaintSendFrom').val(sendFrom);
             $('#complaintPhoto').attr('src', 'http://127.0.0.1:8000/storage/' + photo);
 
+            var formAction = '/api/admin/complaint/update/' + id;
+            $('#complaintForm').attr('action', formAction);
+
             modalContainer.style.display = "flex";
         });
 
@@ -174,3 +184,4 @@
 </html>
 
 @include('partials.__footer')
+
