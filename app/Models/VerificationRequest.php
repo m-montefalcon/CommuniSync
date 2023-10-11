@@ -19,5 +19,11 @@ class VerificationRequest extends Model
         'lot_no',
         'family_member'
     ];
+    public function scopeIfExist($query, $id){
+        return $query->where('user_id', $id)
+                     ->exists();
+
+    }
+
     
 }

@@ -10,7 +10,21 @@ use App\Http\Requests\VerificationRequest\UserVerificationRequest;
 
 class VerificationRequests extends Controller
 {
- 
+
+    public function mobileCheckExist($id){
+        $alreadyVerified = User::where('id', $id)->where('role', "2")->exists();
+        if ($alreadyVerified) {
+            return response()->json(["message" => "You are already approved. You may logout and sign in again."], 410);
+        }
+    
+        $existing = VerificationRequest::ifExist($id);
+        if ($existing) {
+            return response()->json(["message" => "You already have a pending request. Please wait for the confirmation."],403);
+        } else {
+            return response()->json(["message" => "SUCCESS"], 200);
+        }
+    }
+    
 
     public function mobileStore(UserVerificationRequest $request)
     {

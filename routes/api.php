@@ -73,6 +73,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // User verification
         Route::put('/approved/verification/{id}', [VerificationRequests::class, 'update'])->name('api.approved.verification');
         Route::post('/verification/requests/store', [VerificationRequests::class, 'mobileStore'])->name('api.verification.requests.mobile');
+        Route::get('verification/requests/exist/{id}', [VerificationRequests::class, 'mobileCheckExist'])->name('verification.requests.exist');
 
         Route::post('/logout/store', [AuthController::class, 'logout'])->name('api.logout.store');
         Route::post('/logout/mobile', [AuthController::class, 'logoutMobile'])->name('api.logout.mobile');
