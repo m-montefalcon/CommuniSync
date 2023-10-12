@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('admin_id'); //relationship to user model
             $table->foreign('admin_id')->references('id')->on('users');//relationship to user model
             $table->string('announcement_title');
-            $table->string('announcement_description');
+            $table->longText('announcement_description');
             $table->string('announcement_photo')->nullable();
             $table->date('announcement_date');
             $table->json('role');

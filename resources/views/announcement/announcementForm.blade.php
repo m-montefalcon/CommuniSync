@@ -25,7 +25,7 @@
                     <textarea type="text" name="announcement_title" id="announcement_title" required></textarea>
             
                     <label for="announcement_description">Description:</label>
-                    <textarea type="text" name="announcement_description" id="announcement_description" placeholder="Announcement Description...." required></textarea>
+                    <textarea name="announcement_description" id="announcement_description" placeholder="Announcement Description...." required maxlength="5000"></textarea>
                     
                     <label for="announcement_photo">Photo:</label>
                     <input type="file" name="announcement_photo" id="announcement_photo">
