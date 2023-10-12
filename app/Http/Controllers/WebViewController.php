@@ -146,5 +146,8 @@ class WebViewController extends Controller
         return view('logbook', compact('fetchAllLb'));
     }
 
-    
+    public function fetchAllUserPayment(){
+        $homeowners = User::checksRole(2);
+        return view('tba', compact('homeowners'));
+    }
 }
