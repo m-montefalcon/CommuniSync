@@ -34,7 +34,7 @@
                                         data-complaint-date="{{ \Carbon\Carbon::parse($complaint->complaint_date)->format('F j, Y') }}"
                                         data-complaint-description="{{ $complaint->complaint_desc }}"
                                         data-complaint-currentStatus="{{ $complaint->complaint_status }}"
-                                        data-complaint-updates="{{ $complaint->complaint_updates }}"
+                                        data-complaint-updates="{{ json_encode($complaint->complaint_updates) }}"
                                         data-complaint-sendFrom="{{ $complaint->homeowner->first_name . ' ' . $complaint->homeowner->last_name 
                                             . ' Block ' . $complaint->homeowner->block_no . ' - Lot ' . $complaint->homeowner->lot_no }}"
                                         data-complaint-photo="{{ $complaint->complaint_photo }}"
@@ -101,11 +101,11 @@
             </div>
             <div class="form-group">
                 <label for="complaintPhoto">Image:</label>
-                <img class="form-control" id="complaintPhoto" src="" alt="Complaint Photo">
+                <img class="form-control" id="complaintPhoto" src="" alt="No photo available">
             </div>
             <div class="form-group">
                 <label for="complaintUpdates">Updates:</label>
-                <input class="form-control" id="complaintUpdates" readonly>
+                <div id="complaintUpdates" class="form-control" readonly></div>
             </div>
 
             <form method="POST" id="complaintForm" enctype="multipart/form-data"> 
@@ -128,57 +128,73 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
-        var modalContainer = document.getElementById("complaintModalContainer");
-        var closeModalButton = document.getElementById("closeModal");
+var modalContainer = document.getElementById("complaintModalContainer");
+var closeModalButton = document.getElementById("closeModal");
 
-        $(document).on('click', '.clickable-row', function() {
-            var id = $(this).data('complaint-id');
-            var title = $(this).data('complaint-title');
-            var date = $(this).data('complaint-date');
-            var description = $(this).data('complaint-description');
-            var status = $(this).data('complaint-currentstatus');
-            var updates = $(this).data('complaint-updates');
-            var sendFrom = $(this).data('complaint-sendfrom');
-            var photo = $(this).data('complaint-photo');
+$(document).on('click', '.clickable-row', function() {
+    var id = $(this).data('complaint-id');
+    var title = $(this).data('complaint-title');
+    var date = $(this).data('complaint-date');
+    var description = $(this).data('complaint-description');
+    var status = $(this).data('complaint-currentstatus');
+    var updates = $(this).data('complaint-updates');
+    var sendFrom = $(this).data('complaint-sendfrom');
+    var photo = $(this).data('complaint-photo');
 
-            var currentStatus = mapStatusToLabels(status);
+    var currentStatus = mapStatusToLabels(status);
 
-            function mapStatusToLabels(stateStatus) {
-                var statusLabels = "";
+    function mapStatusToLabels(stateStatus) {
+        var statusLabels = "";
 
-                stateStatus = stateStatus.toString();
+        stateStatus = stateStatus.toString();
 
-                if (stateStatus === "1") {
-                    statusLabels = "Opened";
-                } else if (stateStatus === "2") {
-                    statusLabels = "Ongoing";
-                } else if (stateStatus === "3") {
-                    statusLabels = "Closed";
-                } else {
-                    statusLabels = "Unknown";
-                }
+        if (stateStatus === "1") {
+            statusLabels = "Opened";
+        } else if (stateStatus === "2") {
+            statusLabels = "Ongoing";
+        } else if (stateStatus === "3") {
+            statusLabels = "Closed";
+        } else {
+            statusLabels = "Unknown";
+        }
 
-                return statusLabels;
-            }
+        return statusLabels;
+    }
 
-            $('#complaintTitle').val(title);
-            $('#complaintDate').val(date);
-            $('#complaintDescription').val(description);
-            $('#complaintStatus').val(currentStatus);
-            $('#complaintUpdates').val(updates);
-            $('#complaintSendFrom').val(sendFrom);
-            $('#complaintPhoto').attr('src', 'http://127.0.0.1:8000/storage/' + photo);
+    var updatesHtml = "";
 
-            var formAction = '/api/admin/complaint/update/' + id;
-            $('#complaintForm').attr('action', formAction);
-
-            modalContainer.style.display = "flex";
+    if (updates && updates.length > 0) {
+        updatesHtml = "<ul>";
+        updates.forEach(function(update) {
+            updatesHtml += "<li>Update: " + update.update + "</li>";
+            updatesHtml += "<li>Date: " + update.date + "</li>";
         });
+        updatesHtml += "</ul>";
+    } else {
+        updatesHtml = "No updates available.";
+    }
 
-        $(document).on('click', '#closeModal', function() {
-            modalContainer.style.display = "none"; 
-        });
-    </script>
+    $('#complaintTitle').val(title);
+    $('#complaintDate').val(date);
+    $('#complaintDescription').val(description);
+    $('#complaintStatus').val(currentStatus);
+    $('#complaintUpdates').html(updatesHtml);
+    $('#complaintSendFrom').val(sendFrom);
+    $('#complaintPhoto').attr('src', '{{ asset("storage/$complaint->complaint_photo") }}');
+
+    var formAction = '/api/admin/complaint/update/' + id;
+    $('#complaintForm').attr('action', formAction);
+
+    modalContainer.style.display = "flex";
+});
+
+
+$(document).on('click', '#closeModal', function() {
+    modalContainer.style.display = "none";
+});
+
+
+</script>
 
 </body>
 </html>

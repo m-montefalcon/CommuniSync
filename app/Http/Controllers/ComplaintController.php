@@ -42,10 +42,12 @@ class ComplaintController extends Controller
         $existingUpdates = json_decode($id->complaint_updates, true) ?? [];
     
         // Append the new update to the existing updates array
+        // Append the new update to the existing updates array
         $existingUpdates[] = [
-            'update' => $validatedData['complaint_updates'],
+            'update' => $validatedData['complaint_updates'][0], // Assuming the update is a single string value
             'date' => now()->toDateString(),
         ];
+
     
         // Encode the updated complaint updates to JSON
         $encodedUpdates = json_encode($existingUpdates);
@@ -77,7 +79,7 @@ class ComplaintController extends Controller
     
         // Add the new update to the existing updates array
         $existingUpdates[] = [
-            'resolution' => $validatedData['complaint_updates'],
+            'resolution' => $validatedData['complaint_updates'][0],
             'date' => now()->toDateString(),
         ];
     

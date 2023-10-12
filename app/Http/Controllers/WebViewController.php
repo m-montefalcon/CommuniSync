@@ -129,7 +129,10 @@ class WebViewController extends Controller
     public function fetch(){
         // $fetchALlComplaints =  Complaint::with('homeowner')->with('admin')->where('complaint_status', 1)->orWhere('complaint_status', 2)->get();
         $fetchALlComplaints = Complaint::status(1, 2)->with('homeowner', 'admin')->get();
-
+        foreach ($fetchALlComplaints as $complaint) {
+            $complaint->complaint_updates = json_decode($complaint->complaint_updates);
+        }
+        // @dd($fetchALlComplaints);
        return view('complaints.complaints', compact('fetchALlComplaints'));
     }
     public function fetchComplaintsHistory(){
