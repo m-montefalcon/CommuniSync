@@ -1,11 +1,12 @@
 @include('partials.__header')
 @include('components.nav')
 <html>
+
 <head>
-  <title> Announcements </title>
-  <link rel="stylesheet" href="{{ asset('css/announcement.css') }}">
-  <link rel="stylesheet">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.0/css/all.css">
+    <title>Announcements</title>
+    <link rel="stylesheet" href="{{ asset('css/announcement.css') }}">
+    <link rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.0/css/all.css">
 </head>
 
 <body>
@@ -14,15 +15,14 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h2>
-                            ANNOUNCEMENTS
-                        </h2>
+                        <h2>ANNOUNCEMENTS</h2>
                         <a class="add-btn" href="{{ route('announcement.form') }}">
                             <i class="fa-regular fa-square-plus"></i> Add Announcement
                         </a>
                     </div>
                     <div class="card-body">
                         <div id="table">
+                            @if (isset($announcements) && count($announcements) > 0)
                             <table class="table table-bordered table-striped">
                                 <tbody>
                                     <tr>
@@ -30,14 +30,13 @@
                                         <th>Date</th>
                                     </tr>
                                     @foreach ($announcements as $announcement)
-                                    <tr class="clickable-row" 
-                                    data-announcement-title="{{ $announcement->announcement_title }}" 
-                                    data-announcement-date="{{ $announcement->announcement_date }}" 
-                                    data-announcement-description="{{ $announcement->announcement_description }}"
-                                    data-announcement-sendFrom="{{ $announcement->admin->first_name . ' ' . $announcement->admin->last_name }}"
-                                    data-announcement-sendTo="{{ $announcement->role }}"
-                                    data-announcement-photo="{{ asset('storage/' . $announcement->announcement_photo) }}"
-                                    >
+                                    <tr class="clickable-row"
+                                        data-announcement-title="{{ $announcement->announcement_title }}"
+                                        data-announcement-date="{{ $announcement->announcement_date }}"
+                                        data-announcement-description="{{ $announcement->announcement_description }}"
+                                        data-announcement-sendFrom="{{ $announcement->admin->first_name . ' ' . $announcement->admin->last_name }}"
+                                        data-announcement-sendTo="{{ $announcement->role }}"
+                                        data-announcement-photo="{{ asset('storage/' . $announcement->announcement_photo) }}">
                                         <td>
                                             <div class="card-title">
                                                 <div class="card-body">
@@ -56,55 +55,57 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            @else
+                            <p>No announcements made.</p>
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
 
     <div class="modal-container" id="announcementModalContainer">
-        <div class="modal-content">
-            <div class="header-container">
-                <div class="modal-header">
-                    <h1>
-                        Announcement Detail
-                    </h1>
-                </div>
-                <span class="close-modal" id="closeModal">&times;</span>
+    <div class="modal-content">
+        <div class="header-container">
+            <div class="modal-header">
+                <h1>
+                    Announcement Detail
+                </h1>
             </div>
-            <div class="form-group">
-                <label for="announcementTitle">Title:</label>
-                <input type="text" class="form-control" id="announcementTitle" readonly>
-            </div>
-            <div class="form-group">
-                <label for="announcementDate">Date:</label>
-                <input type="text" class="form-control" id="announcementDate" readonly>
-            </div>
-            <div class="form-group">
-                <label for="announcementDescription">Description:</label>
-                <textarea class="form-control" id="announcementDescription" rows="3" readonly></textarea>
-            </div>
-            <div class="form-group">
-                <label for="announcementSendFrom">From:</label>
-                <input class="form-control" id="announcementSendFrom" readonly>
-            </div>
-            <div class="form-group">
-                <label for="announcementSendTo">To:</label>
-                <input class="form-control" id="announcementSendTo" readonly>
-            </div>
-            <div class="card-photo">
-                <div class="form-group">
-                    <img id="announcementPhoto{{ $announcement->id }}" class="announcement-photo" data-announcement-photo="{{ asset('storage/' . $announcement->announcement_photo) }}" alt="announcement photo">
-                </div>
-            </div>  
+            <span class="close-modal" id="closeModal">&times;</span>
         </div>
-
+        <div class="form-group">
+            <label for="announcementTitle">Title:</label>
+            <input type="text" class="form-control" id="announcementTitle" readonly>
+        </div>
+        <div class="form-group">
+            <label for="announcementDate">Date:</label>
+            <input type="text" class="form-control" id="announcementDate" readonly>
+        </div>
+        <div class="form-group">
+            <label for="announcementDescription">Description:</label>
+            <textarea class="form-control" id="announcementDescription" rows="3" readonly></textarea>
+        </div>
+        <div class="form-group">
+            <label for="announcementSendFrom">From:</label>
+            <input class="form-control" id="announcementSendFrom" readonly>
+        </div>
+        <div class="form-group">
+            <label for "announcementSendTo">To:</label>
+            <input class="form-control" id="announcementSendTo" readonly>
+        </div>
+        <div class="card-photo">
+            <div class="form-group">
+                <img id="announcementPhoto" class="announcement-photo" alt="announcement photo">
+            </div>
+        </div>
     </div>
+</div>
+
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
+
     <script>
         var modalContainer = document.getElementById("announcementModalContainer");
         var closeModalButton = document.getElementById("closeModal");
@@ -163,10 +164,8 @@
 
         // });
     </script>
-
-    
 </body>
+
 </html>
 
-<!-- KATE CHECK SA ANNOUNCEMENT CONTROLLER UNSAY MGA DATA NGA GIPANG PASA DIRI, SAMPLE NANA ANG TITLE -->
 @include('partials.__footer')
