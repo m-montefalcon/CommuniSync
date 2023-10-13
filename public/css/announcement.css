@@ -273,6 +273,11 @@
         text-align: center;
     }
 
+    p {
+        text-align: center;
+        margin: 6px;
+    }
+
     .header-container {
         display: flex;
         justify-content: space-between;

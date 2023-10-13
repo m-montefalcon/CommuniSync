@@ -99,7 +99,7 @@ class ComplaintController extends Controller
 
         ]);
     
-        return response()->json(['updated complaint' => true, $id], 200);
+        return redirect()->back();
     }
     
     

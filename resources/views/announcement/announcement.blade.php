@@ -56,7 +56,7 @@
                                 </tbody>
                             </table>
                             @else
-                            <p>No announcements made.</p>
+                                <p>No announcements made.</p>
                             @endif
                         </div>
                     </div>

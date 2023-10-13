@@ -78,9 +78,11 @@
     }
 
     #table {
+        position: relative;
         height: 500px;
         width: 100%; 
         overflow: scroll; 
+        width: 100%;
         height: auto;
         max-height: 490px;
     }
@@ -250,7 +252,8 @@
         background-color: #aaa; 
     } 
 
-    #complaintAdminUpdates {
+    #complaintAdminUpdates,
+    #complaintClosed {
         background-color: #F2F2F2;
         border: none;
         border-radius: 5px;
@@ -286,4 +289,36 @@
     .sendIcon:hover {
         color: #4169E1;
         border-radius: 20px;
+    }
+
+    .add-btn {
+        position: absolute;
+        text-align: center;
+        background-color: white;
+        color: black;
+        border-radius: 6px;
+        width: 100px;
+        height: 30px;
+        margin-left: 0%;
+        right: 20px;
+        justify-content: center;
+        align-items: center;
+        top: 10px;
+        display: flex;
+        padding: 10px;
+    }
+
+    .add-btn i {
+        margin-right: 7px; 
+    }
+
+    .add-btn:hover {
+        background-color: maroon;
+        margin-left: 0%;
+        border-radius: 6px;
+        color: white;
+    }
+
+    p {
+        text-align: center;
     }
