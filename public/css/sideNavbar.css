@@ -74,11 +74,11 @@
   }
 
   .side-navbar ul li:first-child {
-    margin-bottom: 1rem;
+    /* margin-bottom: 1rem; */
     background: none;
   }
 
-  .side-navbar ul li a {
+  /* .side-navbar ul li a {
     display: flex;
     width: 100%;
     color: #fff;
@@ -88,7 +88,7 @@
     transition: all 0.4s ease;
     background: #11101D;
     font-family: "Poppins" , sans-serif;
-  }
+  } */
   
   .side-navbar ul li a .icon {
     color: #fff;
@@ -105,12 +105,13 @@
     display: flex;
     height: 100%;
     width: 100%;
-    border-radius: 12px;
     align-items: center;
     text-decoration: none;
     transition: all 0.4s ease;
     background: #11101D;
     border-left: 3px solid transparent;
+    color: #fff;
+    border-radius: 12px;
   }
 
   .side-navbar li a.side-link:hover{
@@ -184,7 +185,13 @@
     width: 80px;
   }
 
-  .side-navbar li{
+  .side-navbar li {
+    position: relative;
+    margin: 3px 0;
+    list-style: none;
+  }
+
+  .side-navbar li .logout {
     position: relative;
     margin: 8px 0;
     list-style: none;
@@ -208,6 +215,17 @@
     }
   }
 
+  .side-navbar .dropdown .icon {
+    color: #fff;
+    height: 60px;
+    min-width: 30px;
+    font-size: 15px;
+    text-align: center;
+    line-height: 60px;
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+
   .dropdown-menu {
     display: none;
   }
@@ -224,9 +242,9 @@
     margin-left: 75px;
   }
 
-  .dropdown-menu {
+  /* .dropdown-menu {
     margin-left: 30px;
-  }
+  } */
 
   .dropdown:hover .text,
   .dropdown:hover .icon{
@@ -240,7 +258,7 @@
   }
   
   #menu-icon {
-    font-size: 34px;
+    font-size: 25px;
     cursor: pointer;
     color: white;
   }
@@ -288,9 +306,9 @@
     background: #1d1b31;
     transition: all 0.5s ease;
     overflow: hidden;
+    margin: 8px 0;
   }
   
-
   .side-navbar.active li.logout {
     width: 80px;
   }
@@ -378,8 +396,8 @@
   }
 
   .profile img {
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
     margin-top: 7px;
     object-fit: contain;
     object-position: center;

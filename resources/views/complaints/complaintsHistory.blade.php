@@ -15,29 +15,27 @@
                 <div class="card">
                     <div class="card-header">
                         <h2>
-                            COMPLAINTS
+                            COMPLAINTS HISTORY
                         </h2>
-                        <a class="add-btn" href="{{ route('api.admin.complaint.history.fetch') }}">
-                            <i class="fa-solid fa-clock-rotate-left"></i> History
+                        <a class="add-btn" href="{{ route('api.admin.complaint.fetch') }}">
+                            <i class="fa-solid fa-arrow-left-long"></i>
                         </a>
                     </div>
                     <div class="card-body">
                         <div id="table">
                             <table class="table table-bordered table-striped">
                                 <tbody>
-                                <tr>
-                                    <th>Title</th>
-                                    <th>Date</th>
-                                </tr>     
-                                @if(isset($fetchALlComplaints) && count($fetchALlComplaints) > 0)
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Date</th>
+                                    </tr>     
                                     @foreach ($fetchALlComplaints as $complaint)
                                     <tr class="clickable-row" 
-                                        data-complaint-id="{{ $complaint->id }}"
                                         data-complaint-title="{{ $complaint->complaint_title }}" 
                                         data-complaint-date="{{ \Carbon\Carbon::parse($complaint->complaint_date)->format('F j, Y') }}"
                                         data-complaint-description="{{ $complaint->complaint_desc }}"
                                         data-complaint-currentStatus="{{ $complaint->complaint_status }}"
-                                        data-complaint-updates="{{ json_encode($complaint->complaint_updates) }}"
+                                        data-complaint-updates="{{ $complaint->complaint_updates }}"
                                         data-complaint-sendFrom="{{ $complaint->homeowner->first_name . ' ' . $complaint->homeowner->last_name 
                                             . ' Block ' . $complaint->homeowner->block_no . ' - Lot ' . $complaint->homeowner->lot_no }}"
                                         data-complaint-photo="{{ $complaint->complaint_photo }}"
@@ -57,12 +55,12 @@
                                             </div>                   
                                         </td>
                                     </tr>
-                                    @endforeach
-                                    @else
-                                        <tr>
-                                            <td colspan="2">No complaints found.</td>
-                                        </tr>
-                                    @endif
+                                @endforeach
+                                @if (count($fetchALlComplaints) === 0)
+                                    <tr>
+                                        <td colspan="2"> No complaint history found. </td>
+                                    </tr>
+                                @endif
                                 </tbody>
                             </table>
                         </div>
@@ -104,39 +102,12 @@
             </div>
             <div class="form-group">
                 <label for="complaintPhoto">Image:</label>
-                <img class="form-control" id="complaintPhoto" src="" alt="No photo available">
+                <img class="form-control" id="complaintPhoto" src="" alt="Complaint Photo">
             </div>
             <div class="form-group">
                 <label for="complaintUpdates">Updates:</label>
                 <div id="complaintUpdates" class="form-control" readonly></div>
             </div>
-
-            <form method="POST" id="complaintForm" enctype="multipart/form-data"> 
-                @method('PUT')
-                @csrf 
-
-                <div class="form-group">
-                    <label for="complaintAdminUpdates">Updates:</label>
-                    <div class="textarea-container">
-                        <textarea class="form-control" type="text" name="complaint_updates[]" id="complaintAdminUpdates" placeholder="Update Description...."></textarea>
-                        <button type="submit" class="fa-solid fa-share-from-square fa-flip-vertical sendIcon"></button>
-                    </div>
-                </div>
-            </form>
-
-            <form method="POST" id="close" enctype="multipart/form-data"> 
-                @method('PUT')
-                @csrf 
-
-                <div class="form-group">
-                    <label for="close">Close:</label>
-                    <div class="textarea-container">
-                        <textarea class="form-control" type="text" name="complaint_updates[]" id="complaintClosed" placeholder="Closing Description...."></textarea>
-                        <button type="submit" enctype="multipart/form-data" class="fa-solid fa-share-from-square fa-flip-vertical sendIcon"></button>
-                    </div>
-                </div>
-            </form>
-
         </div>
 
     </div>
@@ -148,7 +119,6 @@
         var closeModalButton = document.getElementById("closeModal");
 
         $(document).on('click', '.clickable-row', function() {
-            var id = $(this).data('complaint-id');
             var title = $(this).data('complaint-title');
             var date = $(this).data('complaint-date');
             var description = $(this).data('complaint-description');
@@ -198,41 +168,15 @@
             $('#complaintSendFrom').val(sendFrom);
             $('#complaintPhoto').attr('src', 'http://127.0.0.1:8000/storage/' + photo);
 
-            var formAction = '/api/admin/complaint/update/' + id;
-            $('#complaintForm').attr('action', formAction);
-
-            var closeComplaint = '/api/admin/complaint/close/' + id;
-            $('#close').attr('action', closeComplaint);
-
-
             modalContainer.style.display = "flex";
         });
 
-
         $(document).on('click', '#closeModal', function() {
-            modalContainer.style.display = "none";
+            modalContainer.style.display = "none"; 
         });
-
-        $('#complaintClosed').on('submit', function (e) {
-        e.preventDefault(); 
-
-        var formData = $(this).serialize();
-
-        $.ajax({
-            type: 'POST',
-            url: $(this).attr('action'), 
-            data: formData,
-            success: function (data) {
-                window.location.href = "{{ route('api.admin.complaint.history.fetch') }}";
-            },
-        });
-    });
     </script>
-
-
 
 </body>
 </html>
 
 @include('partials.__footer')
-

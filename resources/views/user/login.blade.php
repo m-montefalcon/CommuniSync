@@ -8,6 +8,7 @@
 </head>
 
 <body>
+  <img src="Asset/greenville.png" alt="Background Image">
   <div class="card">
     <form action="{{ route('api.login.store') }}" method="POST">
       @csrf
@@ -21,7 +22,7 @@
           }, 5000);
         </script>
       @endif
-    
+
       <h2>Login</h2>
       <div class="form-group">
         <div class="input-group-prepend">

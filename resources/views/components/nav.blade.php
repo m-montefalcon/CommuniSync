@@ -125,15 +125,7 @@
   <div class="content">
       <div class="top-navbar">
         <div class="bx bx-menu" id="menu-icon"></div>
-          <div class="profile">
-          @if (auth()->user()->photo)
-              <a href="{{ route('profile') }}">
-              <img src="{{ asset('storage/' . Auth::user()->photo) }}" alt="User Photo">
-              </a>
-          @else
-              <p>No photo available</p>
-          @endif
-        </div>
+          <!--  -->
       </div>
       <main class="home-section"> </main>
       
