@@ -31,28 +31,35 @@ class PaymentRecordController extends Controller
         $fetchRequests = PaymentRecord::with('homeowner')->findOrFail($id);
         return response()->json([$fetchRequests, 200]);
     }
-
     public function getStatus($id){
-        $fetchRecords = PaymentRecord::where('homeowner_id', $id)->get();
+        $fetchRecords = PaymentRecord::with('admin')->where('homeowner_id', $id)->get();
         $fetchAllAmount = PaymentRecord::where('homeowner_id', $id)->pluck('payment_amount');
         $totalAmount = $fetchAllAmount->sum();
-        $result = $totalAmount / 200;
+        $monthsToAdd = floor($totalAmount / 200); // Round down to the nearest whole number of months to add
     
         $currentMonth = date('n'); // Current month in numeric format (1-12)
         $currentYear = date('Y'); // Current year
-        $paymentMonth = $result % 12 ? $result % 12 : 12;
-        $paymentYear = $currentYear + floor($result / 12);
+        $startMonth = 0; // Start from January 2023
+        $startYear = 2023; // Start from January 2023
     
-        if($paymentMonth > $currentMonth){
-            $message = "You are ahead by " . ($paymentMonth - $currentMonth) . " months. Last payment is in " . date("F", mktime(0, 0, 0, $paymentMonth, 10)) . " " . $paymentYear . ".";
-        } elseif($paymentMonth < $currentMonth){
-            $message = "You are behind by " . ($currentMonth - $paymentMonth) . " months. Last payment is in " . date("F", mktime(0, 0, 0, $paymentMonth, 10)) . " " . $paymentYear . ".";
+        $diffYears = $startYear - $currentYear;
+        $diffMonths = $startMonth - $currentMonth + ($diffYears * 12);
+    
+        // Calculate months ahead or behind
+        $monthsDifference = $diffMonths + $monthsToAdd;
+    
+        if ($monthsDifference > 0) {
+            $message = "You are ahead by $monthsDifference months. Next payment is in " . date("F Y", strtotime("+ $monthsDifference months"));
+        } elseif ($monthsDifference < 0) {
+            $monthsDifference = abs($monthsDifference);
+            $message = "You are behind by $monthsDifference months. Next payment is for " . date("F Y", strtotime("- $monthsDifference months"));
         } else {
-            $message = "You are up to date. Last payment is in " . date("F", mktime(0, 0, 0, $paymentMonth, 10)) . " " . $paymentYear . ".";
+            $message = "You are up to date. Last payment covered for " . date("F Y");
         }
     
-        return response()->json(['records'=>$fetchRecords, 'message'=>$message,  'total amount'=>$totalAmount,  200]);
+        return response()->json(['records' => $fetchRecords, 'message' => $message], 200);
     }
+    
     
     
     
