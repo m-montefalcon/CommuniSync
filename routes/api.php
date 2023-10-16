@@ -61,6 +61,7 @@ Route::get('admin/payment/records/get/all', [PaymentRecordController::class, 'ge
 Route::get('admin/payment/records/get/{id}', [PaymentRecordController::class, 'getId'])->name('api.admin.payment.records.get');
 Route::get('user/payment/records/status/{id}', [PaymentRecordController::class, 'getStatus'])->name('api.user.payment.records.status');
 Route::get('user/payment/save/records/{id}', [PaymentRecordController::class, 'savePdfRecords'])->name('api.user.payment.save.records');
+Route::put('/update/mobile/{id}', [UserController::class, 'updateMobile'])->name('api.update.mobile');
 
 // Routes that require authentication
 Route::middleware('auth:sanctum')->group(function () {

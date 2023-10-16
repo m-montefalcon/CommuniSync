@@ -46,7 +46,7 @@ class VerificationRequests extends Controller
             'lot_no' => $id->lot_no,
             'block_no' => $id->block_no,
             'family_member' => $id->family_member,
-            'manual_visit_option' => 0,
+            'manual_visit_option' => 1,
             'role' => 2,
         ]);
         $id->delete();
