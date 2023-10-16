@@ -16,7 +16,7 @@ class UserController extends Controller
 
     public function store(UserAuthStoreRequest $request){
         $validated = $request->validated();
-
+    
         if (array_key_exists('family_member', $validated)) {
             $validated['family_member'] = json_encode($validated['family_member']);
         }
@@ -28,13 +28,14 @@ class UserController extends Controller
         $validated['photo'] = $imagePath;
         
         $validated['password'] = Hash::make($validated['password']);
-        $validated['remember_token'] = Str::random(60);    
+        
         User::create($validated);
-
+    
         $redirectRoute = $this->getRedirectRouteRegister($request);
-
+    
         return redirect()->route($redirectRoute);      
     }
+    
 
     public function getRedirectRouteRegister(Request $request): string
     {
@@ -71,6 +72,19 @@ class UserController extends Controller
 
         return redirect()->route($redirectRoute);
     }
+
+    public function updateMobile(UserUpdateRequest $request, User $id){
+        $validated = $request->validated();
+    
+        if ($request->has('password')) {
+            $validated['password'] = Hash::make($request->input('password'));
+        }
+    
+        // $id->update($validated);
+        return response()->json(['data' => $validated], 200);
+
+    }
+
     
 
     // public function destroy(Request $request, User $id){

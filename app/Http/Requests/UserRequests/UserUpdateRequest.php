@@ -31,6 +31,7 @@ class UserUpdateRequest extends FormRequest
             'last_name' => ['required'],
             'contact_number' => ['required'],
             'manual_visit_option' => ['nullable'],
+            'photo' => ['nullable'],
             'block_no' => 'nullable',
             'lot_no' => 'nullable',
             'family_member' => ['nullable'],
