@@ -157,7 +157,6 @@
                             </select>
                         </div>
                         
-                        
                         <label for="family_member">Family Members:</label> 
                         @php $familyMembers = old('family_member', $homeowner->family_member ?? []); @endphp
                         <div id="familyInputContainer">
@@ -174,8 +173,11 @@
                             @endforeach
                         </div>
                         <button type="button" id="addMember">Add member</button>
-                        <button type="submit" value="Register"> Register </button>
+                        <br>
+                        <br>
+                    <button type="submit" value="Register" class="btn btn-primary"> Register </button>
                 </form>
+                    <button class="btn btn-danger" onclick="history.back()"> Cancel </button>
             </div>
         </div>
     </div>
