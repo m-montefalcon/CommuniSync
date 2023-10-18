@@ -51,7 +51,10 @@ class PaymentRecordController extends Controller
         // Calculate months ahead or behind
         $monthsDifference = $diffMonths + $monthsToAdd;
     
-        if ($monthsDifference > 0) {
+        if ($fetchRecords->isEmpty()) {
+            $monthsDifference = abs($diffMonths);
+            $message = "You are behind by $monthsDifference months. Next payment is for " . date("F Y");
+        } elseif ($monthsDifference > 0) {
             $message = "You are ahead by $monthsDifference months. Next payment is in " . date("F Y", strtotime("+ $monthsDifference months"));
         } elseif ($monthsDifference < 0) {
             $monthsDifference = abs($monthsDifference);
@@ -62,6 +65,8 @@ class PaymentRecordController extends Controller
     
         return response()->json(['records' => $fetchRecords, 'message' => $message], 200);
     }
+    
+    
     
     
 

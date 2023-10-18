@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Log;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Validated;
 use App\Http\Requests\UserRequests\UserUpdateRequest;
 use App\Http\Requests\AuthRequests\UserAuthStoreRequest;
+use App\Http\Requests\UserRequests\UserUpdateProfileMobileRequest;
 
 class UserController extends Controller
 {
@@ -73,17 +75,23 @@ class UserController extends Controller
         return redirect()->route($redirectRoute);
     }
 
-    public function updateMobile(UserUpdateRequest $request, User $id){
-        $validated = $request->validated();
+    public function updateMobile(UserUpdateProfileMobileRequest $request, User $id)
+    {
+        try {
+            $validated = $request->validated();
     
-        if ($request->has('password')) {
-            $validated['password'] = Hash::make($request->input('password'));
+    
+            $id->update($validated);
+    
+    
+            return response()->json(['data' => $validated], 200);
+        } catch (\Exception $e) {
+            // Log the error
+    
+            return response()->json(['error' => 'An error occurred'], 500);
         }
-    
-        // $id->update($validated);
-        return response()->json(['data' => $validated], 200);
-
     }
+    
 
     
 
