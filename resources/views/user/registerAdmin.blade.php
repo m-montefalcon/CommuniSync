@@ -103,28 +103,28 @@
                         </div>
                     </div>
 
-                    <div class="input-box">
-                        <div class="input-group-prepend">
-                            <span class="input-icon"> 
-                                <i class="fa-solid fa-image"></i> 
-                            </span>
+                        <div class="input-box">
+                            <div class="input-group-prepend">
+                                <span class="input-icon"> 
+                                    <i class="fa-solid fa-image"></i> 
+                                </span>
+                            </div>
+                            <label for="photo">Photo:</label>
+                            <input type="file" id="photo" name="photo">
                         </div>
-                        <label for="photo">Photo:</label>
-                        <input type="file" id="photo" name="photo">
-                    </div>
 
-                    <div class="input-box">
-                        <div class="input-group-prepend">
-                            <span class="input-icon"> 
-                                <i class="fa-solid fa-id-card-clip"></i> 
-                            </span>
-                        </div>    
-                        <label for="role">Role:</label>
-                        <input type="text" id="role" name="role" value="Admin" readonly>
-                    </div>
-                    
-                    <button type="submit" value="Register"> Register </button>
+                        <div class="input-box">
+                            <div class="input-group-prepend">
+                                <span class="input-icon"> 
+                                    <i class="fa-solid fa-id-card-clip"></i> 
+                                </span>
+                            </div>    
+                            <label for="role">Role:</label>
+                            <input type="text" id="role" name="role" value="Admin" readonly>
+                        </div>
+                    <button type="submit" value="Register" class="btn btn-primary"> Register </button>
                 </form>
+                    <button class="btn btn-danger" onclick="history.back()"> Cancel </button> 
             </div>
         </div>
     </div>

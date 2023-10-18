@@ -57,7 +57,13 @@
 
                                             <td>{{ $commaSeparatedMember }}</td>
                                         @endif
-                                        <td>{{$homeowner->manual_visit_option}}</td>
+                                        <td>
+                                            @if ($homeowner->manual_visit_option == 0)
+                                                Do not allow
+                                            @elseif ($homeowner->manual_visit_option == 1)
+                                                Allow
+                                            @endif
+                                        </td>
                                         <td>{{$homeowner->role}}</td>
                                     </tr>
                                     @endforeach

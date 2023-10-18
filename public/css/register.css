@@ -52,6 +52,11 @@
 		padding-top: 20px;
 	}
 
+	form {
+        display: inline;
+        margin-right: 10px;
+    }
+
 	/* form {
 		background-color: #FFFFFF;
 		border-radius: 10px;
@@ -290,9 +295,42 @@
 	}
 
 	#addMember {
-		width: 50%;
+		width: 30%;
 		margin-top: 0px;
 	}
+
+	button {
+        text-align: center;
+        border-radius: 6px;
+        width: 100px;
+        height: 40px;
+        border: none;
+        margin-top: 5px;
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 20px;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    button.btn-primary {
+        background-color: #89CFF0;
+		width: 50%;
+    }
+    
+    button.btn-primary:hover {
+        background-color: #4169E1;
+    }
+    button.btn-danger {
+        float: right;
+        background-color: maroon;
+        color: white;
+    }
+    button.btn-danger:hover {
+        background-color: red;
+        color: white;
+    }
 
 	
 	

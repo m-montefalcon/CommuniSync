@@ -24,33 +24,61 @@
         
           <input type="hidden" name="form_type" value="editAdminForm">
 
-          <label for="username">User Name:</label>
-          <input type="text" id="username" name="user_name" value="{{$admin->user_name}}" required>
-          
-          <label for="firstname">First Name:</label>
-          <input type="text" id="firstname" name="first_name" value="{{$admin->first_name}}" required>
-          
-          <label for="lastname">Last Name:</label>
-          <input type="text" id="lastname" name="last_name" value="{{$admin->last_name}}" required>
-          
-          <label for="contactnumber">Contact Number:</label>
-          <input type="text" id="contactnumber" name="contact_number" value="{{$admin->contact_number}}" required>
-          
-          <label for="email">Email:</label>
-          <input type="email" id="email" name="email" value="{{$admin->email}}" required>
+          <div class="input-box">
+            <div class="input-group-prepend">
+              <span class="input-icon"> 
+                <i class="fa-solid fa-user"></i> 
+              </span>
+            </div>
+            <label for="user_name">Username:</label>
+            <input type="text" id="user_name" name="user_name" value="{{$admin->user_name}}" required>
+          </div>
 
+          <div class="user-details">      
+            <div class="input-box">
+                <div class="input-group-prepend">
+                  <span class="input-icon"> 
+                    <i class="fa-solid fa-id-card"></i> 
+                  </span>
+                </div>
+                <label for="first_name">First Name:</label>
+                <input type="text" id="first_name" name="first_name" value="{{$admin->first_name}}" required>
+            </div>
+
+            <div class="input-box">
+              <div class="input-group-prepend">
+                <span class="input-icon"> 
+                  <i class="fa-solid fa-id-card"></i> 
+                </span>
+              </div>
+              <label for="last_name">Last Name:</label>
+              <input type="text" id="last_name" name="last_name" value="{{$admin->last_name}}" required>
+            </div>
+
+            <div class="input-box">
+              <div class="input-group-prepend">
+                <span class="input-icon"> 
+                  <i class="fa-solid fa-phone"></i> 
+                </span>
+              </div>
+              <label for="contact_number">Contact Number:</label>
+              <input type="text" id="contact_number" name="contact_number" value="{{$admin->contact_number}}" required>
+            </div>
+
+            <div class="input-box">
+              <div class="input-group-prepend">
+                <span class="input-icon"> 
+                  <i class="fa-solid fa-envelope"></i> 
+                </span>
+              </div>
+              <label for="email">Email Address:</label>
+              <input type="email" id="email" name="email" value="{{$admin->email}}" required>
+            </div>
+          </div>
           <br>
-
           <button type="submit" class="btn btn-primary">Update</button>
-
         </form>
-    
-        <!-- <form action= "{{ route ('api.delete', ['id'=> $admin->id]) }}" method="POST">
-        @method('DELETE')
-        @csrf
-          <button type="submit" class="btn btn-danger">Delete</button>
-        </form> -->
-        <button class="btn btn-danger" onclick="history.back()"> Cancel </button>
+          <button class="btn btn-danger" onclick="history.back()"> Cancel </button>
       </div>
     </div>
   </div>

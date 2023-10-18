@@ -122,9 +122,9 @@
                             <label for="role">Role:</label>
                             <input type="text" id="role" name="role" value="Visitor" readonly>
                         </div>
-                        
-                        <button type="submit" value="Register"> Register </button>
+                    <button type="submit" value="Register" class="btn btn-primary"> Register </button>
                 </form>
+                    <button class="btn btn-danger" onclick="history.back()"> Cancel </button>
             </div>
         </div>
     </div>
