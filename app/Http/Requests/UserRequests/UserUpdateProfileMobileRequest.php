@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\AuthRequests;
+namespace App\Http\Requests\UserRequests;
 
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserAuthStoreRequest extends FormRequest
+class UserUpdateProfileMobileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,20 +22,19 @@ class UserAuthStoreRequest extends FormRequest
      */
     public function rules(): array
     {
+        $id = $this->route('id'); // Get the 'id' parameter from the route
+
         return [
-            'user_name' => ['required', 'min:6', Rule::unique('users', 'user_name')],
-            'email' => ['required', 'min:4',],
+            'user_name' => ['required', 'min:6', Rule::unique('users', 'user_name')->ignore($id)],
+            'email' => ['required'],
             'first_name' => ['required'],
             'last_name' => ['required'],
-            'contact_number' => ['required'], 
-            'photo' => ['image', 'nullable'],
-            'password' => ['required', 'min:6'],
-            'block_no' => ['nullable'],
-            'lot_no' => ['nullable'],
+            'contact_number' => ['required'],
             'manual_visit_option' => ['nullable'],
+            'photo' => ['nullable'],
+            'block_no' => 'nullable',
+            'lot_no' => 'nullable',
             'family_member' => ['nullable'],
-            'role' => ['nullable']
-            
         ];
     }
 
@@ -63,4 +62,5 @@ class UserAuthStoreRequest extends FormRequest
             'role.required' => 'The role field is required.'
         ];
     }
+   
 }
