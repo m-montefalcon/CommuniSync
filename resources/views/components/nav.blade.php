@@ -87,6 +87,14 @@
             </a>
           </li>
           <li>
+          <li>
+            <a class="side-link @if(Request::is('admin/payment/all/users')) active @endif" href="{{ route('admin.payment.all.users') }}">
+              <span class="icon"> <i class="fa-solid fa-scroll"></i> </span>
+              <span class="text">Payment</span>
+              <span class="tooltip"> Payment </span>
+            </a>
+          </li>
+          <li>
             <a class="side-link @if(Request::is('profile')) active @endif" href="{{ route('profile') }}">
               <span class="icon"> <i class="fa-solid fa-user"></i> </span>
               <span class="text">Profile</span>
