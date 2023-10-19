@@ -148,6 +148,6 @@ class WebViewController extends Controller
 
     public function fetchAllUserPayment(){
         $homeowners = User::checksRole(2);
-        return view('tba', compact('homeowners'));
+        return view('payment.paymentRecord', compact('homeowners'));
     }
 }

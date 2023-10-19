@@ -81,7 +81,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('admin/complaint/history/fetch', [WebViewController::class, 'fetchComplaintsHistory'])->name('api.admin.complaint.history.fetch');
     //Payment
-    Route::post('admin/payment/all/users', [WebViewController::class, 'fetchAllUserPayment'])->name('admin.payment.all.users');
+    Route::get('admin/payment/all/users', [WebViewController::class, 'fetchAllUserPayment'])->name('admin.payment.all.users');
 
     //Logbook
     Route::get('admin/get/logbook', [WebViewController::class, 'getLb'])->name('admin.get.logobok');
