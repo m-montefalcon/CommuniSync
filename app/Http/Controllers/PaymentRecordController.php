@@ -19,9 +19,9 @@ class PaymentRecordController extends Controller
         $validatedData['payment_date'] = now()->toDateString();
         $validatedData['admin_id'] = Auth::id();
         PaymentRecord::create($validatedData);
-        return response()->json(['payment method'=> true, $validatedData, 200]);
-    }
 
+        return redirect()->back();
+    }
     public function getALl()
     {
         $fetchALlRecords = PaymentRecord::all();
@@ -98,6 +98,35 @@ class PaymentRecordController extends Controller
         }
         // Create a PDF instance
         $pdf = new Dompdf();
+
+        if ($fetchAllAmount->isEmpty()) {
+            $html = '<html>';
+            $html .= '<head>';
+            $html .= '<title>No Transactions</title>';
+            $html .= '</head>';
+            $html .= '<body>';
+            
+            $html .= '<h1>No transaction available</h1>';
+            $html .= '</body>';
+            $html .= '</html>';
+        
+            // Load HTML content into the PDF instance
+            $pdf->loadHtml($html);
+        
+            // Set paper size and orientation (optional)
+            $pdf->setPaper('A4', 'portrait');
+        
+            // Render PDF (output or save to file)
+            $pdf->render();
+        
+            // Return the PDF as a response
+            $pdfContent = $pdf->output();
+            return response($pdfContent, 200)
+            ->header('Content-Type', 'application/pdf');
+        }
+        
+        // Rest of your code...
+        
     
         // Set options for PDF generation (optional)
         $options = new Options();
