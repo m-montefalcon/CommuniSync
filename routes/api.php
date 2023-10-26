@@ -66,6 +66,7 @@ Route::put('/update/mobile/{id}', [UserController::class, 'updateMobile'])->name
 // Routes that require authentication
 Route::middleware('auth:sanctum')->group(function () {
     // User APIs
+        Route::put('/update/profile/mobile/{id}', [UserController::class, 'updateProfilePicMobile'])->name('api.update.profile.mobile');
 
         Route::put('/update/{id}', [UserController::class, 'update'])->name('api.update');
         Route::delete('/delete/{id}', [UserController::class, 'destroy'])->name('api.delete');
