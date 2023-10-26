@@ -75,6 +75,19 @@ class UserController extends Controller
         return redirect()->route($redirectRoute);
     }
 
+    public function updateProfilePicMobile(Request $request, User $id)
+    {
+        $validatedData = $request -> validate([
+            "photo" => "required"
+        ]);
+    
+      
+        $id->update($validatedData);
+    
+
+        return response()->json(['data' => $validatedData], 200);
+    }
+
     public function updateMobile(UserUpdateProfileMobileRequest $request, User $id)
     {
         try {
