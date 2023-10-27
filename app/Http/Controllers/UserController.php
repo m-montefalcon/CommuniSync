@@ -12,6 +12,7 @@ use Illuminate\Auth\Events\Validated;
 use App\Http\Requests\UserRequests\UserUpdateRequest;
 use App\Http\Requests\AuthRequests\UserAuthStoreRequest;
 use App\Http\Requests\UserRequests\UserUpdateProfileMobileRequest;
+use App\Http\Requests\UserRequests\UserUpdateProfilePictureRequest;
 
 class UserController extends Controller
 {
@@ -75,18 +76,26 @@ class UserController extends Controller
         return redirect()->route($redirectRoute);
     }
 
-    public function updateProfilePicMobile(Request $request, User $id)
+    public function updateProfilePicMobile(UserUpdateProfilePictureRequest $request, User $id)
     {
-        $validatedData = $request -> validate([
-            "photo" => "required"
-        ]);
+        $validated = $request->validated();
     
-      
-        $id->update($validatedData);
+        // Check if 'photo' field exists in the request
+        if ($request->hasAny('photo')) {
+            
+            // Store the image if 'photo' is present
+            $imagePath = $request->file('photo')->store('user_profile', 'public');
+            $validated['photo'] = $imagePath;
+        }
     
-
-        return response()->json(['data' => $validatedData], 200);
+        // Update the user's profile with the validated data
+        $id->update($validated);
+        
+        return response()->json(['data' => $validated], 200);
     }
+    
+    
+    
 
     public function updateMobile(UserUpdateProfileMobileRequest $request, User $id)
     {
