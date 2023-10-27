@@ -62,11 +62,11 @@ Route::get('admin/payment/records/get/{id}', [PaymentRecordController::class, 'g
 Route::get('user/payment/records/status/{id}', [PaymentRecordController::class, 'getStatus'])->name('api.user.payment.records.status');
 Route::get('user/payment/save/records/{id}', [PaymentRecordController::class, 'savePdfRecords'])->name('api.user.payment.save.records');
 Route::put('/update/mobile/{id}', [UserController::class, 'updateMobile'])->name('api.update.mobile');
+Route::put('update/profile/mobile/{id}', [UserController::class, 'updateProfilePicMobile'])->name('api.update.profile.mobile');
 
 // Routes that require authentication
 Route::middleware('auth:sanctum')->group(function () {
     // User APIs
-        Route::put('/update/profile/mobile/{id}', [UserController::class, 'updateProfilePicMobile'])->name('api.update.profile.mobile');
 
         Route::put('/update/{id}', [UserController::class, 'update'])->name('api.update');
         Route::delete('/delete/{id}', [UserController::class, 'destroy'])->name('api.delete');
