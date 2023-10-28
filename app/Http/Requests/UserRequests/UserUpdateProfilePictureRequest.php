@@ -22,8 +22,18 @@ class UserUpdateProfilePictureRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'photo' => ['image','required'],
+            'photo' => 'required|image',
+        ];
+        
 
+    }
+    public function messages()
+    {
+        return [
+            
+            'photo.image' => 'The photo must be an image.',
+            
+           
         ];
     }
 }
