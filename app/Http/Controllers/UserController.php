@@ -13,6 +13,9 @@ use App\Http\Requests\UserRequests\UserUpdateRequest;
 use App\Http\Requests\AuthRequests\UserAuthStoreRequest;
 use App\Http\Requests\UserRequests\UserUpdateProfileMobileRequest;
 use App\Http\Requests\UserRequests\UserUpdateProfilePictureRequest;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Storage;
+
 
 class UserController extends Controller
 {
@@ -76,23 +79,33 @@ class UserController extends Controller
         return redirect()->route($redirectRoute);
     }
 
-    public function updateProfilePicMobile(UserUpdateProfilePictureRequest $request, User $id)
+
+    
+    public function updateProfilePicMobile(Request $request, $id)
     {
-        $validated = $request->validated();
-    
-        // Check if 'photo' field exists in the request
-        if ($request->hasAny('photo')) {
-            
-            // Store the image if 'photo' is present
-            $imagePath = $request->file('photo')->store('user_profile', 'public');
-            $validated['photo'] = $imagePath;
-        }
-    
-        // Update the user's profile with the validated data
-        $id->update($validated);
+        $request->validate([
+            'photo' => 'required|image|max:' . (env('UPLOAD_MAX_SIZE', 30) * 1024), // Convert MB to KB
+        ]);
         
-        return response()->json(['data' => $validated], 200);
+    
+        $userId = User::findOrFail($id);
+    
+        if ($request->hasFile('photo')) {
+            // Delete the existing profile picture
+            if ($userId->photo) {
+                Storage::disk('public')->delete($userId->photo);
+            }
+    
+            $photoFile = $request->file('photo');
+            $imagePath = $photoFile->store('user_profile', 'public');
+            $validated['photo'] = $imagePath;
+            $userId->update($validated);
+            return response()->json(['data' => $validated], 200);
+        } else {
+            return response()->json(['error' => 'Photo is required'], 400);
+        }
     }
+    
     
     
     
