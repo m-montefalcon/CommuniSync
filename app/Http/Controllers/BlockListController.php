@@ -24,9 +24,8 @@ class BlockListController extends Controller
     public function validated(UserValidatedBlockListRequest $request, BlockList $id)
     {
         $validatedData = $request->validated();
-        $id->fill($validatedData);
         $id->blocked_date = Carbon::now()->toDateString();
-        $id->save();
+        $id->update($validatedData);
         return response()->json(['validated success' => true], 200);
     }
 }
