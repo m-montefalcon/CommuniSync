@@ -9,6 +9,24 @@ use Illuminate\Http\Request;
 
 class LogbookController extends Controller
 {
+    //Logbook will record when Visitor will out
+    public function out(Request $request, Logbook $id){
+     
+    
+        $logbookEntry = Logbook::findOrFail($id);
+    
+        // Update logbook entry when visitor leaves
+        $logbookEntry->update([
+            'visit_status' => 2, // Set visit_status to 2 when the visitor leaves
+            'visit_date_out' => now()->toDateString(),
+            'visit_time_out' => now()->toTimeString(),
+        ]);
+    
+        return response()->json(['message' => 'Visitor has left. Logbook updated.'], 200);
+    }
+    
+
+
     public function get(Request $request){
         $validatedData = $request->validate([
             "first_name" => "required",
