@@ -148,34 +148,36 @@ class ControlAccessController extends Controller
     public function recordedMobile(UserRecordControlAccessRequest $request){
         $validatedData = $request->validated();
         
-        $controlAccessId = ControlAccess::findOrFail($validatedData['id']);
-        $visitor = User::findOrFail($controlAccessId->visitor_id);
-
-        $isVisitorBlocked = BlockList::visitorBlocked($visitor)->first();
-
-
-        $visit_members = json_decode($controlAccessId->visit_members, true);
-
-        $isMemberBlocked = BlockList::memberBlock($visit_members);
-
+        // Use find instead of findOrFail to avoid throwing an exception
+        $controlAccessId = ControlAccess::find($validatedData['id']);
+        $visitor = User::find($controlAccessId->visitor_id);
     
-
+        // Check if the controlAccessId and visitor exist
+        if (!$controlAccessId || !$visitor) {
+            return response()->json(['message' => 'User or Control Access not found'], 404);
+        }
+    
+        $isVisitorBlocked = BlockList::visitorBlocked($visitor)->first();
+        $visit_members = json_decode($controlAccessId->visit_members, true);
+        $isMemberBlocked = BlockList::memberBlock($visit_members);
+    
         $visit_status = ($isVisitorBlocked || $isMemberBlocked) ? 7 : 6;
-
+    
         $currentDateTime = now();
-
-        $controlAccessId->update([
-            'date' => $currentDateTime->toDateString(),
-            'time' => $currentDateTime->toTimeString(),
-            'visit_status' => $visit_status,
-            'personnel_id' => $validatedData['personnel_id']
-        ]);
+    
+        // Update the controlAccessId directly without using the update method
+        $controlAccessId->date = $currentDateTime->toDateString();
+        $controlAccessId->time = $currentDateTime->toTimeString();
+        $controlAccessId->visit_status = $visit_status;
+        $controlAccessId->personnel_id = $validatedData['personnel_id'];
+        $controlAccessId->save();
+    
         if ($visit_status == 7) {
             return response()->json(['message' => 'The user or a member is blocked and the operation is denied.'], 403);
         }
-
-        $entries = [];
-        $entries[] = [
+    
+        // Create a new Logbook entry directly without using an array
+        Logbook::create([
             'homeowner_id' => $controlAccessId->homeowner_id,
             'admin_id' => $controlAccessId->admin_id,
             'visitor_id' => $controlAccessId->visitor_id,
@@ -186,13 +188,11 @@ class ControlAccessController extends Controller
             'visit_time_in' => $currentDateTime->toTimeString(),
             'created_at' => $currentDateTime,
             'updated_at' => $currentDateTime
-        ];
-        Logbook::insert($entries);
-
-        
+        ]);
+    
         return response()->json(['scanned' => true], 200);
     }
-
+    
 
     public function fetchAllRequestMobile($id){
         $fetchRequests = ControlAccess::with('visitor', 'homeowner')->fetchRequests($id);
