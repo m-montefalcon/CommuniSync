@@ -24,6 +24,9 @@ return new class extends Migration
             $table->json('visit_members')->nullable();
             $table->string('contact_number')->nullable();
             $table->date('visit_date');
+            $table->time('visit_time');
+            $table->enum('logbook_status', [1, 2])->default(1);
+
             $table->timestamps();
         });
     }

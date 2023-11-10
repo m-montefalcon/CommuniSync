@@ -181,7 +181,9 @@ class ControlAccessController extends Controller
             'visitor_id' => $controlAccessId->visitor_id,
             'personnel_id' => $controlAccessId->personnel_id,
             'visit_members' => $controlAccessId->visit_members,
+            // 'logbook_status' => 1,
             'visit_date' => $currentDateTime->toDateString(),
+            // 'visit_time' => $currentDateTime->toTimeString(),
             'created_at' => $currentDateTime,
             'updated_at' => $currentDateTime
         ];
