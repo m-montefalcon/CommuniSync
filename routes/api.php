@@ -125,4 +125,8 @@ Route::middleware('auth:sanctum')->group(function () {
     // Manual visit options
         Route::get('mvo/get/homeowner', [LogbookController::class, 'get'])->name('mvo.get.homeowner');
         Route::post('mvo/post/homeowner/{id}', [LogbookController::class, 'post'])->name('mvo.post.homeowner');
+
+    //Logbook
+        Route::put('user/logbook/out/{id}', [LogbookController::class, 'out'])->name('api.logbook.user.out');
+
 });

@@ -23,8 +23,10 @@ return new class extends Migration
             $table->foreign('personnel_id')->references('id')->on('users');
             $table->json('visit_members')->nullable();
             $table->string('contact_number')->nullable();
-            $table->date('visit_date');
-            $table->time('visit_time');
+            $table->date('visit_date_in')->nullable();
+            $table->time('visit_time_in')->nullable();
+            $table->date('visit_date_out')->nullable();
+            $table->time('visit_time_out')->nullable();
             $table->enum('logbook_status', [1, 2])->default(1);
 
             $table->timestamps();
