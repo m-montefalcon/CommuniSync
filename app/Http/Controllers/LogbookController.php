@@ -27,6 +27,14 @@ class LogbookController extends Controller
     
         return response()->json(['message' => 'Visitor has left. Logbook updated.'], 200);
     }
+
+    public function checkOut(){
+        $fetchRequests = Logbook::with('visitor')->with('homeowner')
+            ->where('logbook_status', 1)
+            ->get();
+    
+        return response(['data' => $fetchRequests], 200);
+    }
     
     
 

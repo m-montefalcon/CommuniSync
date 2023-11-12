@@ -15,11 +15,13 @@ class Logbook extends Model
         'personnel_id',
         'visit_members',
         'contact_number',
-        'visit_date'
-
-
-
+        'visit_date_in',
+        'visit_time_in',
+        'visit_date_out',
+        'visit_time_out',
+        'logbook_status'
     ];
+    
     public function visitor()
     {
         return $this->belongsTo(User::class, 'visitor_id');

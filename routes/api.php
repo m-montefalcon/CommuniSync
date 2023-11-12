@@ -128,5 +128,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //Logbook
         Route::put('user/logbook/out/{id}', [LogbookController::class, 'out'])->name('api.logbook.user.out');
+        Route::get('user/logbook/check/out/{id}', [LogbookController::class, 'checkOut'])->name('api.logbook.user.check.out');
 
 });
