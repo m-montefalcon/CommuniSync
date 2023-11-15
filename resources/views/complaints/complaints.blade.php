@@ -196,7 +196,7 @@
             $('#complaintStatus').val(currentStatus);
             $('#complaintUpdates').html(updatesHtml);
             $('#complaintSendFrom').val(sendFrom);
-            $('#complaintPhoto').attr('src', 'http://127.0.0.1:8000/storage/' + photo);
+            $('#complaintPhoto').attr('src', '{{ asset("storage/" . $complaint->complaint_photo) }}');
 
             var formAction = '/api/admin/complaint/update/' + id;
             $('#complaintForm').attr('action', formAction);
