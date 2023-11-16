@@ -10,7 +10,8 @@ use Illuminate\Http\Request;
 class LogbookController extends Controller
 {
     //Logbook will record when Visitor will out
-    public function out(Logbook $id){
+    public function out($id) {
+        // Find the logbook entry by ID
         $logbookEntry = Logbook::find($id);
     
         // Check if the logbookEntry exists
@@ -20,13 +21,24 @@ class LogbookController extends Controller
     
         // Update logbook entry when visitor leaves
         $currentDateTime = now();
-        $logbookEntry->visit_status = 2; // Set visit_status to 2 when the visitor leaves
+        $logbookEntry->logbook_status = 2; // Set visit_status to 2 when the visitor leaves
         $logbookEntry->visit_date_out = $currentDateTime->toDateString();
         $logbookEntry->visit_time_out = $currentDateTime->toTimeString();
+        
+        // Retrieve the visitor's contact number using Eloquent relationships
+        $visitor = $logbookEntry->visitor; // Assuming 'visitor' is the relationship method
+    
+        // Check if the visitor and contact number exist
+        if ($visitor && !empty($visitor->contact_number)) {
+            $logbookEntry->contact_number = $visitor->contact_number;
+        }
+    
         $logbookEntry->save();
     
         return response()->json(['message' => 'Visitor has left. Logbook updated.'], 200);
     }
+    
+    
 
     public function checkOut(){
         $fetchRequests = Logbook::with('visitor')->with('homeowner')

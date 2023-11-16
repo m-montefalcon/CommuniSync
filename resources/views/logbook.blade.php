@@ -30,7 +30,9 @@
                                         <th>A-ID</th>
                                         <th>A-Name</th>
                                         <th>Contact Number</th>
-                                        <th>Visit Date</th>
+                                        <th>Visit In</th>
+                                        <th>Visit Out</th>
+
                                         <th>Visit Members</th>
                                     </tr> 
                                     @foreach($fetchAllLb as $fetchLogbook)
@@ -44,8 +46,15 @@
                                         <td>{{ $fetchLogbook->admin_id }}</td>
                                         <td>{{ optional($fetchLogbook->admin)->first_name . ' ' . optional($fetchLogbook->admin)->last_name }}</td>
                                         <td>{{ $fetchLogbook->contact_number }}</td>
-                                        <td>{{ $fetchLogbook->visit_date }}</td>
-                                        
+                                        <td>{{ $fetchLogbook->visit_date_in . ' ' . $fetchLogbook->visit_time_in }}</td>
+                                        <td>
+                                            @if ($fetchLogbook->visit_date_out && $fetchLogbook->visit_time_out)
+                                                {{ $fetchLogbook->visit_date_out . ' ' . $fetchLogbook->visit_time_out }}
+                                            @else
+                                                Currently In
+                                            @endif
+                                        </td>
+
                                         @php
                                             $visitMembers = json_decode($fetchLogbook->visit_members);
                                         @endphp
