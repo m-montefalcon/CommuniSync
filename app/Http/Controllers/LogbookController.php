@@ -76,36 +76,42 @@ public function checkIfMvoOn(Request $request){
 }
 
 
-    public function post(Request $request, $id){
-        $validatedData = $request->validate([
-            'personnel_id' => 'required',
-            'contact_number' => 'required',
-            'destination_person' => 'required',
-            'visit_members' => 'required|array',
-        ]);
-        $validatedData['visit_date'] = now()->toDateString();
-        $validatedData['homeowner_id'] = $id;
-        
-        $firstNames = [];
-        $lastNames = [];
-        
-        foreach ($validatedData['visit_members'] as $member) {
-            [$firstName, $lastName] = explode(' ', $member);
-            $firstNames[] = $firstName;
-            $lastNames[] = $lastName;
-        }
-        $validatedData['visit_members'] = json_encode($validatedData['visit_members']);
-
-        $isMemberBlocked = BlockList::memberBlock($firstNames, $lastNames);
-        
-        if ($isMemberBlocked) {
-            return response()->json(['message' => 'The user or a member is blocked and the operation is denied.'], 403);
-        }
-        
-        Logbook::create($validatedData);
-        
-        return response()->json(['message' => 'success', 'data' => $validatedData], 200);
-    }        
+public function post(Request $request){
+    $validatedData = $request->validate([
+        'homeowner_id' => 'required',
+        'personnel_id' => 'required',
+        'contact_number' => 'required',
+        'destination_person' => 'required',
+        'visit_members' => 'required',
+    ]);
+    $validatedData['visit_date'] = now()->toDateString();
+    
+    $firstNames = [];
+    $lastNames = [];
+    
+    $visitMembers = json_decode($validatedData['visit_members'], true);
+    foreach ($visitMembers as $member) {
+        $names = explode(' ', $member);
+        $lastName = array_pop($names);
+        $firstName = implode(' ', $names);
+        $firstNames[] = $firstName;
+        $lastNames[] = $lastName;
+    }
+    $validatedData['visit_members'] = json_encode($visitMembers);
+    $currentDateTime = now();
+    $validatedData['visit_date_in'] = $currentDateTime->toDateString();
+    $validatedData['visit_time_in'] = $currentDateTime->toTimeString();
+    $isMemberBlocked = BlockList::memberBlock($firstNames, $lastNames);
+    
+    if ($isMemberBlocked) {
+        return response()->json(['message' => 'The user or a member is blocked and the operation is denied.'], 403);
+    }
+    
+    Logbook::create($validatedData);
+    
+    return response()->json(['message' => 'success', 'data' => $validatedData], 200);
+}
+      
     
     
 }

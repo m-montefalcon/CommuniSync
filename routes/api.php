@@ -124,7 +124,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // Complaint feature
       
     // Manual visit options
-        Route::post('mvo/post/homeowner/{id}', [LogbookController::class, 'post'])->name('mvo.post.homeowner');
+        Route::post('mvo/post/homeowner', [LogbookController::class, 'post'])->name('mvo.post.homeowner');
 
     //Logbook
         Route::put('user/logbook/out/{id}', [LogbookController::class, 'out'])->name('api.logbook.user.out');
