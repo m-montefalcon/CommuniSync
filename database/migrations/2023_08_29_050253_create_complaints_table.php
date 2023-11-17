@@ -17,8 +17,8 @@ return new class extends Migration
             $table->foreign('admin_id')->references('id')->on('users');
             $table->unsignedBigInteger('homeowner_id')->nullable();
             $table->foreign('homeowner_id')->references('id')->on('users');
-            $table->string('complaint_title');
-            $table->string('complaint_desc');
+            $table->string('complaint_title', 255); // Adjust the length as needed
+            $table->string('complaint_desc', 1000); // Adjust the length as needed
             $table->json('complaint_updates')->nullable();
             $table->date('complaint_date');
             $table->string('complaint_photo')->nullable();

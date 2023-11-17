@@ -58,7 +58,8 @@ class VerifyCsrfToken extends Middleware
         'api/admin/complaint/close/*',
         'api/mvo/post/homeowner/*',
         'api/user/logbook/check/out',
-        'api/user/logbook/out/*'
+        'api/user/logbook/out/*',
+        'api/mvo/get/homeowner'
         
     ];
 }

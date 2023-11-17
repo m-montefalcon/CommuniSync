@@ -43,20 +43,26 @@
                                         <td>{{$homeowner->last_name}}</td>
                                         <td>{{$homeowner->contact_number}}</td>
                                         <td>{{$homeowner->email}}</td>
-                                        <td>B {{ $homeowner->block_no }} - L {{ $homeowner->lot_no }}</td>
+                                        <td>{{ $homeowner->block_no }} - L {{ $homeowner->lot_no }}</td>
                                         @php
-                                            $family_members = json_decode($homeowner->family_member);
-                                        @endphp
+    // Attempt to decode the JSON string into an array
+    $family_members = json_decode($homeowner->family_member, true);
 
-                                        @if ($family_members === null)
-                                            <td>No member found</td>
-                                        @else
-                                            @php
-                                                $commaSeparatedMember = implode(", ", $family_members);
-                                            @endphp
+    // Check if decoding was successful and if it is an array
+    if (is_array($family_members)) {
+        // Use implode to create a comma-separated string
+        $commaSeparatedMember = implode(", ", $family_members);
+    } else {
+        // Handle the case where decoding fails or the result is not an array
+        $commaSeparatedMember = "Invalid data format";
+    }
+@endphp
 
-                                            <td>{{ $commaSeparatedMember }}</td>
-                                        @endif
+<td>{{ $commaSeparatedMember }}</td>
+
+                                    <td>{{ $commaSeparatedMember }}</td>
+
+
                                         <td>
                                             @if ($homeowner->manual_visit_option == 0)
                                                 Do not allow
