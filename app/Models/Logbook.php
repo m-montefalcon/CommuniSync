@@ -14,6 +14,7 @@ class Logbook extends Model
         'visitor_id',
         'personnel_id',
         'visit_members',
+        'destination_person',
         'contact_number',
         'visit_date_in',
         'visit_time_in',

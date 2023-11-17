@@ -29,6 +29,9 @@
                                         <th>S-Name</th>
                                         <th>A-ID</th>
                                         <th>A-Name</th>
+                                        <th>Destination Person</th>
+
+                                        
                                         <th>Contact Number</th>
                                         <th>Visit In</th>
                                         <th>Visit Out</th>
@@ -45,6 +48,8 @@
                                         <td>{{ optional($fetchLogbook->personnel)->first_name . ' ' . optional($fetchLogbook->personnel)->last_name }}</td>
                                         <td>{{ $fetchLogbook->admin_id }}</td>
                                         <td>{{ optional($fetchLogbook->admin)->first_name . ' ' . optional($fetchLogbook->admin)->last_name }}</td>
+                                        <td>{{ $fetchLogbook->destination_person }}</td>
+
                                         <td>{{ $fetchLogbook->contact_number }}</td>
                                         <td>{{ $fetchLogbook->visit_date_in . ' ' . $fetchLogbook->visit_time_in }}</td>
                                         <td>

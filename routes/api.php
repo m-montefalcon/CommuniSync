@@ -63,6 +63,7 @@ Route::get('user/payment/records/status/{id}', [PaymentRecordController::class, 
 Route::get('user/payment/save/records/{id}', [PaymentRecordController::class, 'savePdfRecords'])->name('api.user.payment.save.records');
 Route::put('/update/mobile/{id}', [UserController::class, 'updateMobile'])->name('api.update.mobile');
 Route::post('update/profile/mobile/{id}', [UserController::class, 'updateProfilePicMobile'])->name('api.update.profile.mobile');
+Route::post('mvo/get/homeowner', [LogbookController::class, 'checkIfMvoOn'])->name('mvo.get.homeowner');
 
 // Routes that require authentication
 Route::middleware('auth:sanctum')->group(function () {
@@ -123,7 +124,6 @@ Route::middleware('auth:sanctum')->group(function () {
     // Complaint feature
       
     // Manual visit options
-        Route::get('mvo/get/homeowner', [LogbookController::class, 'get'])->name('mvo.get.homeowner');
         Route::post('mvo/post/homeowner/{id}', [LogbookController::class, 'post'])->name('mvo.post.homeowner');
 
     //Logbook

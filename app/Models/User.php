@@ -66,9 +66,9 @@ class User extends Authenticatable
         return $query->where('first_name', $firstName)
                      ->where('last_name', $lastName)
                      ->where('role', $role)
-                     ->where('manual_visit_option', 1)
-                     ->get();
+                     ->where('manual_visit_option', 1);
     }
+    
     public function scopeChecksRoleWithUsername($query, $username, $role){
         return $query->where('user_name', $username)
                      ->where('role', $role)

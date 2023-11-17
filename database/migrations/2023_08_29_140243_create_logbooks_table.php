@@ -27,6 +27,7 @@ return new class extends Migration
             $table->time('visit_time_in')->nullable();
             $table->date('visit_date_out')->nullable();
             $table->time('visit_time_out')->nullable();
+            $table->string('destination_person')->nullable();
             $table->enum('logbook_status', [1, 2])->default(1);
 
             $table->timestamps();
