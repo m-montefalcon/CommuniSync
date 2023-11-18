@@ -6,10 +6,18 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\VerificationRequest;
 use Illuminate\Support\Facades\Redirect;
+use App\Console\Commands\NotificationService;
 use App\Http\Requests\VerificationRequest\UserVerificationRequest;
 
 class VerificationRequests extends Controller
 {
+    protected $notificationService;
+
+    public function __construct(NotificationService $notificationService)
+    {
+        $this->notificationService = $notificationService;
+    }
+
 
     public function mobileCheckExist($id){
         $alreadyVerified = User::where('id', $id)->where('role', "2")->exists();
@@ -42,6 +50,7 @@ class VerificationRequests extends Controller
 
     public function update(VerificationRequest $id){
         $user = User::findOrFail($id->user_id);
+       
         $user->update([
             'lot_no' => $id->lot_no,
             'block_no' => $id->block_no,
@@ -49,7 +58,12 @@ class VerificationRequests extends Controller
             'manual_visit_option' => 1,
             'role' => 2,
         ]);
-        $id->delete();
+         // Send notification
+         $title = 'You have been verified as homeowner!';
+         $body = 'You may logout and sign in back again to refresh your privileges';
+         $notifId = $user->id;
+         $this->notificationService->sendNotificationById($notifId, $title, $body);
+         // $id->delete();
         return redirect()->route('verificationRequests');
         
 
