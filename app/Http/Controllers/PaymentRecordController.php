@@ -2,23 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use Illuminate\Http\Request;
 use App\Models\PaymentRecord;
 use Illuminate\Support\Facades\Auth;
+use App\Console\Commands\NotificationService;
 use Illuminate\Contracts\Support\ValidatedData;
 use App\Http\Requests\PaymentRecords\UserPaymentRequest;
-use Dompdf\Dompdf;
-use Dompdf\Options;
 
 
 class PaymentRecordController extends Controller
-{
+{  
+    protected $notificationService;
+    public function __construct(NotificationService $notificationService)
+    {
+        $this->notificationService = $notificationService;
+    }
+
     public function store(UserPaymentRequest $request)
     {
         $validatedData = $request->validated();
         $validatedData['payment_date'] = now()->toDateString();
         $validatedData['admin_id'] = Auth::id();
         PaymentRecord::create($validatedData);
+        $title = 'Monthly Due Payment Recieved';
+        $body = 'A monthly due payment was recieved. You may check it on Payment Records.';
+        $id = $validatedData['homeowner_id'];
+        $this->notificationService->sendNotificationById($id, $title, $body);
 
         return redirect()->back();
     }

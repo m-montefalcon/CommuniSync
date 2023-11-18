@@ -7,20 +7,19 @@
     "require": {
         "php": "^8.1",
         "dompdf/dompdf": "^2.0",
+        "fakerphp/faker": "^1.9.1",
         "guzzlehttp/guzzle": "^7.2",
         "kreait/laravel-firebase": "^5.4",
         "laravel/framework": "^10.10",
-        "laravel/sanctum": "^3.3",
-        "laravel/tinker": "^2.8",
-        "simplesoftwareio/simple-qrcode": "^4.2"
-    },
-    "require-dev": {
-        "fakerphp/faker": "^1.9.1",
         "laravel/pint": "^1.0",
         "laravel/sail": "^1.18",
+        "laravel/sanctum": "^3.3",
+        "laravel/tinker": "^2.8",
+        "laravel/ui": "*",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^7.0",
         "phpunit/phpunit": "^10.1",
+        "simplesoftwareio/simple-qrcode": "^4.2",
         "spatie/laravel-ignition": "^2.0"
     },
     "autoload": {
@@ -50,6 +49,15 @@
             "@php artisan key:generate --ansi"
         ]
     },
+    "refresh": [
+        "@composer dump-autoload --no-scripts",
+        "@php artisan config:clear",
+        "@composer run post-autoload-dump --verbose",
+        "@php artisan cache:clear",
+        "@php artisan clear-compiled",
+        "@php artisan view:clear",
+        "@php artisan route:clear"
+    ],
     "extra": {
         "laravel": {
             "dont-discover": []
