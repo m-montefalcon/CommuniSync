@@ -25,6 +25,8 @@ return new class extends Migration
             $table->boolean('manual_visit_option')->nullable();
             $table->string('photo')->nullable();
             $table->enum('role', [1, 2, 3, 4])->default(1);
+            $table->string('fcm_token')->nullable(); // Add this line to store the FCM token
+
             $table->string('email');
             $table->string('password');
             $table->rememberToken();
