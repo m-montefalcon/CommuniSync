@@ -69,45 +69,55 @@ class AuthController extends Controller
     
     
 //-----------------------------------------MOBILE----------------------------------------//
-    public function mobileStore(UserAuthStoreRequest $request)
-    {
-        $validated = $request->validated();
-        $imagePath = null;
-        if ($request->hasFile('photo')) {
-            $imagePath = $request->file('photo')->store('user_profile', 'public');
-        }
-        $validated['photo'] = $imagePath;
+public function mobileStore(UserAuthStoreRequest $request)
+{
+    $validated = $request->validated();
 
-        $validated['password'] = Hash::make($validated['password']);
-        $validated['role'] = 1;
-        $user = User::create($validated);
+
+    $imagePath = null;
+    if ($request->hasFile('photo')) {
+        $imagePath = $request->file('photo')->store('user_profile', 'public');
+    }
+    $validated['photo'] = $imagePath;
+
+    $validated['password'] = Hash::make($validated['password']);
+    $validated['role'] = 1;
+
+    // Add the following line to store the FCM token
+    $validated['fcm_token'] = $request->input('fcm_token');
+
+    $user = User::create($validated);
+
+    return response()->json([
+        'message' => 'User registered successfully',
+    ], 200);
+}
+
+public function loginMobile(UserLoginRequest $request)
+{
+    $validated = $request->validated();
+    
+    if (Auth::attempt($validated))
+    {
+       /** @var \App\Models\User $user **/
+        $user = Auth::user();
+        $token = $user->createToken('mobile-token')->plainTextToken; // Create a token for the user
+        $fcmToken = $user->fcm_token; // Get the FCM token from the user
+
         return response()->json([
-            'message' => 'User registered successfully',
+            'message' => 'Login successful',
+            'user' => $user,
+            'token' => $token,
+            'fcm_token' => $fcmToken, // Include the FCM token in the response
         ], 200);
     }
-
-    public function loginMobile(UserLoginRequest $request)
+    else
     {
-        $validated = $request->validated();
-        
-        if (Auth::attempt($validated))
-        {
-           /** @var \App\Models\User $user **/
-            $user = Auth::user();
-            $token = $user->createToken('mobile-token')->plainTextToken; // Create a token for the user
-    
-            return response()->json([
-                'message' => 'Login successful',
-                'user' => $user,
-                'token' => $token, // Return the token
-            ], 200);
-        }
-        else
-        {
-            // Authentication failed
-            return response()->json(['message' => 'Invalid credentials'], 401);
-        }
+        // Authentication failed
+        return response()->json(['message' => 'Invalid credentials'], 401);
     }
+}
+
     
     
     public function logoutMobile(Request $request)
