@@ -48,14 +48,38 @@
                                     </tr> 
                                     @foreach($fetchAllLb as $fetchLogbook)
                                     <tr>
-                                        <td>{{ $fetchLogbook->visitor_id }}</td>
-                                        <td>{{ optional($fetchLogbook->visitor)->first_name . ' ' . optional($fetchLogbook->visitor)->last_name }}</td>
+                                    <td>
+                                        @if($fetchLogbook->visitor_id)
+                                            {{ $fetchLogbook->visitor_id }}
+                                        @else
+                                            MVO
+                                        @endif
+                                    </td>
+                                        <td>
+                                            @if(optional($fetchLogbook->visitor)->first_name && optional($fetchLogbook->visitor)->last_name)
+                                                {{ optional($fetchLogbook->visitor)->first_name . ' ' . optional($fetchLogbook->visitor)->last_name }}
+                                            @else
+                                                MANUAL VISIT OPT
+                                            @endif
+                                        </td>
                                         <td>{{ $fetchLogbook->homeowner_id }}</td>
                                         <td>{{ optional($fetchLogbook->homeowner)->first_name . ' ' . optional($fetchLogbook->homeowner)->last_name }}</td>
                                         <td>{{ $fetchLogbook->personnel_id }}</td>
                                         <td>{{ optional($fetchLogbook->personnel)->first_name . ' ' . optional($fetchLogbook->personnel)->last_name }}</td>
-                                        <td>{{ $fetchLogbook->admin_id }}</td>
-                                        <td>{{ optional($fetchLogbook->admin)->first_name . ' ' . optional($fetchLogbook->admin)->last_name }}</td>
+                                        <td>
+                                            @if($fetchLogbook->visitor_id)
+                                                {{ $fetchLogbook->visitor_id }}
+                                            @else
+                                                MVO
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if(optional($fetchLogbook->admin)->first_name && optional($fetchLogbook->admin)->last_name)
+                                                {{ optional($fetchLogbook->admin)->first_name . ' ' . optional($fetchLogbook->admin)->last_name }}
+                                            @else
+                                                MANUAL VISIT OPT
+                                            @endif
+                                        </td>
                                         <td>{{ $fetchLogbook->destination_person }}</td>
 
                                         <td>{{ $fetchLogbook->contact_number }}</td>

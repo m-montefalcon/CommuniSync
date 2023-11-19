@@ -202,8 +202,7 @@
             $('#complaintStatus').val(currentStatus);
             $('#complaintUpdates').html(updatesHtml);
             $('#complaintSendFrom').val(sendFrom);
-            $('#complaintPhoto').attr('src', '{{ asset("storage/" . $complaint->complaint_photo) }}');
-
+            $('#complaintPhoto').attr('src', '{{ asset("storage/" . ($complaint->complaint_photo ?? "default.jpg")) }}');
             var formAction = '/api/admin/complaint/update/' + id;
             $('#complaintForm').attr('action', formAction);
 

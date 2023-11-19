@@ -63,7 +63,7 @@ class VerificationRequests extends Controller
          $body = 'You may logout and sign in back again to refresh your privileges';
          $notifId = $user->id;
          $this->notificationService->sendNotificationById($notifId, $title, $body);
-         // $id->delete();
+         $id->delete();
         return redirect()->route('verificationRequests');
         
 
