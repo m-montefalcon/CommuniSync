@@ -13,13 +13,22 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
+                <div class="header">
+                    <h2>
+                        ANNOUNCEMENTS
+                    </h2>
+                </div>
                 <div class="card">
-                    <div class="card-header">
-                        <h2>ANNOUNCEMENTS</h2>
+                    <div class="top-table">
+                        <a class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="searchInput" placeholder="Search...">
+                        </a>  
                         <a class="add-btn" href="{{ route('announcement.form') }}">
-                            <i class="fa-regular fa-square-plus"></i> Add Announcement
-                        </a>
+                            <i class="fa-regular fa-square-plus"></i>
+                        </a>                     
                     </div>
+                    
                     <div class="card-body">
                         <div id="table">
                             @if (isset($announcements) && count($announcements) > 0)
@@ -154,15 +163,30 @@
         $(document).on('click', '#closeModal', function() {
             modalContainer.style.display = "none"; 
         });
-
         
+        $('#searchInput').on('input', function() {
+            var searchText = $(this).val().toLowerCase();
 
-    
-        // document.addEventListener('DOMContentLoaded', function() {
-        //     const announcementSendToElement = document.getElementById('announcementSendTo');
-        //     const announcementRoleElement = document.getElementById('announcementRole');
+            $('.clickable-row').each(function() {
+                var row = $(this);
+                var found = false;
 
-        // });
+                row.find('td').each(function() {
+                    var cellText = $(this).text().toLowerCase();
+
+                    if (cellText.includes(searchText)) {
+                        found = true;
+                        return false;
+                    }
+                });
+
+                if (found) {
+                    row.show();
+                } else {
+                    row.hide();
+                }
+            });
+        });
     </script>
 </body>
 

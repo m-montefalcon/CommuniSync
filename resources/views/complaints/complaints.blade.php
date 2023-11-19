@@ -12,14 +12,20 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
+                <div class="header">
+                    <h2>
+                        COMPLAINTS
+                    </h2>
+                </div>
                 <div class="card">
-                    <div class="card-header">
-                        <h2>
-                            COMPLAINTS
-                        </h2>
-                        <a class="add-btn" href="{{ route('api.admin.complaint.history.fetch') }}">
-                            <i class="fa-solid fa-clock-rotate-left"></i> History
-                        </a>
+                    <div class="top-table">
+                        <a class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="searchInput" placeholder="Search...">
+                        </a>     
+                        <a class="history-btn" href="{{ route('api.admin.complaint.history.fetch') }}">
+                            <i class="fa-solid fa-clock-rotate-left"></i>
+                        </a>                      
                     </div>
                     <div class="card-body">
                         <div id="table">
@@ -216,17 +222,41 @@
         $('#complaintClosed').on('submit', function (e) {
         e.preventDefault(); 
 
-        var formData = $(this).serialize();
+            var formData = $(this).serialize();
 
-        $.ajax({
-            type: 'POST',
-            url: $(this).attr('action'), 
-            data: formData,
-            success: function (data) {
-                window.location.href = "{{ route('api.admin.complaint.history.fetch') }}";
-            },
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'), 
+                data: formData,
+                success: function (data) {
+                    window.location.href = "{{ route('api.admin.complaint.history.fetch') }}";
+                },
+            });
         });
-    });
+
+        $('#searchInput').on('input', function() {
+            var searchText = $(this).val().toLowerCase();
+
+            $('.clickable-row').each(function() {
+                var row = $(this);
+                var found = false;
+
+                row.find('td').each(function() {
+                    var cellText = $(this).text().toLowerCase();
+
+                    if (cellText.includes(searchText)) {
+                        found = true;
+                        return false;
+                    }
+                });
+
+                if (found) {
+                    row.show();
+                } else {
+                    row.hide();
+                }
+            });
+        });
     </script>
 
 

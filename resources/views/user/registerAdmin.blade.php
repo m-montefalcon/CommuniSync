@@ -11,12 +11,13 @@
 
 <body>
     <div class="container">
+        <div class="header">
+            <h2>
+                Register Admin
+            </h2>
+        </div>
         <div class="card">
-            <div class="card-header">
-                <h2>
-                    Register Admin
-                </h2>
-            </div>
+
             <div class="card-body">
                 <form method="POST" action="{{ route('api.user.store') }}" enctype="multipart/form-data">
                     @csrf
@@ -89,7 +90,7 @@
                                 </span>
                             </div>
                             <label for="contact_number">Contact Number:</label>
-                            <input type="text" id="contact_number" name="contact_number" required>
+                            <input type="text" id="contact_number" name="contact_number" maxlength="11" required>
                         </div>
 
                         <div class="input-box">

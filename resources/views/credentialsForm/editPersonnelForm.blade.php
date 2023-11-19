@@ -9,12 +9,12 @@
 
 <body>
   <div class="container">
+    <div class="header">
+      <h2>
+        EDIT PERSONNEL DETAILS FORM
+      </h2>
+    </div>
     <div class="card">
-      <div class="card-header">
-        <h2>
-          EDIT PERSONNEL DETAILS FORM
-        </h2>
-      </div>
       <div class="card-body">
 
         <form action="{{ route('api.update', ['id' => $personnel->id]) }}" method="POST" >
@@ -62,7 +62,7 @@
                 </span>
               </div>
               <label for="contact_number">Contact Number:</label>
-              <input type="text" id="contact_number" name="contact_number" value="{{$personnel->contact_number}}" required>
+              <input type="text" id="contact_number" name="contact_number" value="{{$personnel->contact_number}}" maxlength="11" required>
             </div>
 
             <div class="input-box">

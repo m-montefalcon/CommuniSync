@@ -12,15 +12,21 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
+                <div class="header">
+                    <h2>
+                        ADMIN
+                    </h2>
+                </div>   
                 <div class="card">
-                    <div class="card-header">
-                        <h2>
-                            ADMIN
-                        </h2>
+                    <div class="top-table">
+                        <a class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="searchInput" placeholder="Search...">
+                        </a>  
                         <a class="add-btn" href="{{ route('registerAdmin') }}">
-                            <i class="fa-solid fa-user-plus"></i> Add Admin
-                        </a>
-                    </div>   
+                            <i class="fa-solid fa-user-plus"></i>
+                        </a>                       
+                    </div>
                     <div class="card-body">
                         <div id="table">
                             <table class="table table-bordered table-stripe">
@@ -31,23 +37,25 @@
                                         <th>Last Name</th>
                                         <th>Contact Number</th>
                                         <th>Email</th>
-                                        <th>Role</th>
-                                        <!-- <th>View</th> -->
                                     </tr>
                                     @foreach($admins as $admin)
                                     <tr class="clickable-row" data-href="{{ route('adminId', ['id' => $admin->id]) }}" method="GET">
-                                        <td>{{$admin->user_name}}</td>
+                                        <td class="tooltip">
+                                            <span class="tooltiptext">
+                                                {{$admin->last_name}} {{$admin->first_name}}
+                                                <br>
+                                                @if ($admin->photo)
+                                                    <img src="http://127.0.0.1:8000/storage/{{ Auth::user()->photo }}" alt="User Photo">
+                                                @else
+                                                    <img src="Assets/default-user-profile.jpg" alt="Default Photo">
+                                                @endif
+                                            </span>
+                                            {{$admin->user_name}}
+                                        </td>
                                         <td>{{$admin->first_name}}</td>
                                         <td>{{$admin->last_name}}</td>
                                         <td>{{$admin->contact_number}}</td>
                                         <td>{{$admin->email}}</td> 
-                                        <td>{{$admin->role}}</td>
-                                        <!-- <td>
-                                            <form action="{{ route('adminId', ['id' => $admin->id]) }}" method="GET">
-                                                @csrf
-                                                <button type="submit">View</button>
-                                            </form>
-                                        </td> -->
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -68,6 +76,30 @@
                 var url = $(this).data("href");
                 // Navigate to the URL
                 window.location.href = url;
+            });
+        });
+
+        $('#searchInput').on('input', function() {
+            var searchText = $(this).val().toLowerCase();
+
+            $('.clickable-row').each(function() {
+                var row = $(this);
+                var found = false;
+
+                row.find('td').each(function() {
+                    var cellText = $(this).text().toLowerCase();
+
+                    if (cellText.includes(searchText)) {
+                        found = true;
+                        return false;
+                    }
+                });
+
+                if (found) {
+                    row.show();
+                } else {
+                    row.hide();
+                }
             });
         });
     </script>

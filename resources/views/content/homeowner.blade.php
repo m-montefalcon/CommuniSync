@@ -12,15 +12,21 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
+                <div class="header">
+                    <h2>
+                        HOMEOWNER
+                    </h2>
+                </div>   
                 <div class="card">
-                    <div class="card-header">
-                        <h2>
-                            HOMEOWNER
-                        </h2>
+                    <div class="top-table">
+                        <a class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="searchInput" placeholder="Search...">
+                        </a>  
                         <a class="add-btn" href="{{ route('registerHomeowner') }}">
-                            <i class="fa-solid fa-user-plus"></i> Add Homeowner
-                        </a>
-                    </div>   
+                            <i class="fa-solid fa-user-plus"></i>
+                        </a>                       
+                    </div>
                     <div class="card-body">
                         <div id="table">
                             <table class="table table-bordered table-stripe">
@@ -34,35 +40,57 @@
                                         <th>House Number</th>
                                         <th>Family Member</th>
                                         <th>Manual Visit Option</th>
-                                        <th>Role</th>
                                     </tr>
                                     @foreach($homeowners as $homeowner)
                                     <tr class="clickable-row" data-href="{{ route('homeownerId', ['id' => $homeowner->id]) }}" method="GET">
-                                        <td>{{$homeowner->user_name}}</td>
-                                        <td>{{$homeowner->first_name}}</td>
+                                    <td class="tooltip">
+                                            <span class="tooltiptext">
+                                                {{$homeowner->last_name}} {{$homeowner->first_name}}
+                                                <br>
+                                                @if ($homeowner->photo) 
+                                                    <img src="http://127.0.0.1:8000/storage/{{ Auth::user()->photo }}" alt="User Photo">
+                                                @else
+                                                    <img src="Assets/default-user-profile.jpg" alt="Default Photo">
+                                                @endif
+                                                <br>
+                                                @if($homeowner->role == 1)
+                                                    Visitor
+                                                @elseif($homeowner->role == 2)
+                                                    Homeowner
+                                                @elseif($homeowner->role == 3)
+                                                    Security Personnel
+                                                @elseif($homeowner->role == 4)
+                                                    Admin
+                                                @else
+                                                    Unknown Role
+                                                @endif
+                                                <br>
+                                                <div class="button-container">
+                                                    <button class="button-1"> <i class="fa-solid fa-money-check-dollar"></i> </button>
+                                                    <button class="button-2"> <i class="fa-solid fa-money-check-dollar"></i> </button>
+                                                    <button class="button-3"> <i class="fa-solid fa-money-check-dollar"></i> </button>
+                                                </div>
+                                            </span>
+                                            {{$homeowner->user_name}}
+                                        </td>                                        <td>{{$homeowner->first_name}}</td>
                                         <td>{{$homeowner->last_name}}</td>
                                         <td>{{$homeowner->contact_number}}</td>
                                         <td>{{$homeowner->email}}</td>
-                                        <td>{{ $homeowner->block_no }} - L {{ $homeowner->lot_no }}</td>
-                                        @php
-    // Attempt to decode the JSON string into an array
-    $family_members = json_decode($homeowner->family_member, true);
+                                        <td> B {{ $homeowner->block_no }} - L {{ $homeowner->lot_no }}</td>
+                                            @php
+                                            // Attempt to decode the JSON string into an array
+                                            $family_members = json_decode($homeowner->family_member, true);
 
-    // Check if decoding was successful and if it is an array
-    if (is_array($family_members)) {
-        // Use implode to create a comma-separated string
-        $commaSeparatedMember = implode(", ", $family_members);
-    } else {
-        // Handle the case where decoding fails or the result is not an array
-        $commaSeparatedMember = "Invalid data format";
-    }
-@endphp
-
-<td>{{ $commaSeparatedMember }}</td>
-
-                                    <td>{{ $commaSeparatedMember }}</td>
-
-
+                                            // Check if decoding was successful and if it is an array
+                                            if (is_array($family_members)) {
+                                                // Use implode to create a comma-separated string
+                                                $commaSeparatedMember = implode(", ", $family_members);
+                                            } else {
+                                                // Handle the case where decoding fails or the result is not an array
+                                                $commaSeparatedMember = "Invalid data format";
+                                            }
+                                        @endphp
+                                        <td>{{ $commaSeparatedMember }}</td>
                                         <td>
                                             @if ($homeowner->manual_visit_option == 0)
                                                 Do not allow
@@ -70,7 +98,6 @@
                                                 Allow
                                             @endif
                                         </td>
-                                        <td>{{$homeowner->role}}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -91,6 +118,30 @@
                 var url = $(this).data("href");
                 // Navigate to the URL
                 window.location.href = url;
+            });
+        });
+
+        $('#searchInput').on('input', function() {
+            var searchText = $(this).val().toLowerCase();
+
+            $('.clickable-row').each(function() {
+                var row = $(this);
+                var found = false;
+
+                row.find('td').each(function() {
+                    var cellText = $(this).text().toLowerCase();
+
+                    if (cellText.includes(searchText)) {
+                        found = true;
+                        return false;
+                    }
+                });
+
+                if (found) {
+                    row.show();
+                } else {
+                    row.hide();
+                }
             });
         });
     </script>

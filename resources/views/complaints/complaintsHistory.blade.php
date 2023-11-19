@@ -12,14 +12,20 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
+                <div class="header">
+                    <h2>
+                        COMPLAINTS HISTORY
+                    </h2>
+                </div>
                 <div class="card">
-                    <div class="card-header">
-                        <h2>
-                            COMPLAINTS HISTORY
-                        </h2>
-                        <a class="add-btn" href="{{ route('api.admin.complaint.fetch') }}">
+                    <div class="top-table">
+                        <a class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="searchInput" placeholder="Search...">
+                        </a>    
+                        <a class="back-btn" href="{{ route('api.admin.complaint.fetch') }}">
                             <i class="fa-solid fa-arrow-left-long"></i>
-                        </a>
+                        </a>                    
                     </div>
                     <div class="card-body">
                         <div id="table">
@@ -173,6 +179,30 @@
 
         $(document).on('click', '#closeModal', function() {
             modalContainer.style.display = "none"; 
+        });
+
+        $('#searchInput').on('input', function() {
+            var searchText = $(this).val().toLowerCase();
+
+            $('.clickable-row').each(function() {
+                var row = $(this);
+                var found = false;
+
+                row.find('td').each(function() {
+                    var cellText = $(this).text().toLowerCase();
+
+                    if (cellText.includes(searchText)) {
+                        found = true;
+                        return false;
+                    }
+                });
+
+                if (found) {
+                    row.show();
+                } else {
+                    row.hide();
+                }
+            });
         });
     </script>
 
