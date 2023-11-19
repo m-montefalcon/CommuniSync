@@ -2,15 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Complaints\UserComplaintStoreRequest;
-use App\Http\Requests\Complaints\UserComplaintUpdateRequest;
+use App\Models\User;
 use App\Models\Complaint;
-use Illuminate\Contracts\Support\ValidatedData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Console\Commands\NotificationService;
+use Illuminate\Contracts\Support\ValidatedData;
+use App\Http\Requests\Complaints\UserComplaintStoreRequest;
+use App\Http\Requests\Complaints\UserComplaintUpdateRequest;
 
 class ComplaintController extends Controller
 {
+    protected $notificationService;
+    public function __construct(NotificationService $notificationService)
+    {
+        $this->notificationService = $notificationService;
+    }
+    
     public function storeMobile(UserComplaintStoreRequest $request){
         $validatedData = $request -> validated();
         $imagePath = null;
@@ -23,8 +31,15 @@ class ComplaintController extends Controller
         $validatedData['complaint_date'] = now()->toDateString();
         $validatedData['complaint_status'] = 1;
         // @dd($validatedData);
+
+        $title = 'Complaint Submitted!';
+        $body = 'Complaint was successfully submitted. Please wait for the admin to opened it';
+        $id = $validatedData['homeowner_id'];
+        $this->notificationService->sendNotificationById($id, $title, $body);
         Complaint::create($validatedData);
+
         return response()->json(['data' => $validatedData], 200);
+
     }
 
 
@@ -60,6 +75,13 @@ class ComplaintController extends Controller
             'complaint_date' => now()->toDateString(),
             'admin_id' =>  Auth::id()
         ]);
+       
+        $admin = User::find(Auth::id());
+
+        $title = 'Complaint opened by Admin';
+        $body = "Complaint was opened and reviewed by {$admin->first_name} {$admin->last_name}. Check the following updates";
+        $id = $id->homeowner_id;
+        $this->notificationService->sendNotificationById($id, $title, $body);
     
         return redirect()->back();
     }
@@ -98,7 +120,13 @@ class ComplaintController extends Controller
             'admin_id' =>  Auth::id()
 
         ]);
-    
+        $admin = User::find(Auth::id());
+
+        $title = 'Complaint close with resolution by Admin';
+        $body = "Complaint was closed and resolved by {$admin->first_name} {$admin->last_name}. Check the following updates";
+        $id = $id->homeowner_id;
+        $this->notificationService->sendNotificationById($id, $title, $body);
+
         return redirect()->back();
     }
     

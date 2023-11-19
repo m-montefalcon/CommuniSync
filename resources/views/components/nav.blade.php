@@ -133,17 +133,18 @@
   <div class="content">
       <div class="top-navbar">
         <div class="bx bx-menu" id="menu-icon"></div>
-          <div class="profile">
-            @if (auth()->user()->photo)
-              <a href="{{ route('profile') }}">
-                <img src="http://127.0.0.1:8000/storage/{{ Auth::user()->photo }}" alt="User Photo">
-              </a>
-            @else
-              <a href="{{ route('profile') }}">
-                <img src="Assets/default-user-profile.jpg" alt="Default Photo">
-              </a>
-            @endif
-          </div>
+        <div class="profile">
+          @if (auth()->user()->photo)
+            <a href="{{ route('profile') }}">
+                <img src="{{ asset('storage/' . auth()->user()->photo) }}" alt="User Photo">
+            </a>
+          @else
+            <a href="{{ route('profile') }}">
+                <img src="{{ asset('Assets/default-user-profile.jpg') }}" alt="Default Photo">
+            </a>
+          @endif
+        </div>
+
       </div>
       <main class="home-section"> </main>
       

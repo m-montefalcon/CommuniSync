@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ControlAccess\SpCheckIdRequest;
 use App\Models\User;
 use App\Models\Logbook;
 use App\Models\BlockList;
@@ -12,7 +11,9 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use App\Console\Commands\NotificationService;
 use Illuminate\Session\TokenMismatchException;
+use App\Http\Requests\ControlAccess\SpCheckIdRequest;
 use App\Http\Requests\ControlAccess\UserAccessRequest;
 use App\Http\Requests\ControlAccess\UserRecordControlAccessRequest;
 use App\Http\Requests\ControlAccess\UserRequestControllAccessRequest;
@@ -20,6 +21,11 @@ use App\Http\Requests\ControlAccess\UserRequestControllAccessRequest;
 
 class ControlAccessController extends Controller
 {
+    protected $notificationService;
+    public function __construct(NotificationService $notificationService)
+    {
+        $this->notificationService = $notificationService;
+    }
     public function getRequestHomeowner($id){
         $fetchRequests = ControlAccess::with('visitor')->fetchRequests($id);
         return response(['data' => $fetchRequests], 200);
@@ -56,6 +62,12 @@ class ControlAccessController extends Controller
         $validatedData['date'] = now()->toDateString();
         $validatedData['time'] = now()->toTimeString();
         $controlAccess = ControlAccess::create($validatedData);
+
+        $visitorId =  User::findOrFail($validatedData['visitor_id']);
+        $title = 'Request Access';
+        $body = "{$visitorId->first_name} {$visitorId->last_name} sent you a request for visit access.";
+        $hmId= $validatedData['homeowner_id'];
+        $this->notificationService->sendNotificationById($hmId, $title, $body);
 
         return response()->json(['request success' => true, 'data' => $controlAccess], 200);
     }
@@ -103,6 +115,11 @@ class ControlAccessController extends Controller
         // Update the qr_code field and save the model
         $id->qr_code = QrCode::encoding('UTF-8')->size(300)->generate($jsonToEncode);
         $id->save();
+
+        $admin =  User::findOrFail($id->admin_id);
+        $title = 'Your QR code is ready!';
+        $body = "{$admin->first_name} {$admin->last_name} validated your request access. You may check your qr code";
+        $this->notificationService->sendNotificationById($id->visitor_id, $title, $body);
         return redirect()->back();
     }
 
@@ -190,6 +207,21 @@ class ControlAccessController extends Controller
             'created_at' => $currentDateTime,
             'updated_at' => $currentDateTime
         ]);
+        $visitMembers = json_decode($controlAccessId->visit_members, true);
+
+        if (is_array($visitMembers)) {
+            $namesString = implode(', ', $visitMembers);
+        } else {
+            // Handle the case where $visitMembers is not an array or is null
+            $namesString = $controlAccessId->visit_members; // Assign the original value
+        }        
+        $visitorName = $visitor->first_name . ' ' . $visitor->last_name;
+
+        $id = $controlAccessId->homeowner_id;
+        $title = 'Control Access';
+        $body = "Visitors : " . $visitorName . " ,  ". $namesString . " qr scanned and verified. They are own their way!";
+    
+        $this->notificationService->sendNotificationById($controlAccessId->homeowner_id, $title, $body);
     
         return response()->json(['scanned' => true], 200);
     }

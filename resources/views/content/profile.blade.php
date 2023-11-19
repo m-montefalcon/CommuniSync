@@ -24,11 +24,12 @@
             <div class="row">
                 <div class="col-lg-4">
                     <div class="card-profile">
-                        @if (auth()->user()->photo)
-                            <img src="http://127.0.0.1:8000/storage/{{ Auth::user()->photo }}" alt="User Photo">
-                        @else
-                            <img src="Assets/default-user-profile.jpg" alt="Default Photo">
-                        @endif
+                    @if (auth()->user()->photo)
+                    <img src="{{ asset('storage/' . auth()->user()->photo) }}" alt="User Photo">
+                    @else
+                    <img src="{{ asset('Assets/default-user-profile.jpg') }}" alt="Default Photo">
+                    @endif
+
                         <h3>{{ auth()->user()->user_name }}</h3>
                     </div>
                 </div>

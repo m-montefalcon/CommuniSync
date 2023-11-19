@@ -59,7 +59,6 @@ class NotificationService extends Command
         $topic = 'id_' . $id;
 
         Log::info("Attempting to send notification to topic: $topic");
-
         $message = CloudMessage::withTarget('topic', $topic)
             ->withNotification(['title' => $title, 'body' => $body]);
 
@@ -69,7 +68,7 @@ class NotificationService extends Command
         } catch (\Exception $e) {
             Log::error("Error sending notification: " . $e->getMessage());
         }
-    }
+    } 
     public function handle()
     {
         //

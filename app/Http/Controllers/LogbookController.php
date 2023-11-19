@@ -6,9 +6,15 @@ use App\Models\User;
 use App\Models\Logbook;
 use App\Models\BlockList;
 use Illuminate\Http\Request;
+use App\Console\Commands\NotificationService;
 
 class LogbookController extends Controller
 {
+    protected $notificationService;
+    public function __construct(NotificationService $notificationService)
+    {
+        $this->notificationService = $notificationService;
+    }
     //Logbook will record when Visitor will out
     public function out($id) {
         // Find the logbook entry by ID
@@ -32,9 +38,12 @@ class LogbookController extends Controller
         if ($visitor && !empty($visitor->contact_number)) {
             $logbookEntry->contact_number = $visitor->contact_number;
         }
-    
         $logbookEntry->save();
-    
+      
+        $id =  $logbookEntry->homeowner_id;
+        $title = 'Control Access';
+        $body = 'Visitor has successfully exited the subdivision.';
+        $this->notificationService->sendNotificationById($id, $title, $body);
         return response()->json(['message' => 'Visitor has left. Logbook updated.'], 200);
     }
     
@@ -108,6 +117,13 @@ public function post(Request $request){
     }
     
     Logbook::create($validatedData);
+    $namesString = implode(', ', $visitMembers);
+
+    $id = $validatedData['homeowner_id'];
+    $title = 'Control Access';
+    $body = "Visitors namely: $namesString, have been approved to visit you. They are own their way!";
+
+    $this->notificationService->sendNotificationById($id, $title, $body);
     
     return response()->json(['message' => 'success', 'data' => $validatedData], 200);
 }
