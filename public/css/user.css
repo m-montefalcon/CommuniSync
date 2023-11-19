@@ -7,6 +7,9 @@
     body {
         background-color: #f6f6f6;
         overflow-x: hidden;
+        margin: 0;
+        display: flex;
+        min-height: 100vh;
     }
 
     .card {
@@ -14,28 +17,40 @@
         border-radius: 10px;
         border: none;
         position: relative;
+        text-align: center;
         margin-top: 15px;
+        margin-bottom: 15px;
         box-shadow: 0px 0px 10px #BDBDBD;
         width: 100%;
+        /* flex: 1; */
     }
 
     h2 {
-        color: white;
+        color: black;
     }
 
-    .card .card-header {
-        border-bottom-color: #f9f9f9;
+    .header {
+        background-color: white;
+        border-radius: 10px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        box-shadow: 0px 0px 10px #BDBDBD;
+        width: 100%;
+        line-height: 30px;
+        align-self: center;
+        padding: 10px 25px;
+    }
+
+    .top-table {
         line-height: 30px;
         -ms-grid-row-align: center;
         align-self: center;
         width: 100%;
-        padding: 10px 25px;
+        padding: 10px 15px;
         display: flex;
         align-items: center;
-        border-radius: 10px;
-        background: #11101D;
-        /* background-image: linear-gradient(to right, #9C27B0FF, #1A0046FF); */
-      }
+        justify-content: space-between;
+    }
 
     .card-footer {
         background-color: transparent;
@@ -45,22 +60,53 @@
     .container {
         display: flex;
         flex-direction: column;
-        padding: 15px;
+        padding: 10px;
         padding-top: 2px;
         padding-bottom: 2px;
         overflow: auto;
+        flex: 1;
+        height: 100%;
+    }
+
+    .search-box {
+    	background: #ebe9e9;
+        border-radius: 10px;
+        color: #000;
+        align-items: center;
+        gap: 5px;
+        padding: 4px 12px;
+    }
+
+    .search-box input {
+        margin-left: 5px;
+        border: none; 
+        border-radius: 5px; 
+        outline: none;
+        padding: 5px;
+    }
+
+    .search-box i {
+        border: 1px; 
+        border-radius: 10px; 
+        color: green;
+    }
+
+    button {
+        border: none; 
     }
 
     .table {
         width: 100%;
+        border-collapse: collapse;
     }
 
     #table {
-        height: 500px;
+        padding: 0 10px;
+        border-radius: 10px;
         width: 100%; 
         overflow: scroll; 
         height: auto;
-        max-height: 490px;
+        max-height: 60vh;
     }
 
     #table-res table {
@@ -71,7 +117,7 @@
 
     .table:not(.table-sm) tbody th {
         border-bottom: none;
-        background-color: #e9e9eb;
+        background-color: #afe1af;
         color: black;
         padding-top: 15px;
         padding-bottom: 15px;
@@ -84,11 +130,9 @@
     tr:hover {
         background-color: #d5d5d5;
     } 
-
-    table tr {
-        background-color: #f8f8f8;
-        border: 1px solid #ddd!important;
-        margin-bottom: 10px;
+    
+    table tr:nth-child(even) {
+        background: #e9e9eb;
     }
 
     table th,
@@ -100,7 +144,6 @@
     table td {
         font-size: .85em;
         letter-spacing: .05em;
-        /* text-transform: uppercase; */
         text-align: center;
     }
 
@@ -144,29 +187,66 @@
     }  
 
     .add-btn {
-        position: absolute;
-        text-align: center;
-        background-color: white;
-        color: black;
+        background-color: green;
+        color: white;
         border-radius: 6px;
-        /* width: 100px; */
-        height: 30px;
         margin-left: 0%;
-        right: 20px;
-        justify-content: center;
-        align-items: center;
         top: 10px;
         display: flex;
         padding: 10px;
     }
 
-    .add-btn i {
-        margin-right: 7px; 
-    }
-
     .add-btn:hover {
-        background-color: maroon;
+        background-color: #66BB6A;
         margin-left: 0%;
         border-radius: 6px;
-        color: white;
+        color: black;
     }
+
+    .tooltip {
+        position: relative;
+        cursor: pointer;
+    }
+
+    .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 150px;
+        height: 150px;
+        background-color: #f0f0f0;
+        color: #000;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px;
+        position: absolute;
+        z-index: 1;
+        top: 50%; 
+        left: 100%; 
+        margin-top: -30px; 
+        transition: opacity 0.3s;
+    }
+
+    .tooltip .tooltiptext img {
+        width: 60px;
+        height: 60px;
+        margin-top: 7px;
+        object-fit: contain;
+        object-position: center;
+        border-radius: 50%;
+    }
+
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .button-container {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .button-1,
+    .button-2,
+    .button-3 {
+        border: none;
+    }
+

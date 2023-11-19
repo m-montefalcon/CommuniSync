@@ -20,26 +20,30 @@
     }
 
     h2 {
-        color: white;
+        color: black;
     }
 
-    .card .card-header {
-        border-bottom-color: #f9f9f9;
+    .header {
+        background-color: white;
+        border-radius: 10px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        box-shadow: 0px 0px 10px #BDBDBD;
+        width: 100%;
+        line-height: 30px;
+        align-self: center;
+        padding: 10px 25px;
+    }
+
+    .top-table {
         line-height: 30px;
         -ms-grid-row-align: center;
         align-self: center;
         width: 100%;
-        padding: 10px 25px;
+        padding: 10px 15px;
         display: flex;
         align-items: center;
-        border-radius: 10px;
-        background: #11101D;
-        /* background-image: linear-gradient(to right, #9C27B0FF, #1A0046FF); */
-      }
-
-    .card-footer {
-        background-color: transparent;
-        padding: 20px 25px; 
+        justify-content: space-between;
     }
 
     .container {
@@ -51,18 +55,45 @@
         overflow: auto;
     }
 
+    .search-box {
+    	background: #ebe9e9;
+        border-radius: 10px;
+        color: #000;
+        align-items: center;
+        gap: 5px;
+        padding: 4px 12px;
+    }
+
+    .search-box input {
+        margin-left: 5px;
+        border: none; 
+        border-radius: 5px; 
+        outline: none;
+        padding: 5px;
+    }
+
+    .search-box i {
+        border: 1px; 
+        border-radius: 10px; 
+        color: green;
+    }
+
+    button {
+        border: none; 
+    }
+
     .table {
         width: 100%;
+        border-collapse: collapse;
     }
 
     #table {
-        position: relative;
-        height: 500px;
+        padding: 0 10px;
+        border-radius: 10px;
         width: 100%; 
         overflow: scroll; 
-        width: 100%;
         height: auto;
-        max-height: 490px;
+        max-height: 480px;
     }
 
     #table-res table {
@@ -73,7 +104,7 @@
 
     .table:not(.table-sm) tbody th {
         border-bottom: none;
-        background-color: #e9e9eb;
+        background-color: #afe1af;
         color: black;
         padding-top: 15px;
         padding-bottom: 15px;
@@ -86,11 +117,9 @@
     tr:hover {
         background-color: #d5d5d5;
     } 
-
-    table tr {
-        background-color: #f8f8f8;
-        border: 1px solid #ddd!important;
-        margin-bottom: 10px;
+    
+    table tr:nth-child(even) {
+        background: #e9e9eb;
     }
 
     table th,
@@ -102,7 +131,6 @@
     table td {
         font-size: .85em;
         letter-spacing: .05em;
-        /* text-transform: uppercase; */
         text-align: center;
     }
 
@@ -129,6 +157,47 @@
         background-color: #555;
     }
 
+    tbody .btn {
+        background-color: transparent;      
+        border: none;
+    }
+    
+    tbody .btn:hover {
+        background-color: maroon;      
+        padding: 5px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    form .btn-sm::before {
+        content: "\e068"; 
+        font-family: "Font Awesome 5 Free"; 
+        font-weight: bold;
+        font-size: 20px;
+        color: black;
+    }
+      
+    .btn {
+        background-color: transparent;      
+        border: none;
+    }
+
+    ::-webkit-scrollbar {
+        width: 0px; 
+    }
+    
+    ::-webkit-scrollbar-track {
+    background-color: #f6f6f6; 
+    }
+
+    ::-webkit-scrollbar-thumb {
+    background-color: #ccc; 
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+    background-color: #aaa; 
+    } 
+
     body::-webkit-scrollbar {
         width: 5px; 
     }
@@ -144,42 +213,3 @@
     body::-webkit-scrollbar-thumb:hover {
         background-color: #aaa; 
     }  
-
-    tbody .btn {
-        background-color: transparent;      
-        border: none;
-      }
-      tbody .btn:hover {
-        background-color: maroon;      
-        padding: 5px;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-
-    form .btn-sm::before {
-        content: "\e068"; 
-        font-family: "Font Awesome 5 Free"; 
-        font-weight: bold;
-        font-size: 20px;
-        color: black;
-      }
-
-      /* .btn-primary::before {
-        content: "\f4ff"; 
-        font-family: "Font Awesome 5 Free"; 
-        font-weight: bold;
-        font-size: 20px;
-        color: black;
-      }
-      form .btn-danger::before {
-        content: "\f1f8"; 
-        font-family: "Font Awesome 5 Free"; 
-        font-weight: bold;
-        font-size: 20px;
-        color: black;
-      } */
-      
-      .btn {
-        background-color: transparent;      
-        border: none;
-      }

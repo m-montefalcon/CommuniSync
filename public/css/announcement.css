@@ -58,22 +58,20 @@
     }
     
     h2 {
-        color: white;
+        color: black;
     }
 
-    .card .card-header {
-        border-bottom-color: #f9f9f9;
-        line-height: 30px;
-        -ms-grid-row-align: center;
-        align-self: center;
-        width: 100%;
-        padding: 10px 25px;
-        display: flex;
-        align-items: center;
+    .header {
+        background-color: white;
         border-radius: 10px;
-        background: #11101D;
-        /* background-image: linear-gradient(to right, #9C27B0FF, #1A0046FF); */
-      }
+        margin-top: 15px;
+        margin-bottom: 15px;
+        box-shadow: 0px 0px 10px #BDBDBD;
+        width: 100%;
+        line-height: 30px;
+        align-self: center;
+        padding: 10px 25px;
+    }
 
     .card-footer {
         background-color: transparent;
@@ -89,29 +87,78 @@
         overflow: auto;
     }
 
+    .top-table {
+        line-height: 30px;
+        -ms-grid-row-align: center;
+        align-self: center;
+        width: 100%;
+        padding: 10px 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .search-box {
+    	background: #ebe9e9;
+        border-radius: 10px;
+        color: #000;
+        align-items: center;
+        gap: 5px;
+        padding: 4px 12px;
+    }
+
+    .search-box input {
+        margin-left: 5px;
+        border: none; 
+        border-radius: 5px; 
+        outline: none;
+        padding: 5px;
+    }
+
+    .search-box i {
+        border: 1px; 
+        border-radius: 10px; 
+        color: green;
+    }
+
+    button {
+        border: none; 
+    }
+
+    .add-btn {
+        background-color: green;
+        color: white;
+        border-radius: 6px;
+        margin-left: 0%;
+        top: 10px;
+        display: flex;
+        padding: 10px;
+    }
+
+    .add-btn:hover {
+        background-color: #66BB6A;
+        margin-left: 0%;
+        border-radius: 6px;
+        color: black;
+    }
+
     .table {
         width: 100%;
+        border-collapse: collapse;
     }
 
     #table {
-        position: relative;
-        height: 500px;
+        padding: 0 10px;
+        border-radius: 10px;
         width: 100%; 
         overflow: scroll; 
-        width: 100%;
         height: auto;
-        max-height: 490px;
+        max-height: 480px;
     }
-
-    /* #table-res table {
-        width: fit-content; 
-        table-layout: fixed;
-        width: 100%;
-    } */
 
     .table:not(.table-sm) tbody th {
         border-bottom: none;
-        background-color: #e9e9eb;
+        background-color: #afe1af;
         color: black;
         padding-top: 15px;
         padding-bottom: 15px;
@@ -197,34 +244,6 @@
         background-color: #aaa; 
     }   
 
-    .add-btn {
-        position: absolute;
-        text-align: center;
-        background-color: white;
-        color: black;
-        border-radius: 6px;
-        /* width: 100px; */
-        height: 30px;
-        margin-left: 0%;
-        right: 20px;
-        justify-content: center;
-        align-items: center;
-        top: 10px;
-        display: flex;
-        padding: 10px;
-    }
-
-    .add-btn i {
-        margin-right: 7px; 
-    }
-
-    .add-btn:hover {
-        background-color: maroon;
-        margin-left: 0%;
-        border-radius: 6px;
-        color: white;
-    }
-
     .modal-container {
         display: none;
         position: fixed;
@@ -241,7 +260,6 @@
     .modal-content {
         position: relative;
         background-color: #fff;
-        /* padding: 20px; */
         border-radius: 5px;
         width: 60%; 
         max-height: 75vh; 
@@ -266,7 +284,6 @@
         background-color: transparent;
         outline: none;
         box-shadow: none;
-    
     }
 
     h1 {
@@ -304,6 +321,22 @@
         width: 5px; 
     }
 
+    ::-webkit-scrollbar-track {
+        background-color: #f6f6f6; 
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: #ccc; 
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: #aaa; 
+    } 
+
+    ::-webkit-scrollbar {
+        width: 0px; 
+    }
+    
     ::-webkit-scrollbar-track {
         background-color: #f6f6f6; 
     }

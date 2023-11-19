@@ -9,12 +9,12 @@
 
 <body>
     <div class="container">
+        <div class="header">
+            <h2>
+                CREATE ANNOUNCEMENT
+            </h2>
+        </div>
         <div class="card">
-            <div class="card-header">
-                <h2>
-                    CREATE ANNOUNCEMENT
-                </h2>
-            </div>
             <div class="card-body">
 
                 <form method="POST" action="{{route('announcementStore')}}" enctype="multipart/form-data">
@@ -31,10 +31,7 @@
                     <input type="file" name="announcement_photo" id="announcement_photo">
                     
                     <label>Roles:</label>
-                        <div class="checkbox-row">
-                            <input type="checkbox" name="role[]" value="1" id="role_viewer">
-                            <label for="role_viewer">Visitor</label>
-                        
+                        <div class="checkbox-row">            
                             <input type="checkbox" name="role[]" value="2" id="role_user">
                             <label for="role_user">Homeowner</label>
                         

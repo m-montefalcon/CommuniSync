@@ -15,7 +15,7 @@
         <nav>
           <li>
             <a>
-              <span class="icon"><i class="fa-solid fa-torii-gate"></i></span>
+              <span><img src="Assets/official-logo-white.png" class="logo-img"></span>
             </a>
           </li>
           <li>
@@ -89,7 +89,7 @@
           <li>
           <li>
             <a class="side-link @if(Request::is('admin/payment/all/users')) active @endif" href="{{ route('admin.payment.all.users') }}">
-              <span class="icon"> <i class="fa-solid fa-scroll"></i> </span>
+              <span class="icon"> <i class="fa-solid fa-money-check-dollar"></i> </span>
               <span class="text">Payment</span>
               <span class="tooltip"> Payment </span>
             </a>
@@ -108,21 +108,21 @@
               <span class="tooltip"> Access Control </span>
             </a>
           </li>
-          <li>
+          <!-- <li>
             <a class="side-link @if(Request::is('test/qrcode')) active @endif" href="{{ route('test') }}">
               <span class="icon"> <i class="fa-solid fa-qrcode"></i> </span>
               <span class="text">QR Code</span>
               <span class="tooltip"> QR Code </span>
             </a>
-          </li>
+          </li> -->
           <li class="logout">
             <form action="{{ route('api.logout.store') }}" method="POST" id="logout-form" style="display: none;">
               @csrf
             </form>
               <a class="side-link" href="{{ route('api.logout.store') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                  <span class="icon"> <i class="fa-solid fa-right-from-bracket fa-rotate-180"></i> </span>
-                  <span class="text"> Logout </span>
-                  <span class="tooltip"> Logout </span>
+                <span class="icon"> <i class="fa-solid fa-right-from-bracket fa-rotate-180"></i> </span>
+                <span class="text"> Logout </span>
+                <span class="tooltip"> Logout </span>
               </a>
           </li>
         </nav>
@@ -133,7 +133,17 @@
   <div class="content">
       <div class="top-navbar">
         <div class="bx bx-menu" id="menu-icon"></div>
-          <!--  -->
+          <div class="profile">
+            @if (auth()->user()->photo)
+              <a href="{{ route('profile') }}">
+                <img src="http://127.0.0.1:8000/storage/{{ Auth::user()->photo }}" alt="User Photo">
+              </a>
+            @else
+              <a href="{{ route('profile') }}">
+                <img src="Assets/default-user-profile.jpg" alt="Default Photo">
+              </a>
+            @endif
+          </div>
       </div>
       <main class="home-section"> </main>
       

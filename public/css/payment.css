@@ -15,6 +15,7 @@
         border: none;
         position: relative;
         margin-top: 15px;
+        margin-bottom: 15px;
         box-shadow: 0px 0px 10px #BDBDBD;
         width: 100%;
     }
@@ -42,48 +43,65 @@
     }
     
     h2 {
-        color: white;
+        color: black;
+    }
+
+    .header {
+        background-color: white;
+        border-radius: 10px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        box-shadow: 0px 0px 10px #BDBDBD;
+        width: 100%;
+        line-height: 30px;
+        align-self: center;
+        padding: 10px 25px;
     }
 
     .search-box {
-        display: flex;
+    	background: #ebe9e9;
+        border-radius: 10px;
+        color: #000;
         align-items: center;
-        border-radius: 5px;
-        outline: none;
-    }
-    
-    .search-box input {
-        margin-right: 5px; 
-    }  
-    
-    .search-box i {
-        padding: 4.5px;
-        border-bottom: 1px solid #000;
-        border-top: 1px solid #000;
-        border-left: 1px solid #000;
-        border-top-left-radius: 5px;
-        border-bottom-left-radius: 5px;
+        gap: 5px;
+        padding: 4px 12px;
     }
 
-    .card .card-header {
-        border-bottom-color: #f9f9f9;
-        line-height: 30px;
-        -ms-grid-row-align: center;
-        align-self: center;
-        width: 100%;
-        padding: 10px 25px;
-        display: flex;
-        align-items: center;
-        border-radius: 10px;
-        background: #11101D;
-        justify-content: space-between;
-        /* background-image: linear-gradient(to right, #9C27B0FF, #1A0046FF); */
-      }
+    .search-box input {
+        margin-left: 5px;
+        border: none; 
+        border-radius: 5px; 
+        outline: none;
+        padding: 5px;
+    }
+
+    .search-box i {
+        border: 1px; 
+        border-radius: 10px; 
+        color: green;
+    }
+
+    button {
+        border: none; 
+    }
 
     .card-footer {
         background-color: transparent;
         padding: 20px 25px; 
     }
+
+    button {
+		background-color: #ccc;
+		color: black;
+		border-radius: 5px;
+        padding: 5px;
+		border: none;
+        cursor: pointer;
+	}
+
+    button:hover {
+		background-color: #80c76b;
+	}
 
     .container {
         display: flex;
@@ -94,18 +112,29 @@
         overflow: auto;
     }
 
+    .top-table {
+        line-height: 30px;
+        -ms-grid-row-align: center;
+        align-self: center;
+        width: 100%;
+        padding: 10px 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
     .table {
         width: 100%;
+        border-collapse: collapse;
     }
 
     #table {
-        position: relative;
-        height: 500px;
+        padding: 0 10px;
+        border-radius: 10px;
         width: 100%; 
         overflow: scroll; 
-        width: 100%;
         height: auto;
-        max-height: 490px;
+        max-height: 480px;
     }
 
     #table-res table {
@@ -116,7 +145,7 @@
 
     .table:not(.table-sm) tbody th {
         border-bottom: none;
-        background-color: #e9e9eb;
+        background-color: #afe1af;
         color: black;
         padding-top: 15px;
         padding-bottom: 15px;
@@ -129,11 +158,9 @@
     tr:hover {
         background-color: #d5d5d5;
     } 
-
-    table tr {
-        background-color: #f8f8f8;
-        border: 1px solid #ddd!important;
-        margin-bottom: 10px;
+    
+    table tr:nth-child(even) {
+        background: #e9e9eb;
     }
 
     table th,
@@ -145,7 +172,6 @@
     table td {
         font-size: .85em;
         letter-spacing: .05em;
-        /* text-transform: uppercase; */
         text-align: center;
     }
 
@@ -219,7 +245,7 @@
     
     .input-group-text {
         position: absolute;
-        left: 10px; /* Adjust as needed */
+        left: 10px; 
         top: 50%;
         transform: translateY(-55%);
         font-size: 15px;
@@ -250,8 +276,9 @@
         text-align: center;
         color: #80c76b;
     }
+
     .modal-container {
-        display: none; /* Hide the modal by default */
+        display: none;
         position: fixed;
         z-index: 1;
         left: 0;
@@ -259,26 +286,28 @@
         width: 100%;
         height: 100%;
         background-color: rgba(0, 0, 0, 0.5);
-        display: flex; /* Use flexbox to center vertically and horizontally */
-        justify-content: center; /* Center horizontally */
-        align-items: center; /* Center vertically */
+        display: flex; 
+        justify-content: center; 
+        align-items: center; 
     }
     
-    
-
     .modal-header {
         border-bottom: 1px solid #80c76b;
         padding-bottom: 20px;
         width: 100%;
+        position: sticky;
     }
-    
     
     .modal-content {
         background-color: #FFF;
         padding: 20px;
         border: 1px solid #888;
+        border-radius: 5px;
         width: 60%;
+        margin-top: 50px;
+        max-height: 75vh; 
         position: relative;
+        overflow-y: auto; 
     }
     
     .close-modal {
@@ -291,10 +320,14 @@
     .header-container {
         display: flex;
         justify-content: space-between;
+        background-color: green;
         align-items: center;
         padding: 10px;
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
+        position: sticky;
+        top: 0;
+        z-index: 1;
       }
 
     .flex-group {

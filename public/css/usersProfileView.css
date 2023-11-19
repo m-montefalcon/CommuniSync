@@ -9,33 +9,36 @@
         border-radius: 10px;
         border: none;
         position: relative;
-        margin-top: 15px;
         margin-bottom: 15px;
         box-shadow: 0px 0px 10px #BDBDBD;
         width: 100%;
     }
 
     h2 {
-        color: white;
+        color: black;
     }
 
-    .card .card-header {
-        border-bottom-color: #f9f9f9;
+    .header {
+        background-color: white;
+        border-radius: 10px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        box-shadow: 0px 0px 10px #BDBDBD;
+        width: 100%;
+        line-height: 30px;
+        align-self: center;
+        padding: 10px 25px;
+    }
+
+    .top-table {
         line-height: 30px;
         -ms-grid-row-align: center;
         align-self: center;
         width: 100%;
-        padding: 10px 25px;
+        padding: 10px 15px;
         display: flex;
         align-items: center;
-        border-radius: 10px;
-        background: #11101D;
-        /* background-image: linear-gradient(to right, #9C27B0FF, #1A0046FF); */
-      }
-
-    .card-footer {
-        background-color: transparent;
-        padding: 20px 25px; 
+        justify-content: space-between;
     }
 
     .container {
@@ -99,7 +102,7 @@
     input[type="email"]:focus,
 	input[type="password"]:focus {
 		background-color: #FFFFFF;
-		box-shadow: inset 0px 0px 5px #89CFF0;
+		box-shadow: inset 0px 0px 5px green;
 		color: black;
 		outline: none;
 	}
@@ -173,16 +176,6 @@
 		font-size: 20px;
 		border: none;
 	}
-	
-	button[type="submit"]:hover {
-		background-color: #4169E1;
-		cursor: pointer;
-	}
-
-	button[type="button"]:hover {
-		background-color: #4169E1;
-		cursor: pointer;
-	}
 
 	.alert-danger {
 		background-color: #f2dede;
@@ -234,6 +227,7 @@
         color: #555; 
         font-size: 18px; 
         pointer-events: none; 
+		color: green;
     }
     
     #user_name,
@@ -263,7 +257,7 @@
 	.icon-member {
 		position: absolute;
         transform: translateY(-50%);
-		color: #555; 
+		color: green;
 		margin: 15px; 
 	}
 	
@@ -273,7 +267,7 @@
 	
 	.removeMember {
 		margin-left: 15px; 
-		background-color: #89CFF0;
+		background-color: #388E3C;
 		color: black;
 		border-radius: 6px;
 		width: 20%;
@@ -281,9 +275,21 @@
 		margin-top: -20px;
 	}
 
+	.removeMember:hover {
+		background-color: #66BB6A;
+		color: black;
+	}
+
 	#addMember {
+		background-color: #388E3C;
+		color: black;
 		width: 30%;
 		margin-top: 0px;
+	}
+
+	#addMember:hover {
+		background-color: #66BB6A;
+		color: black;
 	}
 
     button {
@@ -302,13 +308,14 @@
     }
 
     button.btn-primary {
-        background-color: #89CFF0;
+		background-color: green;
 		width: 50%;
     }
     
     button.btn-primary:hover {
-        background-color: #4169E1;
+        background-color: #66BB6A;
     }
+
     button.btn-danger {
         float: right;
         background-color: maroon;

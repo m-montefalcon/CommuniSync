@@ -8,7 +8,6 @@
 </head>
 
 <body>
-  <img src="Asset/greenville.png" alt="Background Image">
   <div class="card">
     <form action="{{ route('api.login.store') }}" method="POST">
       @csrf
@@ -23,19 +22,21 @@
         </script>
       @endif
 
-      <h2>Login</h2>
+      <div class="logo-container">
+        <img src="Assets/official-logo-green.png" class="logo-img">
+			</div>
+
       <div class="form-group">
         <div class="input-group-prepend">
           <span class="input-icon"> <i class="fa-solid fa-user"></i> </span>
         </div>
-          <!-- <label for="user_name">Username:</label> -->
           <input type="text" id="user_name" name="user_name" placeholder="Enter username" required>
       </div>
+
       <div class="form-group">
         <div class="input-group-prepend">
           <span class="input-icon"><i class="fa-solid fa-lock"></i></span>
         </div>
-          <!-- <label for="password">Password:</label> -->
           <input type="password" id="password" name="password" placeholder="Enter password" required>
         <span class="input-icon-end"> 
           <i class="fa fa-eye-slash password-toggle" id="password-toggle"></i>

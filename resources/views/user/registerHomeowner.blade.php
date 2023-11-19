@@ -11,12 +11,12 @@
 
 <body>
     <div class="container">
+        <div class="header">
+            <h2>
+                Register Homeowner
+            </h2>
+        </div>
         <div class="card">
-            <div class="card-header">
-                <h2>
-                    Register Homeowner
-                </h2>
-            </div>
             <div class="card-body">
                 <form method="POST" action="{{ route('api.user.store') }}" enctype="multipart/form-data">
                     @csrf
@@ -89,7 +89,7 @@
                                 </span>
                             </div>
                             <label for="contact_number">Contact Number:</label>
-                            <input type="text" id="contact_number" name="contact_number" required>
+                            <input type="text" id="contact_number" name="contact_number" maxlength="11" required>
                         </div>
 
                         <div class="input-box">
@@ -200,16 +200,6 @@
         roleInput.form.addEventListener('submit', function () {
             roleInput.value = "2";
         });
-
-        // document.getElementById('addMember').addEventListener('click', function() {
-        //     var container = document.getElementById('familyInputContainer');
-        //     var newInput = document.createElement('div');
-        //     newInput.classList.add('inputField');
-        //     newInput.innerHTML = '<div class="input-box"><div class="input-group-prepend"><span class="input-icon"><i class="fa-solid fa-people-roof"></i></span></div><input class="input-member" type="text" name="family_member[]" required><div class="flex-container"><button type="button" class="removeMember">Delete</button></div></div>';
-        //     container.appendChild(newInput);
-        // });
-        
-
 
         // Optionally, you can add code to handle removing members as well.
         document.addEventListener('click', function(event) {
