@@ -152,19 +152,27 @@
 
                 return statusLabels;
             }
-
             var updatesHtml = "";
 
             if (updates && updates.length > 0) {
                 updatesHtml = "<ul>";
-                updates.forEach(function(update) {
-                    updatesHtml += "<li>Update: " + update.update + "</li>";
-                    updatesHtml += "<li>Date: " + update.date + "</li>";
+                updates.forEach(function (update) {
+                    updatesHtml += "<li style='margin-bottom: 20px;'>";
+                    updatesHtml += "Date: " + update.date + "&nbsp;&nbsp;&nbsp;";
+                    if ('update' in update) {
+                        updatesHtml += "Update: " + update.update;
+                    } else if ('resolution' in update) {
+                        updatesHtml += "Resolution: " + update.resolution;
+                    }
+                    updatesHtml += "</li>";
                 });
                 updatesHtml += "</ul>";
             } else {
                 updatesHtml = "No updates available.";
             }
+
+
+
 
             $('#complaintTitle').val(title);
             $('#complaintDate').val(date);
@@ -172,8 +180,7 @@
             $('#complaintStatus').val(currentStatus);
             $('#complaintUpdates').html(updatesHtml);
             $('#complaintSendFrom').val(sendFrom);
-            $('#complaintPhoto').attr('src', 'http://127.0.0.1:8000/storage/' + photo);
-
+            $('#complaintPhoto').attr('src', '{{ asset("storage/" . ($complaint->complaint_photo ?? "default.jpg")) }}');
             modalContainer.style.display = "flex";
         });
 

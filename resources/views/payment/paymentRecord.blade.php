@@ -22,7 +22,10 @@
                         <a class="search-box">
                             <i class="fas fa-search"></i>
                             <input type="text" id="searchInput" placeholder="Search...">
-                        </a>                       
+                        </a>     
+                        <a class="history-btn" href="">
+                            <i class="fa-solid fa-clock-rotate-left"></i>
+                        </a>                         
                     </div>
 
                     <div class="card-body">

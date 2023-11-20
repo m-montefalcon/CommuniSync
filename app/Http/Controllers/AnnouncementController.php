@@ -6,10 +6,16 @@ use Carbon\Carbon;
 use App\Models\Announcement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Console\Commands\NotificationService;
 use App\Http\Requests\AnnouncementRequests\UserAnnouncementRequest;
 
 class AnnouncementController extends Controller
 {
+    protected $notificationService;
+    public function __construct(NotificationService $notificationService)
+    {
+        $this->notificationService = $notificationService;
+    }
     public function announcementStore(UserAnnouncementRequest $request)
     {
         $validatedData = $request->validated();
@@ -25,7 +31,11 @@ class AnnouncementController extends Controller
         $validatedData['role'] = json_encode($validatedData['role']);
     // @dd($validatedData);
         Announcement::create($validatedData);
-    
+        $title = 'ANNOUNCEMENT';
+        $body = $validatedData['announcement_title'];
+        $roles = json_decode($validatedData['role'], true);
+        $this->notificationService->sendNotificationByRoles($roles, $title, $body);
+
         return redirect()->route('announcement');
     }
 

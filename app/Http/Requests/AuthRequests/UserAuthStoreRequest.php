@@ -35,7 +35,7 @@ class UserAuthStoreRequest extends FormRequest
             'manual_visit_option' => ['nullable'],
             'family_member' => ['nullable'],
             'role' => ['nullable'],
-            'fcm_token' => 'required'
+            'fcm_token' => 'nullable'
             
         ];
     }
