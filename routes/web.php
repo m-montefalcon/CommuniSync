@@ -85,5 +85,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //Logbook
     Route::get('admin/get/logbook', [WebViewController::class, 'getLb'])->name('admin.get.logobok');
+
+    //Payment
+    Route::get('admin/payment/records/get/all', [WebViewController::class, 'getALl'])->name('admin.payment.records.get.all');
+    Route::get('/payments/filter', [WebViewController::class, 'paymentFilter'])->name('api.payments.filter');
+
+
 });
 

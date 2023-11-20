@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use Illuminate\Http\Request;
 use App\Models\PaymentRecord;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use App\Console\Commands\NotificationService;
 use Illuminate\Contracts\Support\ValidatedData;
@@ -33,12 +35,7 @@ class PaymentRecordController extends Controller
 
         return redirect()->back();
     }
-    public function getALl()
-    {
-        $fetchALlRecords = PaymentRecord::all();
-        return response()->json([$fetchALlRecords, 200]);
 
-    }
 
     public function getId($id)
     {
@@ -218,7 +215,16 @@ class PaymentRecordController extends Controller
         ->header('Content-Type', 'application/pdf');
 
     }
+    public function paymentFilter(Request $request)
+    {
+        $filteredData = PaymentRecord::whereBetween('payment_date', [
+            Carbon::createFromDate($request->fromYear, $request->fromMonth),
+            Carbon::createFromDate($request->toYear, $request->toMonth)->endOfMonth()
+        ])->get();
     
+        // Pass the filtered data to a Blade view
+        return view('payment.table', ['fetchALlRecords' => $filteredData]);
+    }
     
     
 }

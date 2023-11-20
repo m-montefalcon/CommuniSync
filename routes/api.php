@@ -57,7 +57,6 @@ Route::put('admin/complaint/close/{id}', [ComplaintController::class, 'close'])-
 
 
 Route::post('admin/payment/records/store', [PaymentRecordController::class, 'store'])->name('api.admin.payment.records.store');
-Route::get('admin/payment/records/get/all', [PaymentRecordController::class, 'getALl'])->name('api.admin.payment.records.get.all');
 Route::get('admin/payment/records/get/{id}', [PaymentRecordController::class, 'getId'])->name('api.admin.payment.records.get');
 Route::get('user/payment/records/status/{id}', [PaymentRecordController::class, 'getStatus'])->name('api.user.payment.records.status');
 Route::get('user/payment/save/records/{id}', [PaymentRecordController::class, 'savePdfRecords'])->name('api.user.payment.save.records');
