@@ -23,7 +23,7 @@
                             <i class="fas fa-search"></i>
                             <input type="text" id="searchInput" placeholder="Search...">
                         </a>     
-                        <a class="history-btn" href="">
+                        <a class="history-btn" href="{{ route('admin.payment.records.get.all') }}">
                             <i class="fa-solid fa-clock-rotate-left"></i>
                         </a>                         
                     </div>
