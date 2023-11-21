@@ -69,7 +69,18 @@ class User extends Authenticatable
                      ->where('role', $role)
                      ->where('manual_visit_option', 1);
     }
-    
+    public function scopeCheckMvoPartial($query, $fullName, $role) {
+        $nameParts = explode(' ', $fullName);
+
+        $lastName = array_pop($nameParts);
+        $firstName = implode(' ', $nameParts);
+
+        return $query->where(function ($query) use ($firstName, $lastName) {
+            $query->where('first_name', 'LIKE', '%' . $firstName . '%')
+                  ->orWhere('last_name', 'LIKE', '%' . $lastName . '%');
+        })->where('role', $role)
+          ->where('manual_visit_option', 1);
+    }
     public function scopeChecksRoleWithUsername($query, $username, $role){
         return $query->where('user_name', $username)
                      ->where('role', $role)
