@@ -65,17 +65,11 @@ public function checkIfMvoOn(Request $request){
         "full_name" => "required", // Update the validation to use full_name
     ]);
 
-    // Split the full name into an array of names
-    $names = explode(' ', $validatedData['full_name']);
+    // Get the full name from the request
+    $fullName = $validatedData['full_name'];
 
-    // Use the last name as it is
-    $lastName = array_pop($names);
-
-    // Use the remaining names as the first name
-    $firstName = implode(' ', $names);
-
-    // Now you can use $firstName and $lastName in your search
-    $findHomeowner = User::checkMvo($firstName, $lastName, 2)->first(); // Add ->first()
+    // Use the full name in your search query with the new scope function
+    $findHomeowner = User::checkMvoPartial($fullName, 2)->get();
 
     if(!$findHomeowner){
         return response()->json(['message' => 'The user does not exist or the manual visit option is disabled'], 403);
