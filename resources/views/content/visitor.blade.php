@@ -41,32 +41,7 @@
                                     </tr>                       
                                     @foreach($visitors as $visitor)
                                     <tr class="clickable-row" data-href="{{ route('visitorId', ['id' => $visitor->id]) }}" method="GET">
-                                        <td class="tooltip">
-                                            <span class="tooltiptext">
-                                                {{$visitor->last_name}} {{$visitor->first_name}}
-                                                <br>
-                                                @if ($visitor->photo)
-                                                    <img src="http://127.0.0.1:8000/storage/{{ Auth::user()->photo }}" alt="User Photo">
-                                                @else
-                                                    <img src="Assets/default-user-profile.jpg" alt="Default Photo">
-                                                @endif
-                                                <br>
-                                                @if($visitor->role == 1)
-                                                    Visitor
-                                                @elseif($visitor->role == 2)
-                                                    Homeowner
-                                                @elseif($visitor->role == 3)
-                                                    Security Personnel
-                                                @elseif($visitor->role == 4)
-                                                    Admin
-                                                @else
-                                                    Unknown Role
-                                                @endif
-                                                <br>
-                                                    <button class="your-button-class">Your Button</button>
-                                            </span>
-                                            {{$visitor->user_name}}
-                                        </td>
+                                        <td>{{$visitor->user_name}}</td>
                                         <td>{{$visitor->first_name}}</td>
                                         <td>{{$visitor->last_name}}</td>
                                         <td>{{$visitor->contact_number}}</td>

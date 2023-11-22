@@ -15,7 +15,7 @@
         <nav>
           <li>
             <a>
-              <span><img src="Assets/official-logo-white.png" class="logo-img"></span>
+              <img src="{{ asset('Assets/official-logo-green.png') }}" class="logo-img">
             </a>
           </li>
           <li>
@@ -36,12 +36,12 @@
           <li class="user-dropdown">
             <a class="side-link" id="users-dropdown-toggle">
               <span class="icon"> <i class="fa-solid fa-users"></i> </span>
-              <span class="text"> Users <i class="fa-solid fa-angle-right" id="users-icon"></i> </span>
+              <span class="text"> Users <i class="fa-solid fa-angle-right" id="users-down"></i> </span>
             </a>
             <ul class="dropdown-menu" id="users-dropdown">
               <li>
                 <a class="dropdown" href="{{ route('visitor') }}">
-                  <span class="icon"> <i class="fa-solid fa-home"></i> </span>
+                  <span class="icon"> <i class="fa-solid fa-person-shelter"></i> </span>
                   <span class="text">Visitor</span>
                 </a>
               </li>
@@ -53,13 +53,13 @@
               </li>
               <li>
                 <a class="dropdown" href="{{ route('personnel') }}">
-                  <span class="icon"> <i class="fa-solid fa-home"></i> </span>
+                  <span class="icon"> <i class="fa-solid fa-user-lock"></i> </span>
                   <span class="text">Personnel</span>
                 </a>
               </li>
               <li>
                 <a class="dropdown " href="{{ route('admin') }}">
-                  <span class="icon"> <i class="fa-solid fa-home"></i> </span>
+                  <span class="icon"> <i class="fa-solid fa-user-gear"></i> </span>
                   <span class="text">Admin</span>
                 </a>
               </li>
@@ -68,7 +68,7 @@
           <li>
             <a class="side-link @if(Request::is('verification/requests')) active @endif" href="{{ route('verificationRequests') }}">
               <span class="icon"> <i class="fa-solid fa-user-check"></i> </span>
-              <span class="text">Verification Requests</span>
+              <span class="text">Verification <br> Requests</span>
               <span class="tooltip"> Verification Requests </span>
             </a>
           </li>
@@ -108,13 +108,6 @@
               <span class="tooltip"> Access Control </span>
             </a>
           </li>
-          <li>
-            <a class="side-link @if(Request::is('home')) active @endif" href="{{ route('blockedlists.request') }}">
-              <span class="icon"> <i class="fa-solid fa-home"></i> </span>
-              <span class="text">Blocked Lists</span>
-              <span class="tooltip"> Blocked Lists </span>
-            </a>
-          </li>
           <li class="logout">
             <form action="{{ route('api.logout.store') }}" method="POST" id="logout-form" style="display: none;">
               @csrf
@@ -125,7 +118,6 @@
                 <span class="tooltip"> Logout </span>
               </a>
           </li>
-          
         </nav>
       </ul>
     </aside>
@@ -135,6 +127,9 @@
       <div class="top-navbar">
         <div class="bx bx-menu" id="menu-icon"></div>
         <div class="profile">
+          <div class="profile-name">
+            <a>{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</a>
+          </div>
           @if (auth()->user()->photo)
             <a href="{{ route('profile') }}">
                 <img src="{{ asset('storage/' . auth()->user()->photo) }}" alt="User Photo">

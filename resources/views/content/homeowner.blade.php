@@ -43,36 +43,8 @@
                                     </tr>
                                     @foreach($homeowners as $homeowner)
                                     <tr class="clickable-row" data-href="{{ route('homeownerId', ['id' => $homeowner->id]) }}" method="GET">
-                                    <td class="tooltip">
-                                            <span class="tooltiptext">
-                                                {{$homeowner->last_name}} {{$homeowner->first_name}}
-                                                <br>
-                                                @if ($homeowner->photo) 
-                                                    <img src="http://127.0.0.1:8000/storage/{{ Auth::user()->photo }}" alt="User Photo">
-                                                @else
-                                                    <img src="Assets/default-user-profile.jpg" alt="Default Photo">
-                                                @endif
-                                                <br>
-                                                @if($homeowner->role == 1)
-                                                    Visitor
-                                                @elseif($homeowner->role == 2)
-                                                    Homeowner
-                                                @elseif($homeowner->role == 3)
-                                                    Security Personnel
-                                                @elseif($homeowner->role == 4)
-                                                    Admin
-                                                @else
-                                                    Unknown Role
-                                                @endif
-                                                <br>
-                                                <div class="button-container">
-                                                    <button class="button-1"> <i class="fa-solid fa-money-check-dollar"></i> </button>
-                                                    <button class="button-2"> <i class="fa-solid fa-money-check-dollar"></i> </button>
-                                                    <button class="button-3"> <i class="fa-solid fa-money-check-dollar"></i> </button>
-                                                </div>
-                                            </span>
-                                            {{$homeowner->user_name}}
-                                        </td>                                        <td>{{$homeowner->first_name}}</td>
+                                        <td>{{$homeowner->user_name}}</td>                                      
+                                        <td>{{$homeowner->first_name}}</td>
                                         <td>{{$homeowner->last_name}}</td>
                                         <td>{{$homeowner->contact_number}}</td>
                                         <td>{{$homeowner->email}}</td>

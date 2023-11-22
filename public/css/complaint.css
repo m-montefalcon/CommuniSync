@@ -156,7 +156,7 @@
         width: 100%; 
         overflow: scroll; 
         height: auto;
-        max-height: 480px;
+        max-height: 60vh;
     }
 
     #table-res table {
@@ -180,11 +180,9 @@
     tr:hover {
         background-color: #d5d5d5;
     } 
-
-    table tr {
-        background-color: #f8f8f8;
-        border: 1px solid #ddd!important;
-        margin-bottom: 10px;
+    
+    table tr:nth-child(even) {
+        background: #e9e9eb;
     }
 
     table th,
@@ -196,7 +194,6 @@
     table td {
         font-size: .85em;
         letter-spacing: .05em;
-        /* text-transform: uppercase; */
         text-align: center;
     }
 

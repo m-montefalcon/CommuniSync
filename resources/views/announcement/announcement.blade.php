@@ -31,42 +31,34 @@
                     
                     <div class="card-body">
                         <div id="table">
-                            @if (isset($announcements) && count($announcements) > 0)
-                            <table class="table table-bordered table-striped">
+                            <table class="table">
                                 <tbody>
                                     <tr>
                                         <th>Title</th>
                                         <th>Date</th>
                                     </tr>
-                                    @foreach ($announcements as $announcement)
+                                    @if(isset($announcements) && count($announcements) > 0)
+                                        @foreach ($announcements as $announcement)
                                     <tr class="clickable-row"
                                         data-announcement-title="{{ $announcement->announcement_title }}"
                                         data-announcement-date="{{ $announcement->announcement_date }}"
                                         data-announcement-description="{{ $announcement->announcement_description }}"
                                         data-announcement-sendFrom="{{ $announcement->admin->first_name . ' ' . $announcement->admin->last_name }}"
                                         data-announcement-sendTo="{{ $announcement->role }}"
-                                        data-announcement-photo="{{ asset('storage/' . $announcement->announcement_photo) }}">
-                                        <td>
-                                            <div class="card-title">
-                                                <div class="card-body">
-                                                    {{ $announcement->announcement_title }}
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="card-date">
-                                                <div class="card-body">
-                                                    {{ $announcement->announcement_date }}
-                                                </div>
-                                            </div>
-                                        </td>
+                                        data-announcement-photo="{{ asset('storage/' . $announcement->announcement_photo) }}"
+                                        >
+                                        <td>{{ $announcement->announcement_title }}</td>
+                                        <td>{{ $announcement->announcement_date }}</td>
                                     </tr>
                                     @endforeach
+                                    @else
+                                        <tr>
+                                            <td colspan="2">No announcements made.</td>
+                                        </tr>
+                                    @endif
                                 </tbody>
                             </table>
-                            @else
-                                <p>No announcements made.</p>
-                            @endif
+                          
                         </div>
                     </div>
                 </div>

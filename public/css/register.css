@@ -4,6 +4,11 @@
 		font-family: "Poppins", sans-serif;
 	}
 
+	body {
+        background-color: #f6f6f6;
+        overflow-x: hidden;
+    }
+
     .card {
         background-color: #fff;
         border-radius: 10px;
@@ -228,7 +233,7 @@
 	.input-icon-member {
 		position: absolute;
         transform: translateY(-100%);
-		color: #555; 
+		color: green;
 	}
 	
 	.input-box-member {
