@@ -22,7 +22,6 @@ class UserValidatedBlockListRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'admin_id' => ['required', 'numeric'],
             'blocked_status_response_description'=> ['nullable'],
         ];
     }

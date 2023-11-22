@@ -117,6 +117,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // Blocklist feature
         Route::post('users/blocklists/request/mobile', [BlockListController::class, 'request'])->name('api.users.blocklists.request.mobile');
         Route::put('admin/blocklists/validated/mobile/{id}', [BlockListController::class, 'validated'])->name('api.admin.blocklists.validated.mobile');
+        Route::put('admin/blocklists/denied/mobile/{id}', [BlockListController::class, 'denied'])->name('api.admin.blocklists.denied.mobile');
 
     // Payment records
        

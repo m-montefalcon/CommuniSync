@@ -16,6 +16,7 @@ use App\Models\PaymentRecord;
 use Illuminate\Support\Facades\DB;
 use App\Models\VerificationRequest;
 use App\Http\Controllers\Controller;
+use App\Models\BlockList;
 use Illuminate\Pagination\Paginator;
 
 class WebViewController extends Controller
@@ -246,7 +247,11 @@ class WebViewController extends Controller
     }
 
     
-    
+    public function showBlockedListsRequests(){
+        $blocklists = BlockList::with('homeowner')->where('blocked_status', 1)->get();
+        return view('blockedLists.blockedLists', compact('blocklists'));
+
+    }
     
     
 }
