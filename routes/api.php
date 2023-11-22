@@ -12,6 +12,7 @@ use App\Http\Controllers\PaymentRecordController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VerificationRequests;
 use App\Http\Controllers\WebViewController;
+use App\Http\Requests\BlockLists\UserRequestBlockListRequest;
 use App\Models\ControlAccess;
 use App\Models\Logbook;
 use App\Models\PaymentRecord;
@@ -118,6 +119,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('users/blocklists/request/mobile', [BlockListController::class, 'request'])->name('api.users.blocklists.request.mobile');
         Route::put('admin/blocklists/validated/mobile/{id}', [BlockListController::class, 'validated'])->name('api.admin.blocklists.validated.mobile');
         Route::put('admin/blocklists/denied/mobile/{id}', [BlockListController::class, 'denied'])->name('api.admin.blocklists.denied.mobile');
+        Route::put('blockedlists/remove/{id}', [BlockListController::class, 'remove'])->name('api.blockedlists.remove');
 
     // Payment records
        
