@@ -26,7 +26,7 @@
             </a>
           </li>
            <li>
-            <a class="side-link @if(Request::is('admin/get/logbook')) active @endif" href="{{ route('admin.get.logobok') }}">
+            <a class="side-link @if(Request::is('admin/get/logbook')) active @endif" href="{{ route('admin.get.logbook') }}">
               <span class="icon"> <i class="fa-solid fa-address-book"></i> </span>
               <span class="text">Logbook</span>
               <span class="tooltip"> Logbook </span>

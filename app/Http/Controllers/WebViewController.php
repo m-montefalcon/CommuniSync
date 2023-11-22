@@ -147,10 +147,18 @@ class WebViewController extends Controller
         $fetchALlComplaints = Complaint::where('complaint_status', 3)->get();
        return view('complaints.complaintsHistory', compact('fetchALlComplaints'));
     }
+    public function getLb(Request $request)
+    {
+        $fetchAllLb = Logbook::with('homeowner', 'admin', 'visitor', 'personnel')->latest();
     
-    public function getLb(){
-        $fetchAllLb = Logbook::with('homeowner', 'admin', 'visitor', 'personnel')->get();
-        return view('logbook', compact('fetchAllLb'));
+        if ($request->has('search') && !empty($request->input('search'))) {
+            $searchTerm = $request->input('search');
+            $fetchAllLb->search($searchTerm);
+        }
+    
+        $fetchAllLb = $fetchAllLb->paginate(30)->appends(request()->query());
+    
+        return view('logbook', compact('fetchAllLb', 'request'));
     }
 
     public function fetchAllUserPayment(){
