@@ -108,13 +108,13 @@
               <span class="tooltip"> Access Control </span>
             </a>
           </li>
-          <!-- <li>
-            <a class="side-link @if(Request::is('test/qrcode')) active @endif" href="{{ route('test') }}">
-              <span class="icon"> <i class="fa-solid fa-qrcode"></i> </span>
-              <span class="text">QR Code</span>
-              <span class="tooltip"> QR Code </span>
+          <li>
+            <a class="side-link @if(Request::is('home')) active @endif" href="{{ route('blockedlists.request') }}">
+              <span class="icon"> <i class="fa-solid fa-home"></i> </span>
+              <span class="text">Blocked Lists</span>
+              <span class="tooltip"> Blocked Lists </span>
             </a>
-          </li> -->
+          </li>
           <li class="logout">
             <form action="{{ route('api.logout.store') }}" method="POST" id="logout-form" style="display: none;">
               @csrf
@@ -125,6 +125,7 @@
                 <span class="tooltip"> Logout </span>
               </a>
           </li>
+          
         </nav>
       </ul>
     </aside>

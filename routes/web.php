@@ -90,6 +90,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('admin/payment/records/get/all', [WebViewController::class, 'getALl'])->name('admin.payment.records.get.all');
     Route::get('/payments/filter', [WebViewController::class, 'paymentFilter'])->name('api.payments.filter');
 
+    //BlockedLists
+    Route::get('/blockedlists/request', [WebViewController::class, 'showBlockedListsRequests'])->name('blockedlists.request');
+
 
 });
 
