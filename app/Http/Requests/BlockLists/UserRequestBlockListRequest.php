@@ -25,6 +25,7 @@ class UserRequestBlockListRequest extends FormRequest
             'homeowner_id'     => ['required', 'numeric'],
             'first_name'       => ['required'],
             'last_name'        => ['required'],
+            'contact_number'   => ['nullable'],
             'blocked_reason'   => ['required'],
         ];
     }

@@ -25,6 +25,7 @@ class BlockListController extends Controller
     {
         $validatedData = $request->validated();
         $id->blocked_date = Carbon::now()->toDateString();
+        $validatedData['blocked_status'] = "2";
         $id->update($validatedData);
         return response()->json(['validated success' => true], 200);
     }

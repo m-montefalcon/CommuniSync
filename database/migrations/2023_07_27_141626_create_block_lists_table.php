@@ -17,12 +17,11 @@ return new class extends Migration
             $table->foreign('homeowner_id')->references('id')->on('users');
             $table->unsignedBigInteger('admin_id')->nullable();
             $table->foreign('admin_id')->references('id')->on('users');
-            $table->string('user_name')->unique()->nullable();
             $table->string('first_name');
             $table->string('last_name');
             $table->string('contact_number')->nullable();
             $table->date('blocked_date');
-            $table->string('blocked_reason');
+            $table->text('blocked_reason');
             $table->enum('blocked_status', [1,2,3])->default(1);
             $table->string('blocked_status_response_description')->nullable();
             $table->timestamps();
