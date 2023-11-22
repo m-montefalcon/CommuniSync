@@ -2,12 +2,56 @@
 @include('components.nav')
 <html>
 <head>
+    
   <title> Logbook </title>
   <link rel="stylesheet" href="{{ asset('css/logbook.css') }}">
   <link rel="stylesheet">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.0/css/all.css">
-</head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
+</head>
+<style>
+    .top-table {
+        display: flex;
+        align-items: center;
+    }
+
+    .search-box {
+        display: flex;
+        align-items: center;
+    }
+
+    .search-box form {
+        margin-left: 10px; /* Adjust the margin as needed */
+    }
+</style>
+<style>
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .pagination .page-item:not(.disabled) .page-link {
+        color: #fff;
+        background-color: #28a745; /* Green color */
+        border-color: #28a745; /* Green color */
+    }
+
+    .pagination .page-item:not(.disabled) .page-link:hover {
+        background-color: #218838; /* Darker shade of green on hover */
+        border-color: #218838; /* Darker shade of green on hover */
+    }
+
+    .pagination .page-item.active .page-link {
+        background-color: #218838; /* Darker shade of green for the active page */
+        border-color: #218838; /* Darker shade of green for the active page */
+    }
+
+    .pagination .page-link {
+        padding: 10px;
+    }
+</style>
 <body>
     <div class="container">
         <div class="row">
@@ -21,7 +65,9 @@
                     <div class="top-table">
                         <a class="search-box">
                             <i class="fas fa-search"></i>
-                            <input type="text" id="searchInput" placeholder="Search...">
+                            <form action="{{ route('admin.get.logbook') }}" method="GET">
+                            <input type="text" name="search" id="searchInput" class="form-control" value="{{request()->input('search')}}">
+                            </form>
                         </a>                        
                     </div>
                     <div class="card-body">
@@ -108,6 +154,12 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            <!-- Add this where you want to display the pagination links with Bootstrap styling -->
+                            <div class="d-flex justify-content-center">
+                                {{ $fetchAllLb->appends(['search' => $request->search])->links("pagination::bootstrap-4") }}
+                            </div>
+
+
                         </div>
                     </div>
                 </div>
@@ -116,31 +168,7 @@
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $('#searchInput').on('input', function() {
-            var searchText = $(this).val().toLowerCase();
 
-            $('.clickable-row').each(function() {
-                var row = $(this);
-                var found = false;
-
-                row.find('td').each(function() {
-                    var cellText = $(this).text().toLowerCase();
-
-                    if (cellText.includes(searchText)) {
-                        found = true;
-                        return false;
-                    }
-                });
-
-                if (found) {
-                    row.show();
-                } else {
-                    row.hide();
-                }
-            });
-        });
-    </script>
 
 </body>
 </html>

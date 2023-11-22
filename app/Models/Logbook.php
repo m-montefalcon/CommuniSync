@@ -42,4 +42,31 @@ class Logbook extends Model
     {
         return $this->belongsTo(User::class, 'personnel_id');
     }
+
+    public function scopeSearch($query, $searchTerm)
+    {
+        $searchTerms = explode(' ', $searchTerm);
+    
+        return $query->where(function ($subQuery) use ($searchTerms) {
+            foreach ($searchTerms as $term) {
+                $subQuery->whereRaw("JSON_UNQUOTE(JSON_EXTRACT(visit_members, '$[*]')) like ?", ['%' . $term . '%']);
+            }
+    
+            $subQuery->orWhereHas('admin', function ($adminQuery) use ($searchTerms) {
+                foreach ($searchTerms as $term) {
+                    $adminQuery->where('first_name', 'like', '%' . $term . '%')
+                                ->orWhere('last_name', 'like', '%' . $term . '%');
+                }
+            })
+            ->orWhereHas('homeowner', function ($homeownerQuery) use ($searchTerms) {
+                foreach ($searchTerms as $term) {
+                    $homeownerQuery->where('first_name', 'like', '%' . $term . '%')
+                                   ->orWhere('last_name', 'like', '%' . $term . '%');
+                }
+            })
+            ->orWhere('admin_id', 'like', '%' . $searchTerms[0] . '%')
+            ->orWhere('homeowner_id', 'like', '%' . $searchTerms[0] . '%');
+        });
+    }
+    
 }
