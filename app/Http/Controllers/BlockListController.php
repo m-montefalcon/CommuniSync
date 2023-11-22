@@ -42,5 +42,13 @@ class BlockListController extends Controller
         $id->update($validatedData);
         return redirect()->back();
     }
+    public function remove(BlockList $id){
+        $id->blocked_date = Carbon::now()->toDateString();
+        $adminId = Auth::id();
+        $validatedData['admin_id'] = $adminId;
+        $validatedData['blocked_status'] = "3";
+        $id->update($validatedData);
+        return redirect()->back();
 
+    }
 }

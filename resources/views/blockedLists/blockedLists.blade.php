@@ -14,7 +14,7 @@
             <div class="col-md-12">
                 <div class="header">
                     <h2>
-                        BLOCKED LISTS REQUESTS
+                        REQUESTS
                     </h2>
                 </div>
                 <div class="card">
@@ -23,7 +23,7 @@
                             <i class="fas fa-search"></i>
                             <input type="text" id="searchInput" placeholder="Search...">
                         </a>     
-                        <a class="contacts-btn" href="{{ route('admin.payment.records.get.all') }}">
+                        <a class="contacts-btn" href="{{ route('blockedlists') }}">
                             <!-- You can replace the content inside the <i> tag with the HTML or icon code for your contacts button logo -->
                             <i class="fa-solid fa-address-book"></i>
                         </a>

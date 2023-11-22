@@ -92,6 +92,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //BlockedLists
     Route::get('/blockedlists/request', [WebViewController::class, 'showBlockedListsRequests'])->name('blockedlists.request');
+    Route::get('/blockedlists/show', [WebViewController::class, 'showBlockedLists'])->name('blockedlists');
+
 
 
 });

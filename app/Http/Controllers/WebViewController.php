@@ -252,6 +252,11 @@ class WebViewController extends Controller
         return view('blockedLists.blockedLists', compact('blocklists'));
 
     }
+
+    public function showBlockedLists(){
+        $blocklists = BlockList::with('homeowner')->with('admin')->where('blocked_status', 2)->get();
+        return view('blockedLists.contactLists', compact('blocklists'));
+    }
     
     
 }
