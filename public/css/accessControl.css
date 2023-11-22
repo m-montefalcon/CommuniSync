@@ -93,7 +93,7 @@
         width: 100%; 
         overflow: scroll; 
         height: auto;
-        max-height: 480px;
+        max-height: 60vh;
     }
 
     #table-res table {

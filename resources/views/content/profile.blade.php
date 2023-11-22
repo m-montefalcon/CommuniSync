@@ -10,76 +10,67 @@
 
 <body>
     <div class="container">
+        <div class="header">
+            <h2>
+                PROFILE
+            </h2>
+        </div>
         <div class="card">
-            <div class="card-header">
-                <h2>
-                    PROFILE
-                </h2>
-            </div> 
-
-    @auth
-        <!-- <p>Welcome, {{ auth()->user()->first_name }} {{ auth()->user()->last_name }} </p> -->
-        
-        <div class="user-profile py-4">
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="card-profile">
+        @auth        
+            <div class="user-profile">
+                <div class="card-profile">
                     @if (auth()->user()->photo)
-                    <img src="{{ asset('storage/' . auth()->user()->photo) }}" alt="User Photo">
+                        <img src="{{ asset('storage/' . auth()->user()->photo) }}" alt="User Photo">
                     @else
-                    <img src="{{ asset('Assets/default-user-profile.jpg') }}" alt="Default Photo">
+                        <img src="{{ asset('Assets/default-user-profile.jpg') }}" alt="Default Photo">
                     @endif
-
-                        <h3>{{ auth()->user()->user_name }}</h3>
+                        <h3>{{ auth()->user()->first_name}}  {{ auth()->user()->last_name}}</h3>
+                        @if(auth()->user()->role == 1)
+                            Visitor
+                        @elseif(auth()->user()->role == 2)
+                            Homeowner
+                        @elseif(auth()->user()->role == 3)
+                            Security Personnel
+                        @elseif(auth()->user()->role == 4)
+                            Admin
+                        @else
+                            Unknown Role
+                        @endif
+                </div>
+                <div class="card-info">
+                    <div class="card-header">
+                        <h4>
+                            <i class="far fa-clone"> </i>
+                            General Information
+                        </h4>
                     </div>
-                </div>
-        
-                <div class="col-lg-8">
-                    <div class="card shadow-sm">
-                        <div class="card-header bg-transparent border-0">
-                            <h4 class="mb-0">
-                                <i class="far fa-clone"> </i>
-                                General Information
-                            </h4>
-                        </div>
-                        <div class="card-body pt-0">
-                            <table class="table table-bordered">
-                                <tr>
-                                    <th width="30%"> User Name </th>
-                                    <td width="2%"> : </td>
-                                    <td> {{ auth()->user()->user_name }} </td>
-                                </tr>
-                                <tr>
-                                    <th width="30%"> Full Name </th>
-                                    <td width="2%"> : </td>
-                                    <td> {{ auth()->user()->first_name}}  {{ auth()->user()->last_name}} </td>
-                                </tr>
-                                <tr>
-                                    <th width="30%"> Email </th>
-                                    <td width="2%"> : </td>
-                                    <td> {{ auth()->user()->email }} </td>
-                                </tr>
-                                <tr>
-                                    <th width="30%"> Contact Number </th>
-                                    <td width="2%"> : </td>
-                                    <td> {{ auth()->user()->contact_number }} </td>
-                                </tr>
-                            </table>
-                        </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <tr>
+                                <th width="30%"> User Name </th>
+                                <td width="2%"> : </td>
+                                <td> {{ auth()->user()->user_name }} </td>
+                            </tr>
+                            <tr>
+                                <th width="30%"> Full Name </th>
+                                <td width="2%"> : </td>
+                                <td> {{ auth()->user()->first_name}}  {{ auth()->user()->last_name}} </td>
+                            </tr>
+                            <tr>
+                                <th width="30%"> Email </th>
+                                <td width="2%"> : </td>
+                                <td> {{ auth()->user()->email }} </td>
+                            </tr>
+                            <tr>
+                                <th width="30%"> Contact Number </th>
+                                <td width="2%"> : </td>
+                                <td> {{ auth()->user()->contact_number }} </td>
+                            </tr>
+                        </table>
                     </div>
-                </div>
-
-    <!-- <p>User Name: {{ auth()->user()->user_name }}</p> -->
-
-    <!-- <p>Email: {{ auth()->user()->email }}</p> -->
-    <!-- <p>Contact Number: {{ auth()->user()->contact_number }}</p> -->
-    
-
-   
-    
-@endauth
-                </div>
+                </div> 
             </div>
+        @endauth
         </div>
     </div>
 </body>

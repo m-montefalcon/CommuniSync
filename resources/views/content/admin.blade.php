@@ -47,7 +47,7 @@
                                                 @if ($admin->photo)
                                                     <img src="http://127.0.0.1:8000/storage/{{ Auth::user()->photo }}" alt="User Photo">
                                                 @else
-                                                    <img src="Assets/default-user-profile.jpg" alt="Default Photo">
+                                                    <img src="{{ asset('Assets/default-user-profile.jpg') }}" alt="Default Photo">
                                                 @endif
                                             </span>
                                             {{$admin->user_name}}

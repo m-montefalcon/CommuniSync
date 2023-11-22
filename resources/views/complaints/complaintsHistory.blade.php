@@ -46,20 +46,8 @@
                                             . ' Block ' . $complaint->homeowner->block_no . ' - Lot ' . $complaint->homeowner->lot_no }}"
                                         data-complaint-photo="{{ $complaint->complaint_photo }}"
                                         >
-                                        <td>
-                                            <div class="card-title">
-                                                <div class="card-body">
-                                                    {{ $complaint->complaint_title }}
-                                                </div>
-                                            </div>                   
-                                        </td>
-                                        <td>
-                                            <div class="card-date">
-                                                <div class="card-body">
-                                                    {{ \Carbon\Carbon::parse($complaint->complaint_date)->format('F j, Y') }}
-                                                </div>
-                                            </div>                   
-                                        </td>
+                                        <td>{{ $complaint->complaint_title }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($complaint->complaint_date)->format('F j, Y') }}</td>
                                     </tr>
                                 @endforeach
                                 @if (count($fetchALlComplaints) === 0)

@@ -16,6 +16,93 @@
     </div>
     <div class="card">
       <div class="card-body">
+        @auth        
+          <div class="user-profile">
+            <div class="card-profile">
+              @if ($homeowner->photo)
+                <img src="http://127.0.0.1:8000/storage/{{ Auth::user()->photo }}" alt="User Photo">
+              @else
+                <img src="{{ asset('Assets/default-user-profile.jpg') }}" alt="Default Photo">
+              @endif
+                <h3>{{ $homeowner->first_name}}  {{ $homeowner->last_name}}</h3>
+              @if($homeowner->role == 1)
+                  Visitor
+              @elseif($homeowner->role == 2)
+                  Homeowner
+              @elseif($homeowner->role == 3)
+                  Security Personnel
+              @elseif($homeowner->role == 4)
+                  Admin
+              @else
+                  Unknown Role
+              @endif
+            </div>
+            <div class="card-info">
+              <div class="card-header">
+                <h4>
+                  <i class="far fa-clone"> </i>
+                  General Information
+                </h4>
+                <a id="editButton" class="btn btn-primary">
+                  <i class="fa-solid fa-user-pen"></i>
+                </a> 
+              </div>
+              <div class="card-body">
+                <table class="table">
+                  <tr>
+                    <th width="30%"> User Name </th>
+                    <td width="2%"> : </td>
+                    <td> {{ $homeowner->user_name }} </td>
+                  </tr>
+                  <tr>
+                    <th width="30%"> Full Name </th>
+                    <td width="2%"> : </td>
+                    <td> {{ $homeowner->first_name}}  {{ $homeowner->last_name}} </td>
+                  </tr>
+                  <tr>
+                    <th width="30%"> Email </th>
+                    <td width="2%"> : </td>
+                    <td> {{ $homeowner->email }} </td>
+                  </tr>
+                  <tr>
+                    <th width="30%"> Contact Number </th>
+                    <td width="2%"> : </td>
+                    <td> {{ $homeowner->contact_number }} </td>
+                  </tr>
+                  <tr>
+                    <th width="30%"> House No. </th>
+                    <td width="2%"> : </td>
+                    <td> B {{ $homeowner->block_no }} - L {{ $homeowner->lot_no }}</td>
+                  </tr>
+                  <tr>
+                    <th width="30%"> Visitation </th>
+                    <td width="2%"> : </td>
+                    <td>
+                      @if($homeowner->manual_visit_option == 1)
+                          Manual Visit Allowed
+                      @else
+                          Manual Visit Not Allowed
+                      @endif
+                    </td>
+                  </tr>
+                  <tr>
+                    <th width="30%"> Family Members </th>
+                    <td width="2%"> : </td>
+                    <td>
+                      @php
+                        $familyMembers = old('family_member', $homeowner->family_member ?? []);
+                        $familyMembersString = implode(', ', $familyMembers);
+                      @endphp
+                        {{ $familyMembersString }}
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div> 
+          </div>
+        @endauth
+
+        <div id="editForm" style="display: none;">
 
         <form action="{{ route('api.update', ['id' => $homeowner->id]) }}" method="POST" >
 
@@ -127,7 +214,7 @@
             <br>
             <button type="submit" class="btn btn-primary">Update</button>
         </form>
-          <button class="btn btn-danger" onclick="history.back()">Cancel</button>
+          <a id="button" href="{{ route('homeowner') }}" class="btn btn-danger">Cancel</a>
       </div>
     </div>
   </div>
@@ -153,6 +240,12 @@
         event.target.closest('.input-box-member').remove();
       }
     });
+
+    document.getElementById('editButton').addEventListener('click', function() {
+      var editForm = document.getElementById('editForm');
+      editForm.style.display = (editForm.style.display === 'none' || editForm.style.display === '') ? 'block' : 'none';
+    });
+
   </script>
   
 </body>  

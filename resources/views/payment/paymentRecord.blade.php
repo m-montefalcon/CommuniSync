@@ -47,10 +47,13 @@
                                                     <button class="view-button" data-id="{{$homeowner->id}}" data-name="{{$homeowner->first_name}} {{$homeowner->last_name}}">Pay</button>
                                                 </td>
                                                 <td>
-                                                    <form action="{{ route('api.user.payment.save.records', ['id' => $homeowner->id]) }}" method="GET" target="_blank">
+                                                <form action="{{ route('api.user.payment.save.records', ['id' => $homeowner->id]) }}" method="GET" target="_blank">
                                                         @csrf
                                                         <button type="submit">View</button>
                                                     </form>
+                                                    <!-- <a class="history-btn" href="{{ route('admin.payment.records.get.all') }}">
+                                                        <i class="fa-solid fa-clock-rotate-left"></i>
+                                                    </a>   -->
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -99,7 +102,7 @@
                 <div class="form-group">
                     <label for="transactionNumber">Transaction Number</label>
                     <div class="input-group">
-                        <span class="input-group-text">₱</span>
+                        <span class="input-group-text">#</span>
                         <input type="text" class="form-control1" name="transaction_number" id="transaction_number">
                     </div>
                 </div>
