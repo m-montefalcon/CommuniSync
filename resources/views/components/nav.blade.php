@@ -25,14 +25,20 @@
               <span class="tooltip"> Home </span>
             </a>
           </li>
-           <li>
+          <li>
             <a class="side-link @if(Request::is('admin/get/logbook')) active @endif" href="{{ route('admin.get.logbook') }}">
               <span class="icon"> <i class="fa-solid fa-address-book"></i> </span>
               <span class="text">Logbook</span>
               <span class="tooltip"> Logbook </span>
             </a>
           </li>
-
+          <li>
+            <a class="side-link @if(Request::is('blockedlists/request')) active @endif" href="{{ route('blockedlists.request') }}">
+              <span class="icon"> <i class="fa-solid fa-address-book"></i> </span>
+              <span class="text">Blocked List</span>
+              <span class="tooltip"> Blocked List </span>
+            </a>
+          </li>
           <li class="user-dropdown">
             <a class="side-link" id="users-dropdown-toggle">
               <span class="icon"> <i class="fa-solid fa-users"></i> </span>

@@ -136,12 +136,12 @@
     } */
 
     select {
-        padding: 8px;
+        padding: 4px;
         font-size: 16px;
         border: 1px solid #ccc;
         border-radius: 4px;
         margin-right: 8px;
-        width: 130px;
+        width: fit-content;
     }
 
     .back-btn,
@@ -442,20 +442,19 @@
         background-color: #aaa; 
     } 
 
-    .query-form::-webkit-scrollbar {
-        width: 4px;
-        height: 6px;
+    ::-webkit-scrollbar {
+        width: 0px; 
     }
-
-    .query-form::-webkit-scrollbar-track {
+    
+    ::-webkit-scrollbar-track {
         background-color: #f6f6f6; 
     }
 
-    .query-form::-webkit-scrollbar-thumb {
+    ::-webkit-scrollbar-thumb {
         background-color: #ccc; 
     }
 
-    .query-form::-webkit-scrollbar-thumb:hover {
+    ::-webkit-scrollbar-thumb:hover {
         background-color: #aaa; 
     } 
 

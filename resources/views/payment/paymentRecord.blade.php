@@ -1,14 +1,14 @@
-<!DOCTYPE html>
+@include('partials.__header')
+@include('components.nav')
 <html>
+    
 <head>
     <title>Payment</title>
     <link rel="stylesheet" href="{{ asset('css/payment.css') }}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.0/css/all.css">
 </head>
-<body>
-    @include('partials.__header')
-    @include('components.nav')
 
+<body>
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -30,7 +30,7 @@
 
                     <div class="card-body">
                         <div id="table">
-                            <table class="table table-bordered table-striped">
+                            <table class="table">
                                 <tbody>
                                     <tr>
                                         <th>ID</th>

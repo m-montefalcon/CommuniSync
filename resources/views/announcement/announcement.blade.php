@@ -81,12 +81,12 @@
             <input type="text" class="form-control" id="announcementTitle" readonly>
         </div>
         <div class="form-group">
-            <label for="announcementDate">Date:</label>
-            <input type="text" class="form-control" id="announcementDate" readonly>
-        </div>
-        <div class="form-group">
             <label for="announcementDescription">Description:</label>
             <textarea class="form-control" id="announcementDescription" rows="3" readonly></textarea>
+        </div>
+        <div class="form-group">
+            <label for="announcementDate">Date:</label>
+            <input type="text" class="form-control" id="announcementDate" readonly>
         </div>
         <div class="form-group">
             <label for="announcementSendFrom">From:</label>
