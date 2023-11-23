@@ -38,30 +38,26 @@
                                         <th>Payment</th>
                                         <th>History</th>
                                     </tr>
-                                    @if(isset($homeowners) && count($homeowners) > 0)
-                                        @foreach ($homeowners as $homeowner)
-                                            <tr class="clickable-row">
-                                                <td>{{$homeowner->id}}</td>
-                                                <td>{{$homeowner->first_name}} {{$homeowner->last_name}}</td>
-                                                <td>
-                                                    <button class="view-button" data-id="{{$homeowner->id}}" data-name="{{$homeowner->first_name}} {{$homeowner->last_name}}">Pay</button>
-                                                </td>
-                                                <td>
+                                    @forelse ($homeowners as $homeowner)
+                                        <tr class="clickable-row">
+                                            <td>{{$homeowner->id}}</td>
+                                            <td>{{$homeowner->first_name}} {{$homeowner->last_name}}</td>
+                                            <td>
+                                                <button class="view-button" data-id="{{$homeowner->id}}" data-name="{{$homeowner->first_name}} {{$homeowner->last_name}}">Pay</button>
+                                            </td>
+                                            <td>
                                                 <form action="{{ route('api.user.payment.save.records', ['id' => $homeowner->id]) }}" method="GET" target="_blank">
-                                                        @csrf
-                                                        <button type="submit">View</button>
-                                                    </form>
-                                                    <!-- <a class="history-btn" href="{{ route('admin.payment.records.get.all') }}">
-                                                        <i class="fa-solid fa-clock-rotate-left"></i>
-                                                    </a>   -->
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    @else
+                                                    @csrf
+                                                    <button type="submit">View</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @empty
                                         <tr>
                                             <td colspan="4">No Users found.</td>
                                         </tr>
-                                    @endif
+                                    @endforelse
+
                                 </tbody>
                             </table>
                         </div>

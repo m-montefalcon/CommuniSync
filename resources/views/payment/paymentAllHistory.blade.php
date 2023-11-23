@@ -87,15 +87,22 @@
                                         <th>Payment Amount</th>
                                         <th>Additional notes</th>
                                     </tr>
-                                @foreach($fetchALlRecords as $fetchALlRecord)
-                                    <tr>
-                                        <td>{{ ($fetchALlRecord->homeowner->first_name) }} {{ ($fetchALlRecord->homeowner->last_name) }}</td>
-                                        <td>{{ ($fetchALlRecord->admin->first_name) }} {{ ($fetchALlRecord->admin->last_name) }}</td>
-                                        <td>{{$fetchALlRecord->payment_date}}</td>
-                                        <td>{{$fetchALlRecord->payment_amount}}</td>
-                                        <td>{{$fetchALlRecord->notes}}</td>
-                                    </tr>
-                                @endforeach
+                                    @if($fetchALlRecords->isEmpty())
+                                        <tr>
+                                            <td colspan="5">No records available.</td>
+                                        </tr>
+                                    @else
+                                        @foreach($fetchALlRecords as $fetchALlRecord)
+                                            <tr>
+                                                <td>{{ optional($fetchALlRecord->homeowner)->first_name }} {{ optional($fetchALlRecord->homeowner)->last_name }}</td>
+                                                <td>{{ optional($fetchALlRecord->admin)->first_name }} {{ optional($fetchALlRecord->admin)->last_name }}</td>
+                                                <td>{{ $fetchALlRecord->payment_date }}</td>
+                                                <td>{{ $fetchALlRecord->payment_amount }}</td>
+                                                <td>{{ $fetchALlRecord->notes }}</td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
+
                                 </tbody>
                             </table>
                             <div class="d-flex justify-content-center">
