@@ -23,7 +23,7 @@ return new class extends Migration
             $table->date('blocked_date');
             $table->text('blocked_reason');
             $table->enum('blocked_status', [1,2,3])->default(1);
-            $table->string('blocked_status_response_description')->nullable();
+            $table->text('blocked_status_response_description')->nullable();
             $table->timestamps();
             
         });
