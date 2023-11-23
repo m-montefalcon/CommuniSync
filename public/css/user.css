@@ -163,6 +163,34 @@
         background-color: #555;
     }
 
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .pagination .page-item:not(.disabled) .page-link {
+        color: #fff;
+        background-color: #28a745; 
+        border-color: #28a745; 
+    }
+
+    .pagination .page-item:not(.disabled) .page-link:hover {
+        background-color: #218838; 
+        border-color: #218838; 
+    }
+
+    .pagination .page-item.active .page-link {
+        background-color: #218838; 
+        border-color: #218838;
+        color: black;
+        font-weight: bold;
+    }
+
+    .pagination .page-link {
+        padding: 10px;
+    }
+
     body::-webkit-scrollbar {
         width: 5px; 
     }

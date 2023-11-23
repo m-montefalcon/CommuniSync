@@ -92,7 +92,7 @@
 
                     <div class="card-body">
                         <div id="table">
-                            <table class="table table-bordered table-striped">    
+                            <table class="table">    
                                 <tbody>              
                                     <tr>
                                         <th>V-ID</th>
