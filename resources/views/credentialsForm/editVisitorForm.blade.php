@@ -20,7 +20,7 @@
           <div class="user-profile">
             <div class="card-profile">
               @if ($visitor->photo)
-                <img src="http://127.0.0.1:8000/storage/{{ Auth::user()->photo }}" alt="User Photo">
+              <img src="{{ asset('storage/' . $visitor->photo) }}" alt="User Photo">
               @else
                 <img src="{{ asset('Assets/default-user-profile.jpg') }}" alt="Default Photo">
               @endif

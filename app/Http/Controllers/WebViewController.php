@@ -161,7 +161,7 @@ class WebViewController extends Controller
             $fetchAllLb->search($searchTerm);
         }
     
-        $fetchAllLb = $fetchAllLb->paginate(30)->appends(request()->query());
+        $fetchAllLb = $fetchAllLb->paginate(1)->appends(request()->query());
     
         return view('logbook', compact('fetchAllLb', 'request'));
     }
@@ -178,7 +178,7 @@ class WebViewController extends Controller
 
         $fetchALlRecords = PaymentRecord::with('homeowner', 'admin')
             ->orderBy('payment_date', 'desc') // Order by payment date in descending order (latest first)
-            ->paginate(20); // You can change the number 10 to the desired number of records per page
+            ->paginate(10); // You can change the number 10 to the desired number of records per page
     
         return view('payment.paymentAllHistory', compact('fetchALlRecords'));
     }
