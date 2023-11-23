@@ -34,6 +34,7 @@ Route::get('/registerVisitor', [WebViewController::class, 'returnRegisterVisitor
 Route::get('/registerHomeowner', [WebViewController::class, 'returnRegisterHomeownerView'])->name('registerHomeowner');
 Route::get('/registerPersonnel', [WebViewController::class, 'returnRegisterPersonnelView'])->name('registerPersonnel');
 Route::get('/registerAdmin', [WebViewController::class, 'returnRegisterAdminView'])->name('registerAdmin');
+Route::get('/termsAndCondition', [WebViewController::class, 'returnTermsAndCondition'])->middleware('guest');
 
 // QR Code Testing CAF
 Route::get('/test/qrcode', [WebViewController::class, 'test'])->name('test');
