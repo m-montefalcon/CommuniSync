@@ -33,6 +33,7 @@
         line-height: 30px;
         align-self: center;
         padding: 10px 25px;
+        flex: 1;
     }
 
     .top-table {
@@ -44,6 +45,47 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+    }
+    
+    .date-filter {
+        display: flex;
+    }
+    
+    .filter-set {
+        margin-right: 10px; 
+    }
+    
+    .filter-button {
+        background-color: green;
+        color: white;
+        border-radius: 6px;
+        padding: 0 10px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .filter-button:hover {
+        background-color: #66BB6A;
+        margin-left: 0%;
+        border-radius: 6px;
+        color: black;
+    }
+
+    @media screen and (max-width: 768px) {
+        .top-table {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    
+        .filter-set {
+            margin-bottom: 10px; 
+        }
+    
+        .filter-button {
+            align-self: center; 
+        }
     }
 
     .card-footer {
@@ -87,6 +129,15 @@
         border: none; 
     }
 
+    select {
+        padding: 4px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-right: 8px;
+        width: fit-content;
+    }
+    
     .table {
         width: 100%;
         border-collapse: collapse;
