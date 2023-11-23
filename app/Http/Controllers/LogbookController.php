@@ -2,18 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use App\Models\User;
 use App\Models\Logbook;
 use App\Models\BlockList;
 use Illuminate\Http\Request;
+use App\Services\LogbookService;
+use Illuminate\Support\Facades\Response;
 use App\Console\Commands\NotificationService;
 
 class LogbookController extends Controller
 {
     protected $notificationService;
-    public function __construct(NotificationService $notificationService)
+    protected $logbookService;
+
+    public function __construct(NotificationService $notificationService, LogbookService $logbookService)
     {
         $this->notificationService = $notificationService;
+        $this->logbookService = $logbookService;
     }
     //Logbook will record when Visitor will out
     public function out($id) {
@@ -120,6 +127,20 @@ public function checkIfMvoOn(Request $request){
 
         return response()->json(['message' => 'success', 'data' => $validatedData], 200);
     }
+    public function getLbFilter(Request $request)
+    {
+        $fromDate = $request->input('fromYear') . '-' . $request->input('fromMonth') . '-' . $request->input('fromDay');
+        $toDate = $request->input('toYear') . '-' . $request->input('toMonth') . '-' . $request->input('toDay');
 
+        $logbookEntries = Logbook::with('homeowner', 'admin', 'visitor', 'personnel')
+            ->whereBetween('visit_date_in', [$fromDate, $toDate])
+            ->orderBy('visit_date_in', 'desc')
+            ->get();
+
+        return $this->logbookService->generatePdfFromLogbook($logbookEntries, $fromDate, $toDate);
+    }
+   
+    
+    
     
 }
