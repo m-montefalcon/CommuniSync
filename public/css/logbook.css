@@ -217,6 +217,8 @@
     .pagination .page-item.active .page-link {
         background-color: #218838; 
         border-color: #218838;
+        color: black;
+        font-weight: bold;
     }
 
     .pagination .page-link {

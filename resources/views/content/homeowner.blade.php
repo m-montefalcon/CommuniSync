@@ -1,13 +1,12 @@
 @include('partials.__header')
 @include('components.nav')
 <html>
+
 <head>
   <title> Homeowner </title>
   <link rel="stylesheet" href="{{ asset('css/user.css') }}">
   <link rel="stylesheet">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.0/css/all.css">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-
 </head>
 
 <body>
@@ -32,7 +31,7 @@
                     </div>
                     <div class="card-body">
                         <div id="table">
-                            <table class="table table-bordered table-stripe">
+                            <table class="table">
                                 <tbody>
                                     <tr>
                                         <th>User Name</th>
@@ -77,9 +76,8 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                              <div class="d-flex justify-content-center">
-                              {{ $homeowners->appends(['search' => request()->input('search')])->links("pagination::bootstrap-4") }}
-
+                            <div class="d-flex justify-content-center">
+                                {{ $homeowners->appends(['search' => request()->input('search')])->links("pagination::bootstrap-4") }}
                             </div>
                         </div>
                     </div>
@@ -99,8 +97,6 @@
                 window.location.href = url;
             });
         });
-
-      
     </script>
     
 </body>

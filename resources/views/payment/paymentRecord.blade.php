@@ -57,7 +57,6 @@
                                             <td colspan="4">No Users found.</td>
                                         </tr>
                                     @endforelse
-
                                 </tbody>
                             </table>
                         </div>
