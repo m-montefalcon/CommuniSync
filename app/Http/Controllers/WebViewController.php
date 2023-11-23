@@ -26,6 +26,11 @@ class WebViewController extends Controller
         return view('user.landingPage');
 
     }
+
+    public function returnTermsAndCondition() {
+        return view('user.termsAndCondition');
+    }
+
     public function returnLoginWebView(){
         return view('user.login');
     }
