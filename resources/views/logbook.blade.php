@@ -183,12 +183,12 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         function filterLogbook() {
-            var fromDay = document.getElementsByName("fromDay")[0].value;
-            var fromMonth = document.getElementsByName("fromMonth")[0].value;
-            var fromYear = document.getElementsByName("fromYear")[0].value;
-            var toDay = document.getElementsByName("toDay")[0].value;
-            var toMonth = document.getElementsByName("toMonth")[0].value;
-            var toYear = document.getElementsByName("toYear")[0].value;
+            var fromDay = document.querySelector('[name="fromDay"]').value;
+            var fromMonth = document.querySelector('[name="fromDropdown"]').value;
+            var fromYear = document.querySelector('[name="yearFromDropdown"]').value;
+            var toDay = document.querySelector('[name="toDay"]').value;
+            var toMonth = document.querySelector('[name="toDropdown"]').value;
+            var toYear = document.querySelector('[name="yearToDropdown"]').value;
 
             if (!fromDay || !fromMonth || !fromYear || !toDay || !toMonth || !toYear) {
                 alert('Please select a complete date range.');
@@ -201,6 +201,7 @@
 
             window.open(apiUrl, '_blank');
         }
+
     </script>
 
 </body>

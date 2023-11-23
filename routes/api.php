@@ -131,5 +131,6 @@ Route::middleware('auth:sanctum')->group(function () {
     //Logbook
         Route::put('user/logbook/out/{id}', [LogbookController::class, 'out'])->name('api.logbook.user.out');
         Route::get('user/logbook/check/out', [LogbookController::class, 'checkOut'])->name('api.logbook.user.check.out');
+        Route::get('admin/logbook/filter', [LogbookController::class, 'getLbFilter'])->name('admin.get.logbook.filter');
 
 });

@@ -1,6 +1,7 @@
-// LogbookService.php
-
 <?php
+
+namespace App\Services;
+
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use Illuminate\Support\Facades\Response;
@@ -29,10 +30,11 @@ class LogbookService
     }
 
     public function generateLogbookHtml($logbookEntries, $fromDate, $toDate)
-{
-    $html = <<<HTML
-<html>
-<head>
+    {
+        $html = '
+    <html>
+    <title>Logbook</title>
+    <head>
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; }
         h1 { text-align: center; }
@@ -42,67 +44,62 @@ class LogbookService
         tr:nth-child(even) {background-color: #f9f9f9;}
         .title { font-size: 16px; font-weight: bold; margin-bottom: 10px; }
     </style>
-</head>
-<body>
-    <h1>GREENVILLE SUBDIVISION</h1>
-    <h1>Logbook Records</h1>
-    <p class="title">From: $fromDate To: $toDate</p>
-    <table>
-        <tr>
-            <th>Visitor</th>
-            <th>Homeowner</th>
-            <th>Admin</th>
-            <th>Personnel</th>
-            <th>Destination Person</th>
-            <th>Contact Number</th>
-            <th>Visit In</th>
-            <th>Visit Out</th>
-            <th>Visit Members</th>
-        </tr>
-HTML;
-
-    foreach ($logbookEntries as $entry) {
-        $html .= <<<HTML
-        <tr>
-            <td>{optional($entry->visitor)->first_name} {optional($entry->visitor)->last_name}</td>
-            <td>{optional($entry->homeowner)->first_name} {optional($entry->homeowner)->last_name}</td>
-            <td>{optional($entry->admin)->first_name} {optional($entry->admin)->last_name}</td>
-            <td>{optional($entry->personnel)->first_name} {optional($entry->personnel)->last_name}</td>
-            <td>{$entry->destination_person}</td>
-            <td>{$entry->contact_number}</td>
-            <td>{$entry->visit_date_in} {$entry->visit_time_in}</td>
-            <td>{($entry->visit_date_out ? $entry->visit_date_out . ' ' . $entry->visit_time_out : 'Currently In')}</td>
-HTML;
-
-        $visitMembers = json_decode($entry->visit_members);
-
-        $html .= <<<HTML
-            <td>
-HTML;
-
-        if ($visitMembers === null) {
-            $html .= 'No member found';
-        } elseif (is_array($visitMembers)) {
-            $html .= implode(", ", $visitMembers);
-        } else {
-            $html .= $visitMembers;
+    </head>
+    <body>
+        <h1>GREENVILLE SUBDIVISION</h1>
+        <h1>Logbook Records</h1>
+        <p class="title">From: ' . $fromDate . ' To: ' . $toDate . '</p>
+        <table>
+            <tr>
+                <th>Visitor</th>
+                <th>Homeowner</th>
+                <th>Admin</th>
+                <th>Personnel</th>
+                <th>Destination Person</th>
+                <th>Contact Number</th>
+                <th>Visit In</th>
+                <th>Visit Out</th>
+                <th>Visit Members</th>
+            </tr>';
+    
+        foreach ($logbookEntries as $entry) {
+            $html .= '
+            <tr>
+                <td>' . ($entry->visitor->first_name ?? '') . ' ' . ($entry->visitor->last_name ?? '') . '</td>
+                <td>' . ($entry->homeowner->first_name ?? '') . ' ' . ($entry->homeowner->last_name ?? '') . '</td>
+                <td>' . ($entry->admin->first_name ?? '') . ' ' . ($entry->admin->last_name ?? '') . '</td>
+                <td>' . ($entry->personnel->first_name ?? '') . ' ' . ($entry->personnel->last_name ?? '') . '</td>
+                <td>' . $entry->destination_person . '</td>
+                <td>' . $entry->contact_number . '</td>
+                <td>' . $entry->visit_date_in . ' ' . $entry->visit_time_in . '</td>
+                <td>' . ($entry->visit_date_out ? $entry->visit_date_out . ' ' . $entry->visit_time_out : 'Currently In') . '</td>';
+    
+            $visitMembers = json_decode($entry->visit_members);
+    
+            $html .= '
+                <td>';
+    
+            if ($visitMembers === null) {
+                $html .= 'No member found';
+            } elseif (is_array($visitMembers)) {
+                $html .= implode(", ", $visitMembers);
+            } else {
+                $html .= $visitMembers;
+            }
+    
+            $html .= '
+                </td>
+            </tr>';
         }
-
-        $html .= <<<HTML
-            </td>
-        </tr>
-HTML;
+    
+        $html .= '
+        </table>
+    </body>
+    </html>';
+    
+        return $html;
     }
-
-    $html .= <<<HTML
-    </table>
-</body>
-</html>
-HTML;
-
-    return $html;
-}
-
+    
 
 
 }
