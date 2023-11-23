@@ -79,49 +79,47 @@ public function checkIfMvoOn(Request $request){
 }
 
 
-public function post(Request $request){
-    $validatedData = $request->validate([
-        'homeowner_id' => 'required',
-        'personnel_id' => 'required',
-        'contact_number' => 'required',
-        'destination_person' => 'required',
-        'visit_members' => 'required',
-    ]);
-    $validatedData['visit_date'] = now()->toDateString();
-    
-    $firstNames = [];
-    $lastNames = [];
-    
-    $visitMembers = json_decode($validatedData['visit_members'], true);
-    foreach ($visitMembers as $member) {
-        $names = explode(' ', $member);
-        $lastName = array_pop($names);
-        $firstName = implode(' ', $names);
-        $firstNames[] = $firstName;
-        $lastNames[] = $lastName;
-    }
-    $validatedData['visit_members'] = json_encode($visitMembers);
-    $currentDateTime = now();
-    $validatedData['visit_date_in'] = $currentDateTime->toDateString();
-    $validatedData['visit_time_in'] = $currentDateTime->toTimeString();
-    $isMemberBlocked = BlockList::memberBlock($firstNames, $lastNames);
-    
-    if ($isMemberBlocked) {
-        return response()->json(['message' => 'The user or a member is blocked and the operation is denied.'], 403);
-    }
-    
-    Logbook::create($validatedData);
-    $namesString = implode(', ', $visitMembers);
+    public function post(Request $request)
+    {
+        $validatedData = $request->validate([
+            'homeowner_id' => 'required',
+            'personnel_id' => 'required',
+            'contact_number' => 'required',
+            'destination_person' => 'required',
+            'visit_members' => 'required',
+        ]);
+        
+        $validatedData['visit_date'] = now()->toDateString();
+        
+        $visitMembers = json_decode($validatedData['visit_members'], true);
+        
+        $currentDateTime = now();
+        $validatedData['visit_date_in'] = $currentDateTime->toDateString();
+        $validatedData['visit_time_in'] = $currentDateTime->toTimeString();
+        
+        // Use the model's scope directly
+        $isMemberBlocked = BlockList::memberBlock($visitMembers);
 
-    $id = $validatedData['homeowner_id'];
-    $title = 'Control Access';
-    $body = "Visitors namely: $namesString, have been approved to visit you. They are own their way!";
+        if ($isMemberBlocked) {
+            return response()->json(['message' => 'The user or a member is blocked, and the operation is denied.'], 403);
+        }
 
-    $this->notificationService->sendNotificationById($id, $title, $body);
-    
-    return response()->json(['message' => 'success', 'data' => $validatedData], 200);
-}
-      
-    
+        // Update the visit_members field with the processed array
+        $validatedData['visit_members'] = json_encode($visitMembers);
+
+        // Create logbook entry
+        Logbook::create($validatedData);
+
+        // Send notification
+        $namesString = implode(', ', $visitMembers);
+        $id = $validatedData['homeowner_id'];
+        $title = 'Control Access';
+        $body = "Visitors namely: $namesString, have been approved to visit you. They are on their way!";
+
+        $this->notificationService->sendNotificationById($id, $title, $body);
+
+        return response()->json(['message' => 'success', 'data' => $validatedData], 200);
+    }
+
     
 }

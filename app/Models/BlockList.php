@@ -62,9 +62,16 @@ class BlockList extends Model
             $lastNames[] = $lastName;
         }
     
-        return $query->whereIn('first_name', $firstNames)
-                     ->whereIn('last_name', $lastNames)
-                     ->exists();
+        // Ensure that both arrays have elements
+        if (!empty($firstNames) && !empty($lastNames)) {
+            // Use a closure to ensure that both conditions must be met
+            $query->where(function ($query) use ($firstNames, $lastNames) {
+                $query->whereIn('first_name', $firstNames)
+                      ->whereIn('last_name', $lastNames);
+            });
+        }
+    
+        return $query->exists();
     }
     
     
