@@ -19,10 +19,11 @@
                 </div>   
                 <div class="card">
                     <div class="top-table">
-                        <a class="search-box">
-                            <i class="fas fa-search"></i>
-                            <input type="text" id="searchInput" placeholder="Search...">
-                        </a>  
+                    <form action="{{ route('admin') }}" method="GET" class="search-box" style="display: flex; align-items: center;">
+                        <i class="fas fa-search" style="margin-right: 5px;"></i>
+                        <input type="text" name="search" id="searchInput" class="form-control" value="{{request()->input('search')}}" placeholder="Search...">
+                        <button type="submit">Search</button>
+                    </form>
                         <a class="add-btn" href="{{ route('registerAdmin') }}">
                             <i class="fa-solid fa-user-plus"></i>
                         </a>                       
@@ -60,6 +61,8 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            {{ $admins->appends(['search' => request()->input('search')])->links("pagination::bootstrap-4") }}
+
                         </div>
                     </div>
                 </div>
@@ -79,29 +82,7 @@
             });
         });
 
-        $('#searchInput').on('input', function() {
-            var searchText = $(this).val().toLowerCase();
-
-            $('.clickable-row').each(function() {
-                var row = $(this);
-                var found = false;
-
-                row.find('td').each(function() {
-                    var cellText = $(this).text().toLowerCase();
-
-                    if (cellText.includes(searchText)) {
-                        found = true;
-                        return false;
-                    }
-                });
-
-                if (found) {
-                    row.show();
-                } else {
-                    row.hide();
-                }
-            });
-        });
+     
     </script>
     
 </body>

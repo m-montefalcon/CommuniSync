@@ -19,10 +19,11 @@
                 </div>  
                 <div class="card">               
                     <div class="top-table">
-                        <a class="search-box">
-                            <i class="fas fa-search"></i>
-                            <input type="text" id="searchInput" placeholder="Search...">
-                        </a>  
+                        <form action="{{ route('visitor') }}" method="GET" class="search-box" style="display: flex; align-items: center;">
+                            <i class="fas fa-search" style="margin-right: 5px;"></i>
+                            <input type="text" name="search" id="searchInput" class="form-control" value="{{request()->input('search')}}" placeholder="Search...">
+                            <button type="submit">Search</button>
+                        </form>
                         <a class="add-btn" href="{{ route('registerVisitor') }}">
                             <i class="fa-solid fa-user-plus"></i>
                         </a>                       
@@ -50,6 +51,8 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            {{ $visitors->appends(['search' => request()->input('search')])->links("pagination::bootstrap-4") }}
+
                         </div>
                     </div>
                 </div>
@@ -69,19 +72,6 @@
             });
         });
 
-        $('#searchInput').on('input', function() {
-            var searchText = $(this).val().toLowerCase();
-
-            $('.clickable-row').each(function() {
-                var names = $(this).find('td:nth-child(3)').text().toLowerCase();
-
-                if (names.includes(searchText)) {
-                    $(this).show();
-                } else {
-                    $(this).hide();
-                }
-            });
-        });
     </script>
 
 </body>

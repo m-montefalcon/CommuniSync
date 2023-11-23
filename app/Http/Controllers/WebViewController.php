@@ -63,21 +63,68 @@ class WebViewController extends Controller
         return view('content.profile');
     }
 
-    public function showVisitor(){
-        $visitors = User::checksRole(1);
+    public function showVisitor(Request $request){
+        $fetchAllVisitor = User::checksRole(1)->latest();
+    
+        if ($request->has('search') && !empty($request->input('search'))) {
+            $searchTerm = $request->input('search');
+            $fetchAllVisitor->search($searchTerm);
+        }
+    
+        $visitors = $fetchAllVisitor->paginate(2);
+    
+        // Append the search query to the pagination links
+        $visitors->appends(['search' => $request->input('search')]);
+    
         return view('content.visitor', compact('visitors'));
         
     }
-    public function showHomeowner(){
-        $homeowners = User::checksRole(2);
+    public function showHomeowner(Request $request)
+    {
+        $fetchAllHomeowner = User::checksRole(2)->latest();
+    
+        if ($request->has('search') && !empty($request->input('search'))) {
+            $searchTerm = $request->input('search');
+            $fetchAllHomeowner->search($searchTerm);
+        }
+    
+        $homeowners = $fetchAllHomeowner->paginate(2);
+    
+        // Append the search query to the pagination links
+        $homeowners->appends(['search' => $request->input('search')]);
+    
         return view('content.homeowner', compact('homeowners'));
     }
-    public function showPersonnel(){
-        $personnels = User::checksRole(3);
+    
+    public function showPersonnel(Request $request){
+
+        $fetchAllPersonnel = User::checksRole(3)->latest();
+    
+        if ($request->has('search') && !empty($request->input('search'))) {
+            $searchTerm = $request->input('search');
+            $fetchAllPersonnel->search($searchTerm);
+        }
+    
+        $personnels = $fetchAllPersonnel->paginate(2);
+    
+        // Append the search query to the pagination links
+        $personnels->appends(['search' => $request->input('search')]);
         return view('content.personnel', compact('personnels'));
     }
-    public function showAdmin(){
-        $admins = User::checksRole(4);
+    public function showAdmin(Request $request){
+        
+        $fetchAllAdmin = User::checksRole(4)->latest();
+    
+        if ($request->has('search') && !empty($request->input('search'))) {
+            $searchTerm = $request->input('search');
+            $fetchAllAdmin->search($searchTerm);
+        }
+    
+        $admins = $fetchAllAdmin->paginate(2);
+    
+        // Append the search query to the pagination links
+        $admins->appends(['search' => $request->input('search')]);
+ 
         return view('content.admin', compact('admins'));
     }
 

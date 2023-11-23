@@ -62,6 +62,17 @@ class User extends Authenticatable
     {
         return $this->hasMany(Announcement::class);
     }
+    public function scopeSearch($query, $searchTerm)
+    {
+        $searchTerms = explode(' ', $searchTerm);
+
+        return $query->where(function ($q) use ($searchTerms) {
+            foreach ($searchTerms as $term) {
+                $q->where('first_name', 'like', '%' . $term . '%')
+                    ->orWhere('last_name', 'like', '%' . $term . '%');
+            }
+        });
+    }
 
     public function scopeCheckMvo($query, $firstName, $lastName, $role){
         return $query->where('first_name', $firstName)
@@ -89,9 +100,10 @@ class User extends Authenticatable
     }
     public function scopeChecksRole($query, $role){
         return $query->where('role', $role)
-                     ->get();
-                     
+                     ->orderBy('first_name')
+                     ->orderBy('last_name');
     }
+    
 
 }
 
