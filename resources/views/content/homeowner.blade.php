@@ -59,7 +59,7 @@
                                                 $commaSeparatedMember = implode(", ", $family_members);
                                             } else {
                                                 // Handle the case where decoding fails or the result is not an array
-                                                $commaSeparatedMember = "Invalid data format";
+                                                $commaSeparatedMember = "No family member";
                                             }
                                         @endphp
                                         <td>{{ $commaSeparatedMember }}</td>
