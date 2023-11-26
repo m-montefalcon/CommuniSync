@@ -48,12 +48,14 @@ use App\Models\VerificationRequest;
     Route::post('/register/store/mobile', [AuthController::class, 'mobileStore'])->name('api.register.store.mobile');
     Route::post('/login/store/mobile', [AuthController::class, 'loginMobile'])->name('api.login.store.mobile');
 // Other public routes...
+Route::get('/dashboard/announcement/fetch/mobile/{id}', [AnnouncementController::class, 'dashboardAnnouncementFetchMobile'])->name('dashboardAnnouncementFetchMobile');
 
 Route::get('/announcement/fetch/mobile/{id}', [AnnouncementController::class, 'announcementFetchMobile'])->name('announcementFetchMobile');
 Route::get('admin/complaint/get/all/complaint/by/{id}', [ComplaintController::class, 'fetchByHomeowner'])->name('api.admin.complaint.get.all.complaint.by.id');
 Route::post('user/complaint/store/mobile', [ComplaintController::class, 'storeMobile'])->name('api.user.complaint.store');
 Route::put('admin/complaint/update/{id}', [ComplaintController::class, 'update'])->name('api.admin.complaint.update');
 Route::put('admin/complaint/close/{id}', [ComplaintController::class, 'close'])->name('api.admin.complaint.close');
+Route::get('admin/complaint/get/all/dashboard/complaint/by/{id}', [ComplaintController::class, 'dashboardFetchByHomeowner'])->name('admin.complaint.get.all.dashboard.complaint.by.id');
 
 
 

@@ -131,12 +131,29 @@ class ComplaintController extends Controller
     }
     
     
-    public function fetchByHomeowner($id){
-        // @dd($id);
-        // $fetchALlComplaints =  Complaint::with('homeowner')->with('admin')->where('complaint_status', 1)->orWhere('complaint_status', 2)->get();
-        $fetchALlComplaints =  Complaint::with('admin')->fetchAllComplaintsByHomeowner($id);
-        
-        return response()->json(['data' => $fetchALlComplaints,], 200);
-
+    public function fetchByHomeowner($id) {
+        $fetchALlComplaints = Complaint::with('admin')
+            ->where('homeowner_id', $id)
+            ->whereIn('complaint_status', [1, 2, 3])
+            ->latest('complaint_date') // Order by creation date in descending order
+            ->get();
+    
+        return response()->json(['data' => $fetchALlComplaints], 200);
     }
+    
+    
+    public function dashboardFetchByHomeowner($id) {
+        $fetchLatestComplaints = Complaint::with('admin')
+            ->fetchAllComplaintsByHomeowner($id)
+            ->sortByDesc('complaint_date')
+            ->take(2);
+    
+        return response()->json(['data' => $fetchLatestComplaints->values()], 200);
+    }
+    
+    
+    
+    
+    
+    
 }
