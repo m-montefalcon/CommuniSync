@@ -76,12 +76,41 @@ class WebViewController extends Controller
     }
 
 
-    //CONTENTS ROUTES
-    public function returnHomeView(){
+    public function returnHomeView() {
+        // Get the current month
+        $currentMonth = Carbon::now()->month;
+        // Count visits for the current month with logbook_status 2
+        $visitCount = Logbook::where('logbook_status', 2)
+            ->whereMonth('visit_date_in', $currentMonth)
+            ->count();
+        // Count complaints for the current month
+        $numberOfComplaints = Complaint::whereMonth('complaint_date', $currentMonth)
+            ->count();
+        // Calculate the total amount for payment records for the current month
+        $totalPaymentAmount = PaymentRecord::whereMonth('payment_date', $currentMonth)
+            ->sum('payment_amount');
+        // Count announcement for the current month
+        $numberOfAnnouncement = Announcement::whereMonth('announcement_date', $currentMonth)
+            ->count();
+        // Count users where the role is 2
+        $numberOfHomeowner = User::where('role', 2)
+            ->count();
+        // Count total number of users
+        $totalUsersCount = User::count();
+        $data = [
+            'visitCount' => $visitCount,
+            'complaintsCount' => $numberOfComplaints,
+            'paymentCount' => $totalPaymentAmount,
+            'homeownerCount' => $numberOfHomeowner,
+            'announcementCount' => $numberOfAnnouncement,
+            'totalAmountPayment' => $totalPaymentAmount,
+            'totalUsersCount' => $totalUsersCount,
 
-        return view('content.home');
+
+        ];
+    
+        return view('content.home', $data);
     }
-
     public function returnProfileView(){
         return view('content.profile');
     }
@@ -276,12 +305,6 @@ class WebViewController extends Controller
     }
 
 
-
-
-
-
-
-    
     public function showBlockedListsRequests(){
         $blocklists = BlockList::with('homeowner')->where('blocked_status', 1)->get();
         return view('blockedLists.blockedLists', compact('blocklists'));
