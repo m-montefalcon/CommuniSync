@@ -51,6 +51,8 @@ class VerifyCsrfToken extends Middleware
         'api/admin/payment/records/get/*',
         'api/user/payment/records/status/*',
         'api/user/payment/save/records/*',
+       'api/admin/complaint/get/all/dashboard/complaint/by/*',
+       'api/dashboard/announcement/fetch/mobile/*',
         'api/admin/complaint/get/all/complaint/by/*',
         'api/user/complaint/store/mobile',
         'api/admin/complaint/fetch',

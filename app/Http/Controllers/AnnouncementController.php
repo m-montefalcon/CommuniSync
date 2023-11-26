@@ -40,10 +40,24 @@ class AnnouncementController extends Controller
     }
 
     public function announcementFetchMobile($id){
-       
-
         // Fetch announcements based on the user's role
-        $announcements = Announcement::withRole($id)->with('admin')->get();
+        $announcements = Announcement::withRole($id)
+            ->with('admin')
+            ->orderByDesc('announcement_date') // Order by announcement date in descending order
+            ->get();
+    
         return response()->json(['data' => $announcements], 200);
     }
+    
+    public function dashboardAnnouncementFetchMobile($id){
+        // Fetch announcements based on the user's role
+        $announcements = Announcement::withRole($id)
+            ->with('admin')
+            ->orderByDesc('announcement_date') // Order by announcement date in descending order
+            ->take(5) // Limit the results to 5
+            ->get();
+    
+        return response()->json(['data' => $announcements], 200);
+    }
+    
 }
