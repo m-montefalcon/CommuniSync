@@ -206,12 +206,12 @@ class WebViewController extends Controller
     }
     public function showRequests()
     {
-        $verifyRequests = VerificationRequest::with('user')->get();
+        $verifyRequests = VerificationRequest::with('user')->orderBy('created_at', 'desc')->get();
         return view('verification.verificationRequest', compact('verifyRequests'));
     }
 
     public function show(){
-        $announcements = Announcement::with('admin')->get();
+        $announcements = Announcement::with('admin')->orderBy('announcement_date', 'desc')->get();
         return view('announcement.announcement', compact('announcements'));
     }
 
@@ -229,18 +229,25 @@ class WebViewController extends Controller
         return view('announcement.viewAnnouncement', compact('announcement'));
 
     }
-    public function getAllCAF(){
+    public function getAllCAF()
+    {
+        // Retrieve control access records with visitors and homeowners, where visit_status is '2', ordered by created_at in descending order
         $fetchRequests = ControlAccess::with('visitor', 'homeowner')
-        ->where('visit_status', '2')
-        ->get();
-        
+            ->where('visit_status', '2')
+            ->orderBy('created_at', 'desc')
+            ->get();
+    
+        // Pass the control access data to the view
         return view('accessControl.accessControl', compact('fetchRequests'));
-
     }
+    
 
     public function fetch(){
         // $fetchALlComplaints =  Complaint::with('homeowner')->with('admin')->where('complaint_status', 1)->orWhere('complaint_status', 2)->get();
-        $fetchALlComplaints = Complaint::status(1, 2)->with('homeowner', 'admin')->get();
+        $fetchALlComplaints = Complaint::status(1, 2)
+        ->with('homeowner', 'admin')
+        ->orderBy('complaint_date', 'desc')
+        ->get();
         foreach ($fetchALlComplaints as $complaint) {
             $complaint->complaint_updates = json_decode($complaint->complaint_updates);
         }
@@ -249,8 +256,10 @@ class WebViewController extends Controller
     }
     public function fetchComplaintsHistory(){
         // $fetchALlComplaints =  Complaint::with('homeowner')->with('admin')->where('complaint_status', 1)->orWhere('complaint_status', 2)->get();
-        $fetchALlComplaints = Complaint::where('complaint_status', 3)->get();
-       return view('complaints.complaintsHistory', compact('fetchALlComplaints'));
+        $fetchALlComplaints = Complaint::where('complaint_status', 3)
+        ->orderBy('complaint_date', 'desc')
+        ->get();
+        return view('complaints.complaintsHistory', compact('fetchALlComplaints'));
     }
     public function getLb(Request $request)
     {

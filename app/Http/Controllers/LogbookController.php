@@ -57,12 +57,17 @@ class LogbookController extends Controller
     
 
     public function checkOut(){
-        $fetchRequests = Logbook::with('visitor')->with('homeowner')
+        $fetchRequests = Logbook::with('visitor')
+            ->with('homeowner')
             ->where('logbook_status', 1)
+            ->orderByDesc('visit_date_in')
+            ->orderByDesc('visit_time_in') // Order by visit_time_in in descending order
             ->get();
     
         return response(['data' => $fetchRequests], 200);
     }
+    
+    
     
     
 
