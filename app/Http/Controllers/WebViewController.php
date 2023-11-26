@@ -78,7 +78,7 @@ class WebViewController extends Controller
             $fetchAllVisitor->search($searchTerm);
         }
     
-        $visitors = $fetchAllVisitor->paginate(2);
+        $visitors = $fetchAllVisitor->paginate(30);
     
         // Append the search query to the pagination links
         $visitors->appends(['search' => $request->input('search')]);
@@ -95,7 +95,7 @@ class WebViewController extends Controller
             $fetchAllHomeowner->search($searchTerm);
         }
     
-        $homeowners = $fetchAllHomeowner->paginate(2);
+        $homeowners = $fetchAllHomeowner->paginate(30);
     
         // Append the search query to the pagination links
         $homeowners->appends(['search' => $request->input('search')]);
@@ -112,7 +112,7 @@ class WebViewController extends Controller
             $fetchAllPersonnel->search($searchTerm);
         }
     
-        $personnels = $fetchAllPersonnel->paginate(2);
+        $personnels = $fetchAllPersonnel->paginate(30);
     
         // Append the search query to the pagination links
         $personnels->appends(['search' => $request->input('search')]);
@@ -127,7 +127,7 @@ class WebViewController extends Controller
             $fetchAllAdmin->search($searchTerm);
         }
     
-        $admins = $fetchAllAdmin->paginate(2);
+        $admins = $fetchAllAdmin->paginate(30);
     
         // Append the search query to the pagination links
         $admins->appends(['search' => $request->input('search')]);
@@ -216,7 +216,7 @@ class WebViewController extends Controller
             $fetchAllLb->search($searchTerm);
         }
     
-        $fetchAllLb = $fetchAllLb->paginate(1)->appends(request()->query());
+        $fetchAllLb = $fetchAllLb->paginate(30)->appends(request()->query());
     
         return view('logbook', compact('fetchAllLb', 'request'));
     }
@@ -235,7 +235,7 @@ class WebViewController extends Controller
 
         $fetchALlRecords = PaymentRecord::with('homeowner', 'admin')
             ->orderBy('payment_date', 'desc') // Order by payment date in descending order (latest first)
-            ->paginate(10); // You can change the number 10 to the desired number of records per page
+            ->paginate(30); // You can change the number 10 to the desired number of records per page
     
         return view('payment.paymentAllHistory', compact('fetchALlRecords'));
     }
