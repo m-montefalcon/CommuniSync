@@ -29,12 +29,15 @@
         centralized platform on visitor management to monitor visitation, manage visitor registration, 
         and handle notification alerts, ensuring a safe environment for residents.</h5>
       </div>
-      <button class="download-button" type="submit">
-        Download CommuniSync.apk
-        <div class="button-container">
-          <i class="fa-solid fa-download"></i>
-        </div>  
-      </button>
+      <form action="{{ url('/downloadApk') }}" method="get">
+        <button class="download-button" type="submit">
+            Download CommuniSync.apk
+            <div class="button-container">
+              <i class="fa-solid fa-download"></i>
+            </div>  
+        </button>
+      </form>
+
     </div>
     <div class="phone-container">
       <img src="Assets/landing-page-img.png" class="phone-img">

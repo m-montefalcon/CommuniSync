@@ -34,6 +34,22 @@ class WebViewController extends Controller
         return view('user.landingPage');
 
     }
+    public function downloadApk()
+    {
+        $filePath = public_path('apk/communisync.apk');
+
+        // Check if the file exists
+        if (file_exists($filePath)) {
+            $headers = [
+                'Content-Type' => 'application/vnd.android.package-archive',
+            ];
+
+            return response()->download($filePath, 'communisync.apk', $headers);
+        } else {
+            // If the file does not exist, return a response indicating that
+            return response()->json(['error' => 'APK file not found'], 404);
+        }
+    }
 
     public function returnTermsAndCondition() {
         return view('user.termsAndCondition');
