@@ -50,10 +50,12 @@ class ControlAccess extends Model
     }
 
     public function scopeFetchRequests($query, $id){
-        return $query ->where('homeowner_id', $id)
-                      ->where('visit_status', 1)
-                      ->get();
+        return $query->where('homeowner_id', $id)
+                     ->where('visit_status', 1)
+                     ->orderByDesc('created_at') 
+                     ->get();
     }
+    
 
     public function scopeCheckQr($query, $id, $homeowner_id, $visitor_id){
         return $query -> where('id', $id)
@@ -71,8 +73,10 @@ class ControlAccess extends Model
                     ->orWhere('visit_status', 6)
                     ->orWhereNotNull('qr_code'); // Add this condition
             })
+            ->orderByDesc('created_at') // Replace 'your_column_name' with the actual column name
             ->get();
     }
+    
     
     
 }

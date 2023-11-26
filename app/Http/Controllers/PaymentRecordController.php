@@ -47,8 +47,11 @@ class PaymentRecordController extends Controller
         return response()->json([$fetchRequests, 200]);
     }
     public function getStatus($id){
-        $fetchRecords = PaymentRecord::with('admin')->where('homeowner_id', $id)->get();
-        $fetchAllAmount = PaymentRecord::where('homeowner_id', $id)->pluck('payment_amount');
+        $fetchRecords = PaymentRecord::with('admin')
+        ->where('homeowner_id', $id)
+        ->orderByDesc('payment_date') // Order by payment date in descending order
+        ->get();
+            $fetchAllAmount = PaymentRecord::where('homeowner_id', $id)->pluck('payment_amount');
         $totalAmount = $fetchAllAmount->sum();
         $monthsToAdd = floor($totalAmount / 200); // Round down to the nearest whole number of months to add
     
