@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Logbook;
 use App\Models\BlockList;
+use App\Events\NewCAFEvent;
 use Illuminate\Http\Request;
 use App\Models\ControlAccess;
 use Illuminate\Support\Carbon;
@@ -82,6 +83,7 @@ class ControlAccessController extends Controller
         $validatedData['date'] = now()->toDateString();
         $validatedData['time'] = now()->toTimeString();
         $id->update($validatedData);
+        broadcast(new NewCAFEvent($validatedData))->toOthers();
         return response()->json(['accepted' => true, 'id' => $id], 200);
     }
     
