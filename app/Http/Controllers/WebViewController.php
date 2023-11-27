@@ -89,6 +89,8 @@ class WebViewController extends Controller
         // Calculate the total amount for payment records for the current month
         $totalPaymentAmount = PaymentRecord::whereMonth('payment_date', $currentMonth)
             ->sum('payment_amount');
+            $paymentCount = PaymentRecord::whereMonth('payment_date', $currentMonth)
+            ->count();
         // Count announcement for the current month
         $numberOfAnnouncement = Announcement::whereMonth('announcement_date', $currentMonth)
             ->count();
@@ -100,7 +102,7 @@ class WebViewController extends Controller
         $data = [
             'visitCount' => $visitCount,
             'complaintsCount' => $numberOfComplaints,
-            'paymentCount' => $totalPaymentAmount,
+            'paymentCount' => $paymentCount,
             'homeownerCount' => $numberOfHomeowner,
             'announcementCount' => $numberOfAnnouncement,
             'totalAmountPayment' => $totalPaymentAmount,
