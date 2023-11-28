@@ -218,7 +218,7 @@ class WebViewController extends Controller
     }
 
     public function show(){
-        $announcements = Announcement::with('admin')->orderBy('announcement_date', 'desc')->get();
+        $announcements = Announcement::with('admin')->orderBy('created_at', 'desc')->get();
         return view('announcement.announcement', compact('announcements'));
     }
 
