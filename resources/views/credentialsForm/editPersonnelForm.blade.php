@@ -1,6 +1,7 @@
 @include('partials.__header')
 @include('components.nav')
 <html>
+
 <head>
   <title> EDIT PERSONNEL </title>
   <link rel="stylesheet" href="{{ asset('css/usersProfileView.css') }}">
@@ -151,8 +152,7 @@
     });
   </script>
 
-</html>
 </body>
-
+</html>
 @include('partials.__footer')
 

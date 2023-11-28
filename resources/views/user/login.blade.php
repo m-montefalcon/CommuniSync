@@ -8,6 +8,8 @@
 </head>
 
 <body>
+<img src="Assets/gradient-bg.jpg" class="bg-img">
+
   <div class="card">
     <form action="{{ route('api.login.store') }}" method="POST">
       @csrf

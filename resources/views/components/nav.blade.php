@@ -1,5 +1,6 @@
 @include('partials.__header')
 <html>
+
 <head>
   <title> Login </title>
   <link rel="stylesheet" href="{{ asset('css/sideNavbar.css') }}">
@@ -34,7 +35,7 @@
           </li>
           <li>
             <a class="side-link @if(Request::is('blockedlists/request')) active @endif" href="{{ route('blockedlists.request') }}">
-              <span class="icon"> <i class="fa-solid fa-address-book"></i> </span>
+              <span class="icon"> <i class="fa-solid fa-user-large-slash"></i> </span>
               <span class="text">Blocked List</span>
               <span class="tooltip"> Blocked List </span>
             </a>
@@ -150,7 +151,6 @@
       </div>
       <main class="home-section"> </main>
       
-
   <script>
     let menu = document.querySelector('#menu-icon');
     let sidenavbar = document.querySelector('.side-navbar');

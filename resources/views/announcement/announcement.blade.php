@@ -180,8 +180,8 @@
             });
         });
     </script>
-</body>
 
+</body>
 </html>
 
 @include('partials.__footer')
