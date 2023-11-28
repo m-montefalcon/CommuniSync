@@ -105,7 +105,9 @@
                         
                         <div class="input-box">
                             <div class="input-group-prepend">
-                               
+                                <span class="input-icon"> 
+                                    <i class="fa-solid fa-key"></i>
+                                </span>
                             </div>
                             <label for="pin">PIN Code:</label>
                             <input type="password" id="pin" name="pin" required>
