@@ -30,6 +30,11 @@ class WebViewController extends Controller
         $this->paymentRecordService = $paymentRecordService;
     }
     //USER ROUTES
+    public function superuserRegister(){
+        return view('user.superuser');
+
+    }
+
     public function returnLandingPageView(){
         return view('user.landingPage');
 

@@ -46,6 +46,8 @@ use App\Models\VerificationRequest;
 
 // User mobile APIs
     Route::post('/register/store/mobile', [AuthController::class, 'mobileStore'])->name('api.register.store.mobile');
+
+    Route::post('/register/admin/account', [AuthController::class, 'adminStore'])->name('api.register.admin.account');
     Route::post('/login/store/mobile', [AuthController::class, 'loginMobile'])->name('api.login.store.mobile');
 // Other public routes...
 Route::get('/dashboard/announcement/fetch/mobile/{id}', [AnnouncementController::class, 'dashboardAnnouncementFetchMobile'])->name('dashboardAnnouncementFetchMobile');

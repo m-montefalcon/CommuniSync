@@ -26,6 +26,8 @@ use App\Http\Controllers\AnnouncementController;
 //update - update a data
 //destroy - delete a data
 
+
+Route::get('/superuser/register', [WebViewController::class, 'superuserRegister'])->name('superuser.register');
 Route::get('/', [WebViewController::class, 'returnLandingPageView']);
 Route::get('/login', [WebViewController::class, 'returnLoginWebView'])->name('login');
 Route::get('/registerVisitor', [WebViewController::class, 'returnRegisterVisitorView'])->name('registerVisitor');
