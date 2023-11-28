@@ -9,7 +9,7 @@
 <body>
     <div class="nav-bar">
         <nav class="main-nav">
-        <img src="Assets/official-logo-green.png" alt="logo">
+        <img src="{{ asset('Assets/official-logo-green.png') }}" alt="logo">
         <ul class="nav">
             <li class="scroll-to-section"><a href="/" class="active">Home</a></li>
             <li class="scroll-to-section"><a href="/termsAndCondition">Terms and Condition</a></li>
@@ -18,7 +18,7 @@
         </nav>
     </div>
     <div class="main-body">
-        <img src="Assets/gradient-bg.jpg" class="bg-img">
+        <img src="{{ asset('Assets/gradient-bg.jpg') }}" class="bg-img">
         <div class="body-header">
             <span>Communisync Terms and Condition</span>
         </div>
