@@ -1,6 +1,7 @@
 @include('partials.__header')
 @include('components.nav')
 <html>
+
 <head>
   <title> Visitor </title>
   <link rel="stylesheet" href="{{ asset('css/user.css') }}">
@@ -81,8 +82,6 @@
                 window.location.href = url;
             });
         });
-
-     
     </script>
     
 </body>

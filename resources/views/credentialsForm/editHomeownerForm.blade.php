@@ -1,6 +1,7 @@
 @include('partials.__header')
 @include('components.nav')
 <html>
+
 <head>
   <title> EDIT VISITOR </title>
   <link rel="stylesheet" href="{{ asset('css/usersProfileView.css') }}">
@@ -245,7 +246,6 @@
       var editForm = document.getElementById('editForm');
       editForm.style.display = (editForm.style.display === 'none' || editForm.style.display === '') ? 'block' : 'none';
     });
-
   </script>
   
 </body>  

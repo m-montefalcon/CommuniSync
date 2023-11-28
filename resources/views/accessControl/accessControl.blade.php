@@ -1,6 +1,7 @@
 @include('partials.__header')
 @include('components.nav')
 <html>
+    
 <head>
   <title> Access Control </title>
   <link rel="stylesheet" href="{{ asset('css/accessControl.css') }}">

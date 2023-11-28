@@ -3,7 +3,7 @@
 <html>
     
 <head>
-    <title>Payment</title>
+    <title> Payment </title>
     <link rel="stylesheet" href="{{ asset('css/payment.css') }}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.0/css/all.css">
 </head>
@@ -171,6 +171,6 @@
         });
     </script>
 
-    @include('partials.__footer')
 </body>
 </html>
+@include('partials.__footer')

@@ -1,6 +1,7 @@
 @include('partials.__header')
 @include('components.nav')
 <html>
+
 <head>
   <title> CREATE ANNOUNCEMENT </title>
   <link rel="stylesheet" href="{{ asset('css/announcementForm.css') }}">
@@ -45,7 +46,8 @@
             </div>
         </div>
     </div>
-</html>
+
 </body>
+</html>
 
 @include('partials.__footer')

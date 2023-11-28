@@ -350,7 +350,6 @@
         border-radius: 10px;
         border: none;
         position: relative;
-        /* margin-top: 15px; */
         margin-bottom: 15px;
         box-shadow: 0px 0px 10px #BDBDBD;
         width: 100%;
@@ -386,7 +385,6 @@
 		margin-bottom: 15px;
 		box-shadow: 0px 0px 10px #BDBDBD;
 		width: 40%; 
-		/* height: 250px;  */
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -397,7 +395,6 @@
 	.card-profile img {
 		height: 250px;
 		width: 250px;
-		/* width: auto;  */
 		max-width: 100%;
 		object-fit: cover; 
 		object-position: center;
@@ -421,21 +418,7 @@
 		font-size: 14px;
 		padding: 5px 10px;
 		color: #000;
-		/* text-align: left; */
 	}
-
-	/* .user-profile img {
-		height: 250px;
-		width: 250px;
-		object-fit: contain;
-		object-position: center;
-		border-radius: 50%;
-		cursor: pointer;
-		margin: 15px;
-		max-width: 100%;
-		max-height: 100%;
-		box-sizing: border-box;
-	} */
 
 	@media screen and (max-width: 768px) {
 		.user-profile {

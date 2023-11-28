@@ -1,6 +1,7 @@
 @include('partials.__header')
 @include('components.nav')
 <html>
+
 <head>
   <title> Security Personnel </title>
   <link rel="stylesheet" href="{{ asset('css/user.css') }}">
@@ -61,6 +62,7 @@
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
     <script>
         $(document).ready(function() {
             // Add a click event to all elements with the class "clickable-row"
@@ -71,8 +73,6 @@
                 window.location.href = url;
             });
         });
-
-        
     </script>
     
 </body>
