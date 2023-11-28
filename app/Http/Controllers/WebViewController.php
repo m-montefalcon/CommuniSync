@@ -41,7 +41,7 @@ class WebViewController extends Controller
     }
     public function downloadApk()
     {
-        $filePath = public_path('apk/communisync.APK');
+        $filePath = public_path('apk/communisync.apk');
 
         // Check if the file exists
         if (file_exists($filePath)) {
