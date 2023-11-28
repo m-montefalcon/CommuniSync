@@ -222,6 +222,7 @@
 	#block_no,
 	#lot_no,
 	#manual_visit_option,
+	#pin,
 	.input-member {
         border-left: 50px solid #ccc !important;
     }
