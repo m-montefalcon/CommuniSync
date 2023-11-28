@@ -26,8 +26,6 @@ use App\Http\Controllers\AnnouncementController;
 //update - update a data
 //destroy - delete a data
 
-
-
 Route::get('/', [WebViewController::class, 'returnLandingPageView']);
 Route::get('/login', [WebViewController::class, 'returnLoginWebView'])->name('login');
 Route::get('/registerVisitor', [WebViewController::class, 'returnRegisterVisitorView'])->name('registerVisitor');
@@ -36,7 +34,6 @@ Route::get('/registerPersonnel', [WebViewController::class, 'returnRegisterPerso
 Route::get('/registerAdmin', [WebViewController::class, 'returnRegisterAdminView'])->name('registerAdmin');
 Route::get('/termsAndCondition', [WebViewController::class, 'returnTermsAndCondition']);
 Route::get('/downloadApk', [WebViewController::class, 'downloadApk']);
-
 
 // QR Code Testing CAF
 Route::get('/test/qrcode', [WebViewController::class, 'test'])->name('test');
