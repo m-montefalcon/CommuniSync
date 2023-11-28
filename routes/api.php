@@ -49,25 +49,6 @@ use App\Models\VerificationRequest;
 
     Route::post('/register/admin/account', [AuthController::class, 'adminStore'])->name('api.register.admin.account');
     Route::post('/login/store/mobile', [AuthController::class, 'loginMobile'])->name('api.login.store.mobile');
-// Other public routes...
-Route::get('/dashboard/announcement/fetch/mobile/{id}', [AnnouncementController::class, 'dashboardAnnouncementFetchMobile'])->name('dashboardAnnouncementFetchMobile');
-
-Route::get('/announcement/fetch/mobile/{id}', [AnnouncementController::class, 'announcementFetchMobile'])->name('announcementFetchMobile');
-Route::get('admin/complaint/get/all/complaint/by/{id}', [ComplaintController::class, 'fetchByHomeowner'])->name('api.admin.complaint.get.all.complaint.by.id');
-Route::post('user/complaint/store/mobile', [ComplaintController::class, 'storeMobile'])->name('api.user.complaint.store');
-Route::put('admin/complaint/update/{id}', [ComplaintController::class, 'update'])->name('api.admin.complaint.update');
-Route::put('admin/complaint/close/{id}', [ComplaintController::class, 'close'])->name('api.admin.complaint.close');
-Route::get('admin/complaint/get/all/dashboard/complaint/by/{id}', [ComplaintController::class, 'dashboardFetchByHomeowner'])->name('admin.complaint.get.all.dashboard.complaint.by.id');
-
-
-
-Route::post('admin/payment/records/store', [PaymentRecordController::class, 'store'])->name('api.admin.payment.records.store');
-Route::get('admin/payment/records/get/{id}', [PaymentRecordController::class, 'getId'])->name('api.admin.payment.records.get');
-Route::get('user/payment/records/status/{id}', [PaymentRecordController::class, 'getStatus'])->name('api.user.payment.records.status');
-Route::get('user/payment/save/records/{id}', [PaymentRecordController::class, 'savePdfRecords'])->name('api.user.payment.save.records');
-Route::put('/update/mobile/{id}', [UserController::class, 'updateMobile'])->name('api.update.mobile');
-Route::post('update/profile/mobile/{id}', [UserController::class, 'updateProfilePicMobile'])->name('api.update.profile.mobile');
-Route::post('mvo/get/homeowner', [LogbookController::class, 'checkIfMvoOn'])->name('mvo.get.homeowner');
 
 // Routes that require authentication
 Route::middleware('auth:sanctum')->group(function () {
@@ -88,6 +69,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Announcement feature
         Route::post('/announcement/store', [AnnouncementController::class, 'announcementStore'])->name('announcementStore');
+        Route::get('/announcement/fetch/mobile/{id}', [AnnouncementController::class, 'announcementFetchMobile'])->name('announcementFetchMobile');
 
     // Control access feature 
     
@@ -126,9 +108,17 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('blockedlists/remove/{id}', [BlockListController::class, 'remove'])->name('api.blockedlists.remove');
 
     // Payment records
-       
+    Route::post('admin/payment/records/store', [PaymentRecordController::class, 'store'])->name('api.admin.payment.records.store');
+    Route::get('admin/payment/records/get/{id}', [PaymentRecordController::class, 'getId'])->name('api.admin.payment.records.get');
+    Route::get('user/payment/records/status/{id}', [PaymentRecordController::class, 'getStatus'])->name('api.user.payment.records.status');
+    Route::get('user/payment/save/records/{id}', [PaymentRecordController::class, 'savePdfRecords'])->name('api.user.payment.save.records');
     // Complaint feature
-      
+    Route::get('admin/complaint/get/all/complaint/by/{id}', [ComplaintController::class, 'fetchByHomeowner'])->name('api.admin.complaint.get.all.complaint.by.id');
+    Route::post('user/complaint/store/mobile', [ComplaintController::class, 'storeMobile'])->name('api.user.complaint.store');
+    Route::put('admin/complaint/update/{id}', [ComplaintController::class, 'update'])->name('api.admin.complaint.update');
+    Route::put('admin/complaint/close/{id}', [ComplaintController::class, 'close'])->name('api.admin.complaint.close');
+    Route::get('admin/complaint/get/all/dashboard/complaint/by/{id}', [ComplaintController::class, 'dashboardFetchByHomeowner'])->name('admin.complaint.get.all.dashboard.complaint.by.id');
+    
     // Manual visit options
         Route::post('mvo/post/homeowner', [LogbookController::class, 'post'])->name('mvo.post.homeowner');
 
@@ -137,4 +127,10 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('user/logbook/check/out', [LogbookController::class, 'checkOut'])->name('api.logbook.user.check.out');
         Route::get('admin/logbook/filter', [LogbookController::class, 'getLbFilter'])->name('admin.get.logbook.filter');
 
+        Route::put('/update/mobile/{id}', [UserController::class, 'updateMobile'])->name('api.update.mobile');
+        Route::post('update/profile/mobile/{id}', [UserController::class, 'updateProfilePicMobile'])->name('api.update.profile.mobile');
+        Route::post('mvo/get/homeowner', [LogbookController::class, 'checkIfMvoOn'])->name('mvo.get.homeowner');
+
+
+        Route::get('/dashboard/announcement/fetch/mobile/{id}', [AnnouncementController::class, 'dashboardAnnouncementFetchMobile'])->name('dashboardAnnouncementFetchMobile');
 });
