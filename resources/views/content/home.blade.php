@@ -17,16 +17,26 @@
         <div class="box-container">
             <h2>Monthly Summary</h2>
             <div class="flex-container">
-                <div class="boxes">
-                    <div class="box-divider">
-                        <i class="fa-solid fa-user"></i>   
-                    </div>
-                    <div class="box-title">
-                        <span>{{ $visitCount }}</span>
-                        <span>Visits</span>
-                    </div>
-                    <button onclick="handleButtonClick('visits')">More Info</button>
+            <div class="boxes">
+                <div class="box-divider">
+                    <i class="fa-solid fa-user"></i>
                 </div>
+                <div class="box-title">
+                    <span>{{ $visitCount }}</span>
+                    <span>Visits</span>
+                </div>
+                <button id="moreInfoButton">More Info</button>
+            </div>
+
+            <script>
+                document.getElementById('moreInfoButton').addEventListener('click', function() {
+                    window.location.href = "{{ route('admin.get.logbook') }}";
+                });
+            </script>
+
+
+
+
 
                 <div class="boxes">
                     <div class="box-divider">
@@ -36,9 +46,15 @@
                         <span>{{ $complaintsCount }}</span>
                         <span>Complaints</span>
                     </div>
-                    <button onclick="handleButtonClick('visits')">More Info</button>
+                    <button id="complaintsButton">More Info</button>
                 </div>
 
+                <script>
+                    document.getElementById('complaintsButton').addEventListener('click', function() {
+                        window.location.href = "{{ route('api.admin.complaint.fetch') }}";
+                    });
+                </script>
+                
                 <div class="boxes">
                     <div class="box-divider">
                         <i class="fa-solid fa-money-bill-1-wave"></i>
@@ -47,8 +63,15 @@
                         <span>{{ $paymentCount }}</span>
                         <span>Payments</span>
                     </div>
-                    <button onclick="handleButtonClick('visits')">More Info</button>
+                    <button id="paymentsButton">More Info</button>
                 </div>
+
+                <script>
+                    document.getElementById('paymentsButton').addEventListener('click', function() {
+                        window.location.href = "{{ route('admin.payment.all.users') }}";
+                    });
+                </script>
+
 
                 <div class="boxes">
                     <div class="box-divider">
@@ -58,8 +81,15 @@
                         <span>{{ $announcementCount }}</span>
                         <span class="announcement">Announcements</span>
                     </div>
-                    <button onclick="handleButtonClick('visits')">More Info</button>
+                    <button id="announcementButton">More Info</button>
                 </div>
+
+                <script>
+                    document.getElementById('announcementButton').addEventListener('click', function() {
+                        window.location.href = "{{ route('announcement') }}";
+                    });
+                </script>
+
             </div>
         </div>
         <div class="container-divider">

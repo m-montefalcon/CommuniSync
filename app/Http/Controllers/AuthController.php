@@ -21,8 +21,36 @@ use App\Http\Requests\AuthRequests\UserAuthStoreRequest;
 class AuthController extends Controller
 {
 
-
-
+    public function adminStore(UserAuthStoreRequest $request){
+        $validated = $request->validated();
+    
+        // Validate the PIN
+        $enteredPIN = $request->input('pin');
+        $predefinedPIN = config('app.predefined_pin');
+    
+        if ($enteredPIN !== $predefinedPIN) {
+            return redirect()->back()->withErrors(['pin' => 'Incorrect PIN code. Please try again.']);
+        }
+    
+        // PIN is correct, continue with user registration
+        $imagePath = null;
+        if ($request->hasFile('photo')) {
+            $imagePath = $request->file('photo')->store('user_profile', 'public');
+        }
+        $validated['photo'] = $imagePath;
+    
+        $validated['password'] = Hash::make($validated['password']);
+        $validated['role'] = 4;
+    
+        // Add the following line to store the FCM token
+        $validated['fcm_token'] = $request->input('fcm_token');
+    
+        $user = User::create($validated);
+    
+        return view('user.landingPage');
+    }
+    
+    
     public function login(UserLoginRequest $request)
     {
         $validated = $request->validated();

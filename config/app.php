@@ -28,6 +28,7 @@ return [
     | services the application utilizes. Set this in your ".env" file.
     |
     */
+    'predefined_pin' => env('PREDEFINED_PIN', '9b7f1b4537b1d731d14f008a7bff16223f2756df'),
 
     'env' => env('APP_ENV', 'production'),
 
