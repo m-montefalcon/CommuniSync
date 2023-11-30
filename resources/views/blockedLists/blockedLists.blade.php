@@ -14,7 +14,7 @@
             <div class="col-md-12">
                 <div class="header">
                     <h2>
-                        REQUESTS
+                        REQUEST BLOCKED
                     </h2>
                 </div>
                 <div class="card">
