@@ -15,7 +15,7 @@
             <div class="col-md-12">
                 <div class="header">
                     <h2>
-                        PAYMENT HISTORY
+                        MONTHLY DUE RECORDS
                     </h2>
                 </div>   
                 <div class="card">
