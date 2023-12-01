@@ -23,7 +23,7 @@
     background: white;
     overflow-y: auto;
     overflow-x: hidden;
-    transition: all 0.5s ease;
+    transition:  0.3s ease;
     padding: 6px 12px;
   }
 
@@ -32,7 +32,7 @@
     width: calc(100% - 200px);
     left: 200px;
     max-height: 100vh;
-    transition: 0.5s ease;
+    transition: all 0.3s ease;
   }
 
   .top-navbar {
@@ -79,8 +79,10 @@
   .side-navbar li a.side-link:hover{
     background: lightgreen;
   }
+  
 
-  .side-navbar li a.side-link.active{
+  .side-navbar li a.side-link.active, 
+  .dropdown.active {
     border-left: 4px solid lightgreen;
     border-bottom: 4px solid lightgreen;
   }

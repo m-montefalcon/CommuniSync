@@ -14,7 +14,7 @@
 		height: 100%;
 		z-index: -999999;
 		position: fixed;
-		filter: blur(100px);	
+		opacity: 85%;
 	}
 
 	.card {

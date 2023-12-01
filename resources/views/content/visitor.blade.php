@@ -20,8 +20,8 @@
                 </div>  
                 <div class="card">               
                     <div class="top-table">
-                        <form action="{{ route('visitor') }}" method="GET" class="search-box" style="display: flex; align-items: center;">
-                            <i class="fas fa-search" style="margin-right: 5px;"></i>
+                        <form action="{{ route('visitor') }}" method="GET" class="search-box">
+                            <i class="fas fa-search"></i>
                             <input type="text" name="search" id="searchInput" class="form-control" value="{{request()->input('search')}}" placeholder="Search...">
                             <button type="submit">Search</button>
                         </form>
