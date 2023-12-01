@@ -1,4 +1,3 @@
-@include('partials.__header')
 <html>
 <head>
   <title> Landing Page </title>

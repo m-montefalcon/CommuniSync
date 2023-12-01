@@ -90,6 +90,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/blockedlists/show', [WebViewController::class, 'showBlockedLists'])->name('blockedlists');
 
 
+    Route::get('/fetch/notifications', [NotificationsController::class, 'fetchNotificationByRoles'])->name('fetchNotifications');
+    Route::put('/mark-as-read/{id}', [NotificationsController::class, 'markAsRead'])->name('markAsRead');
 
 });
 
