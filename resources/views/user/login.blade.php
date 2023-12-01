@@ -1,4 +1,4 @@
-@include('partials.__header')
+
 <html>
 <head>
   <title> Login </title>

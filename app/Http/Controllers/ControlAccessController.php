@@ -6,10 +6,12 @@ use App\Models\User;
 use App\Models\Logbook;
 use App\Models\BlockList;
 use App\Events\NewCAFEvent;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use App\Models\ControlAccess;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use App\Events\NewNotificationEvent;
 use Illuminate\Support\Facades\Auth;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use App\Console\Commands\NotificationService;
@@ -22,9 +24,12 @@ use App\Http\Requests\ControlAccess\UserRequestControllAccessRequest;
 
 class ControlAccessController extends Controller
 {
+    protected $notificationModel;
     protected $notificationService;
-    public function __construct(NotificationService $notificationService)
+
+    public function __construct(Notification $notificationModel, NotificationService $notificationService)
     {
+        $this->notificationModel = $notificationModel;
         $this->notificationService = $notificationService;
     }
     public function getRequestHomeowner($id){
@@ -74,17 +79,27 @@ class ControlAccessController extends Controller
     }
 
     //HOMEOWNER ACCEPT TO VISITOR
-    public function acceptMobile(UserAccessRequest $request) 
+    public function acceptMobile(UserAccessRequest $request, NotificationsController $notificationController) 
     {
-    
         $validatedData = $request->validated();
         $id = ControlAccess::findOrFail($validatedData['id']);
         $validatedData['visit_status'] = 2;
         $validatedData['date'] = now()->toDateString();
         $validatedData['time'] = now()->toTimeString();
         $id->update($validatedData);
+    
+        // Fetch updated notifications after accepting the request
+        $notifications = $notificationController->fetchNotificationByRoles(); // Assuming you have a method to fetch notifications
+    
+        // Broadcast with UI
         broadcast(new NewCAFEvent($validatedData))->toOthers();
-        return response()->json(['accepted' => true, 'id' => $id], 200);
+    
+        // Create and broadcast the new notification
+        $notification = $notificationController->createNotificationByRoles('New Accepted Control Access Request', 'New accepted CAF has received, check it under Control Access Tab.', 4);
+        broadcast(new NewNotificationEvent($notification))->toOthers();
+    
+        // Include the updated notifications in the response
+        return response()->json(['accepted' => true, 'id' => $id, 'notifications' => $notifications], 200);
     }
     
     public function declineMobile(UserAccessRequest $request){

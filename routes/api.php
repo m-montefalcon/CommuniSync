@@ -8,6 +8,7 @@ use App\Http\Controllers\BlockListController;
 use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\ControlAccessController;
 use App\Http\Controllers\LogbookController;
+use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\PaymentRecordController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VerificationRequests;
@@ -133,4 +134,5 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
         Route::get('/dashboard/announcement/fetch/mobile/{id}', [AnnouncementController::class, 'dashboardAnnouncementFetchMobile'])->name('dashboardAnnouncementFetchMobile');
-});
+
+    });

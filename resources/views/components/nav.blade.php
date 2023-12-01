@@ -131,24 +131,219 @@
   </div>
 
   <div class="content">
-      <div class="top-navbar">
-        <div class="bx bx-menu" id="menu-icon"></div>
-        <div class="profile">
-          <div class="profile-name">
+  <style>
+    .top-navbar {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 10px;
+        position: relative;
+    }
+
+    .notification-icon {
+        margin-right: 10px;
+        cursor: pointer;
+        position: relative; /* Add relative positioning for the counter */
+    }
+
+    #notification-counter {
+    background-color: #ff4d4d;
+    color: #fff;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 10px; /* Adjust the right position to create some space between the counter and the bell icon */
+    display: none;
+}
+
+
+    .profile {
+        display: flex;
+        align-items: center;
+    }
+
+    .profile-name {
+        margin-right: 10px;
+    }
+
+    .profile img {
+        border-radius: 50%;
+    }
+
+    .notification-popup {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border: 1px solid #ddd;
+        padding: 10px;
+        display: none;
+        min-width: 400px;
+        max-height: 200px; /* Adjust the height as needed */
+        overflow-y: auto;
+    }
+
+    .notification-item {
+        padding: 6px; /* Adjust the padding to your preference */
+        border-bottom: 4px solid #eee;
+    }
+    .notification-item.not-hovered {
+        background-color: lightgreen;
+    }
+</style>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var notificationIcon = document.getElementById('notification-icon');
+    var notificationPopup = document.getElementById('notification-popup');
+    var notificationCounter = document.getElementById('notification-counter');
+
+    // Fetch notifications immediately upon page load
+    fetchNotifications();
+
+    notificationIcon.addEventListener('click', function (event) {
+        // Toggle the visibility of the notification popup
+        notificationPopup.style.display = (notificationPopup.style.display === 'none') ? 'block' : 'none';
+
+        // Prevent the click event from propagating to the document click listener
+        event.stopPropagation();
+    });
+
+    // Close the notification popup if the user clicks outside of it
+    document.addEventListener('click', function () {
+        notificationPopup.style.display = 'none';
+    });
+
+    // Handle clicks on notification items using event delegation
+    notificationPopup.addEventListener('click', function (event) {
+        var target = event.target;
+
+        // Check if the clicked element has the "mark-as-read" class
+        if (target.classList.contains('mark-as-read')) {
+            // Extract the notification ID from the data-id attribute
+            var notificationId = target.getAttribute('data-id');
+
+            // Mark the notification as read
+            markAsRead(notificationId);
+        }
+    });
+
+    setInterval(fetchNotifications, 3600000); // 1 hour = 60 minutes * 60 seconds * 1000 milliseconds
+
+    // Function to fetch notifications from the server
+    function fetchNotifications() {
+        console.log('Fetching notifications...');
+
+        // Replace the URL with your actual endpoint
+        fetch('/fetch/notifications')
+            .then(response => response.json())
+            .then(data => {
+                console.log('Received data:', data);
+
+                // Filter out read notifications
+                const unreadNotifications = data.notifications.filter(notification => !notification.is_hovered);
+
+                // Update the notification popup with the fetched notifications
+                updateNotificationPopup(unreadNotifications);
+
+                // Update the notification counter with the count of unread notifications
+                updateNotificationCounter(unreadNotifications.length);
+            })
+            .catch(error => console.error('Error fetching notifications:', error));
+    }
+
+    // Function to update the notification popup content
+    function updateNotificationPopup(notifications) {
+        console.log('Updating notification popup...');
+
+        var notificationItems = notifications.map(notification => {
+            // Add a CSS class if is_hover is false
+            var hoverClass = (notification.is_hovered) ? '' : ' not-hovered';
+            return `<div class="notification-item${hoverClass} mark-as-read" data-id="${notification.id}">${notification.title}: ${notification.body}</div>`;
+        });
+
+        // Replace the content of the notification popup
+        notificationPopup.innerHTML = notificationItems.join('');
+    }
+
+    // Function to mark a notification as read
+    function markAsRead(notificationId) {
+        // Get the CSRF token from the meta tag
+        var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+        // Send an API request to mark the notification as read
+        fetch(`/mark-as-read/${notificationId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken,
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                // Fetch notifications again after marking as read
+                fetchNotifications();
+            })
+            .catch(error => console.error('Error marking notification as read:', error));
+    }
+
+    // Function to update the notification counter
+    function updateNotificationCounter(count) {
+        console.log('Updating notification counter...');
+
+        // Display or hide the counter based on the number of notifications
+        notificationCounter.style.display = (count > 0) ? 'block' : 'none';
+
+        // Update the counter text
+        notificationCounter.innerText = count.toString();
+    }
+});
+
+</script>
+
+
+
+<!-- Your HTML structure -->
+<div class="top-navbar">
+<div class="bx bx-menu" id="menu-icon"></div>
+
+    <div class="notification-icon" id="notification-icon">
+        <!-- Notification bell icon -->
+        <i class="fas fa-bell"></i>
+        <span id="notification-counter" style="display: none;"></span>
+
+        <!-- Notification popup -->
+        <div class="notification-popup" id="notification-popup">
+            <!-- Replace the content below with your actual notifications -->
+           
+            <!-- Add more notification items as needed -->
+        </div>
+    </div>
+
+    <div class="profile">
+        <div class="profile-name">
             <a>{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</a>
-          </div>
-          @if (auth()->user()->photo)
+        </div>
+
+        @if (auth()->user()->photo)
             <a href="{{ route('profile') }}">
                 <img src="{{ asset('storage/' . auth()->user()->photo) }}" alt="User Photo">
             </a>
-          @else
+        @else
             <a href="{{ route('profile') }}">
                 <img src="{{ asset('Assets/default-user-profile.jpg') }}" alt="Default Photo">
             </a>
-          @endif
-        </div>
+        @endif
+    </div>
+</div>
 
-      </div>
+
+
       <main class="home-section"> </main>
 
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
