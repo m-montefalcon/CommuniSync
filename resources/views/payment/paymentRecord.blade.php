@@ -14,7 +14,7 @@
             <div class="col-md-12">
                 <div class="header">
                     <h2>
-                        PAYMENT RECORD
+                        MONTHLY DUE RECORD
                     </h2>
                 </div>
                 <div class="card">
@@ -43,7 +43,7 @@
                                             <td>{{$homeowner->id}}</td>
                                             <td>{{$homeowner->first_name}} {{$homeowner->last_name}}</td>
                                             <td>
-                                                <button class="view-button" data-id="{{$homeowner->id}}" data-name="{{$homeowner->first_name}} {{$homeowner->last_name}}">Pay</button>
+                                                <button class="view-button" data-id="{{$homeowner->id}}" data-name="{{$homeowner->first_name}} {{$homeowner->last_name}}">Input Record</button>
                                             </td>
                                             <td>
                                                 <form action="{{ route('api.user.payment.save.records', ['id' => $homeowner->id]) }}" method="GET" target="_blank">
@@ -70,7 +70,7 @@
         <div class="modal-content">
             <div class="header-container">
                 <div class="modal-header">
-                    <h1>Payment Form</h1>
+                    <h1>MONTHLY DUE RECORD FORM</h1>
                 </div>
                 <span class="close-modal" id="closeModal">&times;</span>
             </div>
@@ -91,20 +91,22 @@
                     <label for="paymentAmount">Amount:</label>
                     <div class="input-group">
                         <span class="input-group-text">₱</span>
-                        <input type="text" class="form-control1" name="payment_amount" id="paymentAmount">
+                        <input type="number" class="form-control1" name="payment_amount" id="paymentAmount" inputmode="numeric">
                     </div>
                 </div>
+
                 <div class="form-group">
                     <label for="transactionNumber">Transaction Number</label>
                     <div class="input-group">
                         <span class="input-group-text">#</span>
-                        <input type="text" class="form-control1" name="transaction_number" id="transaction_number">
+                        <input type="tel" class="form-control1" name="transaction_number" id="transaction_number" pattern="[0-9]{1,6}" inputmode="numeric" maxlength="6">
                     </div>
                 </div>
-                
+
+
                 <div class="form-group">
-                    <label for="paymentNotes">Notes:</label>
-                    <textarea class="noteTextArea" type="text" name="notes" id="paymentNotes" placeholder="Payment Description...."></textarea>
+                    <label for="paymentNotes">Additional Remarks:</label>
+                    <textarea class="noteTextArea" type="text" name="notes" id="paymentNotes" placeholder="Additional remarks...."></textarea>
                 </div>
                 <button type="submit" class="paymentSubmitButton">Submit</button>
             </form>

@@ -47,7 +47,7 @@ class PaymentRecordService
         <p>Total Amount: PHP{$totalAmount}</p>
         
         <table>
-            <tr><th>Homeowner Name</th><th>Admin Name</th><th>Payment Date</th><th>Payment Amount</th><th>Notes</th></tr>
+            <tr><th>Homeowner Name</th><th>Posted By</th><th>Payment Date</th><th>Payment Amount</th><th>Remarks</th></tr>
         HTML;
 
 
@@ -145,11 +145,11 @@ class PaymentRecordService
             '<p>Months covered starting January 2023: ' . $monthsToAdd . ' Months' . '</p>' .
             '<table>' .
             '<tr>' .
-            '<th>Admin Name</th>' .
+            '<th>Posted By</th>' .
             '<th>Payment Date</th>' .
             '<th>Transaction Number</th>' .
             '<th>Payment Amount</th>' .
-            '<th>Notes</th>' .
+            '<th>Remarks</th>' .
             '</tr>';
     
         foreach ($fetchRecords as $record) {
