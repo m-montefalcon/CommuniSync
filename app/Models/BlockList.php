@@ -33,48 +33,48 @@ class BlockList extends Model
         return $this->belongsTo(User::class, 'admin_id');
     }
 
-    public function scopeVisitorBlocked($query, $visitor)
-    {
-        return $query->where(function ($query) use ($visitor) {
-            $query->where('user_name', $visitor->user_name)
-                ->orWhere('contact_number', $visitor->contact_number)
-                ->orWhere(function ($query) use ($visitor) {
-                    $query->where('first_name', $visitor->first_name)
-                        ->where('last_name', $visitor->last_name);
-                });
+    
+public function scopeVisitorBlocked($query, $visitor)
+{
+    return $query->where(function ($query) use ($visitor) {
+        $query->
+            Where('contact_number', $visitor->contact_number)
+            ->orWhere(function ($query) use ($visitor) {
+                $query->where('first_name', $visitor->first_name)
+                    ->where('last_name', $visitor->last_name);
+            });
+    });
+}
+
+public function scopeMemberBlock($query, $visitMembers)
+{
+    $firstNames = [];
+    $lastNames = [];
+
+    foreach ($visitMembers as $member) {
+        // Split the member name into first and last names
+        $nameParts = explode(' ', $member);
+
+        // Combine the first names except the last name
+        $firstName = implode(' ', array_slice($nameParts, 0, -1));
+        $firstNames[] = $firstName;
+
+        // Get the last name
+        $lastName = end($nameParts);
+        $lastNames[] = $lastName;
+    }
+
+    // Ensure that both arrays have elements
+    if (!empty($firstNames) && !empty($lastNames)) {
+        // Use a closure to ensure that both conditions must be met
+        $query->where(function ($query) use ($firstNames, $lastNames) {
+            $query->whereIn('first_name', $firstNames)
+                  ->whereIn('last_name', $lastNames);
         });
     }
-    public function scopeMemberBlock($query, $visitMembers)
-    {
-        $firstNames = [];
-        $lastNames = [];
-    
-        foreach ($visitMembers as $member) {
-            // Split the member name into first and last names
-            $nameParts = explode(' ', $member);
-    
-            // Combine the first names except the last name
-            $firstName = implode(' ', array_slice($nameParts, 0, -1));
-            $firstNames[] = $firstName;
-    
-            // Get the last name
-            $lastName = end($nameParts);
-            $lastNames[] = $lastName;
-        }
-    
-        // Ensure that both arrays have elements
-        if (!empty($firstNames) && !empty($lastNames)) {
-            // Use a closure to ensure that both conditions must be met
-            $query->where(function ($query) use ($firstNames, $lastNames) {
-                $query->whereIn('first_name', $firstNames)
-                      ->whereIn('last_name', $lastNames);
-            });
-        }
-    
-        return $query->exists();
-    }
-    
-    
+
+    return $query->exists();
+}
     
     
 

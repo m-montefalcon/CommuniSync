@@ -191,7 +191,7 @@ class ControlAccessController extends Controller
             return response()->json(['message' => 'User or Control Access not found'], 404);
         }
     
-        $isVisitorBlocked = BlockList::visitorBlocked($visitor)->first();
+        $isVisitorBlocked = BlockList::visitorBlocked($visitor)->exists();
         $visit_members = json_decode($controlAccessId->visit_members, true);
         $isMemberBlocked = BlockList::memberBlock($visit_members);
     
