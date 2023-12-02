@@ -259,8 +259,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Function to update the notification popup content
     function updateNotificationPopup(notifications) {
-        console.log('Updating notification popup...');
+    console.log('Updating notification popup...');
 
+    if (notifications.length === 0) {
+        // Display a message when there are no notifications
+        notificationPopup.innerHTML = '<div class="notification-item">No notifications</div>';
+    } else {
+        // Display notifications
         var notificationItems = notifications.map(notification => {
             // Add a CSS class if is_hover is false
             var hoverClass = (notification.is_hovered) ? '' : ' not-hovered';
@@ -270,7 +275,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Replace the content of the notification popup
         notificationPopup.innerHTML = notificationItems.join('');
     }
-
+}
     // Function to mark a notification as read
     function markAsRead(notificationId) {
         // Get the CSRF token from the meta tag
