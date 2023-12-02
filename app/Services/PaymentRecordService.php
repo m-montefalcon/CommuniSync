@@ -2,9 +2,10 @@
 
 namespace App\Services;
 
-use App\Models\PaymentRecord;
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use App\Models\User;
+use App\Models\PaymentRecord;
 
 class PaymentRecordService
 {
@@ -16,7 +17,15 @@ class PaymentRecordService
             ->orderBy('payment_date', 'desc')
             ->get();
     }
-
+    public function getFilteredPaymentRecordsHomeowner($id,$fromMonth, $fromYear, $toMonth, $toYear)
+    {
+        return PaymentRecord::with('homeowner')
+            ->with('admin')
+            ->where('homeowner_id', $id)
+            ->whereBetween('payment_date', ["{$fromYear}-{$fromMonth}-01", "{$toYear}-{$toMonth}-31"])
+            ->orderBy('payment_date', 'desc')
+            ->get();
+    }
     public function generatePaymentRecordsPdf($paymentRecords, $fromMonth, $fromYear, $toMonth, $toYear)
     {
         // Calculate the total amount
@@ -86,34 +95,50 @@ class PaymentRecordService
         // Return the PDF content
         return $pdf->output();
     }
-    public function generatePDF($fetchRecords, $totalAmount, $monthsToAdd, $message)
+    public function generatePDF($fetchRecords, $totalAmount, $monthsToAdd, $message, $homeownerId)
     {
         // Create a PDF instance
         $pdf = new Dompdf();
-
+    
         // Set options for PDF generation (optional)
         $options = new Options();
         $options->set('isHtml5ParserEnabled', true);
         $options->set('isPhpEnabled', true);
         $pdf->setOptions($options);
-
+    
         // Generate HTML content for the PDF
-        $html = $this->generateHTML($fetchRecords, $totalAmount, $monthsToAdd, $message);
-
+        $html = $this->generateHTML($fetchRecords, $totalAmount, $monthsToAdd, $message, $homeownerId);
+    
         // Load HTML content into the PDF instance
         $pdf->loadHtml($html);
-
+    
         // Set paper size and orientation (optional)
         $pdf->setPaper('A4', 'portrait');
-
+    
         // Render PDF (output or save to file)
         $pdf->render();
-
+    
         // Return the PDF content
         return $pdf->output();
     }
-    private function generateHTML($fetchRecords, $totalAmount, $monthsToAdd, $message)
+    
+    private function generateHTML($fetchRecords, $totalAmount, $monthsToAdd, $message, $homeownerId)
     {
+        // Initialize variables with default values
+        $name = $address = $contactNumber = $username = '';
+    
+        // Find the User based on the homeowner_id
+        $user = User::find($homeownerId);
+    
+        // Check if $user is not null
+        if (!empty($user)) {
+            // Assign values only if they are not null
+            $name = $user->first_name . ' ' . $user->last_name;
+            $address = 'Block ' . $user->block_no . ', Lot ' . $user->lot_no;
+            $contactNumber = $user->contact_number;
+            $username = $user->user_name;
+        }
+    
         // Generate HTML content using concatenation
         $html = '<html>' .
             '<head>' .
@@ -132,17 +157,20 @@ class PaymentRecordService
             '<h1>Monthly Due Record</h1>' .
             '<table>' .
             '<tr>' .
-            '<td width="50%"><strong>Name:</strong> ' . $fetchRecords[0]->homeowner->first_name . ' ' . $fetchRecords[0]->homeowner->last_name . '</td>' .
-            '<td width="50%" style="padding-left: 20px;"><strong>Address:</strong> Block ' . $fetchRecords[0]->homeowner->block_no . ', Lot ' . $fetchRecords[0]->homeowner->lot_no . '</td>' .
+            '<td width="50%"><strong>Homeowner ID:</strong> ' . $homeownerId . '</td>' .
+            '<td width="50%"><strong>Name:</strong> ' . $name . '</td>' .
             '</tr>' .
             '<tr>' .
-            '<td><strong>Contact Number:</strong> ' . $fetchRecords[0]->homeowner->contact_number . '</td>' .
-            '<td style="padding-left: 20px;"><strong>Username:</strong> ' . $fetchRecords[0]->homeowner->user_name . '</td>' .
+            '<td><strong>Contact Number:</strong> ' . $contactNumber . '</td>' .
+            '<td><strong>Username:</strong> ' . $username . '</td>' .
+            '</tr>' .
+            '<tr>' .
+            '<td colspan="2"><strong>Address:</strong> ' . $address . '</td>' .
             '</tr>' .
             '</table>' .
             '<br>' .
-            '<p>Total amount: PHP ' . $totalAmount . '</p>' .
-            '<p>Months covered starting January 2023: ' . $monthsToAdd . ' Months' . '</p>' .
+            '<p>Total amount: PHP ' . ($totalAmount ?? '0.00') . '</p>' .
+            '<p>Months covered starting January 2023: ' . ($monthsToAdd ?? '0') . ' Months' . '</p>' .
             '<table>' .
             '<tr>' .
             '<th>Posted By</th>' .
@@ -152,23 +180,40 @@ class PaymentRecordService
             '<th>Remarks</th>' .
             '</tr>';
     
-        foreach ($fetchRecords as $record) {
-            $html .= '<tr>' .
-                '<td>' . $record->admin->first_name . ' ' . $record->admin->last_name . '</td>' .
-                '<td>' . $record->payment_date . '</td>' .
-                '<td>' . $record->transaction_number . '</td>' .
-                '<td>' . $record->payment_amount . '</td>' .
-                '<td>' . ($record->notes ?? 'none') . '</td>' .
-                '</tr>';
+        // Check if records are available
+        if (!empty($fetchRecords)) {
+            foreach ($fetchRecords as $record) {
+                // Check if the necessary properties are not null
+                $adminName = isset($record->admin) ? $record->admin->first_name . ' ' . $record->admin->last_name : 'N/A';
+                $paymentDate = isset($record->payment_date) ? $record->payment_date : 'N/A';
+                $transactionNumber = isset($record->transaction_number) ? $record->transaction_number : 'N/A';
+                $paymentAmount = isset($record->payment_amount) ? $record->payment_amount : 'N/A';
+                $remarks = isset($record->notes) ? $record->notes : 'none';
+    
+                $html .= '<tr>' .
+                    '<td>' . $adminName . '</td>' .
+                    '<td>' . $paymentDate . '</td>' .
+                    '<td>' . $transactionNumber . '</td>' .
+                    '<td>' . $paymentAmount . '</td>' .
+                    '<td>' . $remarks . '</td>' .
+                    '</tr>';
+            }
+        } else {
+            // Display "No Records Found" message
+            $html .= '<tr><td colspan="5">No Records Found</td></tr>';
         }
     
         $html .= '</table>' .
-            '<p>Status: ' . $message . '</p>' .
+            '<p>Status: ' . ($message ?? 'N/A') . '</p>' .
             '</body>' .
             '</html>';
     
         return $html;
     }
+    
+
+    
+    
     
 }
 
