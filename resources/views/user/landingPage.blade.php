@@ -1,3 +1,6 @@
+<?php
+date_default_timezone_set('Asia/Manila');
+?>
 <html>
 <head>
   <title> CommuniSync </title>
