@@ -48,6 +48,94 @@
     z-index: 9999;
   }
 
+  .admin-notif {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+   
+  }
+
+  .notification-icon {
+    margin-right: 10px;
+    cursor: pointer;
+    position: relative; 
+  }
+
+  #notification-counter {
+    background-color: #ff4d4d;
+    color: #fff;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 10px; 
+    display: none;
+  }
+
+  .notification-popup {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+    padding: 10px;
+    display: none;
+    min-width: 400px;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+
+  .notification-item {
+    padding: 6px; 
+    border-bottom: 4px solid #eee;
+  }
+
+  .notification-item.not-hovered {
+    background-color: lightgreen;
+  }
+
+  .profile {
+    display: flex;
+    align-items: center; 
+  }
+  
+  .profile-name {
+    font-size: 15px;
+    font-weight: 500;
+    margin-right: 10px;
+  }
+  
+  .profile-name a {
+    text-decoration: none;
+    color: black;
+  }
+
+  .profile img {
+    width: 35px;
+    height: 35px;
+    margin-top: 5px;
+    margin-right: 1px;
+    object-fit: contain;
+    object-position: center;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  .logo-img {
+		width: 70%; 
+    max-height: 100vh;
+		margin-top: 30px;
+		margin-bottom: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    color: black;
+	}
+
   .side-navbar ul li:first-child {
     background: none;
   }
@@ -244,44 +332,6 @@
     opacity: 1;
     z-index: 3; 
   }
-
-  .profile {
-    display: flex;
-    align-items: center; 
-  }
-  
-  .profile-name {
-    font-size: 15px;
-    font-weight: 500;
-    margin-right: 10px;
-  }
-  
-  .profile-name a {
-    text-decoration: none;
-    color: black;
-  }
-
-  .profile img {
-    width: 35px;
-    height: 35px;
-    margin-top: 5px;
-    margin-right: 1px;
-    object-fit: contain;
-    object-position: center;
-    border-radius: 50%;
-    cursor: pointer;
-  }
-
-  .logo-img {
-		width: 70%; 
-    max-height: 100vh;
-		margin-top: 30px;
-		margin-bottom: 30px;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-    color: black;
-	}
 
   @media screen and (max-width: 767px) {
 		.side-navbar.active .logo-img {
