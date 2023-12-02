@@ -319,7 +319,22 @@ class WebViewController extends Controller
         return response($this->paymentRecordService->generatePaymentRecordsPdf($paymentRecords, $fromMonth, $fromYear, $toMonth, $toYear), 200)
             ->header('Content-Type', 'application/pdf');
     }
+    public function paymentFilterHomeowner(Request $request){
+          // Retrieve the parameters from the request
+          $fromMonth = $request->input('fromMonth');
+          $fromYear = $request->input('fromYear');
+          $toMonth = $request->input('toMonth');
+          $toYear = $request->input('toYear');
+          $homeownerId = $request->input('homeownerId'); // Retrieve homeownerId from the request
 
+  
+          // Query PaymentRecords based on the date range
+          $paymentRecords = $this->paymentRecordService->getFilteredPaymentRecordsHomeowner($homeownerId, $fromMonth, $fromYear, $toMonth, $toYear);
+  
+          // Return the PDF as a response
+          return response($this->paymentRecordService->generatePaymentRecordsPdf($paymentRecords, $fromMonth, $fromYear, $toMonth, $toYear), 200)
+              ->header('Content-Type', 'application/pdf');
+    }
 
     public function showBlockedListsRequests(){
         $blocklists = BlockList::with('homeowner')->where('blocked_status', 1)->get();
@@ -332,5 +347,18 @@ class WebViewController extends Controller
         return view('blockedLists.contactLists', compact('blocklists'));
     }
     
+
+    public function fetchUserPayment($id){
+        
+        $fetchALlRecords = PaymentRecord::with('homeowner', 'admin')->where('homeowner_id', $id)
+            ->orderBy('payment_date', 'desc') // Order by payment date in descending order (latest first)
+            ->paginate(30); // You can change the number 10 to the desired number of records per page
+            // return response()->json(['data' => $fetchALlRecords], 200);
+        $homeowner_id = $id;
+        $homeowner = User::find($id);
+
+        return view('payment.homeownerHistory', compact('fetchALlRecords', 'homeowner_id', 'homeowner'));
+
+    }
     
 }

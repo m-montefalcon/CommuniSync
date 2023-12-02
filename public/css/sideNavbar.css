@@ -53,11 +53,11 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-   
   }
 
   .notification-icon {
     margin-right: 10px;
+    right: 8px;
     cursor: pointer;
     position: relative; 
   }

@@ -1,6 +1,6 @@
 <html>
 <head>
-  <title> Landing Page </title>
+  <title> CommuniSync </title>
   <link rel="stylesheet" href="{{ asset('css/landingPage.css') }}">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.0/css/all.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">

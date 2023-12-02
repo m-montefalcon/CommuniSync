@@ -111,7 +111,7 @@ class PaymentRecordController extends Controller
         }
 
         // Generate the PDF using the service
-        $pdfContent = $this->pdfGenerationService->generatePDF($fetchRecords, $totalAmount, $monthsToAdd, $message);
+        $pdfContent = $this->pdfGenerationService->generatePDF($fetchRecords, $totalAmount, $monthsToAdd, $message, $id);
 
         // Return the PDF as a response
         return response($pdfContent, 200)

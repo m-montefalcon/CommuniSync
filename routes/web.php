@@ -77,6 +77,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('admin/complaint/history/fetch', [WebViewController::class, 'fetchComplaintsHistory'])->name('api.admin.complaint.history.fetch');
     //Payment
     Route::get('admin/payment/all/users', [WebViewController::class, 'fetchAllUserPayment'])->name('admin.payment.all.users');
+    Route::get('admin/payment/fetch/user/{id}', [WebViewController::class, 'fetchUserPayment'])->name('admin.payment.users');
 
     //Logbook
     Route::get('admin/get/logbook', [WebViewController::class, 'getLb'])->name('admin.get.logbook');
@@ -84,6 +85,7 @@ Route::middleware('auth:sanctum')->group(function () {
     //Payment
     Route::get('admin/payment/records/get/all', [WebViewController::class, 'getALl'])->name('admin.payment.records.get.all');
     Route::get('/payments/filter', [WebViewController::class, 'paymentFilter'])->name('api.payments.filter');
+    Route::get('/payments/filter/homeowner', [WebViewController::class, 'paymentFilterHomeowner'])->name('api.payments.filter.homeowner');
 
     //BlockedLists
     Route::get('/blockedlists/request', [WebViewController::class, 'showBlockedListsRequests'])->name('blockedlists.request');

@@ -46,7 +46,7 @@
                                                 <button class="view-button" data-id="{{$homeowner->id}}" data-name="{{$homeowner->first_name}} {{$homeowner->last_name}}">Input Record</button>
                                             </td>
                                             <td>
-                                                <form action="{{ route('api.user.payment.save.records', ['id' => $homeowner->id]) }}" method="GET" target="_blank">
+                                                <form action="{{ route('admin.payment.users', ['id' => $homeowner->id]) }}" method="GET">
                                                     @csrf
                                                     <button type="submit">View</button>
                                                 </form>
