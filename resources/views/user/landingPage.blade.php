@@ -1,4 +1,3 @@
-@include('partials.__header')
 <html>
 <head>
   <title> Landing Page </title>
@@ -37,10 +36,9 @@
               </div>  
           </button>
         </form>
-
       </div>
       <div class="phone-container">
-        <img src="{{ asset('Assets/landing-page-img.png') }}" class="phone-img">
+        <img src="{{ asset('Assets/landing-page-image.png') }}" class="phone-img">
       </div>
     </div>
   </body>
