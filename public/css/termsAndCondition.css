@@ -169,19 +169,25 @@ body {
     }
 
     .main-body .body-header {
-        padding: 3rem 1rem;
+        padding: 10px 5px;
         font-size: 2rem;
     }
 
     .body-content {
-        margin: 1rem;
+        margin: 1px;
     }
 
-    .body-content .date-updated,
-    .body-content .greetings,
-    .welcome,
-    .title,
-    .information {
-        padding: 1rem 0;
-    }
+	.body-header span {
+		font-size: 30px;
+		padding: 0;
+	}
+
+	.date-updated, .message, .greetings {
+		font-size: 15px;
+	}
+
+	.body-content .greetings {
+		padding-bottom: 10px;
+	}
+
 }

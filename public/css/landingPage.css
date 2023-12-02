@@ -172,112 +172,6 @@ body {
 	font-size: 15px;
   }
 
-  /* .footer {
-	position: relative;
-	bottom: 0;
-	width: 100%;
-	height: auto;
-	z-index: 2;
-  }
-
-  .footer-up {
-	display: flex;
-	color: #000;
-	justify-content: space-between;
-	background-color: whitesmoke;
-  }
-
-  .footer-bottom {
-	background-color: #FFF;
-	padding: 10px 5px;
-  }
-
-  .footer-center {
-	display: flex;
-	flex-wrap: wrap;
-	flex-direction: column;
-	justify-content: space-between;
-  }
-
-  .footer .footer-center ul {
-	display: flex;
-	justify-content: center;
-	list-style: none;
-  }
-
-  .footer-center ul li {
-	background-color: whitesmoke;
-	padding: 10px 5px;
-	margin: 0 5px;
-	border-radius: 5px;
-  }
-
-  .footer-center li a {
-	color: #000;
-  }
-
-  .footer-center ul li:hover {
-	background-color: transparent;
-	transform: scale(1.1);
-	border-bottom: 1px solid #000;
-  }
-
-  .footer-center span {
-	margin-bottom: 10px;
-  }
-
-  .footer-left {
-	flex-wrap: wrap;
-	background-color: #808080;
-	padding: 10px 20px;
-	border-left: 1px solid #000;
-	border-right: 1px solid #000;
-	margin-left: 30px;
-	color: #FFF;
-  }
-
-  .footer-left .socmed-accounts {
-	display: flex;
-	flex-wrap: wrap;
-	flex-direction: column;
-	margin-top: 10px;
-  }
-
-  .footer-left .socmed-accounts i {
-	margin-right: 5px;
-  }
-
-  .footer-right {
-	display: flex;
-	flex-wrap: wrap;
-	flex-direction: column;
-	padding: 10px;
-	border: 1px solid #000;
-	border-radius: 10px;
-	margin: 10px;
-  }
-
-  .footer-right .email-input {
-	padding: 5px;
-	width: 250px;
-	margin-top: 10px;
-	margin-bottom: 10px;
-  }
-
-  .footer-right .message-input {
-	padding: 5px;
-	width: 250px;
-	height: 40px;
-	margin-bottom: 10px;
-  }
-
-  .footer-right input {
-	border-radius: 10px;
-	border: 1px solid #000;
-	background-color: whitesmoke;
-	outline: none;
-  } */
-
   .main-text, .sub-text, .download-button, .nav-bar, .phone-img{
 	opacity: 0;
   }
@@ -372,6 +266,60 @@ body {
 	100% {
 		transform: translateY(0px);
 		opacity: 1;
+	}
+  }
+
+  @media only screen and (max-width: 768px) {
+	.body-content {
+	  flex-direction: column;
+	}
+  
+	.introduction {
+	  width: 100%;
+	  padding: 0 45px 0 0;
+	}
+
+	.main-text h2 {
+		font-size: 20px;
+	}
+
+	.main-text h1 {
+		font-size: 40px;
+	}
+
+	.sub-text h5{
+		font-size: 15px;
+	}
+  
+	.nav-bar {
+	  position: static;
+	  background: #000;
+	  text-align: center;
+	}
+  
+	.main-nav {
+	  flex-direction: column;
+	}
+  
+	.main-nav img {
+	  margin-bottom: 10px;
+	}
+  
+	.nav {
+	  flex-direction: column;
+	  align-items: center;
+	}
+  
+	.nav li {
+	  margin-bottom: 10px;
+	}
+  
+	.download-button {
+	  align-items: center;
+	}
+
+	.phone-container {
+		display: none;
 	}
   }
 
