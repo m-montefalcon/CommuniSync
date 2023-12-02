@@ -1,11 +1,12 @@
 @include('partials.__header')
 @include('components.nav')
 <html>
+
 <head>
-  <title> Request Verification </title>
-  <link rel="stylesheet" href="{{ asset('css/accessControl.css') }}">
-  <link rel="stylesheet">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.0/css/all.css">
+    <title> Request Verification </title>
+    <link rel="stylesheet" href="{{ asset('css/accessControl.css') }}">
+    <link rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.0/css/all.css">
 </head>
 
 <body>

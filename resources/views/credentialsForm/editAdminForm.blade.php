@@ -1,6 +1,7 @@
 @include('partials.__header')
 @include('components.nav')
 <html>
+  
 <head>
   <title> EDIT VISITOR </title>
   <link rel="stylesheet" href="{{ asset('css/usersProfileView.css') }}">

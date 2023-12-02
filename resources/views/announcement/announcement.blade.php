@@ -58,7 +58,6 @@
                                     @endif
                                 </tbody>
                             </table>
-                          
                         </div>
                     </div>
                 </div>
@@ -67,42 +66,42 @@
     </div>
 
     <div class="modal-container" id="announcementModalContainer">
-    <div class="modal-content">
-        <div class="header-container">
-            <div class="modal-header">
-                <h1>
-                    Announcement Detail
-                </h1>
+        <div class="modal-content">
+            <div class="header-container">
+                <div class="modal-header">
+                    <h1>
+                        Announcement Detail
+                    </h1>
+                </div>
+                <span class="close-modal" id="closeModal">&times;</span>
             </div>
-            <span class="close-modal" id="closeModal">&times;</span>
-        </div>
-        <div class="form-group">
-            <label for="announcementTitle">Title:</label>
-            <input type="text" class="form-control" id="announcementTitle" readonly>
-        </div>
-        <div class="form-group">
-            <label for="announcementDescription">Description:</label>
-            <textarea class="form-control" id="announcementDescription" rows="3" readonly></textarea>
-        </div>
-        <div class="form-group">
-            <label for="announcementDate">Date:</label>
-            <input type="text" class="form-control" id="announcementDate" readonly>
-        </div>
-        <div class="form-group">
-            <label for="announcementSendFrom">From:</label>
-            <input class="form-control" id="announcementSendFrom" readonly>
-        </div>
-        <div class="form-group">
-            <label for "announcementSendTo">To:</label>
-            <input class="form-control" id="announcementSendTo" readonly>
-        </div>
-        <div class="card-photo">
             <div class="form-group">
-                <img id="announcementPhoto" class="announcement-photo" alt="announcement photo">
+                <label for="announcementTitle">Title:</label>
+                <input type="text" class="form-control" id="announcementTitle" readonly>
+            </div>
+            <div class="form-group">
+                <label for="announcementDescription">Description:</label>
+                <textarea class="form-control" id="announcementDescription" rows="3" readonly></textarea>
+            </div>
+            <div class="form-group">
+                <label for="announcementDate">Date:</label>
+                <input type="text" class="form-control" id="announcementDate" readonly>
+            </div>
+            <div class="form-group">
+                <label for="announcementSendFrom">From:</label>
+                <input class="form-control" id="announcementSendFrom" readonly>
+            </div>
+            <div class="form-group">
+                <label for "announcementSendTo">To:</label>
+                <input class="form-control" id="announcementSendTo" readonly>
+            </div>
+            <div class="card-photo">
+                <div class="form-group">
+                    <img id="announcementPhoto" class="announcement-photo" alt="announcement photo">
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -180,8 +179,8 @@
             });
         });
     </script>
-</body>
 
+</body>
 </html>
 
 @include('partials.__footer')

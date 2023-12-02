@@ -3,7 +3,7 @@
 <html>
 
 <head>
-    <title> Homeowner </title>
+    <title> Payment History </title>
     <link rel="stylesheet" href="{{ asset('css/payment.css') }}">
     <link rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.0/css/all.css">
@@ -15,7 +15,7 @@
             <div class="col-md-12">
                 <div class="header">
                     <h2>
-                        PAYMENT HISTORY
+                        MONTHLY DUE RECORDS
                     </h2>
                 </div>   
                 <div class="card">

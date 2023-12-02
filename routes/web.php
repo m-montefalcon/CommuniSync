@@ -26,22 +26,14 @@ use App\Http\Controllers\AnnouncementController;
 //update - update a data
 //destroy - delete a data
 
+
+Route::get('/superuser/register', [WebViewController::class, 'superuserRegister'])->name('superuser.register');
 Route::get('/', [WebViewController::class, 'returnLandingPageView']);
 Route::get('/login', [WebViewController::class, 'returnLoginWebView'])->name('login');
-Route::get('/registerVisitor', [WebViewController::class, 'returnRegisterVisitorView'])->name('registerVisitor');
-Route::get('/registerHomeowner', [WebViewController::class, 'returnRegisterHomeownerView'])->name('registerHomeowner');
-Route::get('/registerPersonnel', [WebViewController::class, 'returnRegisterPersonnelView'])->name('registerPersonnel');
-Route::get('/registerAdmin', [WebViewController::class, 'returnRegisterAdminView'])->name('registerAdmin');
 Route::get('/termsAndCondition', [WebViewController::class, 'returnTermsAndCondition']);
 Route::get('/downloadApk', [WebViewController::class, 'downloadApk']);
 
-// QR Code Testing CAF
-Route::get('/test/qrcode', [WebViewController::class, 'test'])->name('test');
 
-// CSRF Token for API Testing
-Route::get('/csrf-token', function() {
-    return response()->json(['csrf_token' => csrf_token()]);
-});
 
 
 // Protect the routes that require authentication with the sanctum middleware
@@ -58,7 +50,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/personnel', [WebViewController::class, 'showPersonnel'])->name('personnel');
     // Admin
     Route::get('/admin', [WebViewController::class, 'showAdmin'])->name('admin');
-
+    Route::get('/registerVisitor', [WebViewController::class, 'returnRegisterVisitorView'])->name('registerVisitor');
+    Route::get('/registerHomeowner', [WebViewController::class, 'returnRegisterHomeownerView'])->name('registerHomeowner');
+    Route::get('/registerPersonnel', [WebViewController::class, 'returnRegisterPersonnelView'])->name('registerPersonnel');
+    Route::get('/registerAdmin', [WebViewController::class, 'returnRegisterAdminView'])->name('registerAdmin');
     // Show specific user details
     Route::get('/visitor/{id}', [WebViewController::class, 'showVisitorId'])->name('visitorId');
     Route::get('/homeowner/{id}', [WebViewController::class, 'showHomeownerId'])->name('homeownerId');
@@ -95,6 +90,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/blockedlists/show', [WebViewController::class, 'showBlockedLists'])->name('blockedlists');
 
 
+    Route::get('/fetch/notifications', [NotificationsController::class, 'fetchNotificationByRoles'])->name('fetchNotifications');
+    Route::put('/mark-as-read/{id}', [NotificationsController::class, 'markAsRead'])->name('markAsRead');
 
 });
 

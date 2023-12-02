@@ -79,6 +79,19 @@
     }
 
     button {
+		background-color: #ccc;
+		color: black;
+		border-radius: 5px;
+        padding: 5px;
+		border: none;
+        cursor: pointer;
+	}
+
+    button:hover {
+		background-color: #80c76b;
+	}
+
+    button {
         border: none; 
     }
 
@@ -163,7 +176,7 @@
     }
     
     tbody .btn:hover {
-        background-color: maroon;      
+        background-color: #80c76b;      
         padding: 5px;
         border-radius: 5px;
         cursor: pointer;

@@ -1,6 +1,7 @@
 @include('partials.__header')
 @include('components.nav')
 <html>
+
 <head>
   <title> Visitor </title>
   <link rel="stylesheet" href="{{ asset('css/user.css') }}">
@@ -19,11 +20,11 @@
                 </div>   
                 <div class="card">
                     <div class="top-table">
-                    <form action="{{ route('admin') }}" method="GET" class="search-box" style="display: flex; align-items: center;">
-                        <i class="fas fa-search" style="margin-right: 5px;"></i>
-                        <input type="text" name="search" id="searchInput" class="form-control" value="{{request()->input('search')}}" placeholder="Search...">
-                        <button type="submit">Search</button>
-                    </form>
+                        <form action="{{ route('admin') }}" method="GET" class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" name="search" id="searchInput" class="form-control" value="{{request()->input('search')}}" placeholder="Search...">
+                            <button type="submit">Search</button>
+                        </form>
                         <a class="add-btn" href="{{ route('registerAdmin') }}">
                             <i class="fa-solid fa-user-plus"></i>
                         </a>                       
@@ -41,18 +42,7 @@
                                     </tr>
                                     @foreach($admins as $admin)
                                     <tr class="clickable-row" data-href="{{ route('adminId', ['id' => $admin->id]) }}" method="GET">
-                                        <td class="tooltip">
-                                            <span class="tooltiptext">
-                                                {{$admin->last_name}} {{$admin->first_name}}
-                                                <br>
-                                                @if ($admin->photo)
-                                                    <img src="http://127.0.0.1:8000/storage/{{ Auth::user()->photo }}" alt="User Photo">
-                                                @else
-                                                    <img src="{{ asset('Assets/default-user-profile.jpg') }}" alt="Default Photo">
-                                                @endif
-                                            </span>
-                                            {{$admin->user_name}}
-                                        </td>
+                                        <td>{{$admin->user_name}}</td>
                                         <td>{{$admin->first_name}}</td>
                                         <td>{{$admin->last_name}}</td>
                                         <td>{{$admin->contact_number}}</td>
@@ -62,7 +52,6 @@
                                 </tbody>
                             </table>
                             {{ $admins->appends(['search' => request()->input('search')])->links("pagination::bootstrap-4") }}
-
                         </div>
                     </div>
                 </div>
@@ -81,8 +70,6 @@
                 window.location.href = url;
             });
         });
-
-     
     </script>
     
 </body>

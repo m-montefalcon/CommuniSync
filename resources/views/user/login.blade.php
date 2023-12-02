@@ -7,6 +7,8 @@
 </head>
 
 <body>
+<img src="Assets/gradient-bg.jpg" class="bg-img">
+
   <div class="card">
     <form action="{{ route('api.login.store') }}" method="POST">
       @csrf
@@ -29,14 +31,14 @@
         <div class="input-group-prepend">
           <span class="input-icon"> <i class="fa-solid fa-user"></i> </span>
         </div>
-          <input type="text" id="user_name" name="user_name" placeholder="Enter username" required>
+          <input type="text" id="user_name" name="user_name" placeholder="Enter username" autocomplete="off"  required>
       </div>
 
       <div class="form-group">
         <div class="input-group-prepend">
           <span class="input-icon"><i class="fa-solid fa-lock"></i></span>
         </div>
-          <input type="password" id="password" name="password" placeholder="Enter password" required>
+          <input type="password" id="password" name="password" placeholder="Enter password" autocomplete="off" required>
         <span class="input-icon-end"> 
           <i class="fa fa-eye-slash password-toggle" id="password-toggle"></i>
         </span>

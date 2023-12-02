@@ -1,6 +1,7 @@
 @include('partials.__header')
 @include('components.nav')
 <html>
+
 <head>
   <title> Security Personnel </title>
   <link rel="stylesheet" href="{{ asset('css/user.css') }}">
@@ -19,8 +20,8 @@
                 </div>   
                 <div class="card">  
                     <div class="top-table">
-                    <form action="{{ route('personnel') }}" method="GET" class="search-box" style="display: flex; align-items: center;">
-                        <i class="fas fa-search" style="margin-right: 5px;"></i>
+                    <form action="{{ route('personnel') }}" method="GET" class="search-box">
+                        <i class="fas fa-search"></i>
                         <input type="text" name="search" id="searchInput" class="form-control" value="{{request()->input('search')}}" placeholder="Search...">
                         <button type="submit">Search</button>
                     </form>
@@ -61,6 +62,7 @@
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
     <script>
         $(document).ready(function() {
             // Add a click event to all elements with the class "clickable-row"
@@ -71,8 +73,6 @@
                 window.location.href = url;
             });
         });
-
-        
     </script>
     
 </body>

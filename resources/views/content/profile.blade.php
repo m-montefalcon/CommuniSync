@@ -1,6 +1,7 @@
 @include('partials.__header')
 @include('components.nav')
 <html>
+
 <head>
   <title> Profile </title>
   <link rel="stylesheet" href="{{ asset('css/userProfile.css') }}">
@@ -73,6 +74,7 @@
         @endauth
         </div>
     </div>
+    
 </body>
 </html>
 
