@@ -237,8 +237,11 @@
 	}
 
 	@media only screen and (max-width: 768px) {
+
 		.body-content {
 			flex-direction: column;
+			max-width: 80%;
+			text-align: center;
 		}
 	
 		.introduction {
@@ -247,10 +250,6 @@
 	
 		.phone-container {
 			width: 100%;
-		}
-	
-		.phone-img {
-			padding-left: 0;
 		}
 	
 		.main-text, .sub-text, .download-button, .nav-bar, .phone-img {
@@ -277,11 +276,28 @@
 		}
 	
 		.nav li {
-			margin: 10px 0;
+			margin: 5px 0;
 		}
 	
 		.download-button {
-			margin-left: 0;
+			justify-content: center;
+			width: 90%;
+		}
+
+		.main-text h2 {
+			font-size: 20px;
+		}
+
+		.main-text h1 {
+			font-size: 40px;
+		}
+
+		.sub-text {
+			font-size: 15px;
+		}
+
+		.phone-container {
+			display: none;
 		}
 	}
 

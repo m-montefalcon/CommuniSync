@@ -79,12 +79,6 @@
                     We reserve the right to update our privacy policy to reflect changes in our practices and services. Any updates will be effective immediately upon posting the revised policy on our website.
                 </div>
                 <div class="title">
-                    Children's Privacy:
-                </div>
-                <div class="information">
-                    Our services are not intended for individuals under the age of 13. We do not knowingly collect or store personal information from children under 13. If you are a parent or guardian and believe that your child has provided us with personal information, please contact us to have it removed.
-                </div>
-                <div class="title">
                     Contact Information:
                 </div>
                 <div class="information">
