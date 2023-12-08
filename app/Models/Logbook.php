@@ -64,6 +64,12 @@ class Logbook extends Model
                                    ->orWhere('last_name', 'like', '%' . $term . '%');
                 }
             })
+            ->orWhereHas('visitor', function ($visitorQuery) use ($searchTerms) {
+                foreach ($searchTerms as $term) {
+                    $visitorQuery->where('first_name', 'like', '%' . $term . '%')
+                                   ->orWhere('last_name', 'like', '%' . $term . '%');
+                }
+            })
             ->orWhere('admin_id', 'like', '%' . $searchTerms[0] . '%')
             ->orWhere('homeowner_id', 'like', '%' . $searchTerms[0] . '%');
         });
