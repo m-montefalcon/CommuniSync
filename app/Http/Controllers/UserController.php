@@ -7,14 +7,15 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Validated;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\UserRequests\UserUpdateRequest;
 use App\Http\Requests\AuthRequests\UserAuthStoreRequest;
 use App\Http\Requests\UserRequests\UserUpdateProfileMobileRequest;
 use App\Http\Requests\UserRequests\UserUpdateProfilePictureRequest;
-use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Storage;
 
 
 class UserController extends Controller
@@ -110,7 +111,35 @@ class UserController extends Controller
             return response()->json(['error' => 'Photo is required'], 400);
         }
     }
-    
+
+
+    public function changePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => ['required', function ($attribute, $value, $fail) {
+                if (!Hash::check($value, Auth::user()->password)) {
+                    $fail('The current password is incorrect.');
+                }
+            }],
+            'new_password' => 'required|string|min:8|different:current_password',
+            'confirm_password' => 'required|string|same:new_password',
+        ]);
+        /** @var \App\Models\User $user **/
+
+        $user = Auth::user();
+
+        try {
+            // Update the password directly
+            $user->update([
+                'password' => Hash::make($request->input('new_password')),
+            ]);
+
+            return redirect()->route('profile')->with('success', 'Password changed successfully.');
+        } catch (\Exception $e) {
+            return redirect()->route('profile')->withErrors(['error' => 'An error occurred while changing the password.']);
+        }
+    }
+
     
     
     

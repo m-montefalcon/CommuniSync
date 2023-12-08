@@ -54,7 +54,7 @@ use App\Models\VerificationRequest;
 // Routes that require authentication
 Route::middleware('auth:sanctum')->group(function () {
     // User APIs
-
+        Route::put('/change/password', [UserController::class, 'changePassword'])->name('changepassword');
         Route::put('/update/{id}', [UserController::class, 'update'])->name('api.update');
         Route::delete('/delete/{id}', [UserController::class, 'destroy'])->name('api.delete');
         Route::post('/user/store', [UserController::class, 'store'])->name('api.user.store');
