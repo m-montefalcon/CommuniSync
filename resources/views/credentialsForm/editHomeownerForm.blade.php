@@ -199,7 +199,20 @@
                 <option value="1" @if($homeowner->manual_visit_option == 1) selected @endif>Allow</option>
               </select>
           </div>
-
+          <div class="input-box">
+            <div class="input-group-prepend">
+              <span class="input-icon"> 
+                <i class="fa-solid fa-user"></i> 
+              </span>
+            </div>
+            <label for="role">Role:</label>
+              <select class="form-select" id="role" name="role">
+                <option value="1" @if($homeowner->role == 1) selected @endif>Visitor</option>
+                <option value="2" @if($homeowner->role == 2) selected @endif>Homeowner</option>
+                <option value="3" @if($homeowner->role == 3) selected @endif>Personnel</option>
+                <option value="4" @if($homeowner->role == 4) selected @endif>Admin</option>
+              </select>
+          </div>
           <label for="family_member">Family Members:</label>
             @php $familyMembers = old('family_member', $homeowner->family_member ?? []); @endphp
             <div id="familyInputContainer">
