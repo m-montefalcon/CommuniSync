@@ -138,6 +138,20 @@
             <label for="email">Email Address:</label>
             <input type="email" id="email" name="email" value="{{$admin->email}}" required>
           </div>
+          <div class="input-box">
+            <div class="input-group-prepend">
+              <span class="input-icon"> 
+                <i class="fa-solid fa-user"></i> 
+              </span>
+            </div>
+            <label for="role">Role:</label>
+              <select class="form-select" id="role" name="role">
+                <option value="1" @if($admin->role == 1) selected @endif>Visitor</option>
+                <option value="2" @if($admin->role == 2) selected @endif>Homeowner</option>
+                <option value="3" @if($admin->role == 3) selected @endif>Personnel</option>
+                <option value="4" @if($admin->role == 4) selected @endif>Admin</option>
+              </select>
+          </div>
         </div>
         <br>
           <button type="submit" class="btn btn-primary">Update</button>

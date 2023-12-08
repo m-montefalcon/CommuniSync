@@ -36,6 +36,7 @@ class UserUpdateRequest extends FormRequest
             'lot_no' => 'nullable',
             'family_member' => ['nullable'],
             'password' => ['sometimes', 'required', 'min:6'],
+            'role' => ['nullable']
         ];
     }
 }
