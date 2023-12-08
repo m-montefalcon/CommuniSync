@@ -50,14 +50,19 @@ class UserController extends Controller
             switch ($formType) {
                 case 'registerVisitor':
                     return 'visitor';
+                    break;
                 case 'registerHomeowner':
                     return 'homeowner';
+                    break;
                 case 'registerPersonnel':
                     return 'personnel';
+                    break;
                 case 'registerAdmin':
                     return 'admin';
+                    break;
                 default:
                     return '/home';
+                    break;
             }
         }
     
@@ -74,9 +79,9 @@ class UserController extends Controller
     
         $id->update($validated);
     
-        $redirectRoute = $this->getRedirectRoute($request);
+        // $redirectRoute = $this->getRedirectRoute($request);
 
-        return redirect()->route($redirectRoute);
+        return redirect()->back();
     }
 
 
@@ -135,26 +140,31 @@ class UserController extends Controller
     //     return redirect('/visitor');
     // }
 
-    public function getRedirectRoute(Request $request): string
-    {
-        if ($request->has('form_type')) {
-            $formType = $request->input('form_type');
-            switch ($formType) {
-                case 'editVisitorForm':
-                    return 'visitor';
-                case 'editHomeownerForm':
-                    return 'homeowner';
-                case 'editPersonnelForm':
-                    return 'personnel';
-                case 'editAdminForm':
-                    return 'admin';
-                default:
-                    return '/home';
-            }
-        }
+    // public function getRedirectRoute(Request $request): string
+    // {
+    //     if ($request->has('form_type')) {
+    //         $formType = $request->input('form_type');
+    //         switch ($formType) {
+    //             case 'editVisitorForm':
+    //                 return '/visitor';
+    //                 break;
+    //             case 'editHomeownerForm':
+    //                 return 'homeowner';
+    //                 break;
+    //             case 'editPersonnelForm':
+    //                 return 'personnel';
+    //                 break;
+    //             case 'editAdminForm':
+    //                 return 'admin';
+    //                 break;
+    //             default:
+    //                 return '/home';
+    //                 break;
+    //         }
+    //     }
     
-        return '/home';
-    }
+    //     return '/home';
+    // }
 
     public function getProfileMobile($id){
 

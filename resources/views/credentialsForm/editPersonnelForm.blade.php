@@ -18,6 +18,9 @@
     <div class="card">
       <div class="card-body">
         @auth        
+        @error('user_name')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
           <div class="user-profile">
             <div class="card-profile">
               @if ($personnel->photo)
