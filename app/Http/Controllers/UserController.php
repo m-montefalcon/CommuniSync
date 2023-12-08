@@ -121,7 +121,7 @@ class UserController extends Controller
                     $fail('The current password is incorrect.');
                 }
             }],
-            'new_password' => 'required|string|min:8|different:current_password',
+            'new_password' => 'required|string|min:6|different:current_password',
             'confirm_password' => 'required|string|same:new_password',
         ]);
         /** @var \App\Models\User $user **/
