@@ -164,7 +164,7 @@
             $('#complaintStatus').val(currentStatus);
             $('#complaintUpdates').html(updatesHtml);
             $('#complaintSendFrom').val(sendFrom);
-            $('#complaintPhoto').attr('src', '{{ asset("storage/" . ($complaint->complaint_photo ?? "default.jpg")) }}');
+            $('#complaintPhoto').attr('src', '{{ asset("storage/") }}' + '/' + photo);
             modalContainer.style.display = "flex";
         });
 
