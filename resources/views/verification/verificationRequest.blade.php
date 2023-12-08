@@ -40,7 +40,7 @@
                                         <th>Block Number</th>
                                         <th>Lot Number</th>
                                         <th>Family Member</th>
-                                        <th>View</th>
+                                        <th>Approve</th>
                                     </tr>
                                     @foreach($verifyRequests as $request)
                                     <tr>
