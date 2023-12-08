@@ -6,18 +6,21 @@ use LDAP\Result;
 use Carbon\Carbon;
 use App\Models\BlockList;
 use Illuminate\Http\Request;
+use App\Events\NewNotificationEvent;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\BlockLists\UserRequestBlockListRequest;
 use App\Http\Requests\BlockLists\UserValidatedBlockListRequest;
 
 class BlockListController extends Controller
 {
-    public function request(UserRequestBlockListRequest $request)
+    public function request(UserRequestBlockListRequest $request, NotificationsController $notificationController)
     {
         $validatedData = $request->validated();
         $validatedData['blocked_date']   = Carbon::now()->toDateString();
         $validatedData['blocked_status'] = "1";
         BlockList::create($validatedData);
+        $notification = $notificationController->createNotificationByRoles('New blocklist request', 'New blockedlist request has recieved, check it Blocked List Tab.', 4);
+        broadcast(new NewNotificationEvent($notification))->toOthers();
         return response()->json(['request success' => true], 200);
     }
     

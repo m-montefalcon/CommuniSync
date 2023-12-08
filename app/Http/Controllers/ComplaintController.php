@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Complaint;
 use Illuminate\Http\Request;
+use App\Events\NewNotificationEvent;
 use Illuminate\Support\Facades\Auth;
 use App\Console\Commands\NotificationService;
 use Illuminate\Contracts\Support\ValidatedData;
@@ -19,7 +20,7 @@ class ComplaintController extends Controller
         $this->notificationService = $notificationService;
     }
     
-    public function storeMobile(UserComplaintStoreRequest $request){
+    public function storeMobile(UserComplaintStoreRequest $request,  NotificationsController $notificationController){
         $validatedData = $request -> validated();
         $imagePath = null;
         if ($request->hasFile('complaint_photo')) {
@@ -37,7 +38,10 @@ class ComplaintController extends Controller
         $id = $validatedData['homeowner_id'];
         $this->notificationService->sendNotificationById($id, $title, $body);
         Complaint::create($validatedData);
-
+        // Create and broadcast the new notification
+        $notification = $notificationController->createNotificationByRoles('New complaint', 'New complaint has received, check it under Complaints Tab.', 4);
+        broadcast(new NewNotificationEvent($notification))->toOthers();
+    
         return response()->json(['data' => $validatedData], 200);
 
     }

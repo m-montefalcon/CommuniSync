@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\VerificationRequest;
+use App\Events\NewNotificationEvent;
 use Illuminate\Support\Facades\Redirect;
 use App\Console\Commands\NotificationService;
 use App\Http\Requests\VerificationRequest\UserVerificationRequest;
@@ -34,7 +35,7 @@ class VerificationRequests extends Controller
     }
     
 
-    public function mobileStore(UserVerificationRequest $request)
+    public function mobileStore(UserVerificationRequest $request, NotificationsController $notificationController)
     {
         $validatedData = $request->validated();
         $user = User::findOrFail($validatedData['user_id']);
@@ -44,6 +45,8 @@ class VerificationRequests extends Controller
             'block_no' => $validatedData['block_no'],
             'lot_no' => $validatedData['lot_no'],
         ]);
+        $notification = $notificationController->createNotificationByRoles('New verification request', 'A visitor requested to be verified as homeowner, check it under Complaints Tab.', 4);
+        broadcast(new NewNotificationEvent($notification))->toOthers();
         return response()->json($verificationRequest, 200);
     }
 
