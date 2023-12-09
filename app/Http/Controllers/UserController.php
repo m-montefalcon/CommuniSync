@@ -139,7 +139,34 @@ class UserController extends Controller
             return redirect()->route('profile')->withErrors(['error' => 'An error occurred while changing the password.']);
         }
     }
-
+    public function changePasswordMobile(Request $request)
+    {
+        try {
+            $currentPassword = $request->input('current_password');
+            $newPassword = $request->input('new_password');
+            $homeownerId = $request->input('homeowner_id');
+    
+            $user = User::findOrFail($homeownerId);
+    
+            // Validate the current password
+            if (!Hash::check($currentPassword, $user->password)) {
+                return response()->json(['message' => 'Current password is incorrect'], 400);
+            }
+    
+            // Check if the new password is different from the current password
+            if (Hash::check($newPassword, $user->password)) {
+                return response()->json(['message' => 'New password must be different from the current password'], 401);
+            }
+    
+            // Update the user's password
+            $user->password = Hash::make($newPassword);
+            $user->save();
+    
+            return response()->json(['message' => 'Password changed successfully'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'An error occurred'], 500);
+        }
+    }
     
     
     
@@ -161,40 +188,6 @@ class UserController extends Controller
         }
     }
     
-
-    
-
-    // public function destroy(Request $request, User $id){
-    //     $id -> delete();
-    //     return redirect('/visitor');
-    // }
-
-    // public function getRedirectRoute(Request $request): string
-    // {
-    //     if ($request->has('form_type')) {
-    //         $formType = $request->input('form_type');
-    //         switch ($formType) {
-    //             case 'editVisitorForm':
-    //                 return '/visitor';
-    //                 break;
-    //             case 'editHomeownerForm':
-    //                 return 'homeowner';
-    //                 break;
-    //             case 'editPersonnelForm':
-    //                 return 'personnel';
-    //                 break;
-    //             case 'editAdminForm':
-    //                 return 'admin';
-    //                 break;
-    //             default:
-    //                 return '/home';
-    //                 break;
-    //         }
-    //     }
-    
-    //     return '/home';
-    // }
-
     public function getProfileMobile($id){
 
         $user = User::where('id' , $id)->first();

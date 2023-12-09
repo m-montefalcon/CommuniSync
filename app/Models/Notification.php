@@ -10,4 +10,9 @@ class Notification extends Model
     use HasFactory;
     
     protected $fillable = ['title', 'body', 'role', 'recipient_id', 'is_hovered'];
+    
+    public function recipientId()
+    {
+        return $this->belongsTo(User::class, 'recipient_id');
+    }
 }
