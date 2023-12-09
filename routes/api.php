@@ -55,6 +55,8 @@ use App\Models\VerificationRequest;
 Route::middleware('auth:sanctum')->group(function () {
     // User APIs
         Route::put('/change/password', [UserController::class, 'changePassword'])->name('changepassword');
+        Route::put('/change/password/mobile', [UserController::class, 'changePasswordMobile'])->name('changePasswordMobile');
+
         Route::put('/update/{id}', [UserController::class, 'update'])->name('api.update');
         Route::delete('/delete/{id}', [UserController::class, 'destroy'])->name('api.delete');
         Route::post('/user/store', [UserController::class, 'store'])->name('api.user.store');

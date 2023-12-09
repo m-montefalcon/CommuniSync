@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('body');
             $table->string('role')->nullable();
             $table->unsignedBigInteger('recipient_id')->nullable();
+            $table->foreign('recipient_id')->references('id')->on('users');
             $table->boolean('is_hovered')->default(false); // Add this line for hover tracking
             $table->timestamps();
         });
