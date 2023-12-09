@@ -220,7 +220,7 @@
         <label for="new_password">New Password:</label>
         <input type="password" id="new_password" name="new_password" required>
 
-        <label for="confirm_password">Retype Password:</label>
+        <label for="confirm_password">Retype New Password:</label>
         <input type="password" id="confirm_password" name="confirm_password" required>
 
         <button type="submit" class="btn btn-primary">Change Password</button>
