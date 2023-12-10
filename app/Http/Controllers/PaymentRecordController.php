@@ -35,8 +35,9 @@ class PaymentRecordController extends Controller
         $title = 'Monthly Due Payment Recieved';
         $body = 'A monthly due payment was recieved. You may check it on Payment Records.';
         $id = $validatedData['homeowner_id'];
-        $notificationController->createNotificationById($title, $body, $id);
         $this->notificationService->sendNotificationById($id, $title, $body);
+        $notificationController->createNotificationById($title, $body, $id);
+
         return redirect()->back();
     }
 

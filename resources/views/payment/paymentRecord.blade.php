@@ -29,6 +29,15 @@
                     </div>
 
                     <div class="card-body">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                         <div id="table">
                             <table class="table">
                                 <tbody>
@@ -86,6 +95,7 @@
                         <label for="transactionDate">Date:</label>
                         <input type="text" class="form-control" name="transaction_date" id="transactionDate" readonly>
                     </div>
+                    
                 </div>
                 <div class="form-group">
                     <label for="paymentAmount">Amount:</label>
@@ -101,6 +111,7 @@
                         <span class="input-group-text">#</span>
                         <input type="tel" class="form-control1" name="transaction_number" id="transaction_number" pattern="[0-9]{1,6}" inputmode="numeric" maxlength="6">
                     </div>
+                  
                 </div>
 
 
@@ -171,6 +182,13 @@
                 }
             });
         });
+        setTimeout(function() {
+            var errorAlert = document.querySelector('.alert-danger');
+            var successAlert = document.querySelector('.alert-success');
+            if (errorAlert) errorAlert.style.display = 'none';
+            if (successAlert) successAlert.style.display = 'none';
+        }, 10000);
+
     </script>
 
 </body>

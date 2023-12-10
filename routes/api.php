@@ -134,6 +134,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('update/profile/mobile/{id}', [UserController::class, 'updateProfilePicMobile'])->name('api.update.profile.mobile');
         Route::post('mvo/get/homeowner', [LogbookController::class, 'checkIfMvoOn'])->name('mvo.get.homeowner');
 
+        Route::get('/fetch/notifications/{id}', [NotificationsController::class, 'fetchNotificationById'])->name('fetchNotificationsbyId');
+        Route::post('/mark/all/as/read/notifications', [NotificationsController::class, 'markAllAsReadMobile']);
 
         Route::get('/dashboard/announcement/fetch/mobile/{id}', [AnnouncementController::class, 'dashboardAnnouncementFetchMobile'])->name('dashboardAnnouncementFetchMobile');
 

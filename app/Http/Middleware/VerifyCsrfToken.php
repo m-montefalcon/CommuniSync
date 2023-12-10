@@ -61,7 +61,10 @@ class VerifyCsrfToken extends Middleware
         'api/mvo/post/homeowner',
         'api/user/logbook/check/out',
         'api/user/logbook/out/*',
-        'api/mvo/get/homeowner'
+        'api/mvo/get/homeowner',
+        'api/fetch/notifications/*',
+        'api/mark/all/as/read/notifications'
+        
         
     ];
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\PaymentRecords;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserPaymentRequest extends FormRequest
@@ -23,7 +24,7 @@ class UserPaymentRequest extends FormRequest
     {
         return [
             'homeowner_id' => ['required'],
-            'transaction_number' => ['required'],
+            'transaction_number' => ['required', Rule::unique('payment_records', 'transaction_number')],
             'notes' => ['nullable'],
             'payment_amount' => ['required'],
         ];
