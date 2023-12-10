@@ -23,7 +23,7 @@ class LogbookController extends Controller
         $this->logbookService = $logbookService;
     }
     //Logbook will record when Visitor will out
-    public function out($id) {
+    public function out($id, NotificationsController $notificationController) {
         // Find the logbook entry by ID
         $logbookEntry = Logbook::find($id);
     
@@ -50,6 +50,8 @@ class LogbookController extends Controller
         $id =  $logbookEntry->homeowner_id;
         $title = 'Control Access';
         $body = 'Visitor has successfully exited the subdivision.';
+
+        $notificationController->createNotificationById($title, $body, $id);
         $this->notificationService->sendNotificationById($id, $title, $body);
         return response()->json(['message' => 'Visitor has left. Logbook updated.'], 200);
     }
@@ -91,7 +93,7 @@ public function checkIfMvoOn(Request $request){
 }
 
 
-    public function post(Request $request)
+    public function post(Request $request,NotificationsController $notificationController)
     {
         $validatedData = $request->validate([
             'homeowner_id' => 'required',
@@ -127,7 +129,7 @@ public function checkIfMvoOn(Request $request){
         $id = $validatedData['homeowner_id'];
         $title = 'Control Access';
         $body = "Visitors namely: $namesString, have been approved to visit you. They are on their way!";
-
+        $notificationController->createNotificationById($title, $body, $id);
         $this->notificationService->sendNotificationById($id, $title, $body);
 
         return response()->json(['message' => 'success', 'data' => $validatedData], 200);

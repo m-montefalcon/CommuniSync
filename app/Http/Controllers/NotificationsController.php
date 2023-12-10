@@ -21,6 +21,19 @@ class NotificationsController extends Controller
 
         return $notification;
     }
+    public function createNotificationById($title, $body, $id)
+    {
+        $notification = Notification::create([ // Fix the model name here
+            'title' => $title,
+            'body' => $body,
+            'recipient_id' => $id,
+            'is_hovered' => false
+        ]);
+
+
+        return $notification;
+    }
+
 
     public function fetchNotificationByRoles()
         {
