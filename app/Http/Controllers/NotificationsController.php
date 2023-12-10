@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Notification; // Fix the namespace here
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\Notification; // Fix the namespace here
 
 class NotificationsController extends Controller
 {
@@ -44,6 +45,14 @@ class NotificationsController extends Controller
             return response()->json(['notifications' => $notifications], 200);
         }
 
+    public function fetchNotificationById($id){
+
+            $notifications = Notification::where('recipient_id', $id)->where('is_hovered', false)
+            ->orderBy('created_at', 'desc')
+            ->get();
+            return response()->json(['notifications' => $notifications], 200);
+    }
+
     public function updateIsHoveredForAll(Request $request)
     {
         try {
@@ -71,6 +80,18 @@ class NotificationsController extends Controller
             // Handle the exception if needed
             return response()->json(['error' => $e->getMessage()], 500);
         }
+    }
+
+    public function markAllAsReadMobile(Request $request)
+    {
+        $validatedData = $request->validate([
+            'id' => 'required',
+        ]);
+        // Assuming you have a `notifications` table in your database
+        Notification::where('recipient_id', $validatedData['id'])
+            ->update(['is_hovered' => true]);
+
+        return response()->json(['message' => 'All notifications marked as read']);
     }
 
 }
