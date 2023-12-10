@@ -51,7 +51,7 @@ class VerificationRequests extends Controller
     }
 
 
-    public function update(VerificationRequest $id){
+    public function update(VerificationRequest $id, NotificationsController $notificationController){
         $user = User::findOrFail($id->user_id);
        
         $user->update([
@@ -65,6 +65,7 @@ class VerificationRequests extends Controller
          $title = 'You have been verified as homeowner!';
          $body = 'You may logout and sign in back again to refresh your privileges';
          $notifId = $user->id;
+         $notificationController->createNotificationById($title, $body, $id);
          $this->notificationService->sendNotificationById($notifId, $title, $body);
          $id->delete();
         return redirect()->route('verificationRequests');

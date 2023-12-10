@@ -39,6 +39,7 @@ class ComplaintController extends Controller
         $this->notificationService->sendNotificationById($id, $title, $body);
         Complaint::create($validatedData);
         // Create and broadcast the new notification
+
         $notification = $notificationController->createNotificationByRoles('New complaint', 'New complaint has received, check it under Complaints Tab.', 4);
         broadcast(new NewNotificationEvent($notification))->toOthers();
     
@@ -47,7 +48,7 @@ class ComplaintController extends Controller
     }
 
 
-    public function update(UserComplaintUpdateRequest $request, Complaint $id)
+    public function update(UserComplaintUpdateRequest $request, Complaint $id,NotificationsController $notificationController)
     {
         $validatedData = $request->validated();
 
@@ -85,13 +86,15 @@ class ComplaintController extends Controller
         $title = 'Complaint opened by Admin';
         $body = "Complaint was opened and reviewed by {$admin->first_name} {$admin->last_name}. Check the following updates";
         $id = $id->homeowner_id;
+
+        $notificationController->createNotificationById($title, $body, $id);
         $this->notificationService->sendNotificationById($id, $title, $body);
     
         return redirect()->back();
     }
     
   
-    public function close(UserComplaintUpdateRequest $request, Complaint $id)
+    public function close(UserComplaintUpdateRequest $request, Complaint $id, NotificationsController $notificationController)
     {
         $validatedData = $request->validated();
     
@@ -129,6 +132,8 @@ class ComplaintController extends Controller
         $title = 'Complaint close with resolution by Admin';
         $body = "Complaint was closed and resolved by {$admin->first_name} {$admin->last_name}. Check the following updates";
         $id = $id->homeowner_id;
+        $notificationController->createNotificationById($title, $body, $id);
+
         $this->notificationService->sendNotificationById($id, $title, $body);
 
         return redirect()->back();
