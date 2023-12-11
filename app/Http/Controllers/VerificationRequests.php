@@ -65,8 +65,9 @@ class VerificationRequests extends Controller
          $title = 'You have been verified as homeowner!';
          $body = 'You may logout and sign in back again to refresh your privileges';
          $notifId = $user->id;
-         $notificationController->createNotificationById($title, $body, $id);
          $this->notificationService->sendNotificationById($notifId, $title, $body);
+         $notificationController->createNotificationById($title, $body, $id);
+
          $id->delete();
         return redirect()->route('verificationRequests');
         

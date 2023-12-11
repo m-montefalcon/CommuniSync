@@ -40,8 +40,8 @@ class BlockListController extends Controller
         $validatedData['admin_id'] = $adminId;
         $validatedData['blocked_status'] = "2";
         $id->update($validatedData);
-        $notificationController->createNotificationById('Blocked list', 'Your request for person to restrict someone to enter the subdivision has approved', $id->homeowner_id);
         $this->notificationService->sendNotificationById($id->homeowner_id, 'Blocked list', 'Your request for person to restrict someone to enter the subdivision has approved');
+        $notificationController->createNotificationById('Blocked list', 'Your request for person to restrict someone to enter the subdivision has approved', $id->homeowner_id);
 
         return redirect()->back();
     }
@@ -53,8 +53,9 @@ class BlockListController extends Controller
         $validatedData['admin_id'] = $adminId;
         $validatedData['blocked_status'] = "3";
         $id->update($validatedData);
-        $notificationController->createNotificationById('Your request for person to restrict someone to enter the subdivision has denied', $id->blocked_status_response_description, $id->homeowner_id);
         $this->notificationService->sendNotificationById($id->homeowner_id, 'Your request for person to restrict someone to enter the subdivision has denied', '$id->blocked_status_response_description');
+        $notificationController->createNotificationById('Your request for person to restrict someone to enter the subdivision has denied', $id->blocked_status_response_description, $id->homeowner_id);
+       
         return redirect()->back();
     }
     public function remove(BlockList $id){

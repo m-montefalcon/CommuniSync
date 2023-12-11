@@ -87,9 +87,9 @@ class ComplaintController extends Controller
         $body = "Complaint was opened and reviewed by {$admin->first_name} {$admin->last_name}. Check the following updates";
         $id = $id->homeowner_id;
 
-        $notificationController->createNotificationById($title, $body, $id);
         $this->notificationService->sendNotificationById($id, $title, $body);
-    
+        $notificationController->createNotificationById($title, $body, $id);
+
         return redirect()->back();
     }
     
@@ -132,9 +132,9 @@ class ComplaintController extends Controller
         $title = 'Complaint close with resolution by Admin';
         $body = "Complaint was closed and resolved by {$admin->first_name} {$admin->last_name}. Check the following updates";
         $id = $id->homeowner_id;
-        $notificationController->createNotificationById($title, $body, $id);
 
         $this->notificationService->sendNotificationById($id, $title, $body);
+        $notificationController->createNotificationById($title, $body, $id);
 
         return redirect()->back();
     }

@@ -73,9 +73,9 @@ class ControlAccessController extends Controller
         $title = 'Request Access';
         $body = "{$visitorId->first_name} {$visitorId->last_name} sent you a request for visit access.";
         $hmId= $validatedData['homeowner_id'];
-        $notificationController->createNotificationById($body, 'You may check the details under Control Access Page', $hmId);
 
         $this->notificationService->sendNotificationById($hmId, $title, $body);
+        $notificationController->createNotificationById($body, 'You may check the details under Control Access Page', $hmId);
 
         return response()->json(['request success' => true, 'data' => $controlAccess], 200);
     }
@@ -138,8 +138,9 @@ class ControlAccessController extends Controller
         $admin =  User::findOrFail($id->admin_id);
         $title = 'Your QR code is ready!';
         $body = "{$admin->first_name} {$admin->last_name} validated your request access. You may check your qr code";
-        $notificationController->createNotificationById($body, 'You may check the details under dashboard', $id->visitor_id);
         $this->notificationService->sendNotificationById($id->visitor_id, $title, $body);
+        $notificationController->createNotificationById($body, 'You may check the details under dashboard', $id->visitor_id);
+
         return redirect()->back();
     }
 
@@ -240,10 +241,10 @@ class ControlAccessController extends Controller
 
         $id = $controlAccessId->homeowner_id;
         $title = 'Control Access';
-        $body = "Visitors : " . $visitorName . " ,  ". $namesString . " qr scanned and verified. They are own their way!";
+        $body = "Visitors : " . $visitorName . " ,  ". $namesString . " , was qr scanned and verified. They are own their way!";
     
         $this->notificationService->sendNotificationById($controlAccessId->homeowner_id, $title, $body);
-        $notificationController->createNotificationById($title, $body, $id->visitor_id);
+        $notificationController->createNotificationById($title, $body, $controlAccessId->homeowner_id);
 
         return response()->json(['scanned' => true], 200);
     }

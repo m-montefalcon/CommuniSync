@@ -37,22 +37,32 @@ class LogbookController extends Controller
         $logbookEntry->logbook_status = 2; // Set visit_status to 2 when the visitor leaves
         $logbookEntry->visit_date_out = $currentDateTime->toDateString();
         $logbookEntry->visit_time_out = $currentDateTime->toTimeString();
-        
-        // Retrieve the visitor's contact number using Eloquent relationships
-        $visitor = $logbookEntry->visitor; // Assuming 'visitor' is the relationship method
     
-        // Check if the visitor and contact number exist
-        if ($visitor && !empty($visitor->contact_number)) {
-            $logbookEntry->contact_number = $visitor->contact_number;
-        }
+        // Save the changes in the logbook entry
         $logbookEntry->save();
-      
-        $id =  $logbookEntry->homeowner_id;
-        $title = 'Control Access';
+    
+        // Get names of visit members
+        $visitMembers = json_decode($logbookEntry->visit_members, true);
+        $namesString = implode(', ', $visitMembers);
+    
+        // Compose notification body
         $body = 'Visitor has successfully exited the subdivision.';
-
-        $notificationController->createNotificationById($title, $body, $id);
+    
+        // If visitor is not null, concatenate their name
+        if ($logbookEntry->visitor) {
+            $visitorName = $logbookEntry->visitor->first_name . ' ' . $logbookEntry->visitor->last_name;
+            $body = $namesString . ' , ' . $visitorName . ', has successfully exited the subdivision.';
+        } else {
+            // If visitor is null, include only visit members
+            $body = $namesString . ' , ' . $body;
+        }
+    
+        // Send notification
+        $id = $logbookEntry->homeowner_id;
+        $title = 'Control Access';
         $this->notificationService->sendNotificationById($id, $title, $body);
+        $notificationController->createNotificationById($title, $body, $id);
+    
         return response()->json(['message' => 'Visitor has left. Logbook updated.'], 200);
     }
     
@@ -129,8 +139,8 @@ public function checkIfMvoOn(Request $request){
         $id = $validatedData['homeowner_id'];
         $title = 'Control Access';
         $body = "Visitors namely: $namesString, have been approved to visit you. They are on their way!";
-        $notificationController->createNotificationById($title, $body, $id);
         $this->notificationService->sendNotificationById($id, $title, $body);
+        $notificationController->createNotificationById($title, $body, $id);
 
         return response()->json(['message' => 'success', 'data' => $validatedData], 200);
     }
