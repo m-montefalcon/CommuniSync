@@ -45,7 +45,7 @@ class VerificationRequests extends Controller
             'block_no' => $validatedData['block_no'],
             'lot_no' => $validatedData['lot_no'],
         ]);
-        $notification = $notificationController->createNotificationByRoles('New verification request', 'A visitor requested to be verified as homeowner, check it under Complaints Tab.', 4);
+        $notification = $notificationController->createNotificationByRoles('New verification request', 'A visitor requested to be verified as homeowner, check it under Verifications Tab.', 4);
         broadcast(new NewNotificationEvent($notification))->toOthers();
         return response()->json($verificationRequest, 200);
     }
@@ -65,8 +65,8 @@ class VerificationRequests extends Controller
          $title = 'You have been verified as homeowner!';
          $body = 'You may logout and sign in back again to refresh your privileges';
          $notifId = $user->id;
-         $this->notificationService->sendNotificationById($notifId, $title, $body);
-         $notificationController->createNotificationById($title, $body, $id);
+         $this->notificationService->sendNotificationById($id->user_id, $title, $body);
+         $notificationController->createNotificationById($title, $body, $id->user_id);
 
          $id->delete();
         return redirect()->route('verificationRequests');
