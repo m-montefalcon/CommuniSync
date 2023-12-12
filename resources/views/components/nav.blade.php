@@ -195,8 +195,8 @@
       });
 
       // setInterval(fetchNotifications, 3600000); // 1 hour = 60 minutes * 60 seconds * 1000 milliseconds
-      // setInterval(fetchNotifications, 15000); // 15 seconds = 15,000 milliseconds
-      setInterval(fetchNotifications, 300000); // 5 minutes = 300,000 milliseconds
+      setInterval(fetchNotifications, 15000); // 15 seconds = 15,000 milliseconds
+      // setInterval(fetchNotifications,0000); // 5 minutes = 300,000 milliseconds
 
 
       // Function to fetch notifications from the server
