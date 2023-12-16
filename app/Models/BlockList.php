@@ -41,7 +41,8 @@ public function scopeVisitorBlocked($query, $visitor)
             Where('contact_number', $visitor->contact_number)
             ->orWhere(function ($query) use ($visitor) {
                 $query->where('first_name', $visitor->first_name)
-                    ->where('last_name', $visitor->last_name);
+                    ->where('last_name', $visitor->last_name)
+                    ->where('blocked_status', 2);
             });
     });
 }
@@ -69,7 +70,9 @@ public function scopeMemberBlock($query, $visitMembers)
         // Use a closure to ensure that both conditions must be met
         $query->where(function ($query) use ($firstNames, $lastNames) {
             $query->whereIn('first_name', $firstNames)
-                  ->whereIn('last_name', $lastNames);
+                  ->whereIn('last_name', $lastNames)
+                  ->where('blocked_status', 2);
+                  
         });
     }
 
