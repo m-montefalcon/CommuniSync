@@ -74,8 +74,13 @@
                                             </form>
                                         </td>  
                                         <td>
+                                            <form action="{{ route('api.admin.control.access.rejected', $fetchRequest->id) }}" method="POST">
+                                                @csrf
+                                                @method('PUT')
                                                 <button type="submit" class="btn btn-danger btn-sm">Reject</button>
-                                        </td> 
+                                            </form>
+                                        </td>
+
 
 
                                     </tr>

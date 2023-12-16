@@ -144,7 +144,7 @@ class ControlAccessController extends Controller
         return redirect()->back();
     }
 
-    public function rejected($id){
+    public function rejected($id, NotificationsController $notificationController){
         $Rejectedid = ControlAccess::findOrFail($id);
         $adminId = Auth::id();
         // Update the model with the validated data
@@ -155,6 +155,14 @@ class ControlAccessController extends Controller
             'admin_id' => $adminId 
         ]);
         $Rejectedid->save();
+        $admin =  User::findOrFail($Rejectedid->admin_id);
+        $visitor =  User::findOrFail($Rejectedid->visitor_id);
+        $title = 'Rejected Request';
+        $visitorName = "{$visitor->first_name} {$visitor->last_name}";
+        $body = "{$admin->first_name} {$admin->last_name} rejected the visit access for {$visitorName}. If this is some mistake, try again or file a complaint";
+        $this->notificationService->sendNotificationById($Rejectedid->homeowner_id, $title, $body);
+        $this->notificationService->sendNotificationById($Rejectedid->visitor_id, $title, $body);
+        $notificationController->createNotificationById('Rejected Request',$body, $Rejectedid->homeowner_id);
         return redirect()->back();
     }
     public function rejectedMobile(UserRecordControlAccessRequest $request){
