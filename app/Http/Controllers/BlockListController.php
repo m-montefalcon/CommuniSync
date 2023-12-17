@@ -54,7 +54,7 @@ class BlockListController extends Controller
         $validatedData['blocked_status'] = "3";
         $id->update($validatedData);
         $this->notificationService->sendNotificationById($id->homeowner_id, 'Your request for person to restrict someone to enter the subdivision has denied', '$id->blocked_status_response_description');
-        $notificationController->createNotificationById('Your request for person to restrict someone to enter the subdivision has denied', $id->blocked_status_response_description, $id->homeowner_id);
+        $notificationController->createNotificationById('Your request for person to restrict someone to enter the subdivision has denied', $validatedData['blocked_status_response_description'] , $id->homeowner_id);
        
         return redirect()->back();
     }
