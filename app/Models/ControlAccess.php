@@ -73,9 +73,11 @@ class ControlAccess extends Model
                     ->orWhere('visit_status', 6)
                     ->orWhereNotNull('qr_code'); // Add this condition
             })
-            ->orderByDesc('created_at') // Replace 'your_column_name' with the actual column name
+            ->whereDate('date', now()) 
+            ->orderByDesc('created_at') 
             ->get();
     }
+    
     
     
     

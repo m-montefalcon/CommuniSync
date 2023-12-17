@@ -197,10 +197,17 @@ class ControlAccessController extends Controller
         // Use find instead of findOrFail to avoid throwing an exception
         $controlAccessId = ControlAccess::find($validatedData['id']);
         $visitor = User::find($controlAccessId->visitor_id);
-    
+
+
         // Check if the controlAccessId and visitor exist
         if (!$controlAccessId || !$visitor) {
             return response()->json(['message' => 'User or Control Access not found'], 404);
+        }
+        $today = now()->toDateString();
+
+        // Check if the date is today
+        if ($controlAccessId->date != $today) {
+            return response()->json(['message' => 'QR code has expired.'], 403);
         }
     
         $isVisitorBlocked = BlockList::visitorBlocked($visitor)->exists();
