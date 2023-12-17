@@ -97,7 +97,7 @@ class ControlAccessController extends Controller
         broadcast(new NewCAFEvent($validatedData))->toOthers();
     
         // Create and broadcast the new notification
-        $notification = $notificationController->createNotificationByRoles('New Accepted Control Access Request', 'New accepted CAF has received, check it under Control Access Tab.', 4);
+        $notification = $notificationController->createNotificationByRoles('New Accepted Control Access Request', 'New Control Access has received, check it under Control Access Tab.', 4);
         broadcast(new NewNotificationEvent($notification))->toOthers();
     
         // Include the updated notifications in the response
@@ -252,11 +252,11 @@ class ControlAccessController extends Controller
             // Handle the case where $visitMembers is not an array or is null
             $namesString = $controlAccessId->visit_members; // Assign the original value
         }        
-        $visitorName = $visitor->first_name . ' ' . $visitor->last_name;
+        $visitorName = $visitor->first_name . ' ' . $visitor->last_name . ', ';
 
         $id = $controlAccessId->homeowner_id;
         $title = 'Control Access';
-        $body = "Visitors : " . $visitorName . " ,  ". $namesString . " , was qr scanned and verified. They are own their way!";
+        $body = "Visitors : " . $visitorName .  $namesString . "  was qr scanned and verified. They are on their way!";
     
         $this->notificationService->sendNotificationById($controlAccessId->homeowner_id, $title, $body);
         $notificationController->createNotificationById($title, $body, $controlAccessId->homeowner_id);
