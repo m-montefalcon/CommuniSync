@@ -42,7 +42,7 @@
             console.log('New CAF Event:', data);
 
             // Show a Toastr notification
-            toastr.success('New Access Control Request Received!', 'Notification');
+            toastr.success('New Notification!', 'Notification');
         });
 
         // Set a flag indicating that the script has been executed
