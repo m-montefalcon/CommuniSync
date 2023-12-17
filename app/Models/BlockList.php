@@ -39,7 +39,7 @@ public function scopeVisitorBlocked($query, $visitor)
     return $query->where(function ($query) use ($visitor) {
         $query->
             Where('contact_number', $visitor->contact_number)
-            ->orWhere(function ($query) use ($visitor) {
+            ->Where(function ($query) use ($visitor) {
                 $query->where('first_name', $visitor->first_name)
                     ->where('last_name', $visitor->last_name)
                     ->where('blocked_status', 2);
