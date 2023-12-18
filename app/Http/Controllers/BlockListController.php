@@ -40,8 +40,10 @@ class BlockListController extends Controller
         $validatedData['admin_id'] = $adminId;
         $validatedData['blocked_status'] = "2";
         $id->update($validatedData);
-        $this->notificationService->sendNotificationById($id->homeowner_id, 'Blocked list', 'Your request for person to restrict someone to enter the subdivision has approved');
-        $notificationController->createNotificationById('Blocked list', 'Your request for person to restrict someone to enter the subdivision has approved', $id->homeowner_id);
+        $blocked_name = $id->first_name . ' ' . $id->last_name;
+        $body = "Your request to restrict ' . $blocked_name . ' to enter the subdivision has approved";
+        $this->notificationService->sendNotificationById($id->homeowner_id, 'Blocked list', 'Your request to restrict' . $blocked_name . ' to enter the subdivision has approved');
+        $notificationController->createNotificationById('Blocked list', $body, $id->homeowner_id);
 
         return redirect()->back();
     }
@@ -53,8 +55,10 @@ class BlockListController extends Controller
         $validatedData['admin_id'] = $adminId;
         $validatedData['blocked_status'] = "3";
         $id->update($validatedData);
-        $this->notificationService->sendNotificationById($id->homeowner_id, 'Your request for person to restrict someone to enter the subdivision has denied', $id->blocked_status_response_description);
-        $notificationController->createNotificationById('Your request for person to restrict someone to enter the subdivision has denied', $id->blocked_status_response_description , $id->homeowner_id);
+        $blocked_name = $id->first_name . ' ' . $id->last_name;
+        $body = "Reason for disapproval " . $id->blocked_status_response_description;
+        $this->notificationService->sendNotificationById($id->homeowner_id, 'Your request for person to restrict ' . $blocked_name . '  to enter the subdivision has denied', $body);
+        $notificationController->createNotificationById('Your request to restrict ' . $blocked_name . '  to enter the subdivision has denied', $body, $id->homeowner_id);
        
         return redirect()->back();
     }

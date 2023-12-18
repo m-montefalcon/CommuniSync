@@ -42,7 +42,7 @@
             console.log('New CAF Event:', data);
 
             // Show a Toastr notification
-            toastr.success('New Notification!', 'Notification');
+            toastr.success('New visit request!', 'Notification');
         });
 
         // Set a flag indicating that the script has been executed
