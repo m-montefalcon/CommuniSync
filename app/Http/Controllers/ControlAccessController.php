@@ -75,7 +75,7 @@ class ControlAccessController extends Controller
         $hmId= $validatedData['homeowner_id'];
 
         $this->notificationService->sendNotificationById($hmId, $title, $body);
-        $notificationController->createNotificationById($body, 'You may check the details under Control Access Page', $hmId);
+        $notificationController->createNotificationById($body, 'You may check the details under Home page', $hmId);
 
         return response()->json(['request success' => true, 'data' => $controlAccess], 200);
     }

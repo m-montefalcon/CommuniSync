@@ -32,9 +32,10 @@ class PaymentRecordController extends Controller
         $validatedData['payment_date'] = now()->toDateString();
         $validatedData['admin_id'] = Auth::id();
         PaymentRecord::create($validatedData);
-        $title = 'Monthly Due Payment Recieved';
-        $body = 'A monthly due payment was recieved. You may check it on Payment Records.';
+        $title = 'Monthly Due Payment Received';
+        $body = 'A monthly due payment was recieved, amounting PHP ' . $validatedData['payment_amount'] . '. You may check it on Payment Records.';
         $id = $validatedData['homeowner_id'];
+        
         $this->notificationService->sendNotificationById($id, $title, $body);
         $notificationController->createNotificationById($title, $body, $id);
 
