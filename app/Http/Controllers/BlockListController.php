@@ -41,8 +41,8 @@ class BlockListController extends Controller
         $validatedData['blocked_status'] = "2";
         $id->update($validatedData);
         $blocked_name = $id->first_name . ' ' . $id->last_name;
-        $body = "Your request to restrict ' . $blocked_name . ' to enter the subdivision has approved";
-        $this->notificationService->sendNotificationById($id->homeowner_id, 'Blocked list', 'Your request to restrict' . $blocked_name . ' to enter the subdivision has approved');
+        $body = "Your request to restrict " . $blocked_name . " to enter the subdivision has approved";
+        $this->notificationService->sendNotificationById($id->homeowner_id, 'Blocked list', 'Your request to restrict ' . $blocked_name . ' to enter the subdivision has been approved.');
         $notificationController->createNotificationById('Blocked list', $body, $id->homeowner_id);
 
         return redirect()->back();
@@ -56,8 +56,8 @@ class BlockListController extends Controller
         $validatedData['blocked_status'] = "3";
         $id->update($validatedData);
         $blocked_name = $id->first_name . ' ' . $id->last_name;
-        $body = "Reason for disapproval " . $id->blocked_status_response_description;
-        $this->notificationService->sendNotificationById($id->homeowner_id, 'Your request for person to restrict ' . $blocked_name . '  to enter the subdivision has denied', $body);
+        $body = "Reason for disapproval : " . $id->blocked_status_response_description;
+        $this->notificationService->sendNotificationById($id->homeowner_id, 'Your request to restrict ' . $blocked_name . ' to enter the subdivision has denied', $body);
         $notificationController->createNotificationById('Your request to restrict ' . $blocked_name . '  to enter the subdivision has denied', $body, $id->homeowner_id);
        
         return redirect()->back();
