@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DateTime;
 use App\Models\User;
 use App\Models\Logbook;
 use App\Models\BlockList;
@@ -197,6 +198,17 @@ class ControlAccessController extends Controller
         if ($controlAccessId->date != $today) {
             return response()->json(['message' => 'QR code has expired.'], 403);
         }
+        $currentDate = new DateTime();
+
+        // Get the date and date out
+        $date = new DateTime($controlAccessId->date);
+        $dateOut = new DateTime($controlAccessId->dateOut);
+     
+        // Check if the current date is still valid between the date and date out
+        if ($currentDate < $date || $currentDate > $dateOut) {
+            return response()->json(['message' => 'The current date is not valid between the date and date out.'], 403);
+        }
+     
     
         $isVisitorBlocked = BlockList::visitorBlocked($visitor)->exists();
         $visit_members = json_decode($controlAccessId->visit_members, true);

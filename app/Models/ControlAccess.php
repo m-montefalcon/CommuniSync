@@ -20,7 +20,7 @@ class ControlAccess extends Model
         'personnel_id',
         'personnel_name',
         'date',
-        'time',
+        'date_out',
         'destination_person',
         'visit_members',
         'visit_status',
