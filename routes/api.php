@@ -121,7 +121,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('admin/complaint/update/{id}', [ComplaintController::class, 'update'])->name('api.admin.complaint.update');
     Route::put('admin/complaint/close/{id}', [ComplaintController::class, 'close'])->name('api.admin.complaint.close');
     Route::get('admin/complaint/get/all/dashboard/complaint/by/{id}', [ComplaintController::class, 'dashboardFetchByHomeowner'])->name('admin.complaint.get.all.dashboard.complaint.by.id');
-    
+    Route::get('admin/open/new/complaint/pdf', [ComplaintController::class, 'newPdfForm'])->name('admin.new.complaint.pdf');
+    Route::get('admin/open/history/complaint/pdf', [ComplaintController::class, 'historyPdfForm'])->name('admin.history.complaint.pdf');
+
     // Manual visit options
         Route::post('mvo/post/homeowner', [LogbookController::class, 'post'])->name('mvo.post.homeowner');
 

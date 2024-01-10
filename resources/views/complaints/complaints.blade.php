@@ -33,11 +33,13 @@
                                 <tbody>
                                     <tr>
                                         <th>Title</th>
+                                        <th>Complaint Status</th>
+
                                         <th>Date</th>
                                     </tr>     
                                     @if(isset($fetchALlComplaints) && count($fetchALlComplaints) > 0)
                                         @foreach ($fetchALlComplaints as $complaint)
-                                    <tr class="clickable-row" 
+                                    <tr  style="@if($complaint->complaint_status == 1) background-color: #8FDD92; @elseif($complaint->complaint_status == 2) background-color: #FDFD96; @else background-color: #FFFFFF; @endif" class="clickable-row" 
                                         data-complaint-id="{{ $complaint->id }}"
                                         data-complaint-title="{{ $complaint->complaint_title }}" 
                                         data-complaint-date="{{ \Carbon\Carbon::parse($complaint->complaint_date)->format('F j, Y') }}"
@@ -49,6 +51,16 @@
                                         data-complaint-photo="{{ $complaint->complaint_photo }}"
                                         >
                                         <td>{{ $complaint->complaint_title }}</td>
+                                        <td>
+                                            @if($complaint->complaint_status == 1)
+                                                Newly Submitted
+                                            @elseif($complaint->complaint_status == 2)
+                                                Reviewing
+                                            @else
+                                                Unknown Status
+                                            @endif
+                                        </td>
+
                                         <td>{{ \Carbon\Carbon::parse($complaint->complaint_date)->format('F j, Y') }}</td>
                                     </tr>
                                     @endforeach
@@ -104,6 +116,7 @@
                 <label for="complaintUpdates">Updates:</label>
                 <div id="complaintUpdates" class="form-control" readonly></div>
             </div>
+            <div id="pdfUrlContainer" data-route="{{ route('admin.new.complaint.pdf') }}"></div>
 
             <form method="POST" id="complaintForm" enctype="multipart/form-data"> 
                 @method('PUT')
@@ -158,6 +171,11 @@
 
                 if (stateStatus === "1") {
                     statusLabels = "Opened";
+                    // Access the route URL from the data attribute
+                    var pdfUrl = "{{ route('admin.new.complaint.pdf') }}?id=" + id;
+
+                    // Open a new tab with the PDF route URL
+                    window.open(pdfUrl);
                 } else if (stateStatus === "2") {
                     statusLabels = "Ongoing";
                 } else if (stateStatus === "3") {

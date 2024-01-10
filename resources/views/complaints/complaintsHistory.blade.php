@@ -37,6 +37,7 @@
                                     </tr>     
                                     @foreach ($fetchALlComplaints as $complaint)
                                     <tr class="clickable-row" 
+                                        data-complaint-id="{{ $complaint->id }}" 
                                         data-complaint-title="{{ $complaint->complaint_title }}" 
                                         data-complaint-date="{{ \Carbon\Carbon::parse($complaint->complaint_date)->format('F j, Y') }}"
                                         data-complaint-description="{{ $complaint->complaint_desc }}"
@@ -75,6 +76,15 @@
                 <span class="close-modal" id="closeModal">&times;</span>
             </div>
             <div class="form-group">
+                <a class="download-pdf-btn" href="{{ route('admin.history.complaint.pdf', ['id' => $complaint->id]) }}" target="_blank">
+                    <i class="fas fa-download"></i> Download PDF
+                </a>
+            </div>
+
+
+
+
+            <div class="form-group">
                 <label for="complaintTitle">Title:</label>
                 <input type="text" class="form-control" id="complaintTitle" readonly>
             </div>
@@ -112,6 +122,11 @@
         var closeModalButton = document.getElementById("closeModal");
 
         $(document).on('click', '.clickable-row', function() {
+            var complaintId = $(this).data('complaint-id');
+  // Use the complaintId in your modal related code
+  var pdfLink = "{{ route('admin.history.complaint.pdf', ['id' => '']) }}" + complaintId;
+
+        $('.download-pdf-btn').attr('href', pdfLink);
             var title = $(this).data('complaint-title');
             var date = $(this).data('complaint-date');
             var description = $(this).data('complaint-description');
