@@ -93,19 +93,34 @@ class User extends Authenticatable
           ->where('manual_visit_option', 1);
     }
     public function scopeChecksRoleWithSearch($query, $search, $role) {
-        return $query->where(function ($query) use ($search) {
-                $searchLower = strtolower($search);
+        // Split the search string into an array of names
+        $names = explode(' ', $search);
     
-                $query->where('first_name', 'like', '%' . $search . '%')
-                      ->orWhere('last_name', 'like', '%' . $search . '%')
-                      ->orWhere(function ($query) use ($searchLower) {
-                          // Use LIKE for case-insensitive search
-                          $query->whereRaw('LOWER(`family_member`) like ?', ['%' . $searchLower . '%']);
-                      });
+        return $query->select('*')
+            ->where(function ($query) use ($names) {
+                foreach ($names as $name) {
+                    $searchLower = strtolower($name);
+    
+                    $query->orWhere('first_name', 'like', '%' . $name . '%')
+                        ->orWhere('last_name', 'like', '%' . $name . '%')
+                        ->orWhere(function ($query) use ($searchLower) {
+                            // Use LIKE for case-insensitive search
+                            $query->whereRaw('LOWER(`family_member`) like ?', ['%' . $searchLower . '%']);
+                        });
+                }
             })
             ->where('role', $role)
+            ->orderByRaw('
+                CASE
+                    WHEN first_name LIKE ? THEN 1
+                    WHEN last_name LIKE ? THEN 2
+                    WHEN family_member LIKE ? THEN 3
+                    ELSE 4
+                END
+            ', ['%' . $names[0] . '%', '%' . $names[0] . '%', '%' . $names[0] . '%'])
             ->get();
     }
+    
     
     public function scopeChecksRoleWithUsername($query, $username, $role){
         return $query->where('user_name', $username)
