@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Complaint;
 use Illuminate\Http\Request;
+use App\Services\ComplaintService;
 use App\Events\NewNotificationEvent;
 use Illuminate\Support\Facades\Auth;
 use App\Console\Commands\NotificationService;
@@ -15,9 +16,13 @@ use App\Http\Requests\Complaints\UserComplaintUpdateRequest;
 class ComplaintController extends Controller
 {
     protected $notificationService;
-    public function __construct(NotificationService $notificationService)
+    protected $complaintService;
+
+    public function __construct(NotificationService $notificationService, ComplaintService $complaintService)
     {
         $this->notificationService = $notificationService;
+        $this->complaintService = $complaintService;
+
     }
     
     public function storeMobile(UserComplaintStoreRequest $request,  NotificationsController $notificationController){
@@ -160,7 +165,26 @@ class ComplaintController extends Controller
         return response()->json(['data' => $fetchLatestComplaints->values()], 200);
     }
     
+    public function newPdfForm(Request $request)
+    {
+        $id = $request->input('id');
+
+        // Generate and show the PDF using the service
+        $this->complaintService->generateAndShowPdfInNewTab($id);
     
+        // Redirect back
+        return redirect()->back();
+
+    }
+    
+
+    public function historyPdfForm(Request $request){
+        $id = $request->input('id');
+        $this->complaintService->historyGenerateAndShowPdfInNewTab($id);
+
+        return redirect()->back();
+
+    }
     
     
     
