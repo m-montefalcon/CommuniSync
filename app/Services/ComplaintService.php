@@ -340,7 +340,7 @@ class ComplaintService
                     
                 
     
-                    <p><strong>Sincerely,</strong></p>
+                    <p><strong>Printed by,</strong></p>
                     <p>' . $complaintData['admin_name'] . '</p>
                     <p><strong> Greenville Subdivision Homeowners Association (GHOA) </strong></p>
                 </body>
