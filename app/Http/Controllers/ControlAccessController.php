@@ -46,12 +46,12 @@ class ControlAccessController extends Controller
     public function searchMobile(Request $request)
     {
         $validatedData = $request->validate([
-            'username' => 'required',      
+            'search' => 'required',      
         ]);
     
         try {
-            $username = $validatedData['username'];
-            $users = User::checksRoleWithUsername($username, 2);
+            $search = $validatedData['search'];
+            $users = User::checksRoleWithSearch($search, 2);
 
             return response()->json([$users], 200);
         } catch (\Exception $e) {

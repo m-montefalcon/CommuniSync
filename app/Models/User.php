@@ -92,12 +92,29 @@ class User extends Authenticatable
         })->where('role', $role)
           ->where('manual_visit_option', 1);
     }
+    public function scopeChecksRoleWithSearch($query, $search, $role) {
+        return $query->where(function ($query) use ($search) {
+                $searchLower = strtolower($search);
+    
+                $query->where('first_name', 'like', '%' . $search . '%')
+                      ->orWhere('last_name', 'like', '%' . $search . '%')
+                      ->orWhere(function ($query) use ($searchLower) {
+                          // Use LIKE for case-insensitive search
+                          $query->whereRaw('LOWER(`family_member`) like ?', ['%' . $searchLower . '%']);
+                      });
+            })
+            ->where('role', $role)
+            ->get();
+    }
+    
     public function scopeChecksRoleWithUsername($query, $username, $role){
         return $query->where('user_name', $username)
                      ->where('role', $role)
                      ->first();
 
     }
+    
+    
     public function scopeChecksRole($query, $role){
         return $query->where('role', $role)
                      ->orderBy('first_name')
