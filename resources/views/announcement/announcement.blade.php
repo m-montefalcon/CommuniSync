@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ asset('css/announcement.css') }}">
     <link rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.0/css/all.css">
 </head>
 
 <body>
@@ -19,16 +20,47 @@
                     </h2>
                 </div>
                 <div class="card">
-                    <div class="top-table">
+                <div class="top-table">
                         <a class="search-box">
                             <i class="fas fa-search"></i>
                             <input type="text" id="searchInput" placeholder="Search...">
-                        </a>  
-                        <a class="add-btn" href="{{ route('announcement.form') }}">
-                            <i class="fa-regular fa-square-plus"></i>
-                        </a>                     
+                        </a>     
+                        <div class="top-table">
+                        <div class="query-form">
+                                <select class="filter-field" id="toDropdown">
+                                <option value="" disabled selected>Month</option> 
+                                <option value="1">January</option>
+                                <option value="2">February</option>
+                                <option value="3">March</option>
+                                <option value="4">April</option>
+                                <option value="5">May</option>
+                                <option value="6">June</option>
+                                <option value="7">July</option>
+                                <option value="8">August</option>
+                                <option value="9">September</option>
+                                <option value="10">October</option>
+                                <option value="11">November</option>
+                                <option value="12">December</option>
+                            </select>
+
+                            <select class="filter-field" id="yearToDropdown">
+                            <option value="" disabled selected>Year</option> 
+                                <option value="2023">2023</option>
+                                <option value="2024">2024</option>
+                            </select>
+
+                            <button class="btn btn-primary filter-button" id="filterButton">FILTER</button>
+
+                            <button class="btn btn-danger filter-button pdf-button" id="resetFilter">RESET</button>
+
+                        </div>
+                        
                     </div>
-                    
+                    <a class="add-btn" href="{{ route('announcement.form') }}">
+                            <i class="fa-regular fa-square-plus"></i>
+                        </a>                
+                    </div>
+                     
                     <div class="card-body">
                         <div id="table">
                             <table class="table">
@@ -179,6 +211,34 @@
             });
         });
     </script>
+
+<script>
+    $(document).ready(function () {
+        $('#filterButton').click(function () {
+            var selectedMonth = $('#toDropdown').val();
+            var selectedYear = $('#yearToDropdown').val();
+
+            $('.clickable-row').each(function () {
+                var row = $(this);
+                var rowDate = row.data('announcement-date');
+                var rowMonth = new Date(rowDate).getMonth() + 1;
+                var rowYear = new Date(rowDate).getFullYear();
+
+                if ((selectedMonth === "" || selectedMonth == rowMonth) && (selectedYear === "" || selectedYear == rowYear)) {
+                    row.show();
+                } else {
+                    row.hide();
+                }
+            });
+        });
+
+        $('#resetFilter').click(function () {
+            $('.clickable-row').show();
+            $('#toDropdown').val("");
+            $('#yearToDropdown').val("");
+        });
+    });
+</script>
 
 </body>
 </html>
