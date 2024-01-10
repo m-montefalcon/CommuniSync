@@ -26,6 +26,8 @@ class UserRequestControllAccessRequest extends FormRequest
             'homeowner_id' => ['required', 'integer'],
             'destination_person' => ['required'],
             'visit_members' => ['nullable'],
+            'date' => ['required'],
+            'date_out' => ['required'],
         ];
     }
 }

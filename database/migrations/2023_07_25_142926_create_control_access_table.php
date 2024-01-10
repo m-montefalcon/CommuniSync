@@ -22,7 +22,7 @@ return new class extends Migration
             $table->unsignedBigInteger('personnel_id')->nullable();
             $table->foreign('personnel_id')->references('id')->on('users');
             $table->date('date');
-            $table->time('time');
+            $table->date('date_out');
             $table->string('destination_person');
             $table->json('visit_members')->nullable();
             $table->enum('visit_status', [1, 2, 3, 4, 5, 6, 7])->default(1);

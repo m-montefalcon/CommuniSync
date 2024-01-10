@@ -65,8 +65,6 @@ class ControlAccessController extends Controller
     {
         $validatedData = $request->validated();
         $validatedData['visit_status'] = 1;
-        $validatedData['date'] = now()->toDateString();
-        $validatedData['time'] = now()->toTimeString();
         $controlAccess = ControlAccess::create($validatedData);
 
         $visitorId =  User::findOrFail($validatedData['visitor_id']);
@@ -86,8 +84,6 @@ class ControlAccessController extends Controller
         $validatedData = $request->validated();
         $id = ControlAccess::findOrFail($validatedData['id']);
         $validatedData['visit_status'] = 2;
-        $validatedData['date'] = now()->toDateString();
-        $validatedData['time'] = now()->toTimeString();
         $id->update($validatedData);
     
         // Fetch updated notifications after accepting the request
@@ -108,8 +104,6 @@ class ControlAccessController extends Controller
         $validatedData = $request->validated();
         $id = ControlAccess::findOrFail($validatedData['id']);
         $validatedData['visit_status'] = 3;
-        $validatedData['date'] = now()->toDateString();
-        $validatedData['time'] = now()->toTimeString();
         $id->update($validatedData);
         return response()->json(['accepted' => true, 'id' => $id], 200);
     }
@@ -121,8 +115,6 @@ class ControlAccessController extends Controller
         // Update the model with the validated data
         $id->update([
             'visit_status' => 4,
-            'date' => now()->toDateString(),
-            'time' => now()->toTimeString(),
             'admin_id' => $adminId 
         ]);
         $dataToEncode = [
@@ -150,8 +142,6 @@ class ControlAccessController extends Controller
         // Update the model with the validated data
         $Rejectedid->update([
             'visit_status' => 5,
-            'date' => now()->toDateString(),
-            'time' => now()->toTimeString(),
             'admin_id' => $adminId 
         ]);
         $Rejectedid->save();
@@ -170,8 +160,6 @@ class ControlAccessController extends Controller
         $id = ControlAccess::findOrFail($validatedData['id']);
         $id ->update([
             'visit_status' => 5,
-            'date' => now()->toDateString(),
-            'time' => now()->toTimeString(),
             'personnel_id' => $validatedData['personnel_id'] 
         ]);
         $id ->save();
@@ -218,9 +206,7 @@ class ControlAccessController extends Controller
     
         $currentDateTime = now();
     
-        // Update the controlAccessId directly without using the update method
-        $controlAccessId->date = $currentDateTime->toDateString();
-        $controlAccessId->time = $currentDateTime->toTimeString();
+
         $controlAccessId->visit_status = $visit_status;
         $controlAccessId->personnel_id = $validatedData['personnel_id'];
         $controlAccessId->save();
