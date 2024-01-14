@@ -151,7 +151,7 @@ class ComplaintService
                     
                 
     
-                    <p><strong>Sincerely,</strong></p>
+                    <p><strong>Issued and printed by,</strong></p>
                     <p>' . $complaintData['admin_name'] . '</p>
                     <p><strong> Greenville Subdivision Homeowners Association (GHOA) </strong></p>
                 </body>
@@ -335,12 +335,12 @@ class ComplaintService
                     </ol>
 
                     <p style="text-indent: 40px; text-align: justify;">
-                    This document serves as a formal notification to confirm the resolution of the previously filed complaint. The purpose of this report is to officially acknowledge that the complaint in question has been thoroughly addressed and resolved to the satisfaction of all concerned parties. This document stands as an official record indicating the successful resolution of the reported issue.
+                    This document serves as a formal notifiacation to confirm the resolution of the previously filed complaint. The purpose of this report is to officially acknowledge that the complaint in question has been thoroughly addressed and resolved to the satisfaction of all concerned parties. This document stands as an official record indicating the successful resolution of the reported issue.
                     </p>
                     
                 
     
-                    <p><strong>Printed by,</strong></p>
+                    <p><strong>Issued and printed by,</strong></p>
                     <p>' . $complaintData['admin_name'] . '</p>
                     <p><strong> Greenville Subdivision Homeowners Association (GHOA) </strong></p>
                 </body>

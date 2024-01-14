@@ -68,31 +68,31 @@
                                         <th>Title</th>
                                         <th>Date</th>
                                     </tr>     
-                                    @foreach ($fetchALlComplaints as $complaint)
-                                    <tr class="clickable-row" 
-                                        data-complaint-id="{{ $complaint->id }}" 
-                                        data-complaint-title="{{ $complaint->complaint_title }}" 
-                                        data-complaint-date="{{ \Carbon\Carbon::parse($complaint->complaint_date)->format('F j, Y') }}"
-                                        data-complaint-description="{{ $complaint->complaint_desc }}"
-                                        data-complaint-currentStatus="{{ $complaint->complaint_status }}"
-                                        data-complaint-updates="{{ $complaint->complaint_updates }}"
-                                        data-complaint-sendFrom="{{ $complaint->homeowner->first_name . ' ' . $complaint->homeowner->last_name 
-                                            . ' Block ' . $complaint->homeowner->block_no . ' - Lot ' . $complaint->homeowner->lot_no }}"
-                                        data-complaint-photo="{{ $complaint->complaint_photo }}"
+                                    @forelse ($fetchALlComplaints as $complaint)
+                                        <tr class="clickable-row" 
+                                            data-complaint-id="{{ $complaint->id }}" 
+                                            data-complaint-title="{{ $complaint->complaint_title }}" 
+                                            data-complaint-date="{{ \Carbon\Carbon::parse($complaint->complaint_date)->format('F j, Y') }}"
+                                            data-complaint-description="{{ $complaint->complaint_desc }}"
+                                            data-complaint-currentStatus="{{ $complaint->complaint_status }}"
+                                            data-complaint-updates="{{ $complaint->complaint_updates }}"
+                                            data-complaint-sendFrom="{{ $complaint->homeowner->first_name . ' ' . $complaint->homeowner->last_name 
+                                                . ' Block ' . $complaint->homeowner->block_no . ' - Lot ' . $complaint->homeowner->lot_no }}"
+                                            data-complaint-photo="{{ $complaint->complaint_photo }}"
                                         >
-                                        <td>{{ $complaint->complaint_title }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($complaint->complaint_date)->format('F j, Y') }}</td>
-                                    </tr>
-                                @endforeach
-                                @if (count($fetchALlComplaints) === 0)
-                                    <tr>
-                                        <td colspan="2"> No complaint history found. </td>
-                                    </tr>
-                                @endif
+                                            <td>{{ $complaint->complaint_title }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($complaint->complaint_date)->format('F j, Y') }}</td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="2"> No complaint history found. </td>
+                                        </tr>
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -109,14 +109,11 @@
                 <span class="close-modal" id="closeModal">&times;</span>
             </div>
             <div class="form-group">
-                <a class="download-pdf-btn" href="{{ route('admin.history.complaint.pdf', ['id' => $complaint->id]) }}" target="_blank">
+                <a class="download-pdf-btn" href="{{ isset($complaint) ? route('admin.history.complaint.pdf', ['id' => $complaint->id]) : '#' }}" target="_blank">
                     <i class="fas fa-download"></i> Download PDF
                 </a>
+
             </div>
-
-
-
-
             <div class="form-group">
                 <label for="complaintTitle">Title:</label>
                 <input type="text" class="form-control" id="complaintTitle" readonly>
