@@ -32,7 +32,10 @@
                     <input type="file" name="announcement_photo" id="announcement_photo">
                     
                     <label>Roles:</label>
-                        <div class="checkbox-row">            
+                        <div class="checkbox-row">        
+                        <input type="checkbox" name="role[]" value="1" id="role_user">
+                            <label for="role_user">Visitors/Users</label>    
+
                             <input type="checkbox" name="role[]" value="2" id="role_user">
                             <label for="role_user">Homeowner</label>
                         
